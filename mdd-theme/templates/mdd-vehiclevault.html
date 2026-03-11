@@ -1,0 +1,80 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD VehicleVault F&I
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="tag gold">F&amp;I Revenue Generator</div>
+      <h1>Turn every delivery into <em style="color:var(--gold);">lifetime value.</em></h1>
+      <p class="sub">Give customers an app they actually use &mdash; and keep them connected to your dealership. High-margin F&amp;I product. Zero chargebacks. Recurring revenue.</p>
+      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">See the Revenue Model &rarr;</a><a href="#what" class="btn-outline">How It Works</a></div>
+    </div>
+    <div class="hero-img" style="display:flex;gap:12px;justify-content:center;">
+      <img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" alt="VehicleVault tracking" style="width:150px;border-radius:20px;box-shadow:var(--shadow-lg);">
+      <img src="{{ get_asset_url('../mdd-assets/app-rewards.png') }}" alt="VehicleVault rewards" style="width:150px;border-radius:20px;box-shadow:var(--shadow-lg);margin-top:30px;">
+    </div>
+  </div>
+</section>
+<section class="section section-sm bg-card">
+  <div class="container-sm">
+    <div class="stat-grid cols-3">
+      <div class="stat-card"><div class="num gold" style="font-size:44px;">$308K</div><div class="label">Additional F&amp;I revenue/month</div><div class="dealer">Brandon Honda</div></div>
+      <div class="stat-card"><div class="num" style="font-size:44px;">Zero</div><div class="label">Chargebacks</div><div class="dealer">All MDD Dealers</div></div>
+      <div class="stat-card"><div class="num gold" style="font-size:44px;">100%</div><div class="label">Dealer-branded customer app</div><div class="dealer">Your Name. Their Phone.</div></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-light" id="what">
+  <div class="container-sm">
+    <div class="section-tag">What is VehicleVault?</div>
+    <h2 style="color:var(--dark-text);margin-bottom:32px;">An F&amp;I product customers actually want.</h2>
+    <div class="feature-grid cols-2">
+      <div class="feature-card card-light"><img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" class="f-icon" alt=""><div><h3>Customer Gets Key Trackers</h3><p>Two Bluetooth trackers for their key fobs. They locate keys anytime from the VehicleVault app.</p></div></div>
+      <div class="feature-card card-light gold-top"><img src="{{ get_asset_url('../mdd-assets/app-dealer-profile.png') }}" class="f-icon" alt=""><div><h3>Dealer-Branded App</h3><p>Customer downloads an app branded with YOUR dealership name. Every use = your brand.</p></div></div>
+      <div class="feature-card card-light"><img src="{{ get_asset_url('../mdd-assets/app-vehicle-detail.png') }}" class="f-icon" alt=""><div><h3>Vehicle Management</h3><p>Customers track VIN, mileage, registration, documents, and full service history.</p></div></div>
+      <div class="feature-card card-light gold-top"><img src="{{ get_asset_url('../mdd-assets/app-rewards.png') }}" class="f-icon" alt=""><div><h3>Rewards &amp; Loyalty</h3><p>Built-in rewards program drives service retention. Customers earn loyalty dollars at your dealership.</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-card">
+  <div class="container-sm">
+    <div class="section-tag" style="color:var(--gold);">The Customer Experience</div>
+    <h2 style="color:var(--white);margin-bottom:24px;">An app they&rsquo;ll actually open every day.</h2>
+    <div class="app-grid">
+      <div class="app-card"><img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" alt="Key Tracking"><div class="app-label"><h3>Key Tracking</h3><p>Real-time map</p></div></div>
+      <div class="app-card"><img src="{{ get_asset_url('../mdd-assets/app-vehicle-detail.png') }}" alt="Vehicle Info"><div class="app-label"><h3>Vehicle Info</h3><p>VIN, mileage, docs</p></div></div>
+      <div class="app-card"><img src="{{ get_asset_url('../mdd-assets/app-rewards.png') }}" alt="Rewards"><div class="app-label"><h3>Rewards</h3><p>Loyalty dollars</p></div></div>
+      <div class="app-card"><img src="{{ get_asset_url('../mdd-assets/app-dealer-profile.png') }}" alt="Dealership"><div class="app-label"><h3>Your Dealership</h3><p>One-tap access</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-dark" style="text-align:center;">
+  <div class="container-xs">
+    <h2 style="color:var(--white);font-size:28px;margin-bottom:16px;">The biggest problem dealerships have?<br><em style="color:var(--gold);">Customers forget about you.</em></h2>
+    <p style="font-size:15px;">VehicleVault solves that. Your brand lives on their phone. Every time they look for their keys, they see YOUR name. When it&rsquo;s time for service, you&rsquo;re one tap away.</p>
+  </div>
+</section>
+<section class="section bg-light">
+  <div class="container-xs testimonial-lg">
+    <div class="quote-mark" style="color:var(--green-dark);">&ldquo;</div>
+    <blockquote style="color:var(--dark-text);">No longer loses keys, shaved 41 minutes per RO in service, and generates an additional $308K per month selling VehicleVault.</blockquote>
+    <div style="font-family:'Space Mono',monospace;font-size:32px;font-weight:800;color:var(--gold);margin:20px 0 8px;">$308K/mo</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:16px;">Additional F&amp;I Revenue</div>
+    <div style="font-size:14px;font-weight:700;color:var(--green-dark);">Brandon Honda &mdash; Morgan Automotive Group</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section bg-dark">
+  <h2>See what $308K/mo looks like.</h2>
+  <p>We'll walk you through the full VehicleVault F&I model and build a custom revenue projection for your store.</p>
+  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+</section>
+
+{% endblock body %}

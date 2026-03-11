@@ -1,0 +1,117 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Key Tracking
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="tag">Key Tracking</div>
+      <h1>Find any key in <em>seconds</em> &mdash; not minutes.</h1>
+      <p class="sub">Real-time location for every key in your dealership. No check-outs, no scanning, no key boxes. Just instant visibility.</p>
+      <div class="cta-row">
+        <a href="/preview-contact-us" class="btn-primary">Get a Demo &rarr;</a>
+        <a href="#how" class="btn-outline">How It Works</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" alt="MDD key tracking warmer/colder" style="max-width:300px;">
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="section bg-card pain-strip">
+  <div class="container-sm">
+    <div class="section-tag" style="color:var(--gold);">The Problem</div>
+    <h2>Keys disappear. Deals stall. <em style="color:var(--gold);">Money walks.</em></h2>
+    <div class="pain-items" style="margin-top:24px;">
+      <span class="pain-item">15+ minutes per customer searching for keys</span>
+      <span class="pain-item">$500+ per lost key replacement</span>
+      <span class="pain-item">Key boards don&rsquo;t show real-time location</span>
+      <span class="pain-item">Customers wait while you hunt through desks</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section bg-light" id="how">
+  <div class="container-sm">
+    <div class="section-tag">How It Works</div>
+    <h2 style="color:var(--dark-text);margin-bottom:40px;">Three steps. Never lose a key again.</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 style="color:var(--dark-text);">Attach a Tag</h3>
+        <p>Scan the VIN, attach a compact tag to the key. Takes 10 seconds. Battery-powered, no wiring.</p>
+        <img src="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg" class="step-img" alt="MDD tracking tags" style="max-width:200px;">
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 style="color:var(--dark-text);">Track in Real Time</h3>
+        <p>See every key&rsquo;s location on a live map. Desktop or phone. No check-outs required.</p>
+        <img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="step-img" alt="MDD locate mobile" style="max-width:180px;">
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 style="color:var(--dark-text);">Find Instantly</h3>
+        <p>Search by VIN, stock number, or name. Walk directly to the key. Done.</p>
+        <img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" class="step-img" alt="MDD dashboard">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section bg-dark">
+  <div class="container-sm">
+    <div class="section-tag light">What You Get</div>
+    <h2 style="color:var(--white);margin-bottom:32px;">Built for real dealership operations.</h2>
+    <div class="feature-grid cols-2">
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" class="f-icon" alt=""><div><h3>Real-Time Key Location</h3><p>See exactly where every key is &mdash; on a desk, in a pocket, across the lot. No more key boxes.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="f-icon" alt=""><div><h3>Vehicle Location Too</h3><p>Track every car across multiple properties. Know instantly if a vehicle moved and when.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" class="f-icon" alt=""><div><h3>After-Hours Alerts</h3><p>Get instant notifications when vehicles move outside geofenced areas or during off-hours.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="f-icon" alt=""><div><h3>DMS Integration</h3><p>Syncs with Reynolds &amp; Reynolds, CDK, and more. Stock numbers and VINs auto-populate.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/mdd-app-icon.png') }}" class="f-icon" style="background:#000;" alt=""><div><h3>Daily Audit Tools</h3><p>Simplify floor plan audits with instant location verification. No more walking the lot.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" class="f-icon" alt=""><div><h3>Key Accountability</h3><p>See who last checked out a key and where it went. Eliminate finger-pointing.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO USES IT -->
+<section class="section bg-light">
+  <div class="container-sm">
+    <div class="section-tag">Built For</div>
+    <h2 style="color:var(--dark-text);margin-bottom:32px;">Who uses Key Tracking.</h2>
+    <div class="feature-grid cols-2">
+      <div class="feature-card card-light"><img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="f-icon" alt=""><div><h3>Sales Managers</h3><p>Get customers into vehicles faster. No waiting for keys to be found.</p></div></div>
+      <div class="feature-card card-light gold-top"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" class="f-icon" alt=""><div><h3>Service Advisors</h3><p>Find customer keys instantly when vehicles are ready for pickup.</p></div></div>
+      <div class="feature-card card-light"><img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" class="f-icon" alt=""><div><h3>Lot Attendants</h3><p>Locate keys for vehicle moves without hunting through drawers.</p></div></div>
+      <div class="feature-card card-light gold-top"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="f-icon" alt=""><div><h3>General Managers</h3><p>Eliminate key loss costs and reduce customer wait times across the board.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="section bg-card">
+  <div class="container-xs testimonial-lg">
+    <div class="quote-mark">&ldquo;</div>
+    <blockquote>MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.</blockquote>
+    <div class="author">Mark Seipel</div>
+    <div class="role">Fixed Operations Director &mdash; Longo Toyota</div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section bg-dark">
+  <h2>Stop losing keys. Start saving money.</h2>
+  <p>See how Key Tracking works for your dealership in a quick 15-minute demo.</p>
+  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+</section>
+
+{% endblock body %}

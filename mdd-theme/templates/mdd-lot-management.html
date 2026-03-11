@@ -1,0 +1,69 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Lot Management
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="tag">Lot Management</div>
+      <h1>Know where every vehicle is &mdash; <em>instantly.</em></h1>
+      <p class="sub">Sub-foot accuracy across your entire lot, indoors and out. Track every car across all your properties from one dashboard.</p>
+      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">Get a Demo &rarr;</a><a href="#how" class="btn-outline">How It Works</a></div>
+    </div>
+    <div class="hero-img"><img src="https://mdd.io/hubfs/Geofences%20on%20Macbook%20with%20pins.png" alt="MDD lot management geofencing" style="max-width:500px;"></div>
+  </div>
+</section>
+<section class="section bg-card pain-strip">
+  <div class="container-sm">
+    <div class="section-tag" style="color:var(--gold);">The Problem</div>
+    <h2>Walking the lot wastes <em style="color:var(--gold);">everyone&rsquo;s time.</em></h2>
+    <div class="pain-items" style="margin-top:24px;">
+      <span class="pain-item">15+ minutes per customer looking for vehicles</span>
+      <span class="pain-item">Vehicles get moved, nobody updates the system</span>
+      <span class="pain-item">Multi-lot operations have zero visibility</span>
+      <span class="pain-item">Customers wait while your team searches</span>
+    </div>
+  </div>
+</section>
+<section class="section bg-light" id="how">
+  <div class="container-sm">
+    <div class="section-tag">How It Works</div>
+    <h2 style="color:var(--dark-text);margin-bottom:40px;">Real-time vehicle location in three steps.</h2>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><h3 style="color:var(--dark-text);">Tag Every Vehicle</h3><p>Attach a weatherproof tag when the vehicle arrives. Battery-powered, no wiring.</p><img src="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg" class="step-img" alt="" style="max-width:200px;"></div>
+      <div class="step"><div class="step-num">2</div><h3 style="color:var(--dark-text);">Track Automatically</h3><p>Location updates automatically as vehicles move. No manual check-ins needed.</p><img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="step-img" alt="" style="max-width:180px;"></div>
+      <div class="step"><div class="step-num">3</div><h3 style="color:var(--dark-text);">Find Any Vehicle</h3><p>Search by VIN, stock number, or description. Walk directly to the car.</p><img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" class="step-img" alt=""></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-dark">
+  <div class="container">
+    <div class="showcase">
+      <img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" alt="MDD Lot Management Dashboard">
+      <div><div class="section-tag light">Dashboard</div><h2 style="color:var(--white);">See your entire lot at a glance.</h2><p>Live satellite view with vehicle pins, search by any field, geofenced zones, after-hours movement alerts, and full DMS integration.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-card">
+  <div class="container-sm">
+    <div class="stat-grid cols-3">
+      <div class="stat-card"><div class="num">2,000+</div><div class="label">Vehicles tracked across multiple lots</div><div class="dealer">Bill Brown Ford</div></div>
+      <div class="stat-card"><div class="num gold">90%</div><div class="label">Sales team adoption</div><div class="dealer">Bill Brown Ford</div></div>
+      <div class="stat-card"><div class="num">20 min</div><div class="label">Saved per vehicle delivery</div><div class="dealer">Longo Toyota</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section bg-dark">
+  <h2>Stop walking the lot. Start selling.</h2>
+  <p>See how Lot Management works for your dealership.</p>
+  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+</section>
+
+{% endblock body %}

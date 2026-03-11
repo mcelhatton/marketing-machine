@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><!-- PAGE TITLE --> | Mobile Dealer Data</title>
+  <meta name="description" content="<!-- META DESCRIPTION: ≤155 chars, include primary keyword and CTA -->">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<!-- OG TITLE -->">
+  <meta property="og:description" content="<!-- OG DESCRIPTION -->">
+  <meta property="og:image" content="<!-- OG IMAGE URL: 1200x627px -->">
+  <meta property="og:url" content="https://mdd.io/<!-- PAGE SLUG -->">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --charcoal: #1A1E24;
+      --card: #22272E;
+      --card-border: #2D3239;
+      --green: #8AC833;
+      --green-dark: #5E970F;
+      --green-glow: rgba(138,200,51,0.15);
+      --white: #FFFFFF;
+      --body: #9CA3AF;
+      --muted: #6B7280;
+      --gold: #F59E0B;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--charcoal);
+      color: var(--body);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(26,30,36,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--green); }
+
+    .nav-cta {
+      background: var(--green);
+      color: var(--charcoal);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(138,200,51,0.1);
+      border: 1px solid rgba(138,200,51,0.25);
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .sub {
+      font-size: 18px;
+      color: var(--body);
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--charcoal);
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 4px 20px rgba(138,200,51,0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--card-border);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .hero-image {
+      /* Add hero image styles */
+    }
+
+    /* Pain Strip */
+    .pain-strip {
+      background: var(--card);
+      padding: 60px 48px;
+      text-align: center;
+    }
+
+    .pain-strip h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .pain-items {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .pain-item {
+      background: var(--charcoal);
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: var(--body);
+      font-size: 14px;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      padding: 60px 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat .num {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .stat .label {
+      color: var(--body);
+      margin-top: 8px;
+    }
+
+    .stat .dealer {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* Section styling */
+    section {
+      padding: 80px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      padding: 32px;
+      border-radius: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 48px;
+      background: radial-gradient(circle at 50% 50%, var(--green-glow), transparent 60%);
+    }
+
+    .cta-section h2 {
+      margin-bottom: 16px;
+    }
+
+    .cta-section .btn-primary {
+      margin-top: 32px;
+    }
+
+    .phone {
+      margin-top: 24px;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 48px;
+      text-align: center;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .footer-brand {
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: 1fr; }
+      nav { padding: 16px 24px; }
+      section { padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECTION 1: NAVIGATION -->
+  <nav>
+    <a href="https://mdd.io" class="logo">MDD <span><!-- PRODUCT NAME --></span></a>
+    <a href="#demo" class="nav-cta">Book a Demo</a>
+  </nav>
+
+  <!-- SECTION 2: HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="tag"><!-- PRODUCT TAG: e.g., "MDD Locate" --></div>
+      <h1><!-- HEADLINE: Benefit-focused, 8-12 words --></h1>
+      <p class="sub"><!-- SUBTITLE: 20-30 words describing the value proposition --></p>
+      <div class="cta-group">
+        <a href="#demo" class="btn-primary">Schedule a 15-Min Demo →</a>
+        <a href="#how" class="btn-outline">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <!-- HERO IMAGE: Product screenshot or mockup -->
+    </div>
+  </section>
+
+  <!-- SECTION 3: PAIN STRIP -->
+  <section class="pain-strip">
+    <h2>Sound familiar?</h2>
+    <p><!-- SCENARIO: "It's Saturday at 11:30. A customer is ready to buy..." --></p>
+    <div class="pain-items">
+      <span class="pain-item"><!-- PAIN POINT 1 --></span>
+      <span class="pain-item"><!-- PAIN POINT 2 --></span>
+      <span class="pain-item"><!-- PAIN POINT 3 --></span>
+    </div>
+  </section>
+
+  <!-- SECTION 4: STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="num"><!-- STAT 1: e.g., "2,000+" --></div>
+      <div class="label"><!-- LABEL 1: e.g., "Vehicles tracked" --></div>
+      <div class="dealer"><!-- SOURCE 1: e.g., "Bill Brown Ford" --></div>
+    </div>
+    <div class="stat">
+      <div class="num" style="color:var(--gold);"><!-- STAT 2 --></div>
+      <div class="label"><!-- LABEL 2 --></div>
+      <div class="dealer"><!-- SOURCE 2 --></div>
+    </div>
+    <div class="stat">
+      <div class="num"><!-- STAT 3 --></div>
+      <div class="label"><!-- LABEL 3 --></div>
+      <div class="dealer"><!-- SOURCE 3 --></div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: HOW IT WORKS -->
+  <section id="how">
+    <div class="section-tag">How It Works</div>
+    <h2><!-- SECTION HEADLINE: e.g., "Three steps. Zero guesswork." --></h2>
+    <div class="steps">
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3><!-- STEP 1 TITLE --></h3>
+        <p><!-- STEP 1 DESCRIPTION --></p>
+      </div>
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3><!-- STEP 2 TITLE --></h3>
+        <p><!-- STEP 2 DESCRIPTION --></p>
+      </div>
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3><!-- STEP 3 TITLE --></h3>
+        <p><!-- STEP 3 DESCRIPTION --></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: FEATURE GRID -->
+  <section>
+    <div class="section-tag">What You Get</div>
+    <h2><!-- SECTION HEADLINE: e.g., "Built for real dealership operations." --></h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3><!-- FEATURE 1 TITLE --></h3>
+        <p><!-- FEATURE 1 DESCRIPTION --></p>
+      </div>
+      <div class="feature-card">
+        <h3><!-- FEATURE 2 TITLE --></h3>
+        <p><!-- FEATURE 2 DESCRIPTION --></p>
+      </div>
+      <div class="feature-card">
+        <h3><!-- FEATURE 3 TITLE --></h3>
+        <p><!-- FEATURE 3 DESCRIPTION --></p>
+      </div>
+      <div class="feature-card">
+        <h3><!-- FEATURE 4 TITLE --></h3>
+        <p><!-- FEATURE 4 DESCRIPTION --></p>
+      </div>
+      <div class="feature-card">
+        <h3><!-- FEATURE 5 TITLE --></h3>
+        <p><!-- FEATURE 5 DESCRIPTION --></p>
+      </div>
+      <div class="feature-card">
+        <h3><!-- FEATURE 6 TITLE --></h3>
+        <p><!-- FEATURE 6 DESCRIPTION --></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: VS COMPARISON (OPTIONAL) -->
+  <!--
+  <section>
+    <div class="section-tag">The Difference</div>
+    <div class="vs-container">
+      <div class="vs-left">
+        <h3>Other Tools</h3>
+        <ul>
+          <li>Manual status updates required</li>
+          <li>Dashboard accuracy depends on staff</li>
+        </ul>
+      </div>
+      <div class="vs-divider">VS</div>
+      <div class="vs-right">
+        <h3>MDD + LocateIQ</h3>
+        <ul>
+          <li>Automatic workflow advancement</li>
+          <li>Real-time physical location data</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- SECTION 8: TESTIMONIAL -->
+  <section>
+    <div class="section-tag">What Dealers Say</div>
+    <blockquote>
+      <p>"<!-- TESTIMONIAL QUOTE -->"</p>
+    </blockquote>
+    <div class="author"><!-- NAME --></div>
+    <div class="author-role"><!-- TITLE --> — <!-- COMPANY --></div>
+  </section>
+
+  <!-- SECTION 9: CTA -->
+  <section class="cta-section" id="demo">
+    <h2><!-- CTA HEADLINE: e.g., "See it in 15 minutes." --></h2>
+    <p><!-- CTA SUBTITLE: e.g., "We'll show you exactly how MDD works. No commitment." --></p>
+    <a href="https://mdd.io/demo" class="btn-primary">Schedule Your Demo →</a>
+    <p class="phone">Or call us: 844-292-7110</p>
+  </section>
+
+  <!-- SECTION 10: FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <span class="logo">MDD</span>
+      <span class="tagline">We Find Keys & Cars™</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://mdd.io">mdd.io</a> | 844-292-7110
+    </div>
+    <div class="copyright">© 2026 Mobile Dealer Data. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Campaign Launch Landing Page
+
+  Campaign Metadata:
+  - campaign_id: {{campaign_id}}
+  - campaign_name: {{campaign_name}}
+  - angle: {{angle}}
+  - persona: {{persona}}
+  - product: {{product}}
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{page_title}} | Mobile Dealer Data</title>
+  <meta name="description" content="{{meta_description}}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{og_title}}">
+  <meta property="og:description" content="{{og_description}}">
+  <meta property="og:image" content="{{og_image_url}}">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{og_title}}">
+  <meta name="twitter:description" content="{{og_description}}">
+  <meta name="twitter:image" content="{{og_image_url}}">
+
+  <!-- Campaign Tracking -->
+  <meta name="campaign-id" content="{{campaign_id}}">
+  <meta name="campaign-angle" content="{{angle}}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       MDD Campaign Landing Page Styles
+       Dark theme with green accents
+       ============================================= */
+
+    :root {
+      --charcoal: #1A1E24;
+      --card: #22272E;
+      --card-hover: #2A2F37;
+      --green: #8AC833;
+      --green-dark: #5E970F;
+      --gold: #F59E0B;
+      --white: #FFFFFF;
+      --gray-light: #9CA3AF;
+      --gray-dark: #6B7280;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--charcoal);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =============================================
+       SECTION 1: Hero
+       ============================================= */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(138, 200, 51, 0.15);
+      color: var(--green);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--gray-light);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: var(--green);
+      color: var(--charcoal);
+      padding: 16px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .cta-primary:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       SECTION 2: Pain Strip
+       ============================================= */
+    .pain-strip {
+      background: var(--card);
+      padding: 60px 0;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .pain-card {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .pain-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .pain-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pain-card p {
+      color: var(--gray-light);
+      font-size: 15px;
+    }
+
+    /* =============================================
+       SECTION 3: The Scenario
+       ============================================= */
+    .scenario {
+      padding: 80px 0;
+    }
+
+    .scenario-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .scenario-quote {
+      font-size: 24px;
+      font-style: italic;
+      color: var(--gray-light);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .scenario-quote em {
+      color: var(--white);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* =============================================
+       SECTION 4: Solution Introduction
+       ============================================= */
+    .solution {
+      background: var(--card);
+      padding: 80px 0;
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .solution h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .solution h2 em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .solution p {
+      font-size: 18px;
+      color: var(--gray-light);
+      margin-bottom: 16px;
+    }
+
+    .solution-image {
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* =============================================
+       SECTION 5: LocateIQ Differentiator
+       ============================================= */
+    .locateiq {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .locateiq-tag {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--gold);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .locateiq h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .locateiq-description {
+      font-size: 18px;
+      color: var(--gray-light);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .locateiq-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .locateiq-feature {
+      background: var(--card);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(138, 200, 51, 0.2);
+    }
+
+    .locateiq-feature h4 {
+      color: var(--green);
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .locateiq-feature p {
+      color: var(--gray-light);
+      font-size: 14px;
+    }
+
+    /* =============================================
+       SECTION 6: Key Benefits
+       ============================================= */
+    .benefits {
+      background: var(--card);
+      padding: 80px 0;
+    }
+
+    .benefits h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 48px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .benefit-card {
+      background: var(--charcoal);
+      padding: 32px;
+      border-radius: var(--radius);
+    }
+
+    .benefit-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .benefit-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .benefit-card p {
+      color: var(--gray-light);
+      font-size: 15px;
+    }
+
+    /* =============================================
+       SECTION 7: Social Proof / Stats
+       ============================================= */
+    .stats {
+      padding: 80px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .stat-item p {
+      font-size: 16px;
+      color: var(--gray-light);
+    }
+
+    /* =============================================
+       SECTION 8: Testimonial
+       ============================================= */
+    .testimonial {
+      background: var(--card);
+      padding: 80px 0;
+    }
+
+    .testimonial-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonial-quote {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    .testimonial-quote::before {
+      content: '"';
+      color: var(--green);
+      font-size: 64px;
+      line-height: 0;
+      vertical-align: -24px;
+      margin-right: 8px;
+    }
+
+    .testimonial-attribution {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .testimonial-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--charcoal);
+    }
+
+    .testimonial-info h4 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .testimonial-info p {
+      color: var(--gray-light);
+      font-size: 14px;
+    }
+
+    /* =============================================
+       SECTION 9: FAQ
+       ============================================= */
+    .faq {
+      padding: 80px 0;
+    }
+
+    .faq h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 48px;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--card);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      padding: 24px;
+    }
+
+    .faq-question {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .faq-answer {
+      color: var(--gray-light);
+      font-size: 15px;
+    }
+
+    /* =============================================
+       SECTION 10: Final CTA
+       ============================================= */
+    .final-cta {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+
+    .final-cta p {
+      font-size: 18px;
+      color: var(--charcoal);
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .cta-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* =============================================
+       Footer
+       ============================================= */
+    .footer {
+      background: var(--card);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--gray-light);
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    /* =============================================
+       Responsive
+       ============================================= */
+    @media (max-width: 768px) {
+      .solution-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .locateiq-features {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECTION 1: Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag">{{product_tag}}</span>
+      <h1>{{headline}}</h1>
+      <p class="hero-subtitle">{{subheadline}}</p>
+      <a href="{{cta_url}}" class="cta-primary">{{cta_text}} &rarr;</a>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Pain Strip -->
+  <section class="pain-strip">
+    <div class="container">
+      <div class="pain-grid">
+        <!-- Pain Point 1 -->
+        <div class="pain-card">
+          <div class="pain-icon">{{pain_1_icon}}</div>
+          <h3>{{pain_1_title}}</h3>
+          <p>{{pain_1_description}}</p>
+        </div>
+        <!-- Pain Point 2 -->
+        <div class="pain-card">
+          <div class="pain-icon">{{pain_2_icon}}</div>
+          <h3>{{pain_2_title}}</h3>
+          <p>{{pain_2_description}}</p>
+        </div>
+        <!-- Pain Point 3 -->
+        <div class="pain-card">
+          <div class="pain-icon">{{pain_3_icon}}</div>
+          <h3>{{pain_3_title}}</h3>
+          <p>{{pain_3_description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: The Scenario -->
+  <section class="scenario">
+    <div class="container">
+      <div class="scenario-content">
+        <p class="scenario-quote">{{scenario_text}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Solution Introduction -->
+  <section class="solution">
+    <div class="container">
+      <div class="solution-grid">
+        <div class="solution-text">
+          <h2>{{solution_headline}}</h2>
+          <p>{{solution_description_1}}</p>
+          <p>{{solution_description_2}}</p>
+        </div>
+        <div class="solution-visual">
+          <img src="{{solution_image_url}}" alt="{{solution_image_alt}}" class="solution-image" width="100%">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: LocateIQ Differentiator -->
+  <section class="locateiq">
+    <div class="container">
+      <span class="locateiq-tag">LOCATEIQ</span>
+      <h2>The Technology Behind It</h2>
+      <p class="locateiq-description">{{locateiq_description}}</p>
+      <div class="locateiq-features">
+        <div class="locateiq-feature">
+          <h4>Real-Time Location</h4>
+          <p>Know exactly where every key and vehicle is — right now.</p>
+        </div>
+        <div class="locateiq-feature">
+          <h4>Automated Workflows</h4>
+          <p>Status updates happen automatically as vehicles move.</p>
+        </div>
+        <div class="locateiq-feature">
+          <h4>Sub-Foot Accuracy</h4>
+          <p>Precision tracking indoors and outdoors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Key Benefits -->
+  <section class="benefits">
+    <div class="container">
+      <h2>What This Means For You</h2>
+      <div class="benefits-grid">
+        <!-- Benefit 1 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">{{benefit_1_icon}}</div>
+          <h3>{{benefit_1_title}}</h3>
+          <p>{{benefit_1_description}}</p>
+        </div>
+        <!-- Benefit 2 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">{{benefit_2_icon}}</div>
+          <h3>{{benefit_2_title}}</h3>
+          <p>{{benefit_2_description}}</p>
+        </div>
+        <!-- Benefit 3 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">{{benefit_3_icon}}</div>
+          <h3>{{benefit_3_title}}</h3>
+          <p>{{benefit_3_description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: Social Proof / Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>{{stat_1_value}}</h3>
+          <p>{{stat_1_label}}</p>
+        </div>
+        <div class="stat-item">
+          <h3>{{stat_2_value}}</h3>
+          <p>{{stat_2_label}}</p>
+        </div>
+        <div class="stat-item">
+          <h3>{{stat_3_value}}</h3>
+          <p>{{stat_3_label}}</p>
+        </div>
+        <div class="stat-item">
+          <h3>{{stat_4_value}}</h3>
+          <p>{{stat_4_label}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: Testimonial -->
+  <section class="testimonial">
+    <div class="container">
+      <div class="testimonial-content">
+        <p class="testimonial-quote">{{testimonial_quote}}</p>
+        <div class="testimonial-attribution">
+          <img src="{{testimonial_avatar_url}}" alt="{{testimonial_name}}" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h4>{{testimonial_name}}</h4>
+            <p>{{testimonial_title}}, {{testimonial_company}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: FAQ -->
+  <section class="faq">
+    <div class="container">
+      <h2>Common Questions</h2>
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <h3 class="faq-question">{{faq_1_question}}</h3>
+          <p class="faq-answer">{{faq_1_answer}}</p>
+        </div>
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <h3 class="faq-question">{{faq_2_question}}</h3>
+          <p class="faq-answer">{{faq_2_answer}}</p>
+        </div>
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <h3 class="faq-question">{{faq_3_question}}</h3>
+          <p class="faq-answer">{{faq_3_answer}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: Final CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>{{final_cta_headline}}</h2>
+      <p>{{final_cta_subheadline}}</p>
+      <a href="{{cta_url}}" class="cta-secondary">{{cta_text}} &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; {{year}} Mobile Dealer Data. <a href="/privacy">Privacy</a> | <a href="/terms">Terms</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

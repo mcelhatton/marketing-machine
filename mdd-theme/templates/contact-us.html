@@ -1,0 +1,61 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Contact Us
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<section class="hero hero-center">
+  <div class="inner">
+    <div>
+      <div class="tag">Get Started</div>
+      <h1>Let&rsquo;s talk about your <em>dealership.</em></h1>
+      <p class="sub">15-minute discovery call. We&rsquo;ll show you how MDD fits your operation. No commitment. No pressure.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-card">
+  <div class="container-xs">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      <div>
+        <h2 style="color:var(--white);font-size:24px;margin-bottom:16px;">Schedule a Demo</h2>
+        <p style="margin-bottom:24px;">Fill out the form and our team will reach out within one business day to schedule your personalized demo.</p>
+
+        {% module "contact_form" path="@hubspot/form", label="Contact Form",
+          form={
+            "form_id": "",
+            "response_type": "redirect",
+            "redirect_url": "/thank-you"
+          }
+        %}
+
+        <div class="contact-form">
+          <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="you@dealership.com"></div>
+          <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 123-4567"></div>
+          <div class="form-group"><label>Dealership Name</label><input type="text" placeholder="Your dealership"></div>
+          <div class="form-group"><label>Message (optional)</label><textarea placeholder="Tell us about your biggest challenge..."></textarea></div>
+          <button class="btn-primary" style="width:100%;justify-content:center;">Request My Demo &rarr;</button>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--charcoal);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;margin-bottom:20px;">
+          <h3 style="color:var(--green);font-size:16px;margin-bottom:12px;">Prefer to call?</h3>
+          <a href="tel:8442927110" style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:var(--white);">844-292-7110</a>
+        </div>
+        <div style="background:var(--charcoal);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;margin-bottom:20px;">
+          <h3 style="color:var(--green);font-size:16px;margin-bottom:12px;">Location</h3>
+          <p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>
+        </div>
+        <div style="background:var(--charcoal);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;">
+          <h3 style="color:var(--green);font-size:16px;margin-bottom:12px;">What to expect</h3>
+          <p style="font-size:14px;line-height:1.6;">A 15-minute discovery call where we learn about your dealership, show you the platform, and discuss how MDD can solve your specific challenges. No hard sell. Just answers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}

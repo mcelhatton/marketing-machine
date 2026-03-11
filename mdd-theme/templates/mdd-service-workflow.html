@@ -1,0 +1,78 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Service Workflow
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="tag">Service Workflow</div>
+      <h1>Workflows that update <em>themselves.</em></h1>
+      <p class="sub">Track every vehicle from drop-off to delivery. Because we know where the car physically is, the system updates automatically. Powered by LocateIQ.</p>
+      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">See LocateIQ in Action &rarr;</a><a href="#problem" class="btn-outline">Why It&rsquo;s Different</a></div>
+    </div>
+    <div class="hero-img"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" alt="MDD workflow app" style="max-width:280px;"></div>
+  </div>
+</section>
+<section class="section bg-card" id="problem">
+  <div class="container-sm">
+    <div class="section-tag" style="color:var(--gold);">The Problem</div>
+    <h2 style="color:var(--white);margin-bottom:24px;">Bottlenecks kill your service throughput.</h2>
+    <div class="pain-grid">
+      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" class="p-icon" alt=""><div><h3>Technician Idle Time</h3><p>Techs wait for vehicles &mdash; wasting billable hours every day.</p></div></div>
+      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="p-icon" alt=""><div><h3>No Process Visibility</h3><p>Advisors don&rsquo;t know where customer vehicles are in the process.</p></div></div>
+      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="p-icon" alt=""><div><h3>Manual Updates Fail</h3><p>Someone has to log status changes. They forget. Dashboard becomes fiction.</p></div></div>
+      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" class="p-icon" alt=""><div><h3>CSI Takes a Hit</h3><p>Completed vehicles sit uncommunicated. Customers call repeatedly for updates.</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-dark">
+  <div class="container-sm">
+    <div class="section-tag light">The MDD Difference</div>
+    <h2 style="color:var(--white);margin-bottom:12px;">Locate<span style="color:var(--green);">IQ</span> &mdash; automation powered by real vehicle location.</h2>
+    <p style="font-size:16px;max-width:640px;margin-bottom:36px;">Because we track the physical position of every car and key, MDD can automatically advance your workflow when vehicles move. No manual updates. No stale dashboards.</p>
+    <div class="vs-grid">
+      <div class="vs-col bad"><h3>Other Workflow Tools</h3><ul><li>Rely on manual status updates</li><li>Data only as good as last person</li><li>Bottlenecks discovered too late</li><li>No physical location intelligence</li></ul></div>
+      <div class="vs-divider">VS</div>
+      <div class="vs-col good"><h3>MDD + LocateIQ</h3><ul><li>Workflows advance automatically</li><li>Real-time accuracy without extra work</li><li>Instant bottleneck alerts</li><li>Powered by physical vehicle location</li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-dark">
+  <div class="container"><div class="showcase"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" alt="Service dashboard"><div><div class="section-tag light">Desktop Dashboard</div><h2 style="color:var(--white);">Full visibility from your desk.</h2><p>See every vehicle in process, cycle times, bottleneck alerts, and team performance &mdash; all in one real-time dashboard.</p></div></div></div>
+</section>
+<section class="section bg-light">
+  <div class="container-sm">
+    <div class="section-tag" style="text-align:center;">Real Results</div>
+    <h2 style="color:var(--dark-text);text-align:center;margin-bottom:32px;">What dealerships see after implementing MDD.</h2>
+    <div class="stat-grid cols-3">
+      <div class="stat-card stat-light"><div class="num">64%</div><div class="label">of customers out within 60 minutes</div><div class="dealer">Corwin Toyota</div></div>
+      <div class="stat-card stat-light"><div class="num gold">3 days</div><div class="label">saved per car in reconditioning</div><div class="dealer">Longo Toyota</div></div>
+      <div class="stat-card stat-light"><div class="num">40-60%</div><div class="label">increase in bay turns</div><div class="dealer">Corwin Toyota</div></div>
+      <div class="stat-card stat-light"><div class="num gold">41 min</div><div class="label">saved per repair order</div><div class="dealer">Brandon Honda</div></div>
+      <div class="stat-card stat-light"><div class="num">15 min</div><div class="label">saved per repair order</div><div class="dealer">Longo Toyota</div></div>
+      <div class="stat-card stat-light"><div class="num gold">96%</div><div class="label">services completed within 90 min</div><div class="dealer">Corwin Toyota</div></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-card">
+  <div class="container-sm">
+    <div class="test-grid">
+      <div class="test-card"><blockquote>&ldquo;With this cycle time tool, we know at the 40-minute mark whether we&rsquo;re having an issue. We can get help there immediately.&rdquo;</blockquote><div class="author">Warren Weimer</div><div class="role">Service &amp; Parts Director &mdash; Corwin Toyota</div></div>
+      <div class="test-card" style="border-left-color:var(--gold);"><blockquote>&ldquo;MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds.&rdquo;</blockquote><div class="author" style="color:var(--gold);">Mark Seipel</div><div class="role">Fixed Operations Director &mdash; Longo Toyota</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section bg-dark">
+  <h2>Turn downtime into dollars.</h2>
+  <p>See how leading dealerships are cutting cycle times and increasing service revenue.</p>
+  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+</section>
+
+{% endblock body %}

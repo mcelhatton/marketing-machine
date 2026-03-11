@@ -1,0 +1,31 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: false
+  label: MDD Base Template
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ content.html_title }}</title>
+  <meta name="description" content="{{ content.meta_description }}">
+  {{ standard_header_includes }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ get_asset_url('../css/theme.css') }}">
+  {% block head %}{% endblock head %}
+</head>
+<body>
+
+{% global_partial path="../partials/header.html" %}
+
+{% block body %}
+{% endblock body %}
+
+{% global_partial path="../partials/footer.html" %}
+
+{{ standard_footer_includes }}
+</body>
+</html>

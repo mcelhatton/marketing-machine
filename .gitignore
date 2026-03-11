@@ -1,0 +1,87 @@
+# MDD Marketing Machine .gitignore
+
+# ============================================
+# Environment & Secrets
+# ============================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+hubspot.config.yml
+
+# ============================================
+# Dependencies
+# ============================================
+node_modules/
+package-lock.json
+yarn.lock
+
+# ============================================
+# Build & Output
+# ============================================
+dist/
+build/
+out/
+*.min.js
+*.min.css
+
+# ============================================
+# Generated Campaigns
+# ============================================
+# Uncomment to ignore generated campaigns
+# campaigns/
+
+# ============================================
+# IDE & Editor
+# ============================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Logs
+# ============================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# Testing
+# ============================================
+coverage/
+.nyc_output/
+
+# ============================================
+# Temporary Files
+# ============================================
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+
+# ============================================
+# OS Generated
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================
+# Source Documents (Binary)
+# ============================================
+# Keep source docs but ignore processed versions
+*.docx.extracted
+*.pptx.extracted

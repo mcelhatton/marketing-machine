@@ -1,0 +1,207 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Homepage
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="tag">One Platform. Total Visibility.</div>
+      <h1>Stop searching.<br>Start <em>selling.</em></h1>
+      <p class="sub">Know exactly where every key and car is. Automate service and recon workflows. Turn tracking into F&amp;I revenue. One platform for your entire dealership.</p>
+      <div class="cta-row">
+        <a href="/preview-contact-us" class="btn-primary">Get a Demo &rarr;</a>
+        <a href="/preview-how-it-works" class="btn-outline">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://mdd.io/hubfs/Geofence%20Macbook.png" alt="MDD Locate dealership geofencing on laptop" style="max-width:500px;">
+    </div>
+  </div>
+</section>
+
+<!-- PAIN STRIP -->
+<section class="section section-sm bg-card pain-strip">
+  <div class="container-sm">
+    <h2>Sound familiar?</h2>
+    <p>It&rsquo;s Saturday at 11:30. A customer is ready to buy. Nobody can find the key.</p>
+    <div class="pain-items">
+      <span class="pain-item">3 employees searching the lot</span>
+      <span class="pain-item">Customer waiting awkwardly</span>
+      <span class="pain-item">Deal momentum dying</span>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT FOR EVERY DEPARTMENT -->
+<section class="section bg-light">
+  <div class="container-sm">
+    <div class="section-tag">Built for Every Department</div>
+    <h2 style="color:var(--dark-text);margin-bottom:32px;">One platform. Every role covered.</h2>
+    <div class="feature-grid cols-2">
+      <div class="feature-card card-light">
+        <img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="f-icon" alt="">
+        <div>
+          <h3>General Managers</h3>
+          <p>Total operational visibility across all departments. Know what&rsquo;s happening everywhere, instantly.</p>
+        </div>
+      </div>
+      <div class="feature-card card-light gold-top">
+        <img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" class="f-icon" alt="">
+        <div>
+          <h3>Service Directors</h3>
+          <p>Eliminate bottlenecks and increase throughput. See every vehicle from drop-off to delivery.</p>
+        </div>
+      </div>
+      <div class="feature-card card-light">
+        <img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="f-icon" alt="">
+        <div>
+          <h3>Sales Managers</h3>
+          <p>Find any car or key instantly. Close deals faster. No more walking the lot.</p>
+        </div>
+      </div>
+      <div class="feature-card card-light gold-top">
+        <img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" class="f-icon" alt="">
+        <div>
+          <h3>Recon Managers</h3>
+          <p>Track every vehicle from acquisition to front-line. Cut days off your recon cycle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS OVERVIEW -->
+<section class="section bg-dark">
+  <div class="container">
+    <div class="section-tag light">Solutions</div>
+
+    <!-- Key Tracking -->
+    <div class="showcase" style="margin-bottom:80px;">
+      <div>
+        <div class="tag">Key Tracking</div>
+        <h2 style="color:var(--white);">Find any key in <em>seconds.</em></h2>
+        <p>Stop losing keys. Our real-time tracking shows you exactly where every key is &mdash; no check-outs, no scanning, just instant visibility.</p>
+        <div style="margin-top:20px;"><a href="/preview-key-tracking" class="btn-outline btn-sm">Learn More &rarr;</a></div>
+      </div>
+      <img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" alt="MDD key tracking mobile" style="max-width:250px;margin:auto;">
+    </div>
+
+    <!-- Lot Management -->
+    <div class="showcase reverse" style="margin-bottom:80px;">
+      <div>
+        <div class="tag">Lot Management</div>
+        <h2 style="color:var(--white);">Know where every vehicle is.</h2>
+        <p>Track every car across all your lots &mdash; indoors and outdoors. Sub-foot accuracy means no more walking the lot searching.</p>
+        <div style="margin-top:20px;"><a href="/preview-lot-management" class="btn-outline btn-sm">Learn More &rarr;</a></div>
+      </div>
+      <img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" alt="MDD lot management dashboard">
+    </div>
+
+    <!-- Service Workflow -->
+    <div class="showcase" style="margin-bottom:80px;">
+      <div>
+        <div class="tag">Service Workflow</div>
+        <h2 style="color:var(--white);">Eliminate service <em>bottlenecks.</em></h2>
+        <p>Know where every vehicle is from drop-off to delivery. Reduce technician idle time, improve throughput, and boost CSI scores.</p>
+        <div style="margin-top:20px;"><a href="/preview-service-workflow" class="btn-outline btn-sm">Learn More &rarr;</a></div>
+      </div>
+      <img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" alt="Service workflow dashboard">
+    </div>
+
+    <!-- Recon Workflow -->
+    <div class="showcase reverse" style="margin-bottom:80px;">
+      <div>
+        <div class="tag">Recon Workflow</div>
+        <h2 style="color:var(--white);">Accelerate <em>time-to-line.</em></h2>
+        <p>Track every vehicle from acquisition through reconditioning. Eliminate bottlenecks, reduce holding costs, and get cars sold faster.</p>
+        <div style="margin-top:20px;"><a href="/preview-recon-workflow" class="btn-outline btn-sm">Learn More &rarr;</a></div>
+      </div>
+      <img src="https://mdd.io/hubfs/Automotive%20workflow%20management%20dashboard.png" alt="Recon workflow dashboard">
+    </div>
+
+    <!-- VehicleVault -->
+    <div class="showcase">
+      <div>
+        <div class="tag gold">VehicleVault F&amp;I</div>
+        <h2 style="color:var(--white);">Turn every sale into <em style="color:var(--gold);">recurring revenue.</em></h2>
+        <p>A high-margin F&amp;I product customers actually use. Key tracking for them. Recurring profit for you. Zero chargebacks.</p>
+        <div style="margin-top:20px;"><a href="/preview-vehiclevault" class="btn-outline btn-sm">Learn More &rarr;</a></div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" alt="VehicleVault key tracking" style="width:140px;border-radius:16px;box-shadow:var(--shadow-lg);">
+        <img src="{{ get_asset_url('../mdd-assets/app-rewards.png') }}" alt="VehicleVault rewards" style="width:140px;border-radius:16px;box-shadow:var(--shadow-lg);margin-top:24px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS PREVIEW -->
+<section class="section bg-light">
+  <div class="container-sm">
+    <div class="section-tag" style="text-align:center;">How It Works</div>
+    <h2 style="color:var(--dark-text);text-align:center;margin-bottom:40px;">Up and running in minutes.</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 style="color:var(--dark-text);">Attach Tags</h3>
+        <p>Scan a VIN, attach a tag. Battery-powered, no wiring required. Takes 10 seconds per vehicle.</p>
+        <img src="{{ get_asset_url('../mdd-assets/mdd-app-icon.png') }}" class="step-img" alt="MDD tag" style="width:100px;background:#000;border-radius:16px;">
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 style="color:var(--dark-text);">Open Dashboard</h3>
+        <p>Access real-time tracking from any device &mdash; desktop, tablet, or phone. See everything instantly.</p>
+        <img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="step-img" alt="MDD locate" style="width:160px;">
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 style="color:var(--dark-text);">Find Anything</h3>
+        <p>Search by VIN, stock number, or name. Walk directly to the car or key. No more searching.</p>
+        <img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="step-img" alt="MDD dashboard">
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="/preview-how-it-works" class="btn-primary">See Full Platform Overview &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS / PROOF -->
+<section class="section bg-dark">
+  <div class="container-sm">
+    <div class="section-tag light" style="text-align:center;">Real Results</div>
+    <h2 style="color:var(--white);text-align:center;margin-bottom:32px;">Trusted by 500+ dealerships.</h2>
+    <div class="stat-grid cols-4">
+      <div class="stat-card"><div class="num">$60K+</div><div class="label">Average monthly ROI per dealership</div></div>
+      <div class="stat-card"><div class="num gold">85%</div><div class="label">Faster vehicle location</div></div>
+      <div class="stat-card"><div class="num">Zero</div><div class="label">Lost keys after implementation</div></div>
+      <div class="stat-card"><div class="num gold">500+</div><div class="label">Dealerships trust MDD</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="section bg-card">
+  <div class="container-xs testimonial-lg">
+    <div class="quote-mark">&ldquo;</div>
+    <blockquote>MDD instantly locates 2,000 vehicles on multiple lots all over town. We get cars customer-delivered without delays.</blockquote>
+    <div class="author">Dave Bird</div>
+    <div class="role">New Car Inventory Manager &mdash; Bill Brown Ford (World&rsquo;s Largest Ford Dealer)</div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section bg-dark">
+  <h2>See MDD in Action.</h2>
+  <p>15-minute demo. See how dealerships like yours are saving time and money with real-time tracking.</p>
+  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+</section>
+
+{% endblock body %}

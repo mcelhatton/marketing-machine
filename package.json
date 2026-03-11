@@ -1,0 +1,49 @@
+{
+  "name": "mdd-marketing-machine",
+  "version": "1.0.0",
+  "description": "MDD Marketing Campaign Generation System - Claude Code powered marketing automation",
+  "main": "scripts/orchestrator/generate-campaign.js",
+  "scripts": {
+    "build": "node scripts/campaign-builder.js",
+    "generate": "node scripts/orchestrator/generate-campaign.js",
+    "validate": "node scripts/orchestrator/validate-campaign.js",
+    "publish:hubspot:page": "node scripts/hubspot/publish-page.js",
+    "publish:hubspot:blog": "node scripts/hubspot/publish-blog.js",
+    "publish:linkedin:post": "node scripts/linkedin/publish-post.js",
+    "publish:linkedin:article": "node scripts/linkedin/publish-article.js",
+    "publish:facebook:post": "node scripts/facebook/publish-post.js",
+    "publish:mailchimp": "node scripts/mailchimp/publish-campaign.js",
+    "hubspot:validate": "node scripts/hubspot/hubspot-client.js validate",
+    "linkedin:validate": "node scripts/linkedin/linkedin-client.js validate",
+    "facebook:validate": "node scripts/facebook/facebook-client.js validate",
+    "mailchimp:validate": "node scripts/mailchimp/mailchimp-client.js validate",
+    "assets:generate": "node scripts/assets/asset-generator.js",
+    "assets:photo": "node scripts/assets/pexels-client.js",
+    "assets:video": "node scripts/assets/runway-client.js",
+    "pexels:validate": "node scripts/assets/pexels-client.js search car",
+    "unsplash:validate": "node scripts/assets/unsplash-client.js search car",
+    "canva:validate": "node scripts/assets/canva-client.js designs",
+    "runway:validate": "node scripts/assets/runway-client.js scenes",
+    "lumen5:validate": "node scripts/assets/lumen5-client.js videos",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "keywords": [
+    "marketing",
+    "automation",
+    "hubspot",
+    "linkedin",
+    "facebook",
+    "mailchimp",
+    "automotive",
+    "dealership",
+    "mdd"
+  ],
+  "author": "Mobile Dealer Data",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

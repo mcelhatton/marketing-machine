@@ -1,0 +1,73 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Recon Workflow
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <div class="tag">Recon Workflow</div>
+      <h1>If the car isn&rsquo;t in the shop, is it really being <em>worked on?</em></h1>
+      <p class="sub">The industry&rsquo;s first In-Process vs. Not-In-Process measurement. Our workflows are dynamically updated with live car locations, providing true accountability no other software can deliver.</p>
+      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">Get a Demo &rarr;</a><a href="#difference" class="btn-outline">See the Difference</a></div>
+    </div>
+    <div class="hero-img"><img src="https://mdd.io/hubfs/Automotive%20workflow%20management%20dashboard.png" alt="MDD recon workflow dashboard" style="max-width:500px;"></div>
+  </div>
+</section>
+<section class="section bg-card pain-strip">
+  <div class="container-sm">
+    <div class="section-tag" style="color:var(--gold);">The Problem</div>
+    <h2>Every day in recon <em style="color:var(--gold);">costs you money.</em></h2>
+    <div class="pain-items" style="margin-top:24px;">
+      <span class="pain-item">Used vehicles accumulate holding costs</span>
+      <span class="pain-item">No visibility into where cars are stuck</span>
+      <span class="pain-item">Vendors aren&rsquo;t held accountable for delays</span>
+      <span class="pain-item">Cars ready to sell aren&rsquo;t getting to the front line</span>
+    </div>
+  </div>
+</section>
+<section class="section bg-dark" id="difference">
+  <div class="container-sm">
+    <div class="section-tag light">Recon Built on Reality</div>
+    <h2 style="color:var(--white);margin-bottom:32px;">Digital status is nice. Physical accountability is better. <em>We give you both.</em></h2>
+    <div class="feature-grid cols-2">
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" class="f-icon" alt=""><div><h3>IP vs. NIP Tracking</h3><p>Track only time during operational hours. Your metrics are actionable and credible.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="f-icon" alt=""><div><h3>True Benchmarks</h3><p>The only recon workflow to offer the ability to actually benchmark performance.</p></div></div>
+      <div class="feature-card"><img src="https://mdd.io/hubfs/Dashboard%20overview%20for%20performance%20metrics.png" class="f-icon" alt=""><div><h3>Clean Reports</h3><p>Easy-to-understand reporting that highlights the most critical data and insights.</p></div></div>
+      <div class="feature-card"><img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" class="f-icon" alt=""><div><h3>Car Location Verification</h3><p>The only system that checks what the team enters vs. where the car actually is.</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-light">
+  <div class="container-sm">
+    <div class="section-tag">How It Works</div>
+    <h2 style="color:var(--dark-text);margin-bottom:40px;">Complete recon stage visibility.</h2>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><h3 style="color:var(--dark-text);">Define Stages</h3><p>Set up recon stages: inspection, body, mechanical, detail, photo, front-line.</p><img src="https://mdd.io/hubfs/Service%20Flowchart.png" class="step-img" alt=""></div>
+      <div class="step"><div class="step-num">2</div><h3 style="color:var(--dark-text);">Track Progress</h3><p>Vehicles update automatically as they move. See time-in-stage for every car.</p><img src="https://mdd.io/hubfs/Automotive%20workflow%20management%20dashboard.png" class="step-img" alt=""></div>
+      <div class="step"><div class="step-num">3</div><h3 style="color:var(--dark-text);">Find Bottlenecks</h3><p>Get alerts when vehicles stall. Hold vendors accountable with time-based metrics.</p><img src="https://mdd.io/hubfs/Dashboard%20overview%20for%20performance%20metrics.png" class="step-img" alt=""></div>
+    </div>
+  </div>
+</section>
+<section class="section bg-card">
+  <div class="container-sm">
+    <div class="stat-grid cols-3">
+      <div class="stat-card"><div class="num">3 days</div><div class="label">Saved per car in recon</div><div class="dealer">Longo Toyota</div></div>
+      <div class="stat-card"><div class="num gold">41 min</div><div class="label">Saved per repair order</div><div class="dealer">Brandon Honda</div></div>
+      <div class="stat-card"><div class="num">$308K/mo</div><div class="label">Additional F&amp;I revenue</div><div class="dealer">Brandon Honda</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section bg-dark">
+  <h2>Faster recon. More inventory. Less holding cost.</h2>
+  <p>See how Recon Workflow works for your dealership.</p>
+  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+</section>
+
+{% endblock body %}
