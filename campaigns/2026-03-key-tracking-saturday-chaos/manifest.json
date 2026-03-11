@@ -1,0 +1,118 @@
+{
+  "campaign_id": "2026-03-key-tracking-saturday-chaos",
+  "campaign_name": "Key Tracking   Saturday Chaos",
+  "created_at": "2026-03-11T23:41:15.486Z",
+  "status": "draft",
+  "product": "key-tracking",
+  "angle": "saturday-chaos",
+  "persona": "sales-manager",
+  "content": [
+    {
+      "type": "landing-page",
+      "file": "content/landing-page.html",
+      "title": "Find any key in seconds.",
+      "slug": "2026-03-key-tracking-saturday-chaos",
+      "seo": {
+        "title_tag": "Key Tracking | Mobile Dealer Data",
+        "meta_description": "It's Saturday at 11:30am. A customer is ready to buy. Nobody can find the key. Find any key in seconds."
+      }
+    },
+    {
+      "type": "blog-post",
+      "file": "content/blog-post.md",
+      "title": "How Bill Brown Ford Achieved 2,000+ vehicles tracked",
+      "slug": "2026-03-key-tracking-saturday-chaos-case-study",
+      "seo": {
+        "title_tag": "Bill Brown Ford Case Study | Mobile Dealer Data",
+        "meta_description": "Learn how Bill Brown Ford achieved 2,000+ vehicles tracked with MDD's Key Tracking solution."
+      }
+    },
+    {
+      "type": "linkedin-post",
+      "file": "content/social/linkedin-post-1.md",
+      "title": "LinkedIn Post 1"
+    },
+    {
+      "type": "linkedin-post",
+      "file": "content/social/linkedin-post-2.md",
+      "title": "LinkedIn Post 2"
+    },
+    {
+      "type": "linkedin-post",
+      "file": "content/social/linkedin-post-3.md",
+      "title": "LinkedIn Post 3"
+    },
+    {
+      "type": "facebook-post",
+      "file": "content/social/facebook-post-1.md",
+      "title": "Facebook Post 1"
+    },
+    {
+      "type": "facebook-post",
+      "file": "content/social/facebook-post-2.md",
+      "title": "Facebook Post 2"
+    },
+    {
+      "type": "facebook-post",
+      "file": "content/social/facebook-post-3.md",
+      "title": "Facebook Post 3"
+    },
+    {
+      "type": "linkedin-article",
+      "file": "content/linkedin-article.md",
+      "title": "How Bill Brown Ford Solved the Saturday Chaos Problem"
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-1.md",
+      "title": "Email 1 of 5",
+      "day": 0
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-2.md",
+      "title": "Email 2 of 5",
+      "day": 3
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-3.md",
+      "title": "Email 3 of 5",
+      "day": 6
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-4.md",
+      "title": "Email 4 of 5",
+      "day": 9
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-5.md",
+      "title": "Email 5 of 5",
+      "day": 12
+    },
+    {
+      "type": "press-release",
+      "file": "content/press-release.md",
+      "title": "Bill Brown Ford Achieves 2,000+ vehicles tracked with MDD"
+    },
+    {
+      "type": "one-pager",
+      "file": "content/one-pager.md",
+      "title": "Key Tracking One-Pager"
+    }
+  ],
+  "publishing": {
+    "hubspot": {
+      "status": "pending"
+    },
+    "linkedin": {
+      "status": "pending"
+    },
+    "facebook": {
+      "status": "pending"
+    }
+  },
+  "updated_at": "2026-03-11T23:41:15.499Z"
+}

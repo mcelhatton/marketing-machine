@@ -11,7 +11,7 @@ Complete product information for content generation.
 **One-Sentence Description:** Real-time Bluetooth tracking that shows your team exactly where every key and car is on your lot — instantly.
 
 **How It Works:**
-1. **Tag** — Every vehicle and key gets a Bluetooth tracker. Scan the QR code, assign to stock number — done in 10 seconds.
+1. **Tag** — Every vehicle and key gets a Bluetooth tracker. Scan the QR code, assign to vin number — done in 10 seconds.
 2. **Track** — Staff sees every key and car's real-time location from their phone or desktop.
 3. **Manage** — Run audits, get movement alerts, see who last had a key, integrate with your DMS.
 
