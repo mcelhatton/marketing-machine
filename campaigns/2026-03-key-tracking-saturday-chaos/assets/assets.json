@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "path": "assets/hero.jpg",
+    "url": "https://images.pexels.com/photos/842528/pexels-photo-842528.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "photographer": "Brett Jordan",
+    "pexelsUrl": "https://www.pexels.com/@brettjordan"
+  },
+  "og": {
+    "path": "assets/og-image.jpg"
+  },
+  "social": [
+    {
+      "path": "assets/social-1.jpg",
+      "url": "https://images.pexels.com/photos/4895421/pexels-photo-4895421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "photographer": "Gustavo Fring"
+    }
+  ]
+}

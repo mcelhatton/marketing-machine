@@ -1,7 +1,7 @@
 {
   "campaign_id": "2026-03-key-tracking-saturday-chaos",
   "campaign_name": "Key Tracking   Saturday Chaos",
-  "created_at": "2026-03-11T23:41:15.486Z",
+  "created_at": "2026-03-12T00:44:43.097Z",
   "status": "draft",
   "product": "key-tracking",
   "angle": "saturday-chaos",
@@ -105,14 +105,54 @@
   ],
   "publishing": {
     "hubspot": {
-      "status": "pending"
+      "status": "deployed",
+      "landingPage": {
+        "id": 209137172068,
+        "url": "https://585393.hs-sites.com/2026-03-key-tracking-saturday-chaos",
+        "status": "draft"
+      }
     },
     "linkedin": {
-      "status": "pending"
+      "status": "pending",
+      "posts": {}
     },
     "facebook": {
-      "status": "pending"
+      "status": "pending",
+      "posts": {}
     }
   },
-  "updated_at": "2026-03-11T23:41:15.499Z"
+  "updated_at": "2026-03-12T00:44:43.109Z",
+  "deployment": {
+    "deployed_at": "2026-03-12T00:44:45.151Z",
+    "results": {
+      "assets": {
+        "hero": {
+          "path": "assets/hero.jpg",
+          "url": "https://images.pexels.com/photos/842528/pexels-photo-842528.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "photographer": "Brett Jordan",
+          "pexelsUrl": "https://www.pexels.com/@brettjordan"
+        },
+        "og": {
+          "path": "assets/og-image.jpg"
+        },
+        "social": [
+          {
+            "path": "assets/social-1.jpg",
+            "url": "https://images.pexels.com/photos/4895421/pexels-photo-4895421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+            "photographer": "Gustavo Fring"
+          }
+        ]
+      },
+      "hubspot": {
+        "landingPage": {
+          "id": 209137172068,
+          "url": "https://585393.hs-sites.com/2026-03-key-tracking-saturday-chaos",
+          "status": "draft"
+        }
+      },
+      "linkedin": {},
+      "facebook": {},
+      "errors": []
+    }
+  }
 }

@@ -21,37 +21,59 @@ The MDD Marketing Machine transforms campaign briefs into production-ready conte
 
 ## Quick Start
 
-### Option 1: Interactive Campaign Builder (Recommended)
+### One-Command Campaign (Recommended)
 
-Run the interactive wizard that walks you through every step:
+Generate and deploy a complete marketing campaign with one command:
+
+```bash
+# Generate only (review before deploying)
+npm run run -- --product key-tracking --angle saturday-chaos --persona sales-manager
+
+# Generate + Deploy to HubSpot (draft mode)
+npm run run -- --product key-tracking --angle saturday-chaos --persona sales-manager --deploy
+
+# Generate + Publish everywhere (live)
+npm run run -- --product key-tracking --angle saturday-chaos --persona sales-manager --publish
+```
+
+This creates:
+- ✅ Landing page (HTML, ready for HubSpot)
+- ✅ Blog post (Markdown → HTML conversion)
+- ✅ 3 LinkedIn posts (with URLs included)
+- ✅ 3 Facebook posts (with URLs included)
+- ✅ LinkedIn article (long-form thought leadership)
+- ✅ 5-email nurture sequence
+- ✅ Press release
+- ✅ One-pager sales collateral
+- ✅ Hero images (auto-downloaded from Pexels)
+
+### Interactive Campaign Builder
+
+For more control, use the interactive wizard:
 
 ```bash
 npm run build
-# or
-node scripts/campaign-builder.js
 ```
 
-The wizard will ask you about:
-- 📢 **Platforms** - HubSpot, Mailchimp, LinkedIn, Facebook, etc.
+The wizard walks you through:
+- 📢 **Platforms** - HubSpot, Mailchimp, LinkedIn, Facebook
 - 📦 **Product** - Which MDD product to promote
-- 👤 **Audience** - Target persona (Owner, GM, Service Manager, etc.)
-- 📧 **Email Type** - Cold outbound, nurture, or re-engagement
-- 🎯 **Messaging Angle** - Pre-built hooks or create your own
-- 📅 **Context** - Standard, trade show follow-up, seasonal, etc.
-- 🧪 **A/B Testing** - Subject line variations
+- 👤 **Audience** - Target persona
+- 🎯 **Messaging Angle** - Pre-built hooks or custom
 - 🗓️ **Scheduling** - Draft, immediate, or scheduled
 
-Then it shows you the complete game plan and generates all content.
-
-### Option 2: Command Line
-
-Generate a campaign directly with flags:
+### CLI Options
 
 ```bash
-node scripts/orchestrator/generate-campaign.js \
+node scripts/orchestrator/run-campaign.js \
   --product key-tracking \
   --angle saturday-chaos \
-  --persona sales-manager
+  --persona sales-manager \
+  --deploy           # Deploy to HubSpot (draft)
+  --publish          # Publish to all platforms (live)
+  --skip-assets      # Skip image downloads
+  --skip-hubspot     # Skip HubSpot deployment
+  --skip-social      # Skip social media posting
 ```
 
 ---
@@ -418,12 +440,22 @@ Validates:
 
 ## npm Scripts
 
+### Campaign Workflow
+
 | Script | Description |
 |--------|-------------|
-| `npm run build` | Interactive campaign builder |
-| `npm run generate` | CLI campaign generation |
-| `npm run validate` | Validate campaign content |
-| `npm run assets:generate` | Generate visual assets |
+| `npm run run -- [options]` | Generate + optionally deploy campaign |
+| `npm run build` | Interactive campaign builder wizard |
+| `npm run generate -- [options]` | Generate campaign content only |
+| `npm run deploy <campaign>` | Deploy campaign to platforms (draft mode) |
+| `npm run deploy:preview <campaign>` | Deploy to HubSpot only |
+| `npm run deploy:full <campaign>` | Deploy everywhere including social |
+| `npm run validate <manifest>` | Validate campaign content |
+
+### Connection Testing
+
+| Script | Description |
+|--------|-------------|
 | `npm run hubspot:validate` | Test HubSpot connection |
 | `npm run linkedin:validate` | Test LinkedIn connection |
 | `npm run facebook:validate` | Test Facebook connection |
@@ -433,6 +465,14 @@ Validates:
 | `npm run canva:validate` | Test Canva API |
 | `npm run runway:validate` | Test Runway ML API |
 | `npm run lumen5:validate` | Test Lumen5 API |
+
+### Asset Generation
+
+| Script | Description |
+|--------|-------------|
+| `npm run assets:generate` | Generate visual assets from manifest |
+| `npm run assets:photo` | Download stock photos |
+| `npm run assets:video` | Generate video scripts |
 
 ---
 

@@ -5,8 +5,12 @@
   "main": "scripts/orchestrator/generate-campaign.js",
   "scripts": {
     "build": "node scripts/campaign-builder.js",
+    "run": "node scripts/orchestrator/run-campaign.js",
     "generate": "node scripts/orchestrator/generate-campaign.js",
     "validate": "node scripts/orchestrator/validate-campaign.js",
+    "deploy": "node scripts/orchestrator/deploy-campaign.js",
+    "deploy:preview": "node scripts/orchestrator/deploy-campaign.js --skip-social",
+    "deploy:full": "node scripts/orchestrator/deploy-campaign.js --publish",
     "publish:hubspot:page": "node scripts/hubspot/publish-page.js",
     "publish:hubspot:blog": "node scripts/hubspot/publish-blog.js",
     "publish:linkedin:post": "node scripts/linkedin/publish-post.js",
@@ -44,6 +48,9 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "marked": "^12.0.0"
+  },
   "devDependencies": {}
 }

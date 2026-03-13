@@ -3,7 +3,7 @@ title: "How Bill Brown Ford Achieved 2,000+ vehicles tracked"
 campaign_id: 2026-03-key-tracking-saturday-chaos
 product: key-tracking
 author: Mobile Dealer Data
-date: 2026-03-11
+date: 2026-03-12
 featured_image: /images/key-tracking-hero.jpg
 meta_description: Learn how Bill Brown Ford achieved 2,000+ vehicles tracked with MDD's Key Tracking solution.
 tags:

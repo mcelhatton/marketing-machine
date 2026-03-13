@@ -3,7 +3,7 @@ campaign_id: 2026-03-key-tracking-saturday-chaos
 post_number: 2
 total_posts: 3
 platform: linkedin
-character_count: 467
+character_count: 505
 ---
 
 # LinkedIn Post 2
@@ -21,5 +21,7 @@ After: 90% sales team adoption
 The difference? Complete visibility into every key and vehicle.
 
 If your sales manager team is still searching instead of selling, there's a better way.
+
+Schedule a demo: https://mdd.io/demo
 
 #Automotive #DealershipManagement #Operations

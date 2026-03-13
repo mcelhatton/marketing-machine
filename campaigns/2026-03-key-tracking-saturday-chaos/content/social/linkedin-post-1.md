@@ -3,7 +3,7 @@ campaign_id: 2026-03-key-tracking-saturday-chaos
 post_number: 1
 total_posts: 3
 platform: linkedin
-character_count: 507
+character_count: 527
 ---
 
 # LinkedIn Post 1
@@ -22,6 +22,6 @@ The secret wasn't complicated. It was visibility.
 
 When you know exactly where every key is, the chaos disappears.
 
-Worth a 15-minute conversation?
+Worth a 15-minute conversation? https://mdd.io/demo
 
 #AutomotiveRetail #DealershipLife #Efficiency

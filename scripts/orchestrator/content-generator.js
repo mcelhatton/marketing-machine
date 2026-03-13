@@ -965,6 +965,8 @@ Or call us: **844-292-7110**
   }
 
   createLinkedInPostContent(postNumber, totalPosts) {
+    const demoUrl = 'https://mdd.io/demo';
+
     // Different post structures for variety
     const postTemplates = [
       // Post 1: Scenario-first
@@ -982,7 +984,7 @@ The secret wasn't complicated. It was visibility.
 
 When you know exactly where every ${this.config.product.includes('key') ? 'key' : 'vehicle'} is, the chaos disappears.
 
-Worth a 15-minute conversation?
+Worth a 15-minute conversation? ${demoUrl}
 
 #AutomotiveRetail #DealershipLife #Efficiency`,
 
@@ -1001,6 +1003,8 @@ The difference? Complete visibility into ${this.config.product.includes('key') ?
 
 If your ${this.persona.title.toLowerCase()} team is still searching instead of selling, there's a better way.
 
+Schedule a demo: ${demoUrl}
+
 #Automotive #DealershipManagement #Operations`,
 
       // Post 3: Question-first
@@ -1018,7 +1022,7 @@ Now: ${this.product.proof.metric}
 
 The technology is simple. The ROI is immediate. The only question is whether you're ready to stop accepting the chaos.
 
-DM me if you want to see how it works.
+See how it works: ${demoUrl}
 
 #AutomotiveIndustry #DealerSuccess #OperationalExcellence`,
 
@@ -1042,6 +1046,8 @@ Now? ${this.product.proof.metric}.
 
 That's the difference real-time visibility makes.
 
+Learn more: ${demoUrl}
+
 #AutoDealership #CustomerExperience #DealershipOperations`,
 
       // Post 5: Contrarian take
@@ -1062,6 +1068,8 @@ They got visibility.
 Result: ${this.product.proof.metric}
 
 Sometimes the solution isn't more effort. It's better information.
+
+${demoUrl}
 
 #DealershipLife #AutomotiveRetail #Efficiency`,
     ];
@@ -1108,6 +1116,8 @@ ${postContent}
   }
 
   createFacebookPostContent(postNumber, totalPosts) {
+    const demoUrl = 'https://mdd.io/demo';
+
     // Shorter, punchier posts for Facebook
     const postTemplates = [
       // Post 1: Result-focused
@@ -1117,7 +1127,7 @@ That's what ${this.product.proof.dealership} achieved with MDD ${this.product.na
 
 ${this.angle.scenario}
 
-See how they did it → [LINK]`,
+See how they did it → ${demoUrl}`,
 
       // Post 2: Problem-solution
       () => `${this.angle.scenario}
@@ -1126,28 +1136,28 @@ ${this.product.proof.dealership} fixed this.
 
 Now: ${this.product.proof.metric}
 
-15-minute demo shows you how → [LINK]`,
+15-minute demo shows you how → ${demoUrl}`,
 
       // Post 3: Social proof
       () => `Join 500+ dealerships that have stopped searching and started selling.
 
 ${this.product.proof.dealership}: ${this.product.proof.metric}
 
-Your turn? → [LINK]`,
+Your turn? → ${demoUrl}`,
 
       // Post 4: Question
       () => `How much time does your team waste searching for ${this.config.product.includes('key') ? 'keys' : 'vehicles'} every day?
 
 ${this.product.proof.dealership} cut that to nearly zero.
 
-Here's how → [LINK]`,
+Here's how → ${demoUrl}`,
 
       // Post 5: Quote
       () => `"${this.product.proof.quote}"
 
 — ${this.product.proof.quotePerson}, ${this.product.proof.dealership}
 
-See how they did it → [LINK]`,
+See how they did it → ${demoUrl}`,
     ];
 
     const postIndex = (postNumber - 1) % postTemplates.length;

@@ -3,7 +3,7 @@ campaign_id: 2026-03-key-tracking-saturday-chaos
 post_number: 3
 total_posts: 3
 platform: linkedin
-character_count: 462
+character_count: 461
 ---
 
 # LinkedIn Post 3
@@ -22,6 +22,6 @@ Now: 2,000+ vehicles tracked
 
 The technology is simple. The ROI is immediate. The only question is whether you're ready to stop accepting the chaos.
 
-DM me if you want to see how it works.
+See how it works: https://mdd.io/demo
 
 #AutomotiveIndustry #DealerSuccess #OperationalExcellence
