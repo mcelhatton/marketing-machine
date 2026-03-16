@@ -7,6 +7,7 @@
     "build": "node scripts/campaign-builder.js",
     "run": "node scripts/orchestrator/run-campaign.js",
     "generate": "node scripts/orchestrator/generate-campaign.js",
+    "export:rules:doc": "node scripts/export-rules-docs.js",
     "validate": "node scripts/orchestrator/validate-campaign.js",
     "deploy": "node scripts/orchestrator/deploy-campaign.js",
     "deploy:preview": "node scripts/orchestrator/deploy-campaign.js --skip-social",
