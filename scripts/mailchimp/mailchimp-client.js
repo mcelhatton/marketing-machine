@@ -10,6 +10,7 @@
  */
 
 const https = require('https');
+const { marked } = require('marked');
 
 class MailchimpClient {
   constructor(apiKey, serverPrefix, listId) {
@@ -216,6 +217,13 @@ class MailchimpClient {
     });
   }
 
+  /**
+   * Update template
+   */
+  async updateTemplate(templateId, templateData) {
+    return this.request('PATCH', `/templates/${templateId}`, templateData);
+  }
+
   // ============================================
   // List/Audience Methods
   // ============================================
@@ -269,43 +277,187 @@ class MailchimpClient {
    * Convert markdown to simple HTML for email
    */
   static markdownToEmailHtml(markdown, options = {}) {
-    let html = markdown;
+    const {
+      editableTemplate = false,
+      previewText = '',
+      title = 'Mobile Dealer Data Email',
+      ctaText = 'Schedule a 15-Min Demo &rarr;',
+      ctaUrl = 'https://mdd.io/contact-us',
+      senderName = 'Mobile Dealer Data Team',
+    } = options;
 
-    // Remove YAML frontmatter
-    html = html.replace(/^---[\s\S]*?---\n*/m, '');
+    const bodyHtml = this.renderEmailBody(markdown, {
+      senderName,
+      darkTheme: editableTemplate,
+    });
 
-    // Headers
-    html = html.replace(/^### (.*$)/gm, '<h3 style="color: #1A1E24; font-family: Arial, sans-serif;">$1</h3>');
-    html = html.replace(/^## (.*$)/gm, '<h2 style="color: #1A1E24; font-family: Arial, sans-serif;">$1</h2>');
-    html = html.replace(/^# (.*$)/gm, '<h1 style="color: #1A1E24; font-family: Arial, sans-serif;">$1</h1>');
+    if (editableTemplate) {
+      return this.buildEditableTemplate({
+        bodyHtml,
+        previewText,
+        title,
+        ctaText,
+        ctaUrl,
+      });
+    }
 
-    // Bold and italic
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    return this.buildBasicTemplate({ bodyHtml, previewText, title });
+  }
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #8AC833;">$1</a>');
+  static normalizeMergeTags(markdown, options = {}) {
+    const senderName = options.senderName || 'Mobile Dealer Data Team';
 
-    // Line breaks
-    html = html.replace(/\n\n+/g, '</p><p style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333;">');
+    return markdown
+      .replace(/^---[\s\S]*?---\n*/m, '')
+      .replace(/\{\{FirstName\}\}/g, '@@MAILCHIMP_FNAME@@')
+      .replace(/\{\{L(ast)?Name\}\}/g, '@@MAILCHIMP_LNAME@@')
+      .replace(/\{\{Company\}\}/g, '@@MAILCHIMP_COMPANY@@')
+      .replace(/\{\{Dealership\}\}/g, '@@MAILCHIMP_COMPANY@@')
+      .replace(/\{\{SenderName\}\}/g, senderName);
+  }
 
-    // Wrap in email template
-    const template = `
+  static restoreMergeTags(html) {
+    return html
+      .replace(/@@MAILCHIMP_FNAME@@/g, '*|FNAME|*')
+      .replace(/@@MAILCHIMP_LNAME@@/g, '*|LNAME|*')
+      .replace(/@@MAILCHIMP_COMPANY@@/g, '*|COMPANY|*');
+  }
+
+  static renderEmailBody(markdown, options = {}) {
+    const darkTheme = Boolean(options.darkTheme);
+    const linkColor = darkTheme ? '#8AC833' : '#5E970F';
+    const headingColor = darkTheme ? '#FFFFFF' : '#1A1E24';
+    const textColor = darkTheme ? '#D1D5DB' : '#333333';
+    const mutedColor = darkTheme ? '#9CA3AF' : '#4B5563';
+
+    let html = marked.parse(this.normalizeMergeTags(markdown, options), {
+      breaks: true,
+      gfm: true,
+    });
+
+    html = html
+      .replace(/<h1>/g, `<h1 style="margin: 0 0 20px; font-family: Arial, sans-serif; font-size: 28px; line-height: 1.25; color: ${headingColor}; font-weight: 700;">`)
+      .replace(/<h2>/g, `<h2 style="margin: 24px 0 16px; font-family: Arial, sans-serif; font-size: 22px; line-height: 1.3; color: ${headingColor}; font-weight: 700;">`)
+      .replace(/<h3>/g, `<h3 style="margin: 20px 0 12px; font-family: Arial, sans-serif; font-size: 18px; line-height: 1.35; color: ${headingColor}; font-weight: 700;">`)
+      .replace(/<p>/g, `<p style="margin: 0 0 16px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.7; color: ${textColor};">`)
+      .replace(/<ul>/g, `<ul style="margin: 0 0 16px; padding-left: 24px; color: ${textColor};">`)
+      .replace(/<ol>/g, `<ol style="margin: 0 0 16px; padding-left: 24px; color: ${textColor};">`)
+      .replace(/<li>/g, `<li style="margin: 0 0 8px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.7; color: ${textColor};">`)
+      .replace(/<a /g, `<a style="color: ${linkColor}; text-decoration: underline;" `)
+      .replace(/<blockquote>/g, `<blockquote style="margin: 0 0 16px; padding-left: 16px; border-left: 3px solid ${linkColor}; color: ${mutedColor};">`)
+      .replace(/<hr>/g, `<hr style="border: 0; border-top: 1px solid ${darkTheme ? '#374151' : '#E5E7EB'}; margin: 24px 0;">`);
+
+    return this.restoreMergeTags(html).trim();
+  }
+
+  static buildBasicTemplate({ bodyHtml, previewText, title }) {
+    const safePreviewText = this.escapeHtml(previewText);
+    const safeTitle = this.escapeHtml(title);
+
+    return `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${safeTitle}</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f4f4;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <div style="display: none; max-height: 0; overflow: hidden;">${safePreviewText}</div>
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f4f4;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 8px;">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width: 100%; max-width: 600px; background-color: #ffffff; border-radius: 8px;">
           <tr>
             <td style="padding: 40px;">
-              <p style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333;">
-                ${html}
+              ${bodyHtml}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+  }
+
+  static buildEditableTemplate({ bodyHtml, previewText, title, ctaText, ctaUrl }) {
+    const safePreviewText = this.escapeHtml(previewText);
+    const safeTitle = this.escapeHtml(title);
+
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>${safeTitle}</title>
+  <style>
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    @media screen and (max-width: 600px) {
+      .mobile-full { width: 100% !important; }
+      .mobile-padding { padding: 24px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #1A1E24;">
+  <div mc:edit="preheader" style="display: none; max-height: 0; overflow: hidden;">${safePreviewText}</div>
+  <div style="display: none; max-height: 0; overflow: hidden;">
+    &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
+  </div>
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #1A1E24;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" class="mobile-full" style="width: 100%; max-width: 600px; background-color: #22272E; border-radius: 12px;">
+          <tr>
+            <td align="center" style="padding: 32px 40px 16px;" class="mobile-padding">
+              <img mc:edit="header_logo" src="https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png" alt="Mobile Dealer Data" width="140" style="display: block; width: 140px; max-width: 100%;">
+            </td>
+          </tr>
+          <tr>
+            <td mc:edit="body" style="padding: 8px 40px 24px;" class="mobile-padding">
+              ${bodyHtml}
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding: 0 40px 16px;" class="mobile-padding">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td mc:edit="primary_cta" style="border-radius: 8px; background-color: #8AC833;">
+                    <a href="${ctaUrl}" target="_blank" style="display: inline-block; padding: 16px 32px; font-family: Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1A1E24; text-decoration: none;">
+                      ${ctaText}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td mc:edit="secondary_cta" align="center" style="padding: 0 40px 40px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #9CA3AF;" class="mobile-padding">
+              Or call: <a href="tel:8442927110" style="color: #8AC833; text-decoration: none;">844-292-7110</a>
+            </td>
+          </tr>
+        </table>
+
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" class="mobile-full" style="width: 100%; max-width: 600px;">
+          <tr>
+            <td align="center" style="padding: 32px 40px;" class="mobile-padding">
+              <p mc:edit="footer_note" style="margin: 0 0 12px; font-family: Arial, sans-serif; font-size: 14px; color: #9CA3AF;">
+                Mobile Dealer Data - We Find Keys & Cars(TM)
+              </p>
+              <p style="margin: 0 0 16px; font-family: Arial, sans-serif; font-size: 12px; color: #6B7280;">
+                *|LIST:ADDRESS|*
+              </p>
+              <p style="margin: 0; font-family: Arial, sans-serif; font-size: 12px; color: #6B7280;">
+                <a href="*|UNSUB|*" style="color: #6B7280; text-decoration: underline;">Unsubscribe</a>
+                &nbsp;|&nbsp;
+                <a href="*|UPDATE_PROFILE|*" style="color: #6B7280; text-decoration: underline;">Update Preferences</a>
               </p>
             </td>
           </tr>
@@ -315,8 +467,15 @@ class MailchimpClient {
   </table>
 </body>
 </html>`;
+  }
 
-    return template;
+  static escapeHtml(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 }
 

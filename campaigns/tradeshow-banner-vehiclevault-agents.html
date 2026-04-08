@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VehicleVault F&I | MDD</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════
+       TRADE SHOW BANNER - 33" x 80"
+       VehicleVault F&I
+       ══════════════════════════════ */
+
+    :root {
+      --green: #8AC833;
+      --green-dark: #5E970F;
+      --green-glow: rgba(138,200,51,0.15);
+      --charcoal: #1A1E24;
+      --charcoal-mid: #22272E;
+      --card: #22272E;
+      --card-border: #2D3239;
+      --white: #FFFFFF;
+      --off-white: #F5F6F4;
+      --body-text: #9CA3AF;
+      --muted: #6B7280;
+      --gold: #F59E0B;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--charcoal);
+      color: var(--white);
+      height: 100%;
+    }
+
+    /* Banner container - 33:80 aspect ratio */
+    .banner {
+      width: 33in;
+      height: 80in;
+      background: linear-gradient(180deg, var(--charcoal) 0%, #0D0F12 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.8in 1.5in;
+    }
+
+    /* Decorative glow effects */
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: -5in;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 45in;
+      height: 45in;
+      background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      bottom: -15in;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40in;
+      height: 40in;
+      background: radial-gradient(circle, rgba(138,200,51,0.1) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════
+       HEADER - Logo
+       ══════════════════════════════ */
+    .header {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1in;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 2in;
+      letter-spacing: -0.05in;
+      margin-bottom: 0.2in;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .product-badge {
+      display: inline-block;
+      background: rgba(245,158,11,0.15);
+      border: 3px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 0.6in;
+      padding: 0.2in 0.7in;
+      border-radius: 0.4in;
+      letter-spacing: 0.08in;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════
+       HERO MESSAGE
+       ══════════════════════════════ */
+    .hero {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1.2in;
+    }
+
+    .hero h1 {
+      font-size: 2in;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.06in;
+      margin-bottom: 0.5in;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+      display: block;
+    }
+
+    .hero .tagline {
+      font-size: 0.7in;
+      color: var(--body-text);
+      line-height: 1.5;
+      max-width: 26in;
+      margin: 0 auto;
+    }
+
+    /* ══════════════════════════════
+       STATS - The Big Numbers
+       ══════════════════════════════ */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 1in;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1.3in;
+      padding: 0.8in 0;
+      background: rgba(34,39,46,0.6);
+      border-radius: 0.4in;
+      border: 2px solid var(--card-border);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.6in;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.15in;
+    }
+
+    .stat:nth-child(1) .stat-value { color: var(--gold); }
+    .stat:nth-child(2) .stat-value { color: var(--green); }
+    .stat:nth-child(3) .stat-value { color: var(--gold); }
+
+    .stat-label {
+      font-size: 0.38in;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.02in;
+      line-height: 1.3;
+    }
+
+    .stat-source {
+      font-size: 0.28in;
+      color: var(--green-dark);
+      margin-top: 0.1in;
+      font-weight: 600;
+    }
+
+    /* ══════════════════════════════
+       FEATURES - What They Get
+       ══════════════════════════════ */
+    .features {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1.2in;
+    }
+
+    .features h2 {
+      font-size: 0.9in;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.6in;
+      color: var(--white);
+    }
+
+    .feature-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5in;
+    }
+
+    .feature-item {
+      background: rgba(34,39,46,0.8);
+      border: 2px solid var(--card-border);
+      border-radius: 0.3in;
+      padding: 0.6in 0.8in;
+      display: flex;
+      align-items: center;
+      gap: 0.6in;
+    }
+
+    .feature-item:nth-child(odd) { border-left: 6px solid var(--green); }
+    .feature-item:nth-child(even) { border-left: 6px solid var(--gold); }
+
+    .feature-icon {
+      width: 1.4in;
+      height: 1.4in;
+      border-radius: 0.25in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-item:nth-child(odd) .feature-icon { background: rgba(138,200,51,0.15); }
+    .feature-item:nth-child(even) .feature-icon { background: rgba(245,158,11,0.15); }
+
+    .feature-icon svg {
+      width: 0.8in;
+      height: 0.8in;
+    }
+
+    .feature-content h3 {
+      font-size: 0.65in;
+      font-weight: 800;
+      margin-bottom: 0.1in;
+      color: var(--white);
+    }
+
+    .feature-content p {
+      font-size: 0.42in;
+      color: var(--body-text);
+      line-height: 1.4;
+    }
+
+    /* ══════════════════════════════
+       VS COMPARISON
+       ══════════════════════════════ */
+    .comparison {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 1.2in;
+      text-align: center;
+    }
+
+    .comparison h2 {
+      font-size: 0.8in;
+      font-weight: 800;
+      margin-bottom: 0.5in;
+      color: var(--white);
+    }
+
+    .vs-box {
+      background: rgba(34,39,46,0.8);
+      border: 2px solid var(--card-border);
+      border-radius: 0.3in;
+      padding: 0.6in;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0.4in;
+      align-items: center;
+    }
+
+    .vs-col {
+      text-align: left;
+    }
+
+    .vs-col h3 {
+      font-size: 0.45in;
+      font-weight: 700;
+      margin-bottom: 0.3in;
+      text-transform: uppercase;
+      letter-spacing: 0.02in;
+    }
+
+    .vs-col.bad h3 { color: var(--muted); }
+    .vs-col.good h3 { color: var(--green); }
+
+    .vs-col ul {
+      list-style: none;
+    }
+
+    .vs-col li {
+      font-size: 0.38in;
+      color: var(--body-text);
+      margin-bottom: 0.2in;
+      padding-left: 0.5in;
+      position: relative;
+    }
+
+    .vs-col.bad li::before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: #EF4444;
+      font-weight: 700;
+    }
+
+    .vs-col.good li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .vs-divider {
+      font-size: 0.6in;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════
+       CTA SECTION
+       ══════════════════════════════ */
+    .cta {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin-top: auto;
+      padding-top: 0.8in;
+    }
+
+    .cta h2 {
+      font-size: 1.2in;
+      font-weight: 800;
+      margin-bottom: 0.5in;
+      letter-spacing: -0.03in;
+    }
+
+    .cta h2 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .qr-code {
+      width: 4in;
+      height: 4in;
+      background: var(--white);
+      border-radius: 0.3in;
+      margin: 0 auto 0.4in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 6px solid var(--green);
+      box-shadow: 0 0.2in 1in rgba(138,200,51,0.3);
+    }
+
+    .qr-code img {
+      width: 3.6in;
+      height: 3.6in;
+      border-radius: 0.1in;
+    }
+
+    .scan-text {
+      font-size: 0.6in;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.4in;
+    }
+
+    .contact-info {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65in;
+      color: var(--muted);
+      margin-bottom: 0.25in;
+    }
+
+    .contact-info strong {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .website {
+      font-size: 0.75in;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.01in;
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+       ══════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding-top: 0.6in;
+      border-top: 2px solid var(--card-border);
+      margin-top: 0.6in;
+    }
+
+    .tagline-tm {
+      font-size: 0.5in;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .tagline-tm strong {
+      color: var(--green);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════
+       PRINT STYLES
+       ══════════════════════════════ */
+    @media print {
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .banner {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* ══════════════════════════════
+       WEB PREVIEW (scaled down)
+       ══════════════════════════════ */
+    @media screen and (max-width: 3300px) {
+      html, body {
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px;
+        background: #0a0a0a;
+      }
+
+      .banner {
+        transform: scale(0.115);
+        transform-origin: top center;
+        box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+        border: 4px solid var(--card-border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <!-- HEADER -->
+    <div class="header">
+      <div class="logo">MDD <span>|</span></div>
+      <div class="product-badge">VehicleVault F&I</div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Turn every delivery into<em>recurring revenue.</em></h1>
+      <p class="tagline">High-margin F&I product. Zero chargebacks.<br>An app customers actually use.</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">$308K</div>
+        <div class="stat-label">Additional F&I<br>Revenue / Month</div>
+        <div class="stat-source">Brandon Honda</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">ZERO</div>
+        <div class="stat-label">Chargebacks<br>All Dealers</div>
+        <div class="stat-source">Industry-Leading</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Dealer-Branded<br>Customer App</div>
+        <div class="stat-source">Your Name. Their Phone.</div>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+      <h2>What Customers Get</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg fill="none" stroke="#8AC833" stroke-width="3" viewBox="0 0 48 48"><path d="M42 4l-4 4m-15.22 15.22a11 11 0 1 1-15.556 15.556 11 11 0 0 1 15.555-15.555zm0 0L31 15m0 0l6 6 7-7-6-6m-7 7l8-8"/></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Two Bluetooth Key Trackers</h3>
+            <p>Physical trackers for key fobs. Locate keys instantly from the app.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg fill="none" stroke="#F59E0B" stroke-width="3" viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="4"/><line x1="24" y1="36" x2="24.02" y2="36"/></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Dealer-Branded App</h3>
+            <p>YOUR dealership name on their phone. Every time they find keys, they see YOU.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg fill="none" stroke="#8AC833" stroke-width="3" viewBox="0 0 48 48"><circle cx="24" cy="16" r="10"/><path d="M16.42 27.78L14 46l10-6 10 6-2.42-18.22"/></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Rewards & Loyalty Program</h3>
+            <p>Customers earn loyalty dollars redeemable at YOUR dealership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS COMPARISON -->
+    <div class="comparison">
+      <h2>Why VehicleVault Wins</h2>
+      <div class="vs-box">
+        <div class="vs-col bad">
+          <h3>Traditional F&I</h3>
+          <ul>
+            <li>Abstract coverage</li>
+            <li>Customers forget it exists</li>
+            <li>No ongoing engagement</li>
+            <li>Chargeback risk</li>
+          </ul>
+        </div>
+        <div class="vs-divider">VS</div>
+        <div class="vs-col good">
+          <h3>VehicleVault</h3>
+          <ul>
+            <li>Tangible product</li>
+            <li>Daily app usage</li>
+            <li>Constant brand visibility</li>
+            <li>Zero chargebacks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <h2>See the <em>Revenue Model</em></h2>
+      <div class="qr-code">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://mdd.io/vehiclevault-fi&color=1A1E24&bgcolor=FFFFFF" alt="Scan for VehicleVault F&I">
+      </div>
+      <div class="scan-text">Scan to Learn More</div>
+      <div class="contact-info">Call <strong>844-292-7110</strong></div>
+      <div class="website">mdd.io/vehiclevault-fi</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="tagline-tm"><strong>We Find Keys & Cars</strong>™</div>
+    </div>
+  </div>
+</body>
+</html>

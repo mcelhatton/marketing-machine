@@ -6,22 +6,31 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<!-- HERO -->
 <section class="hero">
   <div class="inner">
     <div>
-      <div class="tag">Lot Management</div>
+      <div class="tag"><span style="color:#8AC833;">Locate</span><span style="color:#1A1E24;">IQ</span></div>
       <h1>Know where every vehicle is &mdash; <em>instantly.</em></h1>
       <p class="sub">Sub-foot accuracy across your entire lot, indoors and out. Track every car across all your properties from one dashboard.</p>
-      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">Get a Demo &rarr;</a><a href="#how" class="btn-outline">How It Works</a></div>
+      <div class="cta-row">
+        <a href="https://mdd.io/contact-us" class="btn-primary">Schedule a 15-Min Demo &rarr;</a>
+        <a href="#how" class="btn-outline">How It Works</a>
+      </div>
     </div>
-    <div class="hero-img"><img src="https://mdd.io/hubfs/Geofences%20on%20Macbook%20with%20pins.png" alt="MDD lot management geofencing" style="max-width:500px;"></div>
+    <div class="hero-img">
+      <img src="https://mdd.io/hubfs/Geofences%20on%20Macbook%20with%20pins.png" alt="MDD lot management geofencing" style="max-width:500px;">
+    </div>
   </div>
 </section>
-<section class="section bg-card pain-strip">
-  <div class="container-sm">
-    <div class="section-tag" style="color:var(--gold);">The Problem</div>
-    <h2>Walking the lot wastes <em style="color:var(--gold);">everyone&rsquo;s time.</em></h2>
-    <div class="pain-items" style="margin-top:24px;">
+
+<!-- THE PROBLEM -->
+<section class="section bg-card" id="problem">
+  <div class="container-sm" style="text-align:center;">
+    <div class="section-tag gold">Sound Familiar?</div>
+    <h2 style="color:var(--white);margin-bottom:16px;">Walking the lot wastes<br><em style="color:var(--gold);">everyone&rsquo;s time.</em></h2>
+    <p style="color:var(--body-text);font-size:16px;max-width:700px;margin:0 auto 24px;">Your team spends hours every week searching for vehicles. Customers wait. Sales stall. And nobody knows where that car actually is.</p>
+    <div class="pain-items">
       <span class="pain-item">15+ minutes per customer looking for vehicles</span>
       <span class="pain-item">Vehicles get moved, nobody updates the system</span>
       <span class="pain-item">Multi-lot operations have zero visibility</span>
@@ -29,40 +38,140 @@
     </div>
   </div>
 </section>
-<section class="section bg-light" id="how">
+
+<!-- STATS BAR -->
+<section class="section section-sm bg-dark">
   <div class="container-sm">
-    <div class="section-tag">How It Works</div>
-    <h2 style="color:var(--dark-text);margin-bottom:40px;">Real-time vehicle location in three steps.</h2>
-    <div class="steps-grid">
-      <div class="step"><div class="step-num">1</div><h3 style="color:var(--dark-text);">Tag Every Vehicle</h3><p>Attach a weatherproof tag when the vehicle arrives. Battery-powered, no wiring.</p><img src="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg" class="step-img" alt="" style="max-width:200px;"></div>
-      <div class="step"><div class="step-num">2</div><h3 style="color:var(--dark-text);">Track Automatically</h3><p>Location updates automatically as vehicles move. No manual check-ins needed.</p><img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="step-img" alt="" style="max-width:180px;"></div>
-      <div class="step"><div class="step-num">3</div><h3 style="color:var(--dark-text);">Find Any Vehicle</h3><p>Search by VIN, stock number, or description. Walk directly to the car.</p><img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" class="step-img" alt=""></div>
+    <div class="stat-grid cols-3">
+      <div class="stat-card">
+        <div class="num">2,000+</div>
+        <div class="label">Vehicles tracked across multiple lots</div>
+        <div class="dealer">Bill Brown Ford</div>
+      </div>
+      <div class="stat-card">
+        <div class="num gold">90%</div>
+        <div class="label">Sales team adoption</div>
+        <div class="dealer">Bill Brown Ford</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">25 min &rarr; sec</div>
+        <div class="label">Vehicle location time</div>
+        <div class="dealer">Longo Toyota</div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- HOW IT WORKS -->
+<section class="section bg-light" id="how">
+  <div class="container-sm" style="text-align:center;">
+    <div class="section-tag">How It Works</div>
+    <h2 style="color:var(--dark-text);margin-bottom:48px;">Real-time vehicle location in three steps.</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 style="color:var(--dark-text);">Tag Every Vehicle</h3>
+        <p>Attach a weatherproof tag when the vehicle arrives. Battery-powered, no wiring.</p>
+        <img src="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg" class="step-img" alt="MDD tracking tags" style="max-width:180px;">
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 style="color:var(--dark-text);">Track Automatically</h3>
+        <p>Location updates automatically as vehicles move. No manual check-ins needed.</p>
+        <img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="step-img" alt="MDD mobile app" style="max-width:160px;">
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 style="color:var(--dark-text);">Find Any Vehicle</h3>
+        <p>Search by VIN, stock number, or description. Walk directly to the car.</p>
+        <img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" class="step-img" alt="MDD dashboard">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
 <section class="section bg-dark">
+  <div class="container-sm">
+    <div class="section-tag light">What You Get</div>
+    <h2 style="color:var(--white);margin-bottom:32px;">Built for real dealership operations.</h2>
+    <div class="feature-grid cols-2">
+      <div class="feature-card">
+        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg></div>
+        <div>
+          <h3>Sub-Foot Accuracy</h3>
+          <p>Pinpoint vehicle location with sub-foot accuracy. Works indoors and outdoors, in service bays and across the lot.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div>
+          <h3>Multi-Lot Support</h3>
+          <p>Track vehicles across multiple properties from a single dashboard. Bill Brown Ford tracks 2,000+ vehicles across several lots.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div>
+          <h3>Movement Alerts</h3>
+          <p>Get instant notifications when vehicles move outside geofenced areas or during off-hours.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div>
+          <h3>DMS Integration</h3>
+          <p>Syncs with Reynolds &amp; Reynolds, CDK, and more. Stock numbers and VINs auto-populate.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div>
+          <h3>Floor Plan Audits</h3>
+          <p>Simplify audits with instant location verification. No more walking the lot to find every car.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div>
+          <h3>Mobile Access</h3>
+          <p>Access real-time tracking from any device. Desktop, tablet, or phone. Works everywhere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD SHOWCASE -->
+<section class="section bg-card">
   <div class="container">
     <div class="showcase">
       <img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" alt="MDD Lot Management Dashboard">
-      <div><div class="section-tag light">Dashboard</div><h2 style="color:var(--white);">See your entire lot at a glance.</h2><p>Live satellite view with vehicle pins, search by any field, geofenced zones, after-hours movement alerts, and full DMS integration.</p></div>
+      <div>
+        <div class="section-tag light">Desktop Dashboard</div>
+        <h2 style="color:var(--white);">See your entire lot at a glance.</h2>
+        <p>Live satellite view with vehicle pins, search by any field, geofenced zones, after-hours movement alerts, and full DMS integration. Works on any device.</p>
+        <a href="https://mdd.io/contact-us" class="btn-primary" style="margin-top:20px;">See It Live &rarr;</a>
+      </div>
     </div>
   </div>
 </section>
-<section class="section bg-card">
-  <div class="container-sm">
-    <div class="stat-grid cols-3">
-      <div class="stat-card"><div class="num">2,000+</div><div class="label">Vehicles tracked across multiple lots</div><div class="dealer">Bill Brown Ford</div></div>
-      <div class="stat-card"><div class="num gold">90%</div><div class="label">Sales team adoption</div><div class="dealer">Bill Brown Ford</div></div>
-      <div class="stat-card"><div class="num">20 min</div><div class="label">Saved per vehicle delivery</div><div class="dealer">Longo Toyota</div></div>
-    </div>
+
+<!-- TESTIMONIAL -->
+<section class="section bg-dark">
+  <div class="container-xs testimonial-lg">
+    <div class="quote-mark">&ldquo;</div>
+    <blockquote>Mobile Dealer Data allows us to instantly locate the exact position of 2,000 vehicles spread across several lots. This means we can prepare a vehicle for delivery or a show-ready status without the delays caused by previous key location methods.</blockquote>
+    <div class="author">Dave Bird</div>
+    <div class="role">New Car Inventory Manager &mdash; Bill Brown Ford (World&rsquo;s Largest Ford Dealer)</div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section bg-dark">
   <h2>Stop walking the lot. Start selling.</h2>
-  <p>See how Lot Management works for your dealership.</p>
-  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <p>See how Lot Management works for your dealership in a quick 15-minute demo. No commitment. No pressure.</p>
+  <a href="https://mdd.io/contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
   <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
 </section>
 

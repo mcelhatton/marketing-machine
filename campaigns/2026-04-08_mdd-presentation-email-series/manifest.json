@@ -1,0 +1,147 @@
+{
+  "campaign_id": "2026-04-08_mdd-presentation-email-series",
+  "campaign_name": "MDD Presentation HTML Email Series",
+  "created_at": "2026-04-08T13:35:33.951Z",
+  "status": "draft",
+  "source_deck": "/Users/colin/Library/CloudStorage/OneDrive-MobileDealerData,LLC/Documents - Mobile Dealer Data Files/Marketing/Sales Decks/MDD_Presentation_03072026.pptx",
+  "channels": [
+    "mailchimp"
+  ],
+  "content": [
+    {
+      "type": "email-html",
+      "file": "content/email/email-01.html",
+      "title": "Built where dealership chaos is most expensive.",
+      "subject": "Born at the world's largest dealerships",
+      "preheader": "One platform for key tracking, workflow automation, and F&I revenue.",
+      "cta_text": "Schedule a 15-Min Demo →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-02.html",
+      "title": "Most dealership chaos is invisible until it shows up on the P&L.",
+      "subject": "The money leak most stores don't see",
+      "preheader": "Dealerships bleed money from chaos they can't see.",
+      "cta_text": "See MDD Live →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-03.html",
+      "title": "The key replacement is expensive. The lost momentum costs more.",
+      "subject": "A lost key is never just a lost key",
+      "preheader": "Replacement cost is only part of the hit.",
+      "cta_text": "Get a Dealer ROI Review →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-04.html",
+      "title": "Key and vehicle tracking that operators actually use.",
+      "subject": "Find every key. Find every car. Every time.",
+      "preheader": "A closer look at MDD Locate.",
+      "cta_text": "See LocateIQ In Action →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-05.html",
+      "title": "When the team uses it, the store feels it fast.",
+      "subject": "What 90% adoption looks like in the real world",
+      "preheader": "Bill Brown Ford is not a soft test case.",
+      "cta_text": "Book a Dealer-Specific Demo →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-06.html",
+      "title": "If nobody knows where the vehicle is, the workflow board is already wrong.",
+      "subject": "Service bottlenecks are usually a visibility problem",
+      "preheader": "Faster throughput starts with knowing where the car is.",
+      "cta_text": "See the Workflow Demo →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-07.html",
+      "title": "This is what changes when physical location drives workflow.",
+      "subject": "The only workflow that knows where the car actually is",
+      "preheader": "Automatic stage updates as vehicles move.",
+      "cta_text": "Reserve a Workflow Walkthrough →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-08.html",
+      "title": "The best proof is when busy stores keep expanding usage.",
+      "subject": "Corwin and Longo are the kind of proof points that matter",
+      "preheader": "Real dealerships. Real throughput improvement.",
+      "cta_text": "Ask About Launch Pricing →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-09.html",
+      "title": "Every extra recon day makes the vehicle worse on paper.",
+      "subject": "Recon delay is a margin problem, not just a process problem",
+      "preheader": "The longer a car sits, the harder it is to like the numbers.",
+      "cta_text": "Get a Recon Turn Review →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-10.html",
+      "title": "F&I revenue is stronger when the customer sees value right away.",
+      "subject": "VehicleVault turns delivery into lifetime value",
+      "preheader": "A dealer-branded F&I product customers actually use.",
+      "cta_text": "See the VehicleVault Model →",
+      "theme": "gold"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-11.html",
+      "title": "When F&I revenue is real, it shows up fast and keeps showing up.",
+      "subject": "$308K/month changes the conversation fast",
+      "preheader": "Brandon Honda is the proof point in the deck for a reason.",
+      "cta_text": "Ask About F&I Rollout Incentives →",
+      "theme": "gold"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-12.html",
+      "title": "The best signal is when great operators keep making the same decision.",
+      "subject": "Why 250+ dealerships matters more than the logo slide",
+      "preheader": "Traction is useful when it proves repeatability.",
+      "cta_text": "See If Your Store Qualifies →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-13.html",
+      "title": "Rollout works better when support does not stop after install day.",
+      "subject": "1-day install. 4-week hypercare. 90-day guarantee.",
+      "preheader": "This isn't an install-and-disappear vendor story.",
+      "cta_text": "See the Rollout Plan →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-14.html",
+      "title": "The best next step is not a brochure. It is your own math.",
+      "subject": "You do not need generic pricing. You need your numbers.",
+      "preheader": "The right demo should answer ROI first.",
+      "cta_text": "Get a Custom ROI Breakdown →",
+      "theme": "green"
+    },
+    {
+      "type": "email-html",
+      "file": "content/email/email-15.html",
+      "title": "If this is a priority, the next step is easy.",
+      "subject": "The world’s best dealerships already chose us",
+      "preheader": "If the problem is real in your store, this is worth a look.",
+      "cta_text": "Reserve a Demo Slot →",
+      "theme": "green"
+    }
+  ]
+}

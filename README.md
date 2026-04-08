@@ -210,7 +210,17 @@ node scripts/mailchimp/publish-campaign.js <manifest> --all
 
 # Send test email first
 node scripts/mailchimp/publish-campaign.js <manifest> --test you@example.com
+
+# Generate an editable Mailchimp classic template for marketers
+node scripts/mailchimp/create-template.js <manifest>
+
+# Generate and upload the editable template to Mailchimp
+node scripts/mailchimp/create-template.js <manifest> --upload
 ```
+
+The template flow is separate from campaign publishing on purpose:
+- `publish-campaign.js` creates draft campaigns directly from markdown.
+- `create-template.js` creates a Mailchimp classic custom-coded template with editable `mc:edit` regions for body copy, CTA button, preheader, and footer so non-technical marketers can update links and button text in Mailchimp's legacy builder.
 
 ### LinkedIn
 

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VehicleVault — Turn every sale into recurring revenue. | Mobile Dealer Data</title>
+  <meta name="description" content="VehicleVault is a high-margin F&I product that customers actually use. Key tracking for them. Recurring profit for you. Zero chargebacks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --green:#8AC833;--green-dark:#5E970F;--green-glow:rgba(138,200,51,0.15);--green-soft:#EEF7E0;
+  --charcoal:#1A1E24;--card:#22272E;--card-border:#2D3239;
+  --white:#FFFFFF;--off-white:#F5F6F4;--body:#9CA3AF;--muted:#6B7280;--gold:#F59E0B;--red:#EF4444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--charcoal);color:var(--body);overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,30,36,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--card-border);}
+nav .inner{max-width:1100px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+nav .logo{font-weight:800;font-size:20px;color:var(--white);letter-spacing:-0.3px;}
+nav .logo span{color:var(--green);}
+nav .logo small{font-size:11px;font-weight:400;color:var(--muted);margin-left:8px;}
+nav .nav-cta{background:var(--green);color:var(--charcoal);font-weight:700;font-size:14px;padding:10px 24px;border-radius:8px;text-decoration:none;transition:all 0.2s;}
+nav .nav-cta:hover{background:var(--green-dark);color:var(--white);}
+
+.hero{padding:140px 24px 80px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);pointer-events:none;}
+.hero .inner{max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.hero .tag{display:inline-block;background:var(--green-glow);border:1px solid rgba(138,200,51,0.25);color:var(--green);font-size:12px;font-weight:700;padding:6px 16px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;font-family:'Space Mono',monospace;}
+.hero .tag.gold{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.25);color:var(--gold);}
+.hero h1{font-size:clamp(32px,4vw,48px);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:16px;letter-spacing:-1px;}
+.hero h1 em{font-style:normal;color:var(--green);}
+.hero h1 em.gold{color:var(--gold);}
+.hero .sub{font-size:17px;color:var(--body);margin-bottom:28px;line-height:1.6;}
+
+.btn-primary{background:var(--green);color:var(--charcoal);font-weight:700;font-size:16px;padding:16px 36px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;box-shadow:0 4px 24px rgba(138,200,51,0.3);}
+.btn-primary:hover{background:var(--green-dark);color:var(--white);transform:translateY(-2px);box-shadow:0 8px 32px rgba(138,200,51,0.4);}
+.btn-outline{border:2px solid var(--card-border);color:var(--white);font-weight:600;font-size:15px;padding:14px 28px;border-radius:10px;text-decoration:none;transition:all 0.2s;margin-left:14px;}
+.btn-outline:hover{border-color:var(--green);color:var(--green);}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+
+.section-tag{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.container{max-width:1100px;margin:auto;padding:0 24px;}
+
+.pain-strip{background:var(--card);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);padding:32px 24px;}
+.pain-strip .inner{max-width:900px;margin:auto;text-align:center;}
+.pain-strip h2{font-size:20px;color:var(--white);font-weight:700;margin-bottom:8px;}
+.pain-strip p{font-size:15px;color:var(--muted);line-height:1.6;}
+.pain-items{display:flex;gap:32px;justify-content:center;margin-top:20px;flex-wrap:wrap;}
+.pain-item{font-family:'Space Mono',monospace;font-size:13px;color:var(--gold);}
+.pain-item::before{content:'▸ ';}
+
+.stats{padding:60px 24px;background:var(--charcoal);}
+.stats .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:auto;}
+.stat-card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:28px 20px;text-align:center;transition:all 0.3s;}
+.stat-card:hover{border-color:var(--green);transform:translateY(-4px);}
+.stat-card .num{font-size:40px;font-weight:800;color:var(--green);font-family:'Space Mono',monospace;line-height:1;}
+.stat-card .num.gold{color:var(--gold);}
+.stat-card .label{font-size:13px;color:var(--muted);margin-top:8px;}
+.stat-card .dealer{font-size:11px;color:var(--green-dark);margin-top:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+
+.how{padding:80px 24px;background:var(--off-white);}
+.how h2{font-size:36px;font-weight:800;color:var(--charcoal);margin-bottom:40px;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.step-num{width:44px;height:44px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--charcoal);margin-bottom:14px;}
+.step h3{font-size:18px;font-weight:700;color:var(--charcoal);margin-bottom:8px;}
+.step p{font-size:14px;color:var(--muted);line-height:1.6;}
+
+.features{padding:80px 24px;background:var(--charcoal);}
+.features h2{font-size:32px;font-weight:800;color:var(--white);margin-bottom:40px;}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:auto;}
+.feature-card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:24px;transition:all 0.3s;}
+.feature-card:hover{border-color:var(--green);background:#262B32;}
+.feature-card h3{font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;}
+.feature-card p{font-size:14px;color:var(--muted);line-height:1.5;}
+
+.testimonial{padding:80px 24px;background:var(--card);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);}
+.testimonial .inner{max-width:800px;margin:auto;text-align:center;}
+.testimonial .quote-mark{font-size:48px;color:var(--green);font-family:Georgia,serif;opacity:0.4;margin-bottom:8px;}
+.testimonial blockquote{font-size:20px;color:var(--white);font-style:italic;line-height:1.5;margin-bottom:20px;}
+.testimonial .author{font-size:14px;font-weight:700;color:var(--green);}
+.testimonial .author-role{font-size:13px;color:var(--muted);}
+
+.cta-section{padding:80px 24px;background:var(--charcoal);text-align:center;position:relative;}
+.cta-section::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);pointer-events:none;}
+.cta-section h2{font-size:36px;font-weight:800;color:var(--white);margin-bottom:12px;}
+.cta-section p{font-size:16px;color:var(--body);max-width:500px;margin:0 auto 32px;line-height:1.6;}
+.cta-section .phone{font-family:'Space Mono',monospace;font-size:14px;color:var(--muted);margin-top:20px;}
+.cta-section .phone a{color:var(--green);text-decoration:none;}
+
+footer{padding:32px 24px;background:var(--card);border-top:1px solid var(--card-border);text-align:center;}
+footer .brand{font-weight:800;font-size:16px;color:var(--white);}
+footer .brand span{color:var(--green);}
+footer .links{margin-top:10px;font-size:12px;color:var(--muted);}
+footer .links a{color:var(--muted);text-decoration:none;margin:0 8px;}
+footer .links a:hover{color:var(--green);}
+
+@media(max-width:768px){
+  .hero .inner{grid-template-columns:1fr;}
+  .feature-grid,.steps,.stats .grid{grid-template-columns:1fr !important;}
+  .pain-items{flex-direction:column;gap:12px;}
+}
+</style>
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <div class="logo">Vehicle<span>Vault</span> <small>by Mobile Dealer Data</small></div>
+      <a href="#demo" class="nav-cta">Book a Demo</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="inner">
+      <div>
+        <div class="tag gold">F&I Revenue Generator</div>
+        <h1>Turn every sale into recurring <em class="gold">revenue.</em></h1>
+        <p class="sub">VehicleVault is a high-margin F&I product that customers actually use. Key tracking for them. Recurring profit for you. Zero chargebacks.</p>
+        <div class="cta-row">
+          <a href="#demo" class="btn-primary">Schedule a 15-Min Demo →</a>
+          <a href="#how" class="btn-outline">See How It Works</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <!-- Hero image placeholder -->
+      </div>
+    </div>
+  </section>
+
+  <section class="pain-strip">
+    <div class="inner">
+      <h2>Sound familiar?</h2>
+      <p>$308,000 per month. That's how much one dealership generates.</p>
+      <div class="pain-items">
+        <span class="pain-item">F&I products with high chargebacks</span>
+        <span class="pain-item">Low customer engagement</span>
+        <span class="pain-item">Need for recurring revenue streams</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="grid">
+      
+      <div class="stat-card">
+        <div class="num gold">$308K</div>
+        <div class="label">Monthly F&I revenue</div>
+        <div class="dealer">Brandon Honda</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">Zero</div>
+        <div class="label">Chargebacks</div>
+        <div class="dealer">All MDD Dealers</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">100%</div>
+        <div class="label">Dealer-branded app</div>
+        <div class="dealer">Standard</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="container">
+      <div class="section-tag" style="color:var(--green-dark);">How It Works</div>
+      <h2>Three steps. Zero guesswork.</h2>
+      <div class="steps">
+        
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Sell</h3>
+          <p>Simple F&I presentation. Customers understand the value immediately.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Activate</h3>
+          <p>Customer downloads your branded app and pairs their key tracker.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Profit</h3>
+          <p>Recurring revenue each month. High engagement. Zero chargebacks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="section-tag" style="color:var(--green);">What You Get</div>
+      <h2>Built for real dealership operations.</h2>
+      <div class="feature-grid">
+        
+        <div class="feature-card">
+          <h3>Consumer Key Tracking App</h3>
+          <p>Your customers get a dealer-branded app to track their keys. They'll actually use it — unlike most F&I products.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Rewards Program</h3>
+          <p>Built-in rewards keep customers engaged and coming back to your dealership for service.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Zero Chargeback Rate</h3>
+          <p>Because customers actually use the product, chargebacks are effectively zero. That's real profit, not paper profit.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Dealer-Branded Experience</h3>
+          <p>Your name, your logo, your colors. Customers see your brand every time they use the app.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Recurring Revenue Model</h3>
+          <p>Monthly subscription creates predictable revenue stream beyond the initial sale.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Easy F&I Presentation</h3>
+          <p>Customers understand key tracking. It sells itself — no complicated explanations needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial">
+    <div class="inner">
+      <div class="quote-mark">"</div>
+      <blockquote>VehicleVault transformed our F&I revenue. Customers love it, they actually use it, and we've never had a chargeback.</blockquote>
+      <div class="author">F&I Director</div>
+      <div class="author-role">Brandon Honda — Brandon Honda</div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="demo">
+    <h2>See it in 15 minutes.</h2>
+    <p>We'll show you exactly how VehicleVault works on a live dealership. No commitment. No pressure.</p>
+    <a href="https://mdd.io/demo" class="btn-primary">Schedule Your Demo →</a>
+    <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
+  </section>
+
+  <footer>
+    <div class="brand">Vehicle<span>Vault</span></div>
+    <div class="links">
+      <a href="https://mdd.io">mdd.io</a> | We Find Keys & Cars™ | <a href="tel:8442927110">844-292-7110</a>
+    </div>
+  </footer>
+</body>
+</html>

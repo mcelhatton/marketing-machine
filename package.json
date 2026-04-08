@@ -18,6 +18,7 @@
     "publish:linkedin:article": "node scripts/linkedin/publish-article.js",
     "publish:facebook:post": "node scripts/facebook/publish-post.js",
     "publish:mailchimp": "node scripts/mailchimp/publish-campaign.js",
+    "mailchimp:template": "node scripts/mailchimp/create-template.js",
     "hubspot:validate": "node scripts/hubspot/hubspot-client.js validate",
     "linkedin:validate": "node scripts/linkedin/linkedin-client.js validate",
     "facebook:validate": "node scripts/facebook/facebook-client.js validate",

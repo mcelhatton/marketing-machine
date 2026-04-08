@@ -6,72 +6,218 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<!-- HERO -->
 <section class="hero">
   <div class="inner">
     <div>
-      <div class="tag">Service Workflow</div>
+      <div class="tag"><span style="color:#8AC833;">Locate</span><span style="color:#1A1E24;">IQ</span></div>
       <h1>Workflows that update <em>themselves.</em></h1>
-      <p class="sub">Track every vehicle from drop-off to delivery. Because we know where the car physically is, the system updates automatically. Powered by LocateIQ.</p>
-      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">See LocateIQ in Action &rarr;</a><a href="#problem" class="btn-outline">Why It&rsquo;s Different</a></div>
+      <p class="sub">Track every vehicle from drop-off to delivery. Because we know where the car physically is, the system updates automatically. No manual updates. No stale dashboards.</p>
+      <div class="cta-row">
+        <a href="https://mdd.io/contact-us" class="btn-primary">See LocateIQ in Action &rarr;</a>
+        <a href="#problem" class="btn-outline">Why It&rsquo;s Different</a>
+      </div>
     </div>
-    <div class="hero-img"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" alt="MDD workflow app" style="max-width:280px;"></div>
+    <div class="hero-img">
+      <img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" alt="MDD Workflow automation on mobile" style="max-width:280px;">
+    </div>
   </div>
 </section>
+
+<!-- THE PROBLEM -->
 <section class="section bg-card" id="problem">
-  <div class="container-sm">
-    <div class="section-tag" style="color:var(--gold);">The Problem</div>
-    <h2 style="color:var(--white);margin-bottom:24px;">Bottlenecks kill your service throughput.</h2>
+  <div class="container-sm" style="text-align:center;">
+    <div class="section-tag gold">The Problem</div>
+    <h2 style="color:var(--white);margin-bottom:16px;">Your workflow dashboard looks organized.<br><em style="color:var(--gold);">But is it accurate?</em></h2>
+    <p style="color:var(--body-text);font-size:16px;max-width:700px;margin:0 auto 28px;">Someone has to remember to log that a car left the bay. They forget. They get busy. The dashboard becomes fiction. And you discover bottlenecks after it&rsquo;s too late.</p>
     <div class="pain-grid">
-      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/workflow-phone.png') }}" class="p-icon" alt=""><div><h3>Technician Idle Time</h3><p>Techs wait for vehicles &mdash; wasting billable hours every day.</p></div></div>
-      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="p-icon" alt=""><div><h3>No Process Visibility</h3><p>Advisors don&rsquo;t know where customer vehicles are in the process.</p></div></div>
-      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" class="p-icon" alt=""><div><h3>Manual Updates Fail</h3><p>Someone has to log status changes. They forget. Dashboard becomes fiction.</p></div></div>
-      <div class="pain-card"><img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" class="p-icon" alt=""><div><h3>CSI Takes a Hit</h3><p>Completed vehicles sit uncommunicated. Customers call repeatedly for updates.</p></div></div>
+      <div class="pain-card">
+        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
+          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <h3>Technician Idle Time</h3>
+          <p>Techs wait for vehicles &mdash; wasting billable hours every single day.</p>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
+          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div>
+          <h3>No Process Visibility</h3>
+          <p>Advisors don&rsquo;t know where customer vehicles really are in the process.</p>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
+          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div>
+          <h3>Manual Updates Fail</h3>
+          <p>Someone has to log status changes. They forget. Dashboard becomes fiction.</p>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
+          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <h3>CSI Takes a Hit</h3>
+          <p>Completed vehicles sit uncommunicated. Customers call repeatedly for updates.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- LOCATEIQ DIFFERENCE -->
 <section class="section bg-dark">
   <div class="container-sm">
     <div class="section-tag light">The MDD Difference</div>
     <h2 style="color:var(--white);margin-bottom:12px;">Locate<span style="color:var(--green);">IQ</span> &mdash; automation powered by real vehicle location.</h2>
-    <p style="font-size:16px;max-width:640px;margin-bottom:36px;">Because we track the physical position of every car and key, MDD can automatically advance your workflow when vehicles move. No manual updates. No stale dashboards.</p>
+    <p style="font-size:16px;max-width:640px;margin-bottom:36px;">Because we track the physical position of every car and key, MDD can automatically advance your workflow when vehicles move. No manual updates. No stale dashboards. No guessing.</p>
     <div class="vs-grid">
-      <div class="vs-col bad"><h3>Other Workflow Tools</h3><ul><li>Rely on manual status updates</li><li>Data only as good as last person</li><li>Bottlenecks discovered too late</li><li>No physical location intelligence</li></ul></div>
+      <div class="vs-col bad">
+        <h3>Other Workflow Tools</h3>
+        <ul>
+          <li>Rely on manual status updates</li>
+          <li>Data only as good as last person who logged it</li>
+          <li>Bottlenecks discovered after the fact</li>
+          <li>No physical location intelligence</li>
+          <li>Dashboard accuracy depends on staff discipline</li>
+        </ul>
+      </div>
       <div class="vs-divider">VS</div>
-      <div class="vs-col good"><h3>MDD + LocateIQ</h3><ul><li>Workflows advance automatically</li><li>Real-time accuracy without extra work</li><li>Instant bottleneck alerts</li><li>Powered by physical vehicle location</li></ul></div>
+      <div class="vs-col good">
+        <h3>MDD + LocateIQ</h3>
+        <ul>
+          <li>Workflows advance automatically when vehicles move</li>
+          <li>Real-time accuracy without extra work</li>
+          <li>Instant bottleneck alerts before they compound</li>
+          <li>Powered by physical vehicle location</li>
+          <li>Always accurate, always current</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
-<section class="section bg-dark">
-  <div class="container"><div class="showcase"><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" alt="Service dashboard"><div><div class="section-tag light">Desktop Dashboard</div><h2 style="color:var(--white);">Full visibility from your desk.</h2><p>See every vehicle in process, cycle times, bottleneck alerts, and team performance &mdash; all in one real-time dashboard.</p></div></div></div>
-</section>
-<section class="section bg-light">
-  <div class="container-sm">
-    <div class="section-tag" style="text-align:center;">Real Results</div>
-    <h2 style="color:var(--dark-text);text-align:center;margin-bottom:32px;">What dealerships see after implementing MDD.</h2>
-    <div class="stat-grid cols-3">
-      <div class="stat-card stat-light"><div class="num">64%</div><div class="label">of customers out within 60 minutes</div><div class="dealer">Corwin Toyota</div></div>
-      <div class="stat-card stat-light"><div class="num gold">3 days</div><div class="label">saved per car in reconditioning</div><div class="dealer">Longo Toyota</div></div>
-      <div class="stat-card stat-light"><div class="num">40-60%</div><div class="label">increase in bay turns</div><div class="dealer">Corwin Toyota</div></div>
-      <div class="stat-card stat-light"><div class="num gold">41 min</div><div class="label">saved per repair order</div><div class="dealer">Brandon Honda</div></div>
-      <div class="stat-card stat-light"><div class="num">15 min</div><div class="label">saved per repair order</div><div class="dealer">Longo Toyota</div></div>
-      <div class="stat-card stat-light"><div class="num gold">96%</div><div class="label">services completed within 90 min</div><div class="dealer">Corwin Toyota</div></div>
-    </div>
-  </div>
-</section>
+
+<!-- DASHBOARD SHOWCASE -->
 <section class="section bg-card">
-  <div class="container-sm">
-    <div class="test-grid">
-      <div class="test-card"><blockquote>&ldquo;With this cycle time tool, we know at the 40-minute mark whether we&rsquo;re having an issue. We can get help there immediately.&rdquo;</blockquote><div class="author">Warren Weimer</div><div class="role">Service &amp; Parts Director &mdash; Corwin Toyota</div></div>
-      <div class="test-card" style="border-left-color:var(--gold);"><blockquote>&ldquo;MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds.&rdquo;</blockquote><div class="author" style="color:var(--gold);">Mark Seipel</div><div class="role">Fixed Operations Director &mdash; Longo Toyota</div></div>
+  <div class="container">
+    <div class="showcase">
+      <img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" alt="MDD Workflow Dashboard">
+      <div>
+        <div class="section-tag light">Desktop Dashboard</div>
+        <h2 style="color:var(--white);">Full visibility from your desk.</h2>
+        <p>See every vehicle in process, cycle times, bottleneck alerts, and team performance &mdash; all in one real-time dashboard. Filter by workflow stage, technician, or time in process.</p>
+        <a href="https://mdd.io/contact-us" class="btn-primary" style="margin-top:20px;">See the Dashboard &rarr;</a>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- STATS - REAL RESULTS -->
+<section class="section bg-light">
+  <div class="container-sm" style="text-align:center;">
+    <div class="section-tag">Real Results</div>
+    <h2 style="color:var(--dark-text);margin-bottom:32px;">What dealerships see after implementing MDD.</h2>
+    <div class="stat-grid cols-3">
+      <div class="stat-card stat-light">
+        <div class="num">64%</div>
+        <div class="label">of customers out within 60 minutes</div>
+        <div class="dealer">Corwin Toyota</div>
+      </div>
+      <div class="stat-card stat-light">
+        <div class="num gold">41 min</div>
+        <div class="label">saved per repair order</div>
+        <div class="dealer">Brandon Honda</div>
+      </div>
+      <div class="stat-card stat-light">
+        <div class="num">40-60%</div>
+        <div class="label">increase in bay turns</div>
+        <div class="dealer">Corwin Toyota</div>
+      </div>
+      <div class="stat-card stat-light">
+        <div class="num gold">96%</div>
+        <div class="label">services completed within 90 min</div>
+        <div class="dealer">Corwin Toyota</div>
+      </div>
+      <div class="stat-card stat-light">
+        <div class="num">15 min</div>
+        <div class="label">saved per repair order</div>
+        <div class="dealer">Longo Toyota</div>
+      </div>
+      <div class="stat-card stat-light">
+        <div class="num gold">3 days</div>
+        <div class="label">saved per car in reconditioning</div>
+        <div class="dealer">Longo Toyota</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section bg-dark">
+  <div class="container-sm" style="text-align:center;">
+    <div class="section-tag light">How It Works</div>
+    <h2 style="color:var(--white);margin-bottom:48px;">Set up once. Automate forever.</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 style="color:var(--white);">Define Your Stages</h3>
+        <p style="color:var(--body-text);">Set up workflow stages: check-in, inspection, repair, quality check, ready for pickup. Customize to match your process.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 style="color:var(--white);">Tag Your Vehicles</h3>
+        <p style="color:var(--body-text);">Attach Bluetooth tags to vehicles. The system tracks physical location and updates workflow automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 style="color:var(--white);">Watch Bottlenecks Disappear</h3>
+        <p style="color:var(--body-text);">Get alerts when vehicles stall. Hold vendors accountable. Reduce cycle time without manual updates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section bg-card">
+  <div class="container-sm" style="text-align:center;">
+    <div class="section-tag light">From Service Directors Who Use It</div>
+    <h2 style="color:var(--white);margin-bottom:32px;">Real feedback from real dealerships.</h2>
+    <div class="test-grid">
+      <div class="test-card">
+        <blockquote>&ldquo;With this cycle time tool, we know at the 40-minute mark whether we&rsquo;re having an issue with a particular delivery. We can get help there immediately to meet our delivery promise.&rdquo;</blockquote>
+        <div class="author">Warren Weimer</div>
+        <div class="role">Service &amp; Parts Director &mdash; Corwin Toyota</div>
+      </div>
+      <div class="test-card" style="border-left-color:var(--gold);">
+        <blockquote>&ldquo;MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.&rdquo;</blockquote>
+        <div class="author" style="color:var(--gold);">Mark Seipel</div>
+        <div class="role">Fixed Operations Director &mdash; Longo Toyota</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LARGE QUOTE -->
+<section class="section bg-dark">
+  <div class="container-xs testimonial-lg">
+    <div class="quote-mark">&ldquo;</div>
+    <blockquote>No one wants to wait two hours for an oil change. We now communicate with customers more efficiently. I have a quick snapshot of capacity and can book that appointment today, so it doesn&rsquo;t float down the street.</blockquote>
+    <div class="author">Warren Weimer</div>
+    <div class="role">Service &amp; Parts Director &mdash; Corwin Toyota</div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section bg-dark">
   <h2>Turn downtime into dollars.</h2>
-  <p>See how leading dealerships are cutting cycle times and increasing service revenue.</p>
-  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
+  <p>See how leading dealerships are cutting cycle times, increasing bay turns, and boosting CSI scores with LocateIQ-powered workflows.</p>
+  <a href="https://mdd.io/contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
   <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
 </section>
 

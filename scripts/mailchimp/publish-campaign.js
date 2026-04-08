@@ -10,63 +10,8 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 const MailchimpClient = require('./mailchimp-client');
-
-/**
- * Read and parse campaign manifest
- */
-function readManifest(manifestPath) {
-  const content = fs.readFileSync(manifestPath, 'utf8');
-  return JSON.parse(content);
-}
-
-/**
- * Extract email content from markdown
- */
-function extractEmailContent(mdContent) {
-  // Remove YAML frontmatter
-  let content = mdContent.replace(/^---[\s\S]*?---\n*/m, '');
-
-  // Remove markdown comments
-  content = content.replace(/<!--[\s\S]*?-->/g, '');
-
-  // Extract subject line if present
-  const subjectMatch = content.match(/\*\*Subject:\*\*\s*(.+)/i);
-  const subject = subjectMatch ? subjectMatch[1].trim() : null;
-
-  // Remove subject line from body
-  if (subjectMatch) {
-    content = content.replace(subjectMatch[0], '');
-  }
-
-  // Clean up
-  content = content.trim();
-  content = content.replace(/^#+ .+\n*/gm, ''); // Remove headers
-  content = content.replace(/\n{3,}/g, '\n\n');
-
-  return { subject, body: content };
-}
-
-/**
- * Extract metadata from markdown frontmatter
- */
-function extractMetadata(mdContent) {
-  const match = mdContent.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return {};
-
-  const metadata = {};
-  const lines = match[1].split('\n');
-
-  for (const line of lines) {
-    const [key, ...valueParts] = line.split(':');
-    if (key && valueParts.length) {
-      metadata[key.trim()] = valueParts.join(':').trim();
-    }
-  }
-
-  return metadata;
-}
+const { getEmailContext, readManifest } = require('./email-utils');
 
 /**
  * Create campaign in Mailchimp
@@ -74,38 +19,34 @@ function extractMetadata(mdContent) {
 async function publishCampaign(manifestPath, options = {}) {
   const { dryRun = false, emailIndex = 0, schedule = null, testEmail = null } = options;
 
-  // Read manifest
-  const manifest = readManifest(manifestPath);
-  const campaignDir = path.dirname(manifestPath);
-
-  // Find email content
-  const emails = manifest.content.filter(c => c.type === 'email');
-  if (emails.length === 0) {
-    throw new Error('No email content found in manifest');
-  }
-
-  const emailItem = emails[emailIndex];
-  if (!emailItem) {
-    throw new Error(`Email at index ${emailIndex} not found`);
-  }
-
-  // Read email content
-  const emailPath = path.join(campaignDir, emailItem.file);
-  const mdContent = fs.readFileSync(emailPath, 'utf8');
-  const metadata = extractMetadata(mdContent);
-  const { subject, body } = extractEmailContent(mdContent);
+  const {
+    manifest,
+    body,
+    emailItem,
+    metadata,
+    preview,
+    subject,
+  } = getEmailContext(manifestPath, emailIndex);
 
   // Determine subject line
   const emailSubject = emailItem.subject || subject || `${manifest.campaign_name} - Email ${emailIndex + 1}`;
+  const previewText = metadata.preview_text || preview || body.substring(0, 150);
 
   // Convert to HTML
-  const htmlContent = MailchimpClient.markdownToEmailHtml(body);
+  const htmlContent = MailchimpClient.markdownToEmailHtml(body, {
+    previewText,
+    senderName: 'Mobile Dealer Data Team',
+    title: `${manifest.campaign_name} - Email ${emailIndex + 1}`,
+  });
+  const plainTextContent = MailchimpClient.normalizeMergeTags(body, {
+    senderName: 'Mobile Dealer Data Team',
+  });
 
   console.log('Mailchimp Campaign Data:');
   console.log({
     title: `${manifest.campaign_name} - Email ${emailIndex + 1}`,
     subject: emailSubject,
-    previewText: body.substring(0, 100) + '...',
+    previewText,
     schedule: schedule || 'draft',
   });
 
@@ -123,7 +64,7 @@ async function publishCampaign(manifestPath, options = {}) {
   console.log('\nCreating Mailchimp campaign...');
   const campaign = await client.createCampaign({
     subject: emailSubject,
-    previewText: body.substring(0, 150),
+    previewText,
     title: `${manifest.campaign_name} - Email ${emailIndex + 1}`,
     fromName: 'Mobile Dealer Data',
     replyTo: 'info@mdd.io',
@@ -133,7 +74,7 @@ async function publishCampaign(manifestPath, options = {}) {
 
   // Set content
   console.log('Setting campaign content...');
-  await client.setCampaignContent(campaign.id, htmlContent, body);
+  await client.setCampaignContent(campaign.id, htmlContent, plainTextContent);
 
   // Send test email if requested
   if (testEmail) {

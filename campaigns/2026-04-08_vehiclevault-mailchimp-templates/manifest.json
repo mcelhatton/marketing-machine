@@ -1,0 +1,118 @@
+{
+  "campaign_id": "2026-04-08_vehiclevault-mailchimp-templates",
+  "campaign_name": "VehicleVault Editable Mailchimp Templates",
+  "created_at": "2026-04-08T13:25:30.262Z",
+  "status": "draft",
+  "product": "vehiclevault",
+  "angle": "vehiclevault-profit",
+  "persona": "fi-manager",
+  "content": [
+    {
+      "type": "landing-page",
+      "file": "content/landing-page.html",
+      "title": "Turn every sale into recurring revenue.",
+      "slug": "2026-04-08_vehiclevault-mailchimp-templates",
+      "seo": {
+        "title_tag": "VehicleVault | Mobile Dealer Data",
+        "meta_description": "$308,000 per month. That's how much one dealership generates. Turn every sale into recurring revenue."
+      }
+    },
+    {
+      "type": "blog-post",
+      "file": "content/blog-post.md",
+      "title": "How Brandon Honda Achieved $308K/month F&I revenue",
+      "slug": "2026-04-08_vehiclevault-mailchimp-templates-case-study",
+      "seo": {
+        "title_tag": "Brandon Honda Case Study | Mobile Dealer Data",
+        "meta_description": "Learn how Brandon Honda achieved $308K/month F&I revenue with MDD's VehicleVault solution."
+      }
+    },
+    {
+      "type": "linkedin-post",
+      "file": "content/social/linkedin-post-1.md",
+      "title": "LinkedIn Post 1"
+    },
+    {
+      "type": "linkedin-post",
+      "file": "content/social/linkedin-post-2.md",
+      "title": "LinkedIn Post 2"
+    },
+    {
+      "type": "linkedin-post",
+      "file": "content/social/linkedin-post-3.md",
+      "title": "LinkedIn Post 3"
+    },
+    {
+      "type": "facebook-post",
+      "file": "content/social/facebook-post-1.md",
+      "title": "Facebook Post 1"
+    },
+    {
+      "type": "facebook-post",
+      "file": "content/social/facebook-post-2.md",
+      "title": "Facebook Post 2"
+    },
+    {
+      "type": "facebook-post",
+      "file": "content/social/facebook-post-3.md",
+      "title": "Facebook Post 3"
+    },
+    {
+      "type": "linkedin-article",
+      "file": "content/linkedin-article.md",
+      "title": "How Brandon Honda Solved the VehicleVault Profit Problem"
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-1.md",
+      "title": "Email 1 of 5",
+      "day": 0
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-2.md",
+      "title": "Email 2 of 5",
+      "day": 3
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-3.md",
+      "title": "Email 3 of 5",
+      "day": 6
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-4.md",
+      "title": "Email 4 of 5",
+      "day": 9
+    },
+    {
+      "type": "email",
+      "file": "content/email/email-5.md",
+      "title": "Email 5 of 5",
+      "day": 12
+    },
+    {
+      "type": "press-release",
+      "file": "content/press-release.md",
+      "title": "Brandon Honda Achieves $308K/month F&I revenue with MDD"
+    },
+    {
+      "type": "one-pager",
+      "file": "content/one-pager.md",
+      "title": "VehicleVault One-Pager"
+    }
+  ],
+  "publishing": {
+    "hubspot": {
+      "status": "pending"
+    },
+    "linkedin": {
+      "status": "pending"
+    },
+    "facebook": {
+      "status": "pending"
+    }
+  },
+  "updated_at": "2026-04-08T13:25:30.263Z"
+}
