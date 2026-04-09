@@ -1,0 +1,25 @@
+{# Pain Strip Module #}
+<section id="{{ module.section_id }}" class="section bg-{{ module.background }}">
+  <div class="container-sm pain-strip">
+    {% if module.tag_text %}
+    <span class="tag tag-{{ module.tag_style }}">{{ module.tag_text }}</span>
+    {% endif %}
+
+    {% if module.headline %}
+    <h2>{{ module.headline }}</h2>
+    {% endif %}
+
+    {% if module.description %}
+    <p class="pain-desc">{{ module.description }}</p>
+    {% endif %}
+
+    {% if module.pain_item_1 or module.pain_item_2 or module.pain_item_3 or module.pain_item_4 %}
+    <div class="pain-items">
+      {% if module.pain_item_1 %}<span class="pain-item">{{ module.pain_item_1 }}</span>{% endif %}
+      {% if module.pain_item_2 %}<span class="pain-item">{{ module.pain_item_2 }}</span>{% endif %}
+      {% if module.pain_item_3 %}<span class="pain-item">{{ module.pain_item_3 }}</span>{% endif %}
+      {% if module.pain_item_4 %}<span class="pain-item">{{ module.pain_item_4 }}</span>{% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>

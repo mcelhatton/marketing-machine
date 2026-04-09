@@ -1,0 +1,63 @@
+[
+  {
+    "name": "section_tag",
+    "label": "Section Tag",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "tag_style",
+    "label": "Tag Style",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["light", "Light Green"],
+      ["gold", "Gold"]
+    ]
+  },
+  {
+    "name": "headline",
+    "label": "Headline",
+    "type": "richtext",
+    "default": ""
+  },
+  {
+    "name": "content",
+    "label": "Content",
+    "type": "richtext",
+    "default": "<p>Add your content here.</p>"
+  },
+  {
+    "name": "container_width",
+    "label": "Container Width",
+    "type": "choice",
+    "default": "small",
+    "choices": [
+      ["small", "Small (900px)"],
+      ["extra_small", "Extra Small (700px)"],
+      ["normal", "Normal (1140px)"]
+    ]
+  },
+  {
+    "name": "text_align",
+    "label": "Text Alignment",
+    "type": "choice",
+    "default": "center",
+    "choices": [
+      ["center", "Center"],
+      ["left", "Left"]
+    ]
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "dark",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  }
+]

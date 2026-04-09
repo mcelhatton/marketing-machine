@@ -1,100 +1,52 @@
 <!--
   templateType: page
   isAvailableForNewContent: true
-  label: MDD Proof - Results
+  label: MDD Proof & Results
 -->
 {% extends "./base.html" %}
 {% block body %}
 
-<section class="hero hero-center">
-  <div class="inner">
-    <div>
-      <div class="tag">Why Choose MDD</div>
-      <h1>Results you can <em>measure.</em></h1>
-      <p class="sub">Real dealerships. Real outcomes. See why 500+ dealers trust MDD to run their operations.</p>
-      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">Schedule a Discovery Call &rarr;</a></div>
-    </div>
-  </div>
-</section>
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="Results",
+   tag_style="green",
+   headline="Proof That Works",
+   subtitle="Real results from real dealerships.",
+   primary_cta_text="Schedule a Demo",
+   primary_cta_url="https://mdd.io/contact-us",
+   layout="centered"
+%}
 
-<section class="section bg-card">
-  <div class="container-sm">
-    <div class="stat-grid cols-4">
-      <div class="stat-card"><div class="num">45min</div><div class="label">Saved average per sale</div></div>
-      <div class="stat-card"><div class="num gold">Zero</div><div class="label">Lost keys after implementation</div></div>
-      <div class="stat-card"><div class="num">25%</div><div class="label">Faster recon time-to-line</div></div>
-      <div class="stat-card"><div class="num gold">500+</div><div class="label">Dealerships trust MDD</div></div>
-    </div>
-  </div>
-</section>
+{% module "stats"
+   path="../modules/stats-bar.module",
+   columns="4",
+   stat_1_number="2,000+",
+   stat_1_label="Vehicles tracked",
+   stat_1_dealer="Bill Brown Ford",
+   stat_1_color="green",
+   stat_2_number="64%",
+   stat_2_label="Customers out in 60 min",
+   stat_2_dealer="Corwin Toyota",
+   stat_2_color="gold",
+   stat_3_number="41 min",
+   stat_3_label="Saved per RO",
+   stat_3_dealer="Brandon Honda",
+   stat_3_color="green",
+   stat_4_number="$308K",
+   stat_4_label="Monthly F&I revenue",
+   stat_4_dealer="Brandon Honda",
+   stat_4_color="gold",
+   background="dark"
+%}
 
-<section class="section bg-light">
-  <div class="container-sm">
-    <div class="section-tag" style="text-align:center;">Dealer Results</div>
-    <h2 style="color:var(--dark-text);text-align:center;margin-bottom:40px;">What our dealers say.</h2>
-    <div class="proof-grid">
-      <div class="proof-card">
-        <div class="dealer-name">Longo Toyota</div>
-        <div class="dealer-group">Penske Motor Group &mdash; World&rsquo;s Largest Toyota Dealer</div>
-        <div class="stat"><div class="val" style="color:var(--green);">15 min</div><div class="lbl">Saved per repair order</div></div>
-        <div class="stat"><div class="val" style="color:var(--green);">3 days</div><div class="lbl">Saved per car in recon</div></div>
-        <div class="stat"><div class="val" style="color:var(--green);">20 min</div><div class="lbl">Saved per delivery</div></div>
-        <div class="quote">&ldquo;MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.&rdquo;</div>
-        <div class="attribution">&mdash; Mark Seipel</div>
-        <div class="attr-role">Fixed Operations Director</div>
-      </div>
-      <div class="proof-card gold-top">
-        <div class="dealer-name">Bill Brown Ford</div>
-        <div class="dealer-group">Penske Automotive &mdash; World&rsquo;s Largest Ford Dealer</div>
-        <div class="stat"><div class="val" style="color:var(--gold);">2,000+</div><div class="lbl">Vehicles tracked across lots</div></div>
-        <div class="stat"><div class="val" style="color:var(--gold);">90%</div><div class="lbl">Sales team adoption</div></div>
-        <div class="stat"><div class="val" style="color:var(--gold);">Instant</div><div class="lbl">Pinpoint location</div></div>
-        <div class="quote">&ldquo;MDD instantly locates 2,000 vehicles on multiple lots all over town. We get cars customer-delivered without delays.&rdquo;</div>
-        <div class="attribution">&mdash; Dave Bird</div>
-        <div class="attr-role">New Car Inventory Manager</div>
-      </div>
-      <div class="proof-card secondary-top">
-        <div class="dealer-name">Brandon Honda</div>
-        <div class="dealer-group">Morgan Automotive Group</div>
-        <div class="stat"><div class="val" style="color:var(--green-dark);">41 min</div><div class="lbl">Saved per repair order</div></div>
-        <div class="stat"><div class="val" style="color:var(--green-dark);">$308K/mo</div><div class="lbl">Additional F&amp;I revenue</div></div>
-        <div class="stat"><div class="val" style="color:var(--green-dark);">Zero</div><div class="lbl">Lost keys</div></div>
-        <div class="quote">&ldquo;No longer loses keys, shaved 41 minutes per RO in service, and generates an additional $308K per month selling VehicleVault.&rdquo;</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-dark">
-  <div class="container-sm">
-    <h2 style="color:var(--white);text-align:center;margin-bottom:32px;">More dealer voices.</h2>
-    <div class="test-grid">
-      <div class="test-card"><blockquote>&ldquo;We are saving $10,000 a month in lost keys.&rdquo;</blockquote><div class="role">Rosedale Chevrolet</div></div>
-      <div class="test-card" style="border-left-color:var(--gold);"><blockquote>&ldquo;This solution makes us $10,000 a week on billable labor.&rdquo;</blockquote><div class="role">General Manager, Sunset Imports</div></div>
-      <div class="test-card"><blockquote>&ldquo;We found 100% of keys in under 30 seconds. Paid for itself in the first month.&rdquo;</blockquote><div class="role">Service Manager, Brandon Honda</div></div>
-      <div class="test-card" style="border-left-color:var(--gold);"><blockquote>&ldquo;We no longer roam the lot &mdash; we go get the car.&rdquo;</blockquote><div class="role">General Manager, Young Automotive Group</div></div>
-      <div class="test-card"><blockquote>&ldquo;We haven&rsquo;t lost a single key in six months.&rdquo;</blockquote><div class="role">Mercedes-Benz of Rocklin</div></div>
-      <div class="test-card" style="border-left-color:var(--gold);"><blockquote>&ldquo;Our recon time dropped 40% in the first quarter.&rdquo;</blockquote><div class="role">Used Car Director, Pacific Motor Group</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-card">
-  <div class="container-sm" style="text-align:center;">
-    <div class="guarantee">
-      <h3>90-Day Money-Back Guarantee</h3>
-      <p>We&rsquo;re confident MDD will deliver measurable results. No long-term risk. No complicated terms. If it doesn&rsquo;t work for you, we&rsquo;ll make it right.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- CTA -->
-<section class="cta-section bg-dark">
-  <h2>Ready to see results?</h2>
-  <p>Schedule a discovery call. We'll show you exactly how MDD works for dealerships like yours.</p>
-  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
-  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
-</section>
+{% module "cta"
+   path="../modules/cta-section.module",
+   headline="See these results for yourself.",
+   cta_text="Schedule Your Demo",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
 
 {% endblock body %}

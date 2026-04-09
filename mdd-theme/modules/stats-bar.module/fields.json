@@ -1,0 +1,149 @@
+[
+  {
+    "name": "columns",
+    "label": "Number of Columns",
+    "type": "choice",
+    "default": "4",
+    "choices": [
+      ["3", "3 Columns"],
+      ["4", "4 Columns"]
+    ]
+  },
+  {
+    "name": "stat_1_number",
+    "label": "Stat 1 Number",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_1_label",
+    "label": "Stat 1 Label",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_1_dealer",
+    "label": "Stat 1 Dealer",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_1_color",
+    "label": "Stat 1 Color",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["white", "White"]
+    ]
+  },
+  {
+    "name": "stat_2_number",
+    "label": "Stat 2 Number",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_2_label",
+    "label": "Stat 2 Label",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_2_dealer",
+    "label": "Stat 2 Dealer",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_2_color",
+    "label": "Stat 2 Color",
+    "type": "choice",
+    "default": "gold",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["white", "White"]
+    ]
+  },
+  {
+    "name": "stat_3_number",
+    "label": "Stat 3 Number",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_3_label",
+    "label": "Stat 3 Label",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_3_dealer",
+    "label": "Stat 3 Dealer",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_3_color",
+    "label": "Stat 3 Color",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["white", "White"]
+    ]
+  },
+  {
+    "name": "stat_4_number",
+    "label": "Stat 4 Number",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_4_label",
+    "label": "Stat 4 Label",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_4_dealer",
+    "label": "Stat 4 Dealer",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "stat_4_color",
+    "label": "Stat 4 Color",
+    "type": "choice",
+    "default": "gold",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["white", "White"]
+    ]
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "dark",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  },
+  {
+    "name": "section_size",
+    "label": "Section Padding",
+    "type": "choice",
+    "default": "small",
+    "choices": [
+      ["small", "Small (Compact)"],
+      ["normal", "Normal"]
+    ]
+  }
+]

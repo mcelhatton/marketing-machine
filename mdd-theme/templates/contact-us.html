@@ -6,16 +6,18 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<section class="hero hero-center">
-  <div class="inner">
-    <div>
-      <div class="tag">Get Started</div>
-      <h1>Let&rsquo;s talk about your <em>dealership.</em></h1>
-      <p class="sub">15-minute discovery call. We&rsquo;ll show you how MDD fits your operation. No commitment. No pressure.</p>
-    </div>
-  </div>
-</section>
+<!-- HERO -->
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="Get Started",
+   tag_style="green",
+   headline="Let's talk about your <em>dealership.</em>",
+   subtitle="15-minute discovery call. We'll show you how MDD fits your operation. No commitment. No pressure.",
+   show_secondary_cta=false,
+   layout="centered"
+%}
 
+<!-- CONTACT FORM SECTION - Custom two-column layout -->
 <section class="section bg-card">
   <div class="container-xs">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
@@ -23,13 +25,7 @@
         <h2 style="color:var(--white);font-size:24px;margin-bottom:16px;">Schedule a Demo</h2>
         <p style="margin-bottom:24px;">Fill out the form and our team will reach out within one business day to schedule your personalized demo.</p>
 
-        {% module "contact_form" path="@hubspot/form", label="Contact Form",
-          form={
-            "form_id": "",
-            "response_type": "redirect",
-            "redirect_url": "/thank-you"
-          }
-        %}
+        {# HubSpot form will be added via page editor #}
 
         <div class="contact-form">
           <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
@@ -37,7 +33,7 @@
           <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 123-4567"></div>
           <div class="form-group"><label>Dealership Name</label><input type="text" placeholder="Your dealership"></div>
           <div class="form-group"><label>Message (optional)</label><textarea placeholder="Tell us about your biggest challenge..."></textarea></div>
-          <button class="btn-primary" style="width:100%;justify-content:center;">Request My Demo &rarr;</button>
+          <button class="btn-primary" style="width:100%;justify-content:center;">Request My Demo →</button>
         </div>
       </div>
       <div>

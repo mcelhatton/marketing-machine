@@ -1,0 +1,57 @@
+{% set bg_class = "bg--" ~ module.background %}
+
+<section id="{{ module.section_id }}" class="section {{ bg_class }}">
+  <div class="container">
+    {% if module.section_tag %}
+    <div class="tag tag--{{ module.tag_style }}">{{ module.section_tag }}</div>
+    {% endif %}
+
+    {% if module.headline %}
+    <h2 class="section-headline">{{ module.headline }}</h2>
+    {% endif %}
+
+    <div class="feature-grid feature-grid--{{ module.columns }}col">
+      {% if module.feature_1_title %}
+      <div class="feature-card">
+        <h3>{{ module.feature_1_title }}</h3>
+        {% if module.feature_1_description %}<p>{{ module.feature_1_description }}</p>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if module.feature_2_title %}
+      <div class="feature-card">
+        <h3>{{ module.feature_2_title }}</h3>
+        {% if module.feature_2_description %}<p>{{ module.feature_2_description }}</p>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if module.feature_3_title %}
+      <div class="feature-card">
+        <h3>{{ module.feature_3_title }}</h3>
+        {% if module.feature_3_description %}<p>{{ module.feature_3_description }}</p>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if module.feature_4_title %}
+      <div class="feature-card">
+        <h3>{{ module.feature_4_title }}</h3>
+        {% if module.feature_4_description %}<p>{{ module.feature_4_description }}</p>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if module.feature_5_title %}
+      <div class="feature-card">
+        <h3>{{ module.feature_5_title }}</h3>
+        {% if module.feature_5_description %}<p>{{ module.feature_5_description }}</p>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if module.feature_6_title %}
+      <div class="feature-card">
+        <h3>{{ module.feature_6_title }}</h3>
+        {% if module.feature_6_description %}<p>{{ module.feature_6_description }}</p>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

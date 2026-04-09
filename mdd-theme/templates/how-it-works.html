@@ -6,55 +6,38 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<section class="hero hero-center">
-  <div class="inner">
-    <div>
-      <div class="tag">How It Works</div>
-      <h1>From setup to daily operations to <em>new revenue.</em></h1>
-      <p class="sub">Our workflows are dynamically updated with live car locations, providing certainty and true accountability no other software can deliver.</p>
-      <div class="cta-row"><a href="/preview-contact-us" class="btn-primary">Schedule a Discovery Call &rarr;</a></div>
-    </div>
-  </div>
-</section>
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="How It Works",
+   tag_style="green",
+   headline="Three steps. Instant visibility.",
+   subtitle="Tag, track, find. It really is that simple.",
+   primary_cta_text="Schedule a Demo",
+   primary_cta_url="https://mdd.io/contact-us",
+   layout="centered"
+%}
 
-<section class="section bg-light">
-  <div class="container">
-    <div class="showcase" style="margin-bottom:60px;"><div><div class="step-num">1</div><h2 style="color:var(--dark-text);">Equip Your Dealership</h2><p style="color:var(--body-dark);margin-top:12px;">Tags for every key. Tags for every vehicle. Anchors installed throughout your facility. Complete visibility from day one.</p></div><img src="https://mdd.io/hubfs/Equipment.png" alt="MDD equipment"></div>
-    <div class="showcase reverse" style="margin-bottom:60px;"><div><div class="step-num">2</div><h2 style="color:var(--dark-text);">Never Lose a Key Again</h2><p style="color:var(--body-dark);margin-top:12px;">With every key tagged and tracked, your team stops wasting time searching. Keys are always exactly where the system says they are. Reduced costs, faster workflows, less frustration.</p></div><img src="https://mdd.io/hubfs/Never%20Lost%20a%20Key%20again.png" alt="Never lost a key"></div>
-    <div class="showcase" style="margin-bottom:60px;"><div><div class="step-num">3</div><h2 style="color:var(--dark-text);">Live Inventory Visibility</h2><p style="color:var(--body-dark);margin-top:12px;">The same tags that track keys also track vehicles. Live inventory visibility with zero extra effort &mdash; no spreadsheets, no manual updates, no guesswork.</p></div><img src="https://mdd.io/hubfs/Inventory%20MGT.png" alt="Inventory management"></div>
-    <div class="showcase reverse" style="margin-bottom:60px;"><div><div class="step-num">4</div><h2 style="color:var(--dark-text);">Automated Service &amp; Recon Workflows</h2><p style="color:var(--body-dark);margin-top:12px;">Define your service and recon stages. As vehicles move through your facility, the system tracks progress automatically. Your team always knows what&rsquo;s next and where bottlenecks exist.</p></div><img src="{{ get_asset_url('../mdd-assets/service-dashboard.webp') }}" alt="Service dashboard"></div>
-    <div class="showcase"><div><div class="step-num">5</div><h2 style="color:var(--dark-text);">Turn Tracking Into Revenue</h2><p style="color:var(--body-dark);margin-top:12px;">Offer tracking to your customers through VehicleVault. Create a new high-margin F&amp;I revenue stream while delivering real value they&rsquo;ll use every day.</p></div><img src="https://mdd.io/hubfs/Tracking%20as%20a%20revenue%20system.png" alt="Tracking revenue"></div>
-  </div>
-</section>
+{% module "how_it_works"
+   path="../modules/steps-grid.module",
+   section_tag="The Process",
+   headline="Setup takes less than a day.",
+   step_1_title="Tag",
+   step_1_description="Attach Bluetooth tags to keys and vehicles. Takes 10 seconds per tag.",
+   step_2_title="Track",
+   step_2_description="See real-time locations on desktop or mobile. No check-outs needed.",
+   step_3_title="Find",
+   step_3_description="Search by VIN or stock number. Walk directly to the key or car.",
+   background="light"
+%}
 
-<section class="section bg-dark">
-  <div class="container-sm">
-    <div class="section-tag light" style="text-align:center;">Getting Started</div>
-    <h2 style="color:var(--white);text-align:center;margin-bottom:40px;">Simple next steps.</h2>
-    <div class="stat-grid cols-3">
-      <div class="stat-card"><div class="num" style="font-size:32px;">1</div><div class="label" style="font-weight:600;color:var(--white);font-size:14px;margin-top:12px;">Discovery Call</div><div class="label">We learn about your dealership and show you how MDD fits.</div></div>
-      <div class="stat-card"><div class="num" style="font-size:32px;">2</div><div class="label" style="font-weight:600;color:var(--white);font-size:14px;margin-top:12px;">Select Your Plan</div><div class="label">Choose the right package for your size and needs.</div></div>
-      <div class="stat-card"><div class="num" style="font-size:32px;">3</div><div class="label" style="font-weight:600;color:var(--white);font-size:14px;margin-top:12px;">Install &amp; Go Live</div><div class="label">Most installs complete in a single day. Full hyper-care support included.</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-card">
-  <div class="container-xs" style="text-align:center;">
-    <div class="guarantee">
-      <h3>90-Day Money-Back Guarantee</h3>
-      <p>We&rsquo;re confident MDD will deliver measurable results. If it doesn&rsquo;t work for you, we&rsquo;ll make it right. No long-term risk. No complicated terms.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- CTA -->
-<section class="cta-section bg-dark">
-  <h2>Ready to get started?</h2>
-  <p>Schedule a discovery call. We'll show you exactly how MDD works for dealerships like yours.</p>
-  <a href="/preview-contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
-  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
-</section>
+{% module "cta"
+   path="../modules/cta-section.module",
+   headline="Ready to see it work?",
+   cta_text="Schedule Your Demo",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
 
 {% endblock body %}

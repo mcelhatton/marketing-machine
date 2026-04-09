@@ -1,0 +1,42 @@
+{# Hero Section Module #}
+<section class="section hero{% if module.layout == 'centered' %} hero-centered{% endif %}">
+  <div class="hero-glow"></div>
+  <div class="container">
+    {% if module.layout == "two_column" %}
+    <div class="hero-grid">
+      <div class="hero-content">
+        {% if module.product_tag %}
+        <span class="tag tag-{{ module.tag_style }}">{{ module.product_tag }}</span>
+        {% endif %}
+        <h1>{{ module.headline }}</h1>
+        <p class="sub">{{ module.subtitle }}</p>
+        <div class="cta-group">
+          <a href="{{ module.primary_cta_url }}" class="btn btn-primary">{{ module.primary_cta_text }} &rarr;</a>
+          {% if module.show_secondary_cta %}
+          <a href="{{ module.secondary_cta_url }}" class="btn btn-outline">{{ module.secondary_cta_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+      {% if module.hero_image_src %}
+      <div class="hero-image">
+        <img src="{{ module.hero_image_src }}" alt="{{ module.hero_image_alt }}" style="max-width: {{ module.image_max_width }}px;">
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="hero-content hero-content-centered">
+      {% if module.product_tag %}
+      <span class="tag tag-{{ module.tag_style }}">{{ module.product_tag }}</span>
+      {% endif %}
+      <h1>{{ module.headline }}</h1>
+      <p class="sub">{{ module.subtitle }}</p>
+      <div class="cta-group">
+        <a href="{{ module.primary_cta_url }}" class="btn btn-primary">{{ module.primary_cta_text }} &rarr;</a>
+        {% if module.show_secondary_cta %}
+        <a href="{{ module.secondary_cta_url }}" class="btn btn-outline">{{ module.secondary_cta_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>

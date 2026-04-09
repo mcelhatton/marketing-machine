@@ -1,0 +1,72 @@
+[
+  {
+    "name": "section_id",
+    "label": "Section ID",
+    "type": "text",
+    "default": "problem"
+  },
+  {
+    "name": "tag_text",
+    "label": "Tag Text",
+    "type": "text",
+    "default": "Sound Familiar?"
+  },
+  {
+    "name": "tag_style",
+    "label": "Tag Style",
+    "type": "choice",
+    "default": "gold",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["light", "Light"]
+    ]
+  },
+  {
+    "name": "headline",
+    "label": "Headline",
+    "type": "text",
+    "default": "Keys disappear. Deals stall."
+  },
+  {
+    "name": "description",
+    "label": "Description",
+    "type": "text",
+    "default": "Your salesperson has a customer ready to buy..."
+  },
+  {
+    "name": "pain_item_1",
+    "label": "Pain Item 1",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "pain_item_2",
+    "label": "Pain Item 2",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "pain_item_3",
+    "label": "Pain Item 3",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "pain_item_4",
+    "label": "Pain Item 4",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "card",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  }
+]

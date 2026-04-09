@@ -1,0 +1,89 @@
+[
+  {
+    "name": "product_tag",
+    "label": "Product Tag",
+    "type": "text",
+    "default": "MDD Locate"
+  },
+  {
+    "name": "tag_style",
+    "label": "Tag Style",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["locateiq", "LocateIQ Purple"]
+    ]
+  },
+  {
+    "name": "headline",
+    "label": "Headline",
+    "type": "text",
+    "default": "Find any key in seconds."
+  },
+  {
+    "name": "subtitle",
+    "label": "Subtitle",
+    "type": "text",
+    "default": "Real-time location for every key in your dealership."
+  },
+  {
+    "name": "primary_cta_text",
+    "label": "Primary CTA Text",
+    "type": "text",
+    "default": "Schedule a 15-Min Demo"
+  },
+  {
+    "name": "primary_cta_url",
+    "label": "Primary CTA URL",
+    "type": "text",
+    "default": "https://mdd.io/contact-us"
+  },
+  {
+    "name": "show_secondary_cta",
+    "label": "Show Secondary CTA",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "name": "secondary_cta_text",
+    "label": "Secondary CTA Text",
+    "type": "text",
+    "default": "How It Works"
+  },
+  {
+    "name": "secondary_cta_url",
+    "label": "Secondary CTA URL",
+    "type": "text",
+    "default": "#how"
+  },
+  {
+    "name": "hero_image_src",
+    "label": "Hero Image URL",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "hero_image_alt",
+    "label": "Hero Image Alt Text",
+    "type": "text",
+    "default": "MDD product screenshot"
+  },
+  {
+    "name": "image_max_width",
+    "label": "Image Max Width (px)",
+    "type": "number",
+    "default": 320
+  },
+  {
+    "name": "layout",
+    "label": "Layout",
+    "type": "choice",
+    "default": "two_column",
+    "choices": [
+      ["two_column", "Two Column (Text + Image)"],
+      ["centered", "Centered"]
+    ]
+  }
+]

@@ -1,0 +1,108 @@
+[
+  {
+    "name": "section_tag",
+    "label": "Section Tag",
+    "type": "text",
+    "default": "The MDD Difference"
+  },
+  {
+    "name": "tag_style",
+    "label": "Tag Style",
+    "type": "choice",
+    "default": "light",
+    "choices": [
+      ["light", "Light Green"],
+      ["green", "Green"],
+      ["gold", "Gold"]
+    ]
+  },
+  {
+    "name": "headline",
+    "label": "Section Headline",
+    "type": "text",
+    "default": "Key boxes tell you who. MDD tells you where."
+  },
+  {
+    "name": "left_title",
+    "label": "Left Column Title",
+    "type": "text",
+    "default": "Traditional Key Management"
+  },
+  {
+    "name": "left_item_1",
+    "label": "Left Item 1",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "left_item_2",
+    "label": "Left Item 2",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "left_item_3",
+    "label": "Left Item 3",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "left_item_4",
+    "label": "Left Item 4",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "left_item_5",
+    "label": "Left Item 5",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "right_title",
+    "label": "Right Column Title",
+    "type": "text",
+    "default": "LocateIQ"
+  },
+  {
+    "name": "right_item_1",
+    "label": "Right Item 1",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "right_item_2",
+    "label": "Right Item 2",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "right_item_3",
+    "label": "Right Item 3",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "right_item_4",
+    "label": "Right Item 4",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "right_item_5",
+    "label": "Right Item 5",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "card",
+    "choices": [
+      ["card", "Card"],
+      ["dark", "Dark"],
+      ["light", "Light"]
+    ]
+  }
+]

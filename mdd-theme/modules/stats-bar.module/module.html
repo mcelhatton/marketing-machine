@@ -1,0 +1,50 @@
+{# Stats Bar Module #}
+<section class="section{% if module.section_size == 'small' %} section-sm{% endif %} bg-{{ module.background }}">
+  <div class="container-sm">
+    <div class="stat-grid cols-{{ module.columns }}">
+      {# Stat 1 #}
+      {% if module.stat_1_number %}
+      <div class="stat-card{% if module.background == 'light' %} stat-light{% endif %}">
+        <div class="num{% if module.stat_1_color == 'gold' %} gold{% endif %}">{{ module.stat_1_number }}</div>
+        <div class="label">{{ module.stat_1_label }}</div>
+        {% if module.stat_1_dealer %}
+        <div class="dealer">{{ module.stat_1_dealer }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {# Stat 2 #}
+      {% if module.stat_2_number %}
+      <div class="stat-card{% if module.background == 'light' %} stat-light{% endif %}">
+        <div class="num{% if module.stat_2_color == 'gold' %} gold{% endif %}">{{ module.stat_2_number }}</div>
+        <div class="label">{{ module.stat_2_label }}</div>
+        {% if module.stat_2_dealer %}
+        <div class="dealer">{{ module.stat_2_dealer }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {# Stat 3 #}
+      {% if module.stat_3_number %}
+      <div class="stat-card{% if module.background == 'light' %} stat-light{% endif %}">
+        <div class="num{% if module.stat_3_color == 'gold' %} gold{% endif %}">{{ module.stat_3_number }}</div>
+        <div class="label">{{ module.stat_3_label }}</div>
+        {% if module.stat_3_dealer %}
+        <div class="dealer">{{ module.stat_3_dealer }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {# Stat 4 #}
+      {% if module.stat_4_number %}
+      <div class="stat-card{% if module.background == 'light' %} stat-light{% endif %}">
+        <div class="num{% if module.stat_4_color == 'gold' %} gold{% endif %}">{{ module.stat_4_number }}</div>
+        <div class="label">{{ module.stat_4_label }}</div>
+        {% if module.stat_4_dealer %}
+        <div class="dealer">{{ module.stat_4_dealer }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

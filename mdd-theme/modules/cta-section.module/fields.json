@@ -1,0 +1,55 @@
+[
+  {
+    "name": "section_id",
+    "label": "Section ID",
+    "type": "text",
+    "default": "demo"
+  },
+  {
+    "name": "headline",
+    "label": "Headline",
+    "type": "text",
+    "default": "See it in 15 minutes."
+  },
+  {
+    "name": "description",
+    "label": "Description",
+    "type": "text",
+    "default": "We will show you exactly how MDD works."
+  },
+  {
+    "name": "cta_text",
+    "label": "CTA Button Text",
+    "type": "text",
+    "default": "Schedule Your Demo"
+  },
+  {
+    "name": "cta_url",
+    "label": "CTA Button URL",
+    "type": "text",
+    "default": "https://mdd.io/contact-us"
+  },
+  {
+    "name": "show_phone",
+    "label": "Show Phone Number",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "name": "phone_number",
+    "label": "Phone Number",
+    "type": "text",
+    "default": "844-292-7110"
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "dark",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  }
+]

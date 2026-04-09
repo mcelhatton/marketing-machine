@@ -1,0 +1,124 @@
+[
+  {
+    "name": "section_id",
+    "label": "Section ID",
+    "type": "text",
+    "default": "features"
+  },
+  {
+    "name": "section_tag",
+    "label": "Section Tag",
+    "type": "text",
+    "default": "Features"
+  },
+  {
+    "name": "tag_style",
+    "label": "Tag Style",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["light", "Light"]
+    ]
+  },
+  {
+    "name": "headline",
+    "label": "Headline",
+    "type": "text",
+    "default": "Everything you need to find keys and cars."
+  },
+  {
+    "name": "columns",
+    "label": "Grid Columns",
+    "type": "choice",
+    "default": "3",
+    "choices": [
+      ["2", "2 Columns"],
+      ["3", "3 Columns"]
+    ]
+  },
+  {
+    "name": "feature_1_title",
+    "label": "Feature 1 Title",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_1_description",
+    "label": "Feature 1 Description",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_2_title",
+    "label": "Feature 2 Title",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_2_description",
+    "label": "Feature 2 Description",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_3_title",
+    "label": "Feature 3 Title",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_3_description",
+    "label": "Feature 3 Description",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_4_title",
+    "label": "Feature 4 Title",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_4_description",
+    "label": "Feature 4 Description",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_5_title",
+    "label": "Feature 5 Title",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_5_description",
+    "label": "Feature 5 Description",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_6_title",
+    "label": "Feature 6 Title",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "feature_6_description",
+    "label": "Feature 6 Description",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "dark",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  }
+]

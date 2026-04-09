@@ -1,0 +1,19 @@
+{# Rich Text Section Module #}
+<section class="section bg-{{ module.background }}"{% if module.text_align == 'center' %} style="text-align:center;"{% endif %}>
+  <div class="{% if module.container_width == 'small' %}container-sm{% elif module.container_width == 'extra_small' %}container-xs{% else %}container{% endif %}">
+    {# Section Tag #}
+    {% if module.section_tag %}
+      <div class="section-tag {{ module.tag_style }}"{% if module.text_align == 'center' %} style="text-align:center;"{% endif %}>{{ module.section_tag }}</div>
+    {% endif %}
+
+    {# Headline #}
+    {% if module.headline %}
+      <h2 style="color:var(--{% if module.background == 'light' %}dark-text{% else %}white{% endif %});margin-bottom:16px;">{{ module.headline }}</h2>
+    {% endif %}
+
+    {# Content #}
+    <div style="color:var(--{% if module.background == 'light' %}body-dark{% else %}body-text{% endif %});font-size:16px;{% if module.text_align == 'center' %}max-width:{% if module.container_width == 'extra_small' %}600{% else %}700{% endif %}px;margin:0 auto;{% endif %}">
+      {{ module.content }}
+    </div>
+  </div>
+</section>

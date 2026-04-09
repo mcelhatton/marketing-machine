@@ -1,0 +1,57 @@
+[
+  {
+    "name": "style",
+    "label": "Style",
+    "type": "choice",
+    "default": "large",
+    "choices": [
+      ["large", "Large Quote"],
+      ["compact", "Compact"]
+    ]
+  },
+  {
+    "name": "quote",
+    "label": "Quote Text",
+    "type": "text",
+    "default": "MDD delivers on its promises."
+  },
+  {
+    "name": "author",
+    "label": "Author Name",
+    "type": "text",
+    "default": "John Doe"
+  },
+  {
+    "name": "role",
+    "label": "Author Role",
+    "type": "text",
+    "default": "General Manager"
+  },
+  {
+    "name": "company",
+    "label": "Company",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "accent_color",
+    "label": "Accent Color",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"]
+    ]
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "dark",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  }
+]

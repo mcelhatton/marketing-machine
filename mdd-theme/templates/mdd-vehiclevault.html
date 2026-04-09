@@ -1,347 +1,126 @@
 <!--
   templateType: page
   isAvailableForNewContent: true
-  label: MDD VehicleVault F&I
+  label: MDD VehicleVault
 -->
 {% extends "./base.html" %}
 {% block body %}
 
 <!-- HERO -->
-<section class="hero">
-  <div class="inner">
-    <div>
-      <div class="tag gold">F&amp;I Revenue Generator</div>
-      <h1>Turn every delivery into <em style="color:var(--gold);">recurring revenue.</em></h1>
-      <p class="sub">Give customers an app they actually use &mdash; and keep them connected to your dealership. High-margin F&amp;I product. Zero chargebacks. Recurring subscription income.</p>
-      <div class="cta-row">
-        <a href="https://mdd.io/contact-us" class="btn-primary">See the Revenue Model &rarr;</a>
-        <a href="#what" class="btn-outline">How It Works</a>
-      </div>
-    </div>
-    <div class="hero-img" style="display:flex;gap:12px;justify-content:center;">
-      <img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" alt="VehicleVault key tracking app" style="width:150px;border-radius:20px;box-shadow:var(--shadow-lg);">
-      <img src="{{ get_asset_url('../mdd-assets/app-rewards.png') }}" alt="VehicleVault rewards program" style="width:150px;border-radius:20px;box-shadow:var(--shadow-lg);margin-top:30px;">
-    </div>
-  </div>
-</section>
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="VehicleVault",
+   tag_style="gold",
+   headline="An F&I product customers <em>actually use.</em>",
+   subtitle="Key tracking for them. Recurring profit for you. Zero chargebacks. Your brand on their phone every day.",
+   primary_cta_text="See VehicleVault Demo",
+   primary_cta_url="https://mdd.io/contact-us",
+   show_secondary_cta=true,
+   secondary_cta_text="How It Works",
+   secondary_cta_url="#how",
+   layout="centered"
+%}
 
-<!-- STATS BAR - THE NUMBERS -->
-<section class="section section-sm bg-card">
-  <div class="container-sm">
-    <div class="stat-grid cols-3">
-      <div class="stat-card">
-        <div class="num gold" style="font-size:44px;">$308K</div>
-        <div class="label">Additional F&amp;I revenue per month</div>
-        <div class="dealer">Brandon Honda</div>
-      </div>
-      <div class="stat-card">
-        <div class="num" style="font-size:44px;">Zero</div>
-        <div class="label">Chargebacks across all MDD dealers</div>
-        <div class="dealer">Industry-Leading</div>
-      </div>
-      <div class="stat-card">
-        <div class="num gold" style="font-size:44px;">100%</div>
-        <div class="label">Dealer-branded customer app</div>
-        <div class="dealer">Your Name. Their Phone.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE PROBLEM -->
-<section class="section bg-dark" style="text-align:center;">
-  <div class="container-xs">
-    <div class="section-tag gold" style="text-align:center;">The Real Problem</div>
-    <h2 style="color:var(--white);font-size:32px;margin-bottom:16px;">The biggest challenge dealerships face?<br><em style="color:var(--gold);">Customers forget about you.</em></h2>
-    <p style="font-size:16px;max-width:600px;margin:0 auto;">They drive off the lot and you become a distant memory. Service goes to the quick lube down the street. Their next car comes from wherever Google points them. VehicleVault changes that.</p>
-  </div>
-</section>
-
-<!-- WHAT IS VEHICLEVAULT -->
-<section class="section bg-light" id="what">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag">What is VehicleVault?</div>
-    <h2 style="color:var(--dark-text);margin-bottom:32px;">An F&amp;I product customers actually <em style="color:var(--green);">want</em>.</h2>
-    <div class="feature-grid cols-2">
-      <div class="feature-card card-light">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--green);">
-          <svg width="28" height="28" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-        </div>
-        <div>
-          <h3>Two Bluetooth Key Trackers</h3>
-          <p>Customer gets two physical trackers for their key fobs. They can locate keys anytime from the VehicleVault app. Tangible. Useful. Easy to explain.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light gold-top">
-        <div class="f-icon" style="width:56px;height:56px;background:rgba(245,158,11,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);">
-          <svg width="28" height="28" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        </div>
-        <div>
-          <h3>Dealer-Branded App</h3>
-          <p>Customer downloads an app branded with YOUR dealership name. Every time they open it to find their keys, they see YOUR brand.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--green);">
-          <svg width="28" height="28" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </div>
-        <div>
-          <h3>Vehicle Management Hub</h3>
-          <p>Customers track VIN, mileage, registration, documents, and full service history. Everything about their car in one place.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light gold-top">
-        <div class="f-icon" style="width:56px;height:56px;background:rgba(245,158,11,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);">
-          <svg width="28" height="28" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-        </div>
-        <div>
-          <h3>Rewards &amp; Loyalty Program</h3>
-          <p>Built-in rewards program drives service retention. Customers earn loyalty dollars redeemable at YOUR dealership. Not the competition.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOR THE DEALERSHIP -->
-<section class="section bg-card">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag light">For Your Dealership</div>
-    <h2 style="color:var(--white);margin-bottom:32px;">Why F&amp;I managers love selling VehicleVault.</h2>
-    <div class="feature-grid cols-3">
-      <div class="feature-card card-vertical">
-        <div style="width:60px;height:60px;background:var(--green-glow);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;border:2px solid rgba(138,200,51,0.3);">
-          <svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div style="text-align:center;">
-          <h3>High-Margin Add-On</h3>
-          <p>Sell at point of delivery. Strong margin per unit. Front-end or back-end positioning.</p>
-        </div>
-      </div>
-      <div class="feature-card card-vertical">
-        <div style="width:60px;height:60px;background:rgba(245,158,11,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;border:2px solid rgba(245,158,11,0.3);">
-          <svg width="28" height="28" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-        </div>
-        <div style="text-align:center;">
-          <h3>Recurring Revenue</h3>
-          <p>Subscription model means revenue that keeps coming. Month after month.</p>
-        </div>
-      </div>
-      <div class="feature-card card-vertical">
-        <div style="width:60px;height:60px;background:var(--green-glow);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;border:2px solid rgba(138,200,51,0.3);">
-          <svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div style="text-align:center;">
-          <h3>Zero Chargebacks</h3>
-          <p>Flexible reinsured options. No chargebacks across all MDD dealers. Ever.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE CUSTOMER EXPERIENCE -->
-<section class="section bg-dark">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag light">The Customer Experience</div>
-    <h2 style="color:var(--white);margin-bottom:24px;">An app they&rsquo;ll actually open every day.</h2>
-    <p style="text-align:center;color:var(--body-text);max-width:600px;margin:0 auto 32px;">Every time a customer opens the app to find their keys, they see your dealership name. When it&rsquo;s time for service, you&rsquo;re one tap away. That&rsquo;s stickiness other F&amp;I products can&rsquo;t match.</p>
-    <div class="app-grid">
-      <div class="app-card">
-        <img src="{{ get_asset_url('../mdd-assets/app-map-tracking.png') }}" alt="Key tracking feature">
-        <div class="app-label">
-          <h3>Key Tracking</h3>
-          <p>Real-time location map</p>
-        </div>
-      </div>
-      <div class="app-card">
-        <img src="{{ get_asset_url('../mdd-assets/app-vehicle-detail.png') }}" alt="Vehicle info feature">
-        <div class="app-label">
-          <h3>Vehicle Info</h3>
-          <p>VIN, mileage, documents</p>
-        </div>
-      </div>
-      <div class="app-card">
-        <img src="{{ get_asset_url('../mdd-assets/app-rewards.png') }}" alt="Rewards feature">
-        <div class="app-label">
-          <h3>Rewards</h3>
-          <p>Loyalty dollars earned</p>
-        </div>
-      </div>
-      <div class="app-card">
-        <img src="{{ get_asset_url('../mdd-assets/app-dealer-profile.png') }}" alt="Dealership feature">
-        <div class="app-label">
-          <h3>Your Dealership</h3>
-          <p>One-tap service booking</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- STATS -->
+{% module "stats"
+   path="../modules/stats-bar.module",
+   columns="3",
+   stat_1_number="$308K/mo",
+   stat_1_label="additional F&I revenue",
+   stat_1_dealer="Brandon Honda",
+   stat_1_color="gold",
+   stat_2_number="Zero",
+   stat_2_label="chargebacks across all dealers",
+   stat_2_dealer="All MDD Dealers",
+   stat_2_color="green",
+   stat_3_number="100%",
+   stat_3_label="dealer-branded customer app",
+   stat_3_dealer="Product Feature",
+   stat_3_color="gold",
+   background="dark",
+   section_size="small"
+%}
 
 <!-- HOW IT WORKS -->
-<section class="section bg-light">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag">How It Works</div>
-    <h2 style="color:var(--dark-text);margin-bottom:48px;">Simple to sell. Easy for customers to use.</h2>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3 style="color:var(--dark-text);">Offer at the Desk</h3>
-        <p>F&amp;I presents VehicleVault during delivery. Tangible product &mdash; two key trackers customer can hold. Easy to explain, easy to sell.</p>
-      </div>
-      <div class="step">
-        <div class="step-num" style="background:var(--gold);">2</div>
-        <h3 style="color:var(--dark-text);">Customer Downloads App</h3>
-        <p>Customer gets a dealer-branded app on their phone. Syncs with their key trackers. Sets up vehicle info. Takes 2 minutes.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3 style="color:var(--dark-text);">You Stay Top of Mind</h3>
-        <p>Every time they look for their keys, they see YOUR name. Loyalty rewards bring them back for service. Recurring revenue for you.</p>
-      </div>
-    </div>
-  </div>
-</section>
+{% module "how_it_works"
+   path="../modules/steps-grid.module",
+   section_id="how",
+   section_tag="How It Works",
+   tag_style="gold",
+   headline="Sell it at the desk. Profit forever.",
+   step_1_title="F&I Offers VehicleVault",
+   step_1_description="Present VehicleVault during the sale. Tangible product customers understand immediately.",
+   step_2_title="Customer Gets Key Trackers",
+   step_2_description="Two Bluetooth key trackers plus your dealer-branded app. Real value they'll use daily.",
+   step_3_title="You Get Recurring Revenue",
+   step_3_description="High-margin add-on with subscription income. Zero chargebacks. Customer loyalty.",
+   show_bottom_cta=false,
+   background="light"
+%}
 
-<!-- CASE STUDY - BRANDON HONDA -->
-<section class="section bg-card">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag gold">Real Results</div>
-    <h2 style="color:var(--white);margin-bottom:32px;">Brandon Honda: The VehicleVault Success Story</h2>
-    <div class="stat-grid cols-3" style="margin-bottom:32px;">
-      <div class="stat-card">
-        <div class="num gold" style="font-size:36px;">$308K/mo</div>
-        <div class="label">Additional F&amp;I revenue</div>
-      </div>
-      <div class="stat-card">
-        <div class="num" style="font-size:36px;">41 min</div>
-        <div class="label">Saved per repair order</div>
-      </div>
-      <div class="stat-card">
-        <div class="num gold" style="font-size:36px;">Zero</div>
-        <div class="label">Lost keys</div>
-      </div>
-    </div>
-    <div class="testimonial-lg" style="background:var(--charcoal);padding:32px;border-radius:var(--radius);border-left:4px solid var(--gold);">
-      <blockquote style="font-size:18px;text-align:left;">&ldquo;No longer loses keys, shaved 41 minutes per RO in service, and generates an additional $308K per month selling VehicleVault.&rdquo;</blockquote>
-      <div style="font-size:14px;font-weight:700;color:var(--gold);margin-top:16px;">Brandon Honda</div>
-      <div style="font-size:13px;color:var(--muted);">Morgan Automotive Group</div>
-    </div>
-  </div>
-</section>
+<!-- FEATURES - DEALER BENEFITS -->
+{% module "features"
+   path="../modules/feature-grid.module",
+   section_tag="Why VehicleVault Sells",
+   tag_style="gold",
+   headline="Six reasons F&I managers love it.",
+   columns="3",
+   background="dark",
+   feature_1_title="High Margin",
+   feature_1_description="Premium F&I product with strong profit per deal. Front-end or back-end positioning.",
+   feature_2_title="Recurring Revenue",
+   feature_2_description="Subscription model creates ongoing income stream beyond the initial sale.",
+   feature_3_title="Zero Chargebacks",
+   feature_3_description="Flexible reinsured options. No chargebacks across all MDD dealers.",
+   feature_4_title="Customer Stickiness",
+   feature_4_description="Your dealership name on their phone. They see you every time they find their keys.",
+   feature_5_title="Easy to Sell",
+   feature_5_description="Tangible product customers can touch and understand. Not abstract coverage.",
+   feature_6_title="Rewards Program",
+   feature_6_description="Loyalty dollars redeemable at your dealership. Drives service retention."
+%}
 
-<!-- VS COMPARISON -->
-<section class="section bg-dark">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag light">Why VehicleVault Wins</div>
-    <h2 style="color:var(--white);margin-bottom:36px;">Compared to other F&amp;I products.</h2>
-    <div class="vs-grid">
-      <div class="vs-col bad">
-        <h3>Traditional F&amp;I Products</h3>
-        <ul>
-          <li>Abstract coverage hard to explain</li>
-          <li>Customers never think about them</li>
-          <li>No ongoing engagement</li>
-          <li>Chargeback risk</li>
-          <li>No brand visibility</li>
-        </ul>
-      </div>
-      <div class="vs-divider">VS</div>
-      <div class="vs-col good">
-        <h3>VehicleVault</h3>
-        <ul>
-          <li>Tangible product they can hold</li>
-          <li>Daily use (key tracking)</li>
-          <li>Constant brand engagement</li>
-          <li>Zero chargebacks ever</li>
-          <li>Your name on their phone</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- CUSTOMER APP FEATURES -->
+{% module "features_customer"
+   path="../modules/feature-grid.module",
+   section_tag="What Customers Get",
+   tag_style="green",
+   headline="An app they'll actually open every day.",
+   columns="2",
+   background="light",
+   feature_1_title="Key Tracking",
+   feature_1_description="Find their keys instantly with the same Bluetooth technology dealerships trust.",
+   feature_2_title="Vehicle Info",
+   feature_2_description="VIN, mileage, registration, documents, service history - all in one place.",
+   feature_3_title="Rewards & Loyalty",
+   feature_3_description="Earn loyalty dollars redeemable at your dealership for service and parts.",
+   feature_4_title="Your Dealership Brand",
+   feature_4_description="Every time they open the app to find their keys, they see YOUR name."
+%}
 
-<!-- FAQ SECTION -->
-<section class="section bg-light">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag">Common Questions</div>
-    <h2 style="color:var(--dark-text);margin-bottom:32px;">Everything you need to know about VehicleVault.</h2>
-    <div class="feature-grid cols-2">
-      <div class="feature-card card-light">
-        <div>
-          <h3>How do we sell it?</h3>
-          <p>Present at delivery like any F&amp;I product. The difference: it&rsquo;s tangible. Customers can hold the key trackers. Easy to demonstrate value.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div>
-          <h3>What&rsquo;s the margin?</h3>
-          <p>High margin per unit. Pricing varies based on term length and benefit package. Schedule a demo for a custom revenue projection.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div>
-          <h3>Front-end or back-end?</h3>
-          <p>Your choice. Add to your addendum as a front-end product OR sell through F&amp;I as a back-end add-on. Flexibility to match your process.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div>
-          <h3>What about chargebacks?</h3>
-          <p>Zero chargebacks across all MDD dealers. Flexible reinsured options available. This isn&rsquo;t a theoretical claim &mdash; it&rsquo;s our track record.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div>
-          <h3>Is the app really dealer-branded?</h3>
-          <p>100%. Your dealership name, your branding, your contact info. When customers open the app, they see YOU &mdash; not a generic vendor.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div>
-          <h3>How does the loyalty program work?</h3>
-          <p>Customers earn loyalty dollars through the app, redeemable at YOUR dealership for service. Drives repeat visits and service retention.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- TESTIMONIAL -->
+{% module "testimonial"
+   path="../modules/testimonial.module",
+   style="large",
+   quote="Brandon Honda generates an additional $308K per month selling VehicleVault. Zero chargebacks.",
+   author="Morgan Automotive Group",
+   role="Brandon Honda",
+   company="",
+   accent_color="gold",
+   background="dark"
+%}
 
-<!-- WHO IT'S FOR -->
-<section class="section bg-card">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag light">Who Benefits</div>
-    <h2 style="color:var(--white);margin-bottom:32px;">VehicleVault creates value across your dealership.</h2>
-    <div class="feature-grid cols-3">
-      <div class="feature-card">
-        <div>
-          <h3>F&amp;I Managers</h3>
-          <p>High-margin product that&rsquo;s easy to explain and demonstrate. Recurring revenue. Zero chargebacks.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div>
-          <h3>Owners &amp; GMs</h3>
-          <p>New profit center with recurring income. Customer retention. Brand visibility on every customer&rsquo;s phone.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div>
-          <h3>Sales Managers</h3>
-          <p>Incremental revenue per unit sold. Front-end or back-end gross. Differentiator from competitors.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="cta-section bg-dark">
-  <h2>See what $308K/mo looks like.</h2>
-  <p>We&rsquo;ll walk you through the full VehicleVault F&amp;I model and build a custom revenue projection for your store. No commitment. No pressure.</p>
-  <a href="https://mdd.io/contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
-  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
-</section>
+<!-- CTA -->
+{% module "cta"
+   path="../modules/cta-section.module",
+   section_id="demo",
+   headline="See what $308K/mo looks like.",
+   description="Schedule a demo to see how VehicleVault can add high-margin recurring revenue to your F&I department.",
+   cta_text="Schedule Your Demo",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
 
 {% endblock body %}

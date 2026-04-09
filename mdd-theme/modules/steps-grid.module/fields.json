@@ -1,0 +1,114 @@
+[
+  {
+    "name": "section_id",
+    "label": "Section ID",
+    "type": "text",
+    "default": "how"
+  },
+  {
+    "name": "section_tag",
+    "label": "Section Tag",
+    "type": "text",
+    "default": "How It Works"
+  },
+  {
+    "name": "tag_style",
+    "label": "Tag Style",
+    "type": "choice",
+    "default": "green",
+    "choices": [
+      ["green", "Green"],
+      ["gold", "Gold"],
+      ["light", "Light"]
+    ]
+  },
+  {
+    "name": "headline",
+    "label": "Headline",
+    "type": "text",
+    "default": "Three steps. Never lose a key again."
+  },
+  {
+    "name": "step_1_title",
+    "label": "Step 1 Title",
+    "type": "text",
+    "default": "Tag"
+  },
+  {
+    "name": "step_1_description",
+    "label": "Step 1 Description",
+    "type": "text",
+    "default": "Attach a Bluetooth tag to the key."
+  },
+  {
+    "name": "step_1_image",
+    "label": "Step 1 Image URL",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "step_2_title",
+    "label": "Step 2 Title",
+    "type": "text",
+    "default": "Track"
+  },
+  {
+    "name": "step_2_description",
+    "label": "Step 2 Description",
+    "type": "text",
+    "default": "See every key location in real-time."
+  },
+  {
+    "name": "step_2_image",
+    "label": "Step 2 Image URL",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "step_3_title",
+    "label": "Step 3 Title",
+    "type": "text",
+    "default": "Find"
+  },
+  {
+    "name": "step_3_description",
+    "label": "Step 3 Description",
+    "type": "text",
+    "default": "Walk directly to the key or car. Done."
+  },
+  {
+    "name": "step_3_image",
+    "label": "Step 3 Image URL",
+    "type": "text",
+    "default": ""
+  },
+  {
+    "name": "background",
+    "label": "Background Style",
+    "type": "choice",
+    "default": "light",
+    "choices": [
+      ["dark", "Dark"],
+      ["card", "Card"],
+      ["light", "Light"]
+    ]
+  },
+  {
+    "name": "show_bottom_cta",
+    "label": "Show Bottom CTA",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "name": "cta_text",
+    "label": "CTA Text",
+    "type": "text",
+    "default": "Schedule a Demo"
+  },
+  {
+    "name": "cta_url",
+    "label": "CTA URL",
+    "type": "text",
+    "default": "https://mdd.io/contact-us"
+  }
+]

@@ -7,200 +7,169 @@
 {% block body %}
 
 <!-- HERO -->
-<section class="hero">
-  <div class="inner">
-    <div>
-      <div class="tag"><span style="color:#8AC833;">Locate</span><span style="color:#1A1E24;">IQ</span></div>
-      <h1>Find any key in <em>seconds</em> &mdash; not minutes.</h1>
-      <p class="sub">Real-time location for every key in your dealership. No check-outs, no scanning, no key boxes. Just instant visibility.</p>
-      <div class="cta-row">
-        <a href="https://mdd.io/contact-us" class="btn-primary">Schedule a 15-Min Demo &rarr;</a>
-        <a href="#how" class="btn-outline">How It Works</a>
-      </div>
-    </div>
-    <div class="hero-img">
-      <img src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}" alt="MDD key tracking warmer/colder" style="max-width:320px;">
-    </div>
-  </div>
-</section>
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="LocateIQ",
+   tag_style="locateiq",
+   headline="Find any key in <em>seconds</em> — not minutes.",
+   subtitle="Real-time location for every key in your dealership. No check-outs, no scanning, no key boxes. Just instant visibility.",
+   primary_cta_text="Schedule a 15-Min Demo",
+   primary_cta_url="https://mdd.io/contact-us",
+   show_secondary_cta=true,
+   secondary_cta_text="How It Works",
+   secondary_cta_url="#how",
+   hero_image_src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}",
+   hero_image_alt="MDD key tracking warmer/colder",
+   image_max_width=320,
+   layout="two_column"
+%}
 
 <!-- THE PROBLEM -->
-<section class="section bg-card" id="problem">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag gold">Sound Familiar?</div>
-    <h2 style="color:var(--white);margin-bottom:16px;">Keys disappear. Deals stall.<br><em style="color:var(--gold);">Money walks.</em></h2>
-    <p style="color:var(--body-text);font-size:16px;max-width:700px;margin:0 auto 24px;">Your salesperson has a customer ready to buy, but they can&rsquo;t find the key. Now everyone is searching while the customer waits awkwardly.</p>
-    <div class="pain-items">
-      <span class="pain-item">15+ minutes per search</span>
-      <span class="pain-item">$500+ per lost key</span>
-      <span class="pain-item">Deals lost to customer frustration</span>
-      <span class="pain-item">Key machines show accountability, not location</span>
-    </div>
-  </div>
-</section>
+{% module "pain_strip"
+   path="../modules/pain-strip.module",
+   section_id="problem",
+   tag_text="Sound Familiar?",
+   tag_style="gold",
+   headline="Keys disappear. Deals stall. Money walks.",
+   description="Your salesperson has a customer ready to buy, but they can't find the key. Now everyone is searching while the customer waits awkwardly.",
+   pain_item_1="15+ minutes per search",
+   pain_item_2="$500+ per lost key",
+   pain_item_3="Deals lost to customer frustration",
+   pain_item_4="Key machines show accountability, not location",
+   background="card"
+%}
 
 <!-- STATS BAR -->
-<section class="section section-sm bg-dark">
-  <div class="container-sm">
-    <div class="stat-grid cols-4">
-      <div class="stat-card">
-        <div class="num">2,000+</div>
-        <div class="label">Vehicles tracked across multiple lots</div>
-        <div class="dealer">Bill Brown Ford</div>
-      </div>
-      <div class="stat-card">
-        <div class="num gold">90%</div>
-        <div class="label">Sales team adoption in first month</div>
-        <div class="dealer">Bill Brown Ford</div>
-      </div>
-      <div class="stat-card">
-        <div class="num">25 min &rarr; sec</div>
-        <div class="label">Vehicle location time reduction</div>
-        <div class="dealer">Longo Toyota</div>
-      </div>
-      <div class="stat-card">
-        <div class="num gold">Zero</div>
-        <div class="label">Lost keys after implementation</div>
-        <div class="dealer">Brandon Honda</div>
-      </div>
-    </div>
-  </div>
-</section>
+{% module "stats"
+   path="../modules/stats-bar.module",
+   columns="4",
+   stat_1_number="2,000+",
+   stat_1_label="Vehicles tracked across multiple lots",
+   stat_1_dealer="Bill Brown Ford",
+   stat_1_color="green",
+   stat_2_number="90%",
+   stat_2_label="Sales team adoption in first month",
+   stat_2_dealer="Bill Brown Ford",
+   stat_2_color="gold",
+   stat_3_number="25 min to sec",
+   stat_3_label="Vehicle location time reduction",
+   stat_3_dealer="Longo Toyota",
+   stat_3_color="green",
+   stat_4_number="Zero",
+   stat_4_label="Lost keys after implementation",
+   stat_4_dealer="Brandon Honda",
+   stat_4_color="gold",
+   background="dark",
+   section_size="small"
+%}
 
 <!-- HOW IT WORKS -->
-<section class="section bg-light" id="how">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag">How It Works</div>
-    <h2 style="color:var(--dark-text);margin-bottom:48px;">Three steps. Never lose a key again.</h2>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3 style="color:var(--dark-text);">Tag</h3>
-        <p>Scan the QR code, attach a Bluetooth tag to the key. Takes 10 seconds. Battery-powered, no wiring required.</p>
-        <img src="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg" class="step-img" alt="MDD tracking tags" style="max-width:180px;">
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3 style="color:var(--dark-text);">Track</h3>
-        <p>See every key and car location in real-time. Desktop dashboard or mobile app. No check-outs required.</p>
-        <img src="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}" class="step-img" alt="MDD mobile tracking app" style="max-width:160px;">
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3 style="color:var(--dark-text);">Find</h3>
-        <p>Search by VIN, stock number, or description. Walk directly to the key or car. Done.</p>
-        <img src="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png" class="step-img" alt="MDD search dashboard">
-      </div>
-    </div>
-  </div>
-</section>
+{% module "how_it_works"
+   path="../modules/steps-grid.module",
+   section_id="how",
+   section_tag="How It Works",
+   tag_style="green",
+   headline="Three steps. Never lose a key again.",
+   step_1_title="Tag",
+   step_1_description="Scan the QR code, attach a Bluetooth tag to the key. Takes 10 seconds. Battery-powered, no wiring required.",
+   step_1_image="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg",
+   step_2_title="Track",
+   step_2_description="See every key and car location in real-time. Desktop dashboard or mobile app. No check-outs required.",
+   step_2_image="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}",
+   step_3_title="Find",
+   step_3_description="Search by VIN, stock number, or description. Walk directly to the key or car. Done.",
+   step_3_image="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png",
+   show_bottom_cta=false,
+   background="light"
+%}
 
 <!-- FEATURES -->
-<section class="section bg-dark">
-  <div class="container-sm">
-    <div class="section-tag light">What You Get</div>
-    <h2 style="color:var(--white);margin-bottom:32px;">Built for real dealership operations.</h2>
-    <div class="feature-grid cols-2">
-      <div class="feature-card">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div>
-        <div>
-          <h3>Real-Time Key Location</h3>
-          <p>See exactly where every key is &mdash; on a desk, in a pocket, across the lot. No more key machines that only show who took it last.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div>
-          <h3>Vehicle Location Too</h3>
-          <p>Track every car across multiple properties with sub-foot accuracy. Know instantly when vehicles move.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-        <div>
-          <h3>After-Hours Movement Alerts</h3>
-          <p>Get instant notifications when vehicles move outside geofenced areas or during off-hours. Peace of mind 24/7.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-        <div>
-          <h3>DMS Integration</h3>
-          <p>Syncs with Reynolds &amp; Reynolds, CDK, and more. Stock numbers and VINs auto-populate. Zero double-entry.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <div>
-          <h3>Daily Audit Tools</h3>
-          <p>Simplify floor plan audits with instant location verification. No more walking the lot to find every car.</p>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-glow);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(138,200,51,0.3);"><svg width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div>
-          <h3>Key Accountability</h3>
-          <p>See who last checked out a key and where it went. Eliminate finger-pointing when keys go missing.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+{% module "features"
+   path="../modules/feature-grid.module",
+   section_tag="What You Get",
+   tag_style="light",
+   headline="Built for real dealership operations.",
+   columns="2",
+   background="dark",
+   card_style="dark",
+   center_content=false,
+   feature_1_title="Real-Time Key Location",
+   feature_1_description="See exactly where every key is — on a desk, in a pocket, across the lot. No more key machines that only show who took it last.",
+   feature_1_icon="key",
+   feature_1_highlight="none",
+   feature_2_title="Vehicle Location Too",
+   feature_2_description="Track every car across multiple properties with sub-foot accuracy. Know instantly when vehicles move.",
+   feature_2_icon="car",
+   feature_2_highlight="none",
+   feature_3_title="After-Hours Movement Alerts",
+   feature_3_description="Get instant notifications when vehicles move outside geofenced areas or during off-hours. Peace of mind 24/7.",
+   feature_3_icon="bell",
+   feature_3_highlight="none",
+   feature_4_title="DMS Integration",
+   feature_4_description="Syncs with Reynolds & Reynolds, CDK, and more. Stock numbers and VINs auto-populate. Zero double-entry.",
+   feature_4_icon="link",
+   feature_4_highlight="none",
+   feature_5_title="Daily Audit Tools",
+   feature_5_description="Simplify floor plan audits with instant location verification. No more walking the lot to find every car.",
+   feature_5_icon="check",
+   feature_5_highlight="none",
+   feature_6_title="Key Accountability",
+   feature_6_description="See who last checked out a key and where it went. Eliminate finger-pointing when keys go missing.",
+   feature_6_icon="user",
+   feature_6_highlight="none"
+%}
 
 <!-- WHO USES IT -->
-<section class="section bg-light">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag">Built For Your Whole Team</div>
-    <h2 style="color:var(--dark-text);margin-bottom:32px;">Every department saves time with LocateIQ.</h2>
-    <div class="feature-grid cols-2">
-      <div class="feature-card card-light">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--green);"><svg width="28" height="28" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <div>
-          <h3>Sales Managers</h3>
-          <p>Get customers into vehicles faster. No waiting for keys to be found. Close more deals.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light gold-top">
-        <div class="f-icon" style="width:56px;height:56px;background:rgba(245,158,11,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);"><svg width="28" height="28" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <div>
-          <h3>Service Advisors</h3>
-          <p>Find customer keys instantly when vehicles are ready for pickup. Improve CSI scores.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light">
-        <div class="f-icon" style="width:56px;height:56px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--green);"><svg width="28" height="28" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <div>
-          <h3>Lot Attendants</h3>
-          <p>Locate keys for vehicle moves without hunting through drawers. Move cars faster.</p>
-        </div>
-      </div>
-      <div class="feature-card card-light gold-top">
-        <div class="f-icon" style="width:56px;height:56px;background:rgba(245,158,11,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);"><svg width="28" height="28" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
-        <div>
-          <h3>General Managers</h3>
-          <p>Eliminate lost key costs, reduce customer wait times, improve operational efficiency across the board.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+{% module "who_uses_it"
+   path="../modules/feature-grid.module",
+   section_tag="Built For Your Whole Team",
+   tag_style="green",
+   headline="Every department saves time with LocateIQ.",
+   columns="2",
+   background="light",
+   card_style="light",
+   center_content=true,
+   feature_1_title="Sales Managers",
+   feature_1_description="Get customers into vehicles faster. No waiting for keys to be found. Close more deals.",
+   feature_1_icon="star",
+   feature_1_highlight="none",
+   feature_2_title="Service Advisors",
+   feature_2_description="Find customer keys instantly when vehicles are ready for pickup. Improve CSI scores.",
+   feature_2_icon="wrench",
+   feature_2_highlight="gold_top",
+   feature_3_title="Lot Attendants",
+   feature_3_description="Locate keys for vehicle moves without hunting through drawers. Move cars faster.",
+   feature_3_icon="grid",
+   feature_3_highlight="none",
+   feature_4_title="General Managers",
+   feature_4_description="Eliminate lost key costs, reduce customer wait times, improve operational efficiency across the board.",
+   feature_4_icon="chart",
+   feature_4_highlight="gold_top"
+%}
 
 <!-- TESTIMONIAL -->
-<section class="section bg-dark">
-  <div class="container-xs testimonial-lg">
-    <div class="quote-mark">&ldquo;</div>
-    <blockquote>MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.</blockquote>
-    <div class="author">Mark Seipel</div>
-    <div class="role">Fixed Operations Director &mdash; Longo Toyota</div>
-  </div>
-</section>
+{% module "testimonial"
+   path="../modules/testimonial.module",
+   style="large",
+   quote="MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.",
+   author="Mark Seipel",
+   role="Fixed Operations Director",
+   company="Longo Toyota",
+   accent_color="green",
+   background="dark"
+%}
 
 <!-- CTA -->
-<section class="cta-section bg-dark">
-  <h2>Stop losing keys. Start saving money.</h2>
-  <p>See how Key Tracking works for your dealership in a quick 15-minute demo. No commitment. No pressure.</p>
-  <a href="https://mdd.io/contact-us" class="btn-primary">Schedule Your Demo &rarr;</a>
-  <div class="phone">Or call: <a href="tel:8442927110">844-292-7110</a></div>
-</section>
+{% module "cta"
+   path="../modules/cta-section.module",
+   section_id="demo",
+   headline="Stop losing keys. Start saving money.",
+   description="See how Key Tracking works for your dealership in a quick 15-minute demo. No commitment. No pressure.",
+   cta_text="Schedule Your Demo",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
 
 {% endblock body %}
