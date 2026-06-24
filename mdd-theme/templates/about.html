@@ -1,0 +1,140 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD About
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<style>
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:660px;margin:0 auto;}
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;margin-top:16px;}
+  .ab-split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  .ab-split img{width:100%;border:1px solid var(--border-light);border-radius:14px;box-shadow:var(--shadow-lg);}
+  .ab-split h2{margin-bottom:16px;}
+  @media(max-width:768px){.ab-split{grid-template-columns:1fr;gap:28px;}.home-cards{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="About Mobile Dealer Data",
+   tag_style="green",
+   headline="Built by people who've <em>run the lot.</em>",
+   subtitle="GPS was borrowed from trucking and never fit a dealership. So we spent a year building the right system — at the hardest dealership on earth — and we're run by operators who lived these problems.",
+   primary_cta_text="Schedule a 15-Min Demo →",
+   primary_cta_url="https://mdd.io/contact-us",
+   show_secondary_cta=true,
+   secondary_cta_text="See How It Works",
+   secondary_cta_url="https://mdd.io/how-it-works",
+   layout="centered"
+%}
+
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGIN: NOT A FLEET (light) -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="ab-split">
+      <div>
+        <div class="section-tag gold no-border" style="display:inline-block;">Why We Exist</div>
+        <h2 class="lp-light-h2">A dealership isn't a fleet.</h2>
+        <p style="color:var(--body-dark);">For years, dealers who wanted to find a vehicle had one option: GPS — a tool borrowed from long-haul trucking. It goes blind indoors, can't tell which floor of a garage a car is on, doesn't live on your team's phones, and never tracked the one thing that stops a sale cold: the key.</p>
+        <p style="color:var(--body-dark);">Dealers didn't need a better trucking tool. They needed something built from the ground up for how a dealership actually works — cars <em>and</em> keys, indoors and out, down to the stall.</p>
+      </div>
+      <div>
+        <img src="{{ get_asset_url('../mdd-assets/dealerlot.png') }}" alt="Aerial view of a dealership lot with every vehicle and key pinpointed by MDD">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT AT LONGO (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">One Year, One Impossible Lot</div>
+    <h2 class="lp-light-h2">We built it at the largest dealership in the world.</h2>
+    <p class="lp-light-sub">Our founder spent all of 2015 building MDD inside Longo Toyota — roughly 50 acres, a six-story parking structure, and 90+ service bays. If a real-time location system could survive that, it could work anywhere. More than ten years later, Longo is still a customer — and the same platform now tracks heavy equipment through Case New Holland manufacturing plants.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Proven at impossible scale</h3>
+        <p>50 acres, a six-story garage, 90+ bays — and still running there every day, a decade on.</p>
+        <span class="metric">~15 min saved per RO</span>
+      </div>
+      <div class="home-card">
+        <h3>Trusted by the biggest names</h3>
+        <p>The world's largest Toyota dealer, the world's largest Ford dealer, and enterprise groups like Penske.</p>
+        <span class="metric">2,000+ vehicles · Bill Brown Ford</span>
+      </div>
+      <div class="home-card">
+        <h3>Validated beyond automotive</h3>
+        <p>The same engine tracks tractors and combines through CNH plants — engineered to know, not guess.</p>
+        <span class="metric">+1 hr/bay/day · CNH</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO RUNS MDD (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Who Runs MDD</div>
+    <h2 class="lp-light-h2">Run by automotive industry experts.</h2>
+    <p class="lp-light-sub">We're not a software company that wandered into automotive. We're operators who lived these problems on the lot, in the shop, and in the F&I office.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Our Founder</h3>
+        <p>Spent 13 years in automotive retail before building MDD. He knew the lost-key chaos and the Saturday scramble firsthand — and built the fix.</p>
+        <span class="metric">13 years in retail</span>
+      </div>
+      <div class="home-card">
+        <h3>Head of Operations</h3>
+        <p>Ran reconditioning departments and led recon performance reviews for over 8 years. Recon discipline is in our DNA.</p>
+        <span class="metric">8+ years in recon</span>
+      </div>
+      <div class="home-card">
+        <h3>Sales Leadership</h3>
+        <p>Sold the other recon solutions for years. They know every competitor inside out — and can walk you through exactly what you get with MDD, and what you don't get elsewhere.</p>
+        <span class="metric">Knows every competitor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA (dark) -->
+{% module "cta"
+   path="../modules/cta-section.module",
+   section_id="demo",
+   headline="Talk to operators who've been in your shoes.",
+   description="No commitment, no pressure — just a 15-minute look at how MDD works on a live dealership lot.",
+   cta_text="Schedule Your Demo →",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
+
+{% endblock body %}

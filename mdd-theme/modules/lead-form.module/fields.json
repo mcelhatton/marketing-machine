@@ -1,0 +1,11 @@
+[
+  { "name": "section_id", "label": "Section ID", "type": "text", "default": "get-the-guide" },
+  { "name": "eyebrow", "label": "Eyebrow", "type": "text", "default": "Free Industry Insight" },
+  { "name": "headline", "label": "Headline", "type": "text", "default": "Get the full breakdown." },
+  { "name": "description", "label": "Description", "type": "text", "default": "Enter your email and we'll send you the complete article." },
+  { "name": "article_label", "label": "Article Label", "type": "text", "default": "the article" },
+  { "name": "article_url", "label": "Article URL (destination)", "type": "text", "default": "" },
+  { "name": "form_guid", "label": "HubSpot Form GUID", "type": "text", "default": "" },
+  { "name": "button_text", "label": "Button Text", "type": "text", "default": "Get the Article →" },
+  { "name": "background", "label": "Background", "type": "choice", "default": "card", "choices": [["card", "Card"], ["dark", "Dark"]] }
+]

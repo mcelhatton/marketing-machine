@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MDD Pricing Proposal Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --charcoal:#1A1E24; --card:#22272E; --card-border:#2D3239;
+    --green:#8AC833; --green-dark:#5E970F; --green-soft:#EEF7E0;
+    --white:#FFFFFF; --off-white:#F5F6F4; --body:#9CA3AF; --muted:#6B7280;
+    --gold:#F59E0B; --red:#EF4444;
+    --font:'DM Sans',system-ui,sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);background:#10141a;color:var(--body);line-height:1.55}
+  .app{display:grid;grid-template-columns:380px 1fr;min-height:100vh}
+
+  /* ---------- FORM PANEL ---------- */
+  .panel{background:var(--charcoal);border-right:1px solid var(--card-border);
+    height:100vh;overflow-y:auto;padding:20px 18px 60px}
+  .panel h1{font-size:16px;font-weight:800;color:var(--white);letter-spacing:-.3px}
+  .panel .sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+  .group{border:1px solid var(--card-border);border-radius:10px;margin-bottom:12px;overflow:hidden}
+  .group>summary{cursor:pointer;list-style:none;padding:11px 13px;font-size:12px;
+    font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);
+    background:var(--card);display:flex;justify-content:space-between;align-items:center}
+  .group>summary::-webkit-details-marker{display:none}
+  .group>summary::after{content:'+';font-size:16px;color:var(--muted)}
+  .group[open]>summary::after{content:'\2013'}
+  .group .body{padding:13px}
+  label{display:block;font-size:11px;font-weight:700;color:var(--off-white);
+    margin:9px 0 4px;text-transform:uppercase;letter-spacing:.4px}
+  label:first-child{margin-top:0}
+  input,select{width:100%;background:#10141a;border:1px solid var(--card-border);
+    color:var(--white);border-radius:7px;padding:8px 9px;font-family:var(--font);font-size:13px}
+  input:focus,select:focus{outline:none;border-color:var(--green)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .check{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid var(--card-border);
+    border-radius:8px;margin-bottom:6px;cursor:pointer;font-size:13px;color:var(--off-white);font-weight:500}
+  .check input{width:auto}
+  .check.on{border-color:var(--green);background:rgba(138,200,51,.08)}
+  .hint{font-size:10.5px;color:var(--muted);margin-top:3px}
+  .seg{display:flex;border:1px solid var(--card-border);border-radius:8px;overflow:hidden;margin-top:4px}
+  .seg button{flex:1;background:#10141a;color:var(--body);border:none;padding:9px;
+    font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer}
+  .seg button.on{background:var(--green);color:var(--charcoal)}
+  .toolbar{position:sticky;top:0;z-index:5;background:var(--charcoal);padding-bottom:12px;
+    border-bottom:1px solid var(--card-border);margin-bottom:14px}
+  .btn{width:100%;background:var(--green);color:var(--charcoal);border:none;border-radius:8px;
+    padding:11px;font-weight:800;font-size:13px;cursor:pointer;margin-top:8px}
+  .btn.alt{background:transparent;border:1px solid var(--card-border);color:var(--white)}
+  .warn{background:rgba(245,158,11,.12);border:1px solid var(--gold);color:#fbcd6b;
+    font-size:11.5px;padding:8px 10px;border-radius:7px;margin-top:8px;display:none}
+
+  /* ---------- PROPOSAL PANEL ---------- */
+  .preview{padding:28px;overflow-y:auto;height:100vh;background:#0c0f14}
+  .doc{max-width:840px;margin:0 auto;background:var(--charcoal);border:1px solid var(--card-border);
+    border-radius:14px;overflow:hidden}
+  .sec{padding:30px 38px;border-bottom:1px solid var(--card-border)}
+  .sec:last-child{border-bottom:none}
+  .tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .doc h2{color:var(--white);font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+  .doc h3{color:var(--white);font-size:16px;font-weight:700;margin-bottom:4px}
+  .doc p{font-size:14px;margin-bottom:8px}
+  .lede{color:var(--off-white);font-size:15px}
+  /* cover */
+  .cover{background:radial-gradient(120% 140% at 80% 0%,rgba(138,200,51,.18),transparent 60%);
+    padding:34px 38px 30px}
+  .cover .brand{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+  .logo{font-size:22px;font-weight:800;color:var(--white)}
+  .logo span{color:var(--green)}
+  .dealer-logo{max-height:46px;max-width:160px}
+  .meta{font-size:12px;color:var(--body)}
+  .meta b{color:var(--white)}
+  .cover h1{color:var(--white);font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin:6px 0 14px}
+  .price-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+  .price-card{border:1px solid var(--card-border);border-radius:11px;padding:16px;background:var(--card)}
+  .price-card .opt{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green);text-transform:uppercase}
+  .price-card .amt{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--white);margin:4px 0}
+  .price-card .amt small{font-size:13px;color:var(--body);font-weight:400}
+  .price-card .note{font-size:12px;color:var(--body)}
+  /* generic blocks */
+  .obj-grid,.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  .obj{border:1px solid var(--card-border);border-radius:10px;padding:14px;background:var(--card)}
+  .obj .big{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green)}
+  .obj small{display:block;color:var(--body);font-size:12.5px;margin-top:2px}
+  .proof{border-left:3px solid var(--green);background:var(--card);border-radius:0 10px 10px 0;
+    padding:16px 18px;margin-top:12px}
+  .proof .name{color:var(--white);font-weight:700;font-size:14px}
+  .proof .stats{display:flex;flex-wrap:wrap;gap:18px;margin:10px 0}
+  .proof .stats div{font-size:12px;color:var(--body)}
+  .proof .stats b{display:block;font-family:var(--mono);font-size:18px;color:var(--green)}
+  .proof blockquote{font-style:italic;color:var(--off-white);font-size:13.5px;border:none;margin:6px 0 0}
+  /* business case */
+  .case{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .case .box{border:1px solid var(--card-border);border-radius:10px;padding:16px;background:var(--card)}
+  .case .box.red{border-color:rgba(239,68,68,.4)}
+  .case .box.grn{border-color:rgba(138,200,51,.4)}
+  .case .li{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--card-border)}
+  .case .li:last-child{border:none}
+  .case .li b{font-family:var(--mono);color:var(--white)}
+  .net{margin-top:12px;text-align:center;background:rgba(138,200,51,.1);border:1px solid var(--green);
+    border-radius:10px;padding:14px}
+  .net .big{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--green)}
+  /* line items / pricing */
+  .opt-block{border:1px solid var(--card-border);border-radius:11px;overflow:hidden;margin-bottom:14px}
+  .opt-head{background:var(--green);color:var(--charcoal);padding:11px 16px;display:flex;
+    justify-content:space-between;font-weight:800;font-size:14px}
+  .opt-head .sm{font-weight:600;font-size:12px}
+  .li-row{display:flex;justify-content:space-between;padding:9px 16px;font-size:13px;border-bottom:1px solid var(--card-border)}
+  .li-row b,.li-row .amt{font-family:var(--mono);color:var(--white)}
+  .li-row.promo{color:var(--green)}
+  .li-row.promo .amt{color:var(--green)}
+  .opt-foot{display:grid;grid-template-columns:1fr 1fr}
+  .opt-foot div{padding:14px 16px;background:#1d2128}
+  .opt-foot .lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .opt-foot .v{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--green)}
+  .opt-foot .v.alt{color:var(--white);font-size:17px}
+  /* timeline */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+  .step{border:1px solid var(--card-border);border-radius:10px;padding:12px;background:var(--card)}
+  .step .n{font-family:var(--mono);color:var(--green);font-size:12px}
+  .step h4{color:var(--white);font-size:13px;margin:3px 0}
+  .step p{font-size:11.5px;color:var(--body);margin:0}
+  .incl{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin-top:8px}
+  .incl div{font-size:12.5px;padding-left:18px;position:relative}
+  .incl div::before{content:'\2713';position:absolute;left:0;color:var(--green);font-weight:700}
+  .terms p{font-size:12px;color:var(--body);margin-bottom:8px}
+  .terms b{color:var(--off-white)}
+  .cta{text-align:center;background:radial-gradient(120% 140% at 50% 0%,rgba(138,200,51,.18),transparent 65%)}
+  .cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .cbtn{padding:13px 22px;border-radius:9px;font-weight:800;font-size:14px;cursor:pointer;border:none;font-family:var(--font)}
+  .cbtn.primary{background:var(--green);color:var(--charcoal);box-shadow:0 4px 18px rgba(138,200,51,.3)}
+  .cbtn.outline{background:transparent;border:2px solid var(--card-border);color:var(--white)}
+  .cta .phone{color:var(--white);font-family:var(--mono);margin-top:14px}
+  /* trust strip */
+  .trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+  .trust-row div{border:1px solid var(--card-border);border-radius:10px;padding:14px;background:var(--card);font-size:12.5px;color:var(--body)}
+  .trust-row b{display:block;font-family:var(--mono);font-size:18px;color:var(--green);margin-bottom:3px}
+  /* concise ROI */
+  .roi-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .roi-chip{flex:1;min-width:150px;border:1px solid var(--card-border);border-radius:10px;padding:13px 15px;background:var(--card)}
+  .roi-chip b{display:block;font-family:var(--mono);font-size:20px;color:var(--green);margin-bottom:2px}
+  .roi-chip small{font-size:12px;color:var(--body)}
+  .roi-net{margin-top:12px;text-align:center;background:rgba(138,200,51,.1);border:1px solid var(--green);
+    border-radius:10px;padding:14px;font-size:14px;color:var(--off-white)}
+  .roi-net b{font-family:var(--mono);color:var(--green)}
+
+  @media print{
+  .foot{text-align:center;font-size:11px;color:var(--muted);padding:18px}
+  .hide{display:none!important}
+
+  @media print{
+    .panel,.toolbar{display:none!important}
+    .app{display:block}.preview{height:auto;overflow:visible;padding:0;background:#fff}
+    .doc{border:none;max-width:none}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- ============ FORM ============ -->
+  <form class="panel" id="form" autocomplete="off">
+    <div class="toolbar">
+      <h1>Proposal Builder</h1>
+      <div class="sub">Locate · Mobile Dealer Data</div>
+      <button type="button" class="btn" onclick="window.print()">⤓ Save / Print PDF</button>
+      <button type="button" class="btn alt" id="loadDemo">Load Avondale example</button>
+      <div class="warn" id="personaWarn"></div>
+    </div>
+
+    <details class="group" open><summary>Dealer & Contact</summary><div class="body">
+      <label>Dealership name</label><input id="dealer" placeholder="Avondale Toyota">
+      <label>Dealer logo URL <span class="hint">(optional)</span></label><input id="dealerLogo" placeholder="https://...">
+      <div class="row">
+        <div><label>City, State</label><input id="loc" placeholder="Avondale, AZ"></div>
+        <div><label>Franchise</label>
+          <select id="franchise">
+            <option value="">—</option><option>Toyota</option><option>Ford</option>
+            <option>Honda</option><option>Other / Multi</option>
+          </select></div>
+      </div>
+      <div class="row">
+        <div><label>Rooftops</label><input id="rooftops" type="number" value="1"></div>
+        <div><label>DMS</label>
+          <select id="dms"><option value="">—</option><option>Reynolds &amp; Reynolds</option>
+          <option>CDK</option><option>Other</option></select></div>
+      </div>
+      <label>Contact name</label><input id="contact" placeholder="Cejay Hartsock">
+      <label>Contact role <span class="hint">(sets persona logic)</span></label>
+      <select id="role">
+        <option value="owner">Owner</option>
+        <option value="gm">General Manager</option>
+        <option value="sales">Sales Manager</option>
+        <option value="used">Used Car Manager</option>
+        <option value="service">Service Manager</option>
+        <option value="fi">F&amp;I Manager</option>
+      </select>
+    </div></details>
+
+    <details class="group" open><summary>Products</summary><div class="body">
+      <label class="check"><input type="checkbox" class="prod" id="p_locate" checked> MDD Locate <span class="hint">— key &amp; car tracking</span></label>
+      <label class="check"><input type="checkbox" class="prod" id="p_service"> Service Workflow</label>
+      <label class="check"><input type="checkbox" class="prod" id="p_recon"> Recon Workflow</label>
+      <label class="check"><input type="checkbox" class="prod" id="p_vv"> VehicleVault <span class="hint">— F&amp;I revenue</span></label>
+    </div></details>
+
+    <details class="group"><summary>Business Case Inputs</summary><div class="body">
+      <div class="row">
+        <div><label>Keys lost / mo</label><input id="keysLost" type="number" value="3"></div>
+        <div><label>Cost / key ($)</label><input id="keyCost" type="number" value="500"></div>
+      </div>
+      <div class="row">
+        <div><label>Min search / sale</label><input id="searchMin" type="number" value="45"></div>
+        <div><label>Deals / mo</label><input id="dealsMo" type="number" value="120"></div>
+      </div>
+      <label>Labor rate ($/hr)</label><input id="laborRate" type="number" value="30">
+      <div class="row3">
+        <div><label>Recon days saved</label><input id="reconDays" type="number" value="3"></div>
+        <div><label>Hold $/day</label><input id="holdDay" type="number" value="45"></div>
+        <div><label>Recon cars/mo</label><input id="reconCars" type="number" value="100"></div>
+      </div>
+      <p class="hint">Status-quo costs are calculated from these. Edit per dealer using discovery notes.</p>
+    </div></details>
+
+    <details class="group"><summary>Pricing Configuration</summary><div class="body">
+      <label>Base subscription ($/mo)</label><input id="baseSub" type="number" value="750">
+      <label>Setup &amp; install — one-time ($)</label><input id="setup" type="number" value="1500">
+      <div class="row">
+        <div><label>RO placard sets (qty)</label><input id="placardQty" type="number" value="400"></div>
+        <div><label>Set: lease $/mo</label><input id="placardLease" type="number" step="0.01" value="2.50"></div>
+      </div>
+      <div class="row">
+        <div><label>Set: purchase $ ea</label><input id="placardBuy" type="number" value="50"></div>
+        <div><label>Indoor gw (qty / $ea)</label><input id="inQty" type="number" value="10"></div>
+      </div>
+      <div class="row">
+        <div><label>Indoor gw $ ea</label><input id="inCost" type="number" value="250"></div>
+        <div><label>Outdoor gw (qty)</label><input id="outQty" type="number" value="10"></div>
+      </div>
+      <div class="row">
+        <div><label>Outdoor gw $ ea</label><input id="outCost" type="number" value="500"></div>
+        <div><label>Workflow add-on $/mo</label><input id="wfCost" type="number" value="400"></div>
+      </div>
+      <label class="check" style="margin-top:10px"><input type="checkbox" id="promo" checked> Apply 50% hardware promo (purchase option)</label>
+    </div></details>
+
+    <details class="group"><summary>VehicleVault (revenue)</summary><div class="body">
+      <div class="row">
+        <div><label>VV units / mo</label><input id="vvUnits" type="number" value="60"></div>
+        <div><label>F&amp;I profit / unit ($)</label><input id="vvMargin" type="number" value="600"></div>
+      </div>
+      <p class="hint">Shown as a revenue stream, not a cost. Software fee waived at 50+ units/mo.</p>
+    </div></details>
+
+    <details class="group" open><summary>Prepared By & Validity</summary><div class="body">
+      <label>Rep name</label><input id="rep" placeholder="Christopher Glenn">
+      <div class="row">
+        <div><label>Rep phone</label><input id="repPhone" value="844-292-7110"></div>
+        <div><label>Valid (days)</label><input id="validDays" type="number" value="30"></div>
+      </div>
+      <label>Proposal date</label><input id="pdate" type="date">
+    </div></details>
+  </form>
+
+  <!-- ============ PROPOSAL ============ -->
+  <div class="preview">
+    <div class="doc" id="doc">
+      <!-- COVER -->
+      <section class="cover">
+        <div class="brand">
+          <div class="logo">Locate<span>™</span> <span style="font-size:12px;color:var(--muted)">by Mobile Dealer Data</span></div>
+          <img class="dealer-logo hide" id="oLogo" alt="dealer logo">
+        </div>
+        <div class="tag">Asset Tracking & Inventory Management Solutions</div>
+        <h1 id="oHead">Real-time key & vehicle tracking, built for your lot.</h1>
+        <div class="meta">Prepared for <b id="oDealer">—</b> · <span id="oContact">—</span> &nbsp;|&nbsp; By <b id="oRep">—</b> &nbsp;|&nbsp; <span id="oDate">—</span></div>
+        <div class="price-cards">
+          <div class="price-card">
+            <div class="opt">Option 1 · Lease</div>
+            <div class="amt" id="oLeaseMo">$0<small>/mo</small></div>
+            <div class="note" id="oLeaseNote">+ $0 one-time setup</div>
+          </div>
+          <div class="price-card">
+            <div class="opt">Option 2 · Purchase</div>
+            <div class="amt" id="oBuyMo">$0<small>/mo</small></div>
+            <div class="note" id="oBuyNote">+ $0 one-time</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXEC SUMMARY -->
+      <section class="sec">
+        <div class="tag">Executive Summary</div>
+        <h2>The bottom line</h2>
+        <p class="lede" id="oExec">—</p>
+      </section>
+
+      <!-- TRUST / VETTED -->
+      <section class="sec">
+        <div class="tag">Track Record</div>
+        <h2>Proven technology</h2>
+        <p class="lede">The platform was built from the ground up over a full year at <b style="color:var(--off-white)">Longo Toyota — the largest dealership in the world</b>: roughly 50 acres, a six-story parking structure, and 90+ service bays. It has been in daily use there ever since.</p>
+        <div class="trust-row">
+          <div><b>10+ yrs</b>Longo Toyota still runs MDD every day</div>
+          <div><b>250+</b>dealerships, including top public auto groups</div>
+          <div><b>Indoors &amp; up</b>RTLS that finds cars <em>and</em> keys where GPS goes dark</div>
+        </div>
+      </section>
+
+      <!-- OBJECTIVES -->
+      <section class="sec" id="secObj">
+        <div class="tag">Your 12-Month Objectives</div>
+        <h2>What changes on your lot</h2>
+        <div class="obj-grid" id="oObj"></div>
+      </section>
+
+      <!-- PROOF -->
+      <section class="sec" id="secProof">
+        <div class="tag">Proof · Dealers Like You</div>
+        <h2>Results from comparable stores</h2>
+        <p class="lede" id="oProofLede">These are paying dealerships reporting results from the same products included in this proposal.</p>
+        <div id="oProof"></div>
+      </section>
+
+      <!-- EXPECTED ROI (concise) -->
+      <section class="sec" id="secROI">
+        <div class="tag">Expected ROI</div>
+        <h2>What this is worth to you</h2>
+        <div class="roi-row" id="oROI"></div>
+        <div class="roi-net" id="oNetLine"></div>
+      </section>
+
+      <!-- PRICING -->
+      <section class="sec">
+        <div class="tag">Transparent Pricing</div>
+        <h2>Lease or purchase — your choice</h2>
+        <div id="oPricing"></div>
+      </section>
+
+      <!-- IMPLEMENTATION -->
+      <section class="sec">
+        <div class="tag">Implementation</div>
+        <h2>How rollout works</h2>
+        <div class="steps">
+          <div class="step"><div class="n">01</div><h4>Kick Off</h4><p>15-min intro to your implementation team & timeline.</p></div>
+          <div class="step"><div class="n">02</div><h4>Discovery</h4><p>45-min deep dive — zones, geofences, workflows.</p></div>
+          <div class="step"><div class="n">03</div><h4>Training</h4><p>1-hour all-hands hands-on training.</p></div>
+          <div class="step"><div class="n">04</div><h4>Go Live</h4><p>Launch + 4 weeks dedicated hypercare.</p></div>
+        </div>
+        <h3 style="margin-top:18px">Included with every plan</h3>
+        <div class="incl">
+          <div>Network & gateway hardware install</div>
+          <div>Virtual discovery & program launch</div>
+          <div>4-week Hyper-Care (weekly support)</div>
+          <div>Dedicated Customer Success Manager</div>
+          <div>Monthly / quarterly performance reviews</div>
+          <div>MDD Tag Care — free tag & battery replacement</div>
+          <div>Unlimited users</div>
+          <div>Performance Program after go-live</div>
+        </div>
+      </section>
+
+      <!-- TERMS -->
+      <section class="sec terms">
+        <div class="tag">Terms & Conditions</div>
+        <p><b>Contract term.</b> 90-day initial term, then month-to-month thereafter.</p>
+        <p><b>90-day satisfaction guarantee.</b> Cancel during the initial term for a refund of initial equipment costs, less a 20% restocking fee and the replacement cost of any lost, stolen, or damaged equipment.</p>
+        <p><b>Non-refundable charges.</b> Monthly service fees and all installation, setup, travel, shipping, taxes, and related charges are non-refundable.</p>
+        <p style="color:var(--muted);font-style:italic" id="oValid">This quote is valid for 30 days from the date of issue.</p>
+      </section>
+
+      <!-- CTA -->
+      <section class="sec cta">
+        <h2>Next steps</h2>
+        <p>This quote is valid for the period noted above and is backed by a 90-day satisfaction guarantee. Sign to confirm pricing and schedule your install, or reach out with questions.</p>
+        <div class="cta-btns">
+          <button type="button" class="cbtn primary">Sign Proposal →</button>
+          <button type="button" class="cbtn outline">Forward Quote</button>
+          <button type="button" class="cbtn outline">Schedule a Demo</button>
+        </div>
+        <div class="phone" id="oPhone">844-292-7110</div>
+      </section>
+
+      <div class="foot">Mobile Dealer Data · 5600 Pioneer Creek Drive, Maple Plain, MN 55359 · We Find Keys & Cars™</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>'$'+Math.round(n).toLocaleString();
+const money2=n=>'$'+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+const PROOF={
+  billbrown:{name:'Bill Brown Ford — Livonia, MI',fr:'Ford',prod:['locate'],
+    stats:[['2,000+','vehicles tracked'],['90%','sales team adoption'],['0','lost keys']],
+    quote:'“MDD instantly locates 2,000 vehicles on multiple lots all over town. We get cars customer-delivered without delays.” — Dave Bird, New Car Inventory Manager'},
+  corwin:{name:'Corwin Toyota — Colorado Springs, CO',fr:'Toyota',prod:['service'],
+    stats:[['2.5h → 90m','express wait time'],['64%','out in 60 min'],['40-60%','more bay turns']],
+    quote:'“No one wants to wait two hours for an oil change.” — Warren Weimer, Service & Parts Director'},
+  longo:{name:'Longo Toyota — World’s Largest Toyota Dealer',fr:'Toyota',prod:['recon'],
+    stats:[['3 days','saved per car in recon'],['25m → sec','to locate a vehicle'],['15 min','saved per RO']],
+    quote:'“MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds.” — Mark Seipel, Fixed Operations Director'},
+  brandon:{name:'Brandon Honda — Morgan Automotive Group',fr:'Honda',prod:['vv'],
+    stats:[['$308K/mo','added F&I revenue'],['0','chargebacks'],['41 min','saved per RO']],
+    quote:'Brandon Honda no longer loses keys, shaved 41 minutes per RO, and generates an additional $308K per month selling VehicleVault.'}
+};
+
+function selectedProducts(){
+  return {locate:$('p_locate').checked,service:$('p_service').checked,
+          recon:$('p_recon').checked,vv:$('p_vv').checked};
+}
+
+function personaGuard(){
+  const role=$('role').value, p=selectedProducts(), w=$('personaWarn');
+  let msg='';
+  if(p.vv && (role==='service'||role==='used'))
+    msg='⚠ VehicleVault is set to "Do Not Pitch" for '+(role==='service'?'Service':'Used Car')+' Managers. Consider removing it or routing to the F&I/GM contact.';
+  if(msg){w.textContent=msg;w.style.display='block';}else{w.style.display='none';}
+}
+
+function calc(){
+  const p=selectedProducts();
+  const baseSub=+$('baseSub').value||0, setup=+$('setup').value||0;
+  const pQty=+$('placardQty').value||0, pLease=+$('placardLease').value||0, pBuy=+$('placardBuy').value||0;
+  const inQ=+$('inQty').value||0, inC=+$('inCost').value||0, outQ=+$('outQty').value||0, outC=+$('outCost').value||0;
+  const wf=+$('wfCost').value||0, promo=$('promo').checked;
+  let wfCount=(p.service?1:0)+(p.recon?1:0);
+
+  // ----- LEASE option -----
+  const leaseLines=[];
+  leaseLines.push(['Base Subscription',money(baseSub)+' / mo']);
+  if(p.locate) leaseLines.push([`Service RO Placard Sets (${pQty} × ${money2(pLease)}/set)`,money(pQty*pLease)+' / mo']);
+  if(wfCount) leaseLines.push([`Workflow Add-Ons (${wfCount} × ${money(wf)})`,money(wfCount*wf)+' / mo']);
+  if(p.locate) leaseLines.push(['Indoor / Outdoor Gateway Network','Included']);
+  if(p.locate) leaseLines.push(['Hardware Lease','Included']);
+  const leaseMo=baseSub + (p.locate?pQty*pLease:0) + wfCount*wf;
+  const leaseSetup=setup;
+
+  // ----- PURCHASE option -----
+  const buyLines=[];
+  buyLines.push(['Base Subscription',money(baseSub)+' / mo']);
+  if(wfCount) buyLines.push([`Workflow Add-Ons (${wfCount} × ${money(wf)})`,money(wfCount*wf)+' / mo']);
+  let hardware=0;
+  if(p.locate){
+    const setsCost=pQty*pBuy, inCost=inQ*inC, outCost=outQ*outC;
+    hardware=setsCost+inCost+outCost;
+    buyLines.push([`Service RO Placard Sets (${pQty})`,money(setsCost),'amt']);
+    buyLines.push([`Indoor Gateways (${inQ})`,money(inCost),'amt']);
+    buyLines.push([`Outdoor Gateways (${outQ})`,money(outCost),'amt']);
+  }
+  let hardwareAfter=hardware, discount=0;
+  if(promo && hardware>0){discount=hardware*0.5;hardwareAfter=hardware-discount;
+    buyLines.push(['★ PROMO — 50% OFF Hardware','−'+money(discount),'promo']);
+    buyLines.push(['Hardware Total (after promo)',money(hardwareAfter),'amt']);}
+  buyLines.push(['Field Tech Network Setup & Install',money(setup),'amt']);
+  const buyMo=baseSub + wfCount*wf;
+  const buyUpfront=hardwareAfter+setup;
+
+  return {p,leaseLines,leaseMo,leaseSetup,buyLines,buyMo,buyUpfront,hardwareAfter};
+}
+
+function render(){
+  const d=$('dealer').value||'Your Dealership';
+  const contact=$('contact').value||'';
+  const rep=$('rep').value||'Your MDD Rep';
+  const dateVal=$('pdate').value;
+  const dt=dateVal?new Date(dateVal+'T00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  $('oDealer').textContent=d;
+  $('oContact').textContent=contact||'—';
+  $('oRep').textContent=rep;
+  $('oDate').textContent=dt;
+  $('oPhone').textContent=$('repPhone').value||'844-292-7110';
+  $('oValid').textContent=`This quote is valid for ${$('validDays').value||30} days from the date of issue. Pricing subject to change thereafter.`;
+  const lg=$('dealerLogo').value.trim();
+  if(lg){$('oLogo').src=lg;$('oLogo').classList.remove('hide');}else{$('oLogo').classList.add('hide');}
+
+  const c=calc(), p=c.p;
+
+  // headline
+  const prodNames=[];
+  if(p.locate)prodNames.push('MDD Locate');
+  if(p.service)prodNames.push('Service Workflow');
+  if(p.recon)prodNames.push('Recon Workflow');
+  if(p.vv)prodNames.push('VehicleVault');
+  $('oHead').textContent = prodNames.length? prodNames.join(' + ')+' for '+d : 'A proposal for '+d;
+
+  // cover prices
+  $('oLeaseMo').innerHTML=money(c.leaseMo)+'<small>/mo</small>';
+  $('oLeaseNote').textContent='+ '+money(c.leaseSetup)+' one-time setup';
+  $('oBuyMo').innerHTML=money(c.buyMo)+'<small>/mo</small>';
+  $('oBuyNote').textContent='+ '+money(c.buyUpfront)+' one-time'+($('promo').checked&&c.hardwareAfter>0?' (after 50% hardware promo)':'');
+
+  // ---- exec summary ----
+  const keysLost=+$('keysLost').value||0, keyCost=+$('keyCost').value||0;
+  const searchMin=+$('searchMin').value||0, dealsMo=+$('dealsMo').value||0, labor=+$('laborRate').value||0;
+  const reconDays=+$('reconDays').value||0, holdDay=+$('holdDay').value||0, reconCars=+$('reconCars').value||0;
+  const vvUnits=+$('vvUnits').value||0, vvMargin=+$('vvMargin').value||0;
+
+  const exParts=[];
+  if(keysLost>0) exParts.push(`replacing ~${keysLost} keys a month at ${money(keyCost)} each (≈${money(keysLost*keyCost*12)}/yr)`);
+  if(searchMin>0) exParts.push(`losing ~${searchMin} minutes per sale hunting for cars and keys`);
+  if(p.recon&&reconDays>0) exParts.push(`carrying used inventory ${reconDays}+ extra days in recon`);
+  const prodList=prodNames.join(', ').replace(/,([^,]*)$/,' and$1')||'MDD';
+  const ex = `Based on our discovery conversation, ${d} is ` +
+    (exParts.length? exParts.join(', ').replace(/,([^,]*)$/,', and$1') : "absorbing the daily cost of not knowing where keys and cars are") +
+    `. ${prodList} addresses each of these directly. The platform was built at the world's largest dealership and is in daily use across 250+ stores. ` +
+    `This proposal lays out the products, pricing, and expected return for ${d}, backed by a 90-day satisfaction guarantee.`;
+  $('oExec').textContent=ex;
+
+  // ---- objectives (story-driven, conditional by product) ----
+  const objs=[];
+  if(p.locate){
+    objs.push(['45 min','<b>Faster response to ready buyers.</b> Staff locate any car or key from their phone and walk straight to it — about 45 minutes per sale returned to the greeting, demo, and close.']);
+    objs.push(['$0 keys','<b>Lower lost-key and audit costs.</b> Eliminate lost-key replacement spend, flag stale units with lot-rot reports, and run floor-plan audits as a report instead of an all-hands search.']);
+  }
+  if(p.service)objs.push(['15 min/RO','<b>More billable time in service.</b> About 15 minutes back on every repair order — hundreds of advisor and tech hours a month, without adding a bay or hiring a tech.']);
+  if(p.recon)objs.push(['10→5 days','<b>Shorter recon cycle time.</b> Cut Time-to-Line from 10+ days to about 5. At ~$40/car/day, every day removed is holding cost recovered, logged automatically as cars move.']);
+  if(p.vv)objs.push(['FTC-ready','<b>A compliant F&I revenue line.</b> VehicleVault fits the compliant package profile — high perceived value, low install cost, removable — adding recurring revenue with zero chargebacks and no cannibalization of VSC or GAP.']);
+  $('oObj').innerHTML=objs.map(o=>`<div class="obj"><span class="big">${o[0]}</span><small>${o[1]}</small></div>`).join('');
+  $('secObj').classList.toggle('hide',objs.length===0);
+
+  // ---- proof matching ----
+  const fr=$('franchise').value;
+  let keys=[];
+  if(p.vv)keys.push('brandon');
+  if(p.service)keys.push('corwin');
+  if(p.recon)keys.push('longo');
+  if(p.locate)keys.push(fr==='Ford'?'billbrown':(fr==='Toyota'?'longo':'billbrown'));
+  // franchise boost to front
+  keys.sort((a,b)=> (PROOF[b].fr===fr?1:0)-(PROOF[a].fr===fr?1:0));
+  keys=[...new Set(keys)].slice(0,2);
+  if(keys.length===0)keys=['billbrown'];
+  $('oProof').innerHTML=keys.map(k=>{const c=PROOF[k];
+    return `<div class="proof"><div class="name">${c.name}</div>
+      <div class="stats">${c.stats.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join('')}</div>
+      <blockquote>${c.quote}</blockquote></div>`;}).join('');
+
+  // ---- expected ROI (concise, conditional by product) ----
+  const lostKeyCost=keysLost*keyCost;
+  const searchCost=(searchMin/60)*labor*dealsMo;
+  const reconCost=p.recon?reconDays*holdDay*reconCars:0;
+  const vvRev=p.vv?vvUnits*vvMargin:0;
+
+  const roi=[];
+  if(p.locate) roi.push([money(lostKeyCost+searchCost)+'/mo','recovered from lost keys + search time — faster sales, zero lost-key spend']);
+  if(p.service) roi.push(['~15 min/RO','billable time back on every repair order — more throughput, same bays']);
+  if(p.recon) roi.push([money(reconCost)+'/mo','recoverable recon holding cost as Time-to-Line drops toward 5 days']);
+  if(p.vv) roi.push([money(vvRev)+'/mo','new recurring F&I revenue, zero chargebacks']);
+  if(roi.length===0) roi.push(['Day one','measurable from the first week on the lot']);
+  $('oROI').innerHTML=roi.map(r=>`<div class="roi-chip"><b>${r[0]}</b><small>${r[1]}</small></div>`).join('');
+
+  const recover=lostKeyCost+searchCost+reconCost;
+  const net=recover - c.leaseMo + vvRev;
+  if(net>=0){
+    $('oNetLine').innerHTML=`≈ <b>${money(recover+vvRev)}/mo</b> in recoverable cost${vvRev?' &amp; new revenue':''} against a <b>${money(c.leaseMo)}/mo</b> investment — a net <b>+${money(net)}/mo</b>.`;
+  }else{
+    $('oNetLine').innerHTML=`Your investment is <b>${money(c.leaseMo)}/mo</b> (lease), set against ${money(recover)}/mo in recoverable cost — plus the soft wins of faster sales and higher CSI.`;
+  }
+
+  // ---- pricing blocks ----
+  const block=(title,sub,lines,footLabelA,footA,footLabelB,footB)=>{
+    return `<div class="opt-block">
+      <div class="opt-head"><span>${title}</span><span class="sm">${sub}</span></div>
+      ${lines.map(l=>`<div class="li-row ${l[2]==='promo'?'promo':''}"><span>${l[0]}</span><span class="amt">${l[1]}</span></div>`).join('')}
+      <div class="opt-foot">
+        <div><div class="lbl">${footLabelA}</div><div class="v">${footA}</div></div>
+        <div><div class="lbl">${footLabelB}</div><div class="v alt">${footB}</div></div>
+      </div></div>`;
+  };
+  $('oPricing').innerHTML=
+    block('① LEASE OPTION','Lowest upfront commitment',c.leaseLines,'Total Monthly',money(c.leaseMo)+' / mo','One-Time Setup',money(c.leaseSetup))
+    + block('② PURCHASE OPTION','Own your hardware — lowest long-term cost',c.buyLines,'Total Monthly',money(c.buyMo)+' / mo','One-Time Upfront',money(c.buyUpfront))
+    + (p.vv?`<div class="proof" style="border-color:var(--gold);border-left-color:var(--gold)"><div class="name" style="color:var(--gold)">VehicleVault — revenue, not a cost</div><div class="stats"><div><b style="color:var(--gold)">${money(vvUnits*vvMargin)}/mo</b>projected at ${vvUnits} units × ${money(vvMargin)} profit</div><div><b style="color:var(--gold)">$0</b>chargebacks</div></div><p style="font-size:12px;margin:0">Monthly software fee waived at 50+ units/mo. Final pricing set by term & benefit package.</p></div>`:'');
+
+  // checkbox styling + persona guard
+  document.querySelectorAll('.prod').forEach(cb=>cb.closest('.check').classList.toggle('on',cb.checked));
+  personaGuard();
+}
+
+// demo loader
+$('loadDemo').onclick=()=>{
+  $('dealer').value='Avondale Toyota';$('loc').value='Avondale, AZ';$('franchise').value='Toyota';
+  $('contact').value='Cejay Hartsock';$('role').value='gm';$('rep').value='Christopher Glenn';
+  $('p_locate').checked=true;$('p_service').checked=false;$('p_recon').checked=false;$('p_vv').checked=false;
+  $('placardQty').value=400;render();
+};
+
+// init
+$('pdate').valueAsDate=new Date();
+$('form').addEventListener('input',render);
+$('form').addEventListener('change',render);
+render();
+</script>
+</body>
+</html>

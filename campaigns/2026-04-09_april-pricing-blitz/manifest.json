@@ -1,0 +1,65 @@
+{
+  "campaign": "april-pricing-blitz",
+  "product": "MDD Locate",
+  "target_persona": "Owner, GM",
+  "created": "2026-04-09T10:00:00Z",
+  "created_by": "claude-code",
+  "notes": "5-email sequence focused on aggressive April pricing offers. $1.69/car, equipment included, no contracts, 90-day guarantee. Designed for dealers cutting expenses.",
+  "content": [
+    {
+      "type": "email",
+      "file": "emails/email-01-169-per-car.html",
+      "platform": "mailchimp",
+      "status": "draft",
+      "publish_date": null,
+      "angle": "headline-price",
+      "subject": "$1.69 Per Car. Not a Typo.",
+      "preview_text": "Lot management and key tracking for $1.69 per car. Equipment included. April only.",
+      "notes": "Lead with the shocking price point. Equipment included in April."
+    },
+    {
+      "type": "email",
+      "file": "emails/email-02-equipment-included.html",
+      "platform": "mailchimp",
+      "status": "draft",
+      "publish_date": null,
+      "angle": "zero-upfront",
+      "subject": "Free Equipment. Seriously.",
+      "preview_text": "$0 upfront for equipment. $0 installation. We're covering it all in April.",
+      "notes": "Focus on removing the upfront cost barrier. Empathy for dealers cutting expenses."
+    },
+    {
+      "type": "email",
+      "file": "emails/email-03-lost-key-math.html",
+      "platform": "mailchimp",
+      "status": "draft",
+      "publish_date": null,
+      "angle": "roi-math",
+      "subject": "Your Lost Keys Cost More Than MDD",
+      "preview_text": "Lose 2 keys and you've paid for MDD for the entire year. Here's the math.",
+      "notes": "Break-even math comparing lost key costs to MDD monthly cost."
+    },
+    {
+      "type": "email",
+      "file": "emails/email-04-no-risk.html",
+      "platform": "mailchimp",
+      "status": "draft",
+      "publish_date": null,
+      "angle": "risk-reversal",
+      "subject": "We Removed Every Reason to Say No",
+      "preview_text": "$0 upfront. No contracts. 90-day guarantee. Cancel anytime. We removed every objection.",
+      "notes": "Stack all the risk-reversal elements: no upfront, no contracts, guarantee."
+    },
+    {
+      "type": "email",
+      "file": "emails/email-05-last-chance.html",
+      "platform": "mailchimp",
+      "status": "draft",
+      "publish_date": null,
+      "angle": "urgency-close",
+      "subject": "Last Call: $1.69 Pricing Ends Soon",
+      "preview_text": "April's almost over. After this, the $1.69/car pricing and free equipment offer expires.",
+      "notes": "Final email. Urgency-based. Recap all benefits. Dual CTA (demo + call)."
+    }
+  ]
+}

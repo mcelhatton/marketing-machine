@@ -6,26 +6,212 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<!-- HERO -->
+<style>
+  /* Light-first homepage styles */
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;margin-bottom:18px;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;}
+  .home-showcase img{width:100%;border:1px solid var(--border-light);border-radius:16px;box-shadow:var(--shadow-lg);}
+  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
+  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--dark-text);font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .home-step h3{color:var(--dark-text);font-size:18px;font-weight:700;margin-bottom:6px;}
+  .home-step p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
+  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--dark-text);line-height:1.45;font-style:italic;margin-bottom:16px;}
+  .home-quote .who{font-size:15px;color:var(--muted);}
+  .home-quote .who b{color:var(--dark-text);}
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
 {% module "hero"
    path="../modules/hero.module",
    product_tag="VehicleVault",
    tag_style="gold",
-   headline="An F&I product customers <em>actually use.</em>",
-   subtitle="Key tracking for them. Recurring profit for you. Zero chargebacks. Your brand on their phone every day.",
-   primary_cta_text="See VehicleVault Demo",
+   headline="An F&amp;I product customers <em>actually use.</em>",
+   subtitle="A dealer-branded key-tracking app your buyers open every day. High margin, more gross per deal, zero chargebacks.",
+   primary_cta_text="Schedule a 15-Min Demo →",
    primary_cta_url="https://mdd.io/contact-us",
    show_secondary_cta=true,
-   secondary_cta_text="How It Works",
+   secondary_cta_text="See How It Works",
    secondary_cta_url="#how",
    layout="centered"
 %}
 
-<!-- STATS -->
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT SELLS (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Why It Sells</div>
+    <h2 class="lp-light-h2">A backend product that pays — and keeps paying.</h2>
+    <p class="lp-light-sub">Two key trackers and your branded app. Real value customers see at the desk.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>High margin, every deal</h3>
+        <p>Sell it at the desk to lift gross on every vehicle retailed — and it pulls customers back to your service drive, where the next car sale starts.</p>
+        <span class="metric">$24K/mo added F&amp;I</span>
+      </div>
+      <div class="home-card">
+        <h3>Zero chargebacks</h3>
+        <p>A tangible product customers keep using. No cancellations clawing back backend profit.</p>
+        <span class="metric">Zero chargebacks</span>
+      </div>
+      <div class="home-card">
+        <h3>Your brand, every day</h3>
+        <p>Every time a customer opens the app to find their keys, they see your dealership's name.</p>
+        <span class="metric">100% dealer-branded</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">See It</div>
+    <h2 class="lp-light-h2" style="margin-bottom:32px;">Your dealership's app, in their pocket.</h2>
+    <style>
+      .vv-phones{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;max-width:1100px;margin:0 auto;align-items:start;}
+      .vv-phones img{width:100%;height:auto;border:1px solid var(--border-light);border-radius:14px;box-shadow:var(--shadow-lg);}
+      @media(max-width:900px){.vv-phones{grid-template-columns:repeat(3,1fr);}}
+      @media(max-width:600px){.vv-phones{grid-template-columns:repeat(2,1fr);gap:12px;}}
+    </style>
+    <div class="vv-phones">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv1.png') }}" alt="VehicleVault dealer-branded app showing My Items — tracked keys and vehicles">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv2.png') }}" alt="VehicleVault app — Secure Your Vehicle">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv3.png') }}" alt="VehicleVault app — Instant Location Tracker showing keys on a map">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv4.png') }}" alt="VehicleVault app — Smart Key Finder locating a key">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv5.png') }}" alt="VehicleVault app — Effortless Vehicle Care, the dealer-branded My Dealership hub">
+    </div>
+  </div>
+</section>
+
+<!-- ANGLE 1: FTC / COMPLIANT PACKAGE (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Built for the Compliant Package</div>
+    <h2 class="lp-light-h2">A product that survives disclosure.</h2>
+    <p class="lp-light-sub">Modern packages need products where value far exceeds cost, with low or no install — and that can be removed. VehicleVault hits all three.</p>
+    <div class="home-steps">
+      <div class="home-step">
+        <div class="n">✓</div>
+        <h3>No technician</h3>
+        <p>Battery powered means no install. Install cost stays near zero.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">✓</div>
+        <h3>No cut wires</h3>
+        <p>Nothing hard-wired. No warranty or theft pushback.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">✓</div>
+        <h3>Removable in ~30 sec</h3>
+        <p>Comes right off the car. No drive-off cost on unsold units.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM A: FTC ADDENDUMS (light) -->
+{% module "lead_form_ftc"
+   path="../modules/lead-form.module",
+   section_id="get-the-ftc-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"Addendums, the FTC &amp; the Pricing Playbook.\"",
+   description="What's changing in dealer pricing — and what a compliant, profitable package looks like going forward. Enter your email for instant access.",
+   article_label="Addendums, the FTC & the Pricing Playbook",
+   article_url="https://585393.hs-sites.com/null/blog/ftc-addendums-dealer-pricing-playbook",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
+   background="light"
+%}
+
+<!-- ANGLE 2: REINSURANCE / WISETRAK (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">The Reinsurance Opportunity</div>
+    <h2 class="lp-light-h2">A stronger book than the VSC alone.</h2>
+    <p class="lp-light-sub">VSC margins are compressing. This is a high-volume, low-loss product — exactly what a modern reinsurance book needs to keep underwriting profit in your hands.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>High penetration</h3>
+        <p>A product customers want, so sell-through stays strong.</p>
+        <span class="metric">Sells at volume</span>
+      </div>
+      <div class="home-card">
+        <h3>Real premium</h3>
+        <p>Premium on every deal that builds participation in your own reinsurance book.</p>
+        <span class="metric">Earns premium</span>
+      </div>
+      <div class="home-card">
+        <h3>Low loss</h3>
+        <p>A product that rarely pays a claim — diversifying a book that leans on rising VSC losses.</p>
+        <span class="metric">Low loss ratio</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (light) -->
+<section class="section bg-light">
+  <div class="container" id="how" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
+    <h2 class="lp-light-h2">Sell it at the desk. Profit on every renewal.</h2>
+    <div class="home-steps">
+      <div class="home-step">
+        <div class="n">1</div>
+        <h3>Offer</h3>
+        <p>F&amp;I presents it during the sale — a product customers understand instantly.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">2</div>
+        <h3>Activate</h3>
+        <p>Customer gets two trackers and your dealer-branded app.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">3</div>
+        <h3>Earn</h3>
+        <p>You keep high-margin backend gross on every deal — with a path into your reinsurance book.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF (dark stats band) -->
+<section class="section section-sm bg-dark" style="padding-bottom:0;text-align:center;">
+  <div class="container">
+    <div class="section-tag gold no-border" style="display:inline-block;">The Proof</div>
+    <h2 style="color:var(--white);margin-bottom:8px;">Revenue that shows up on the statement.</h2>
+    <p style="color:var(--body-text);margin:0;">Results for MDD dealers selling VehicleVault.</p>
+  </div>
+</section>
 {% module "stats"
    path="../modules/stats-bar.module",
    columns="3",
-   stat_1_number="$308K/mo",
+   stat_1_number="$24K/mo",
    stat_1_label="additional F&I revenue",
    stat_1_dealer="Brandon Honda",
    stat_1_color="gold",
@@ -37,90 +223,49 @@
    stat_3_label="dealer-branded customer app",
    stat_3_dealer="Product Feature",
    stat_3_color="gold",
-   background="dark",
-   section_size="small"
-%}
-
-<!-- HOW IT WORKS -->
-{% module "how_it_works"
-   path="../modules/steps-grid.module",
-   section_id="how",
-   section_tag="How It Works",
-   tag_style="gold",
-   headline="Sell it at the desk. Profit forever.",
-   step_1_title="F&I Offers VehicleVault",
-   step_1_description="Present VehicleVault during the sale. Tangible product customers understand immediately.",
-   step_2_title="Customer Gets Key Trackers",
-   step_2_description="Two Bluetooth key trackers plus your dealer-branded app. Real value they'll use daily.",
-   step_3_title="You Get Recurring Revenue",
-   step_3_description="High-margin add-on with subscription income. Zero chargebacks. Customer loyalty.",
-   show_bottom_cta=false,
-   background="light"
-%}
-
-<!-- FEATURES - DEALER BENEFITS -->
-{% module "features"
-   path="../modules/feature-grid.module",
-   section_tag="Why VehicleVault Sells",
-   tag_style="gold",
-   headline="Six reasons F&I managers love it.",
-   columns="3",
-   background="dark",
-   feature_1_title="High Margin",
-   feature_1_description="Premium F&I product with strong profit per deal. Front-end or back-end positioning.",
-   feature_2_title="Recurring Revenue",
-   feature_2_description="Subscription model creates ongoing income stream beyond the initial sale.",
-   feature_3_title="Zero Chargebacks",
-   feature_3_description="Flexible reinsured options. No chargebacks across all MDD dealers.",
-   feature_4_title="Customer Stickiness",
-   feature_4_description="Your dealership name on their phone. They see you every time they find their keys.",
-   feature_5_title="Easy to Sell",
-   feature_5_description="Tangible product customers can touch and understand. Not abstract coverage.",
-   feature_6_title="Rewards Program",
-   feature_6_description="Loyalty dollars redeemable at your dealership. Drives service retention."
-%}
-
-<!-- CUSTOMER APP FEATURES -->
-{% module "features_customer"
-   path="../modules/feature-grid.module",
-   section_tag="What Customers Get",
-   tag_style="green",
-   headline="An app they'll actually open every day.",
-   columns="2",
-   background="light",
-   feature_1_title="Key Tracking",
-   feature_1_description="Find their keys instantly with the same Bluetooth technology dealerships trust.",
-   feature_2_title="Vehicle Info",
-   feature_2_description="VIN, mileage, registration, documents, service history - all in one place.",
-   feature_3_title="Rewards & Loyalty",
-   feature_3_description="Earn loyalty dollars redeemable at your dealership for service and parts.",
-   feature_4_title="Your Dealership Brand",
-   feature_4_description="Every time they open the app to find their keys, they see YOUR name."
-%}
-
-<!-- TESTIMONIAL -->
-{% module "testimonial"
-   path="../modules/testimonial.module",
-   style="large",
-   quote="Brandon Honda generates an additional $308K per month selling VehicleVault. Zero chargebacks.",
-   author="Morgan Automotive Group",
-   role="Brandon Honda",
-   company="",
-   accent_color="gold",
    background="dark"
 %}
 
-<!-- CTA -->
+<!-- LEAD FORM B: REINSURANCE (light) -->
+{% module "lead_form_reinsurance"
+   path="../modules/lead-form.module",
+   section_id="get-the-reinsurance-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"The Future of Automotive Reinsurance.\"",
+   description="How compressing VSC margins are reshaping participation income — and how a high-volume, low-loss product can strengthen your book. Enter your email for instant access.",
+   article_label="The Future of Automotive Reinsurance",
+   article_url="https://585393.hs-sites.com/null/blog/future-of-automotive-reinsurance-wisetrak",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
+   background="light"
+%}
+
+<!-- TESTIMONIAL (light) -->
+<section class="section bg-light">
+  <div class="container home-quote">
+    <blockquote>"Brandon Honda generates an additional $308K per month selling VehicleVault. Zero chargebacks."</blockquote>
+    <div class="who"><b>Brandon Honda</b> — Morgan Automotive Group</div>
+  </div>
+</section>
+
+<!-- CTA (dark) -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
-   headline="See what $308K/mo looks like.",
-   description="Schedule a demo to see how VehicleVault can add high-margin recurring revenue to your F&I department.",
-   cta_text="Schedule Your Demo",
+   headline="See it on your lot in 15 minutes.",
+   description="We'll show you how VehicleVault lifts F&I gross on every deal — and how that premium can build your own reinsurance book. No commitment. No pressure.",
+   cta_text="Schedule Your Demo →",
    cta_url="https://mdd.io/contact-us",
    show_phone=true,
    phone_number="844-292-7110",
    background="dark"
 %}
+
+<!-- DISCLAIMER (light) -->
+<section class="section section-sm bg-light">
+  <div class="container" style="text-align:center;">
+    <p class="lp-light-sub" style="font-size:13px;color:var(--muted);font-style:italic;">Provided for general informational purposes — not legal, tax, or investment advice.</p>
+  </div>
+</section>
 
 {% endblock body %}

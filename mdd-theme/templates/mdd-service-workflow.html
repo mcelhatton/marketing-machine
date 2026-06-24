@@ -6,103 +6,180 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<!-- HERO -->
+<style>
+  /* Light-first homepage styles */
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;margin-bottom:18px;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;}
+  .home-showcase img{width:100%;border:1px solid var(--border-light);border-radius:16px;box-shadow:var(--shadow-lg);}
+  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
+  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--dark-text);font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .home-step h3{color:var(--dark-text);font-size:18px;font-weight:700;margin-bottom:6px;}
+  .home-step p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
+  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--dark-text);line-height:1.45;font-style:italic;margin-bottom:16px;}
+  .home-quote .who{font-size:15px;color:var(--muted);}
+  .home-quote .who b{color:var(--dark-text);}
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
 {% module "hero"
    path="../modules/hero.module",
-   product_tag="LocateIQ",
+   product_tag="Service Workflow · Powered by LocateIQ",
    tag_style="locateiq",
-   headline="Workflows that update <em>themselves.</em>",
-   subtitle="Track every vehicle from drop-off to delivery. Because we know where the car physically is, the system updates automatically. No manual updates. No stale dashboards.",
-   primary_cta_text="See LocateIQ in Action",
-   primary_cta_url={ "url": { "href": "https://mdd.io/contact-us", "type": "EXTERNAL" } },
+   headline="A service lane that <em>updates itself.</em>",
+   subtitle="MDD knows where every vehicle is, so each job advances on its own — exposing the bottlenecks that steal your bay time.",
+   primary_cta_text="Schedule a 15-Min Demo →",
+   primary_cta_url="https://mdd.io/contact-us",
    show_secondary_cta=true,
-   secondary_cta_text="Why It's Different",
-   secondary_cta_url={ "url": { "href": "#problem", "type": "EXTERNAL" } },
-   hero_image={ "src": "{{ get_asset_url('../mdd-assets/workflow-phone.png') }}", "alt": "MDD Workflow automation on mobile" },
-   image_max_width=280,
-   layout="two_column"
+   secondary_cta_text="See How It Works",
+   secondary_cta_url="#how",
+   layout="centered"
 %}
 
-<!-- THE PROBLEM - Custom pain-grid layout with icons -->
-<section class="section bg-card" id="problem">
-  <div class="container-sm" style="text-align:center;">
-    <div class="section-tag gold">The Problem</div>
-    <h2 style="color:var(--white);margin-bottom:16px;">Your workflow dashboard looks organized.<br><em style="color:var(--gold);">But is it accurate?</em></h2>
-    <p style="color:var(--body-text);font-size:16px;max-width:700px;margin:0 auto 28px;">Someone has to remember to log that a car left the bay. They forget. They get busy. The dashboard becomes fiction. And you discover bottlenecks after it's too late.</p>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
-          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div>
-          <h3>Technician Idle Time</h3>
-          <p>Techs wait for vehicles — wasting billable hours every single day.</p>
-        </div>
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">In the Shop, You Sell Time</div>
+    <h2 class="lp-light-h2">Recover 15 minutes per R.O.</h2>
+    <p class="lp-light-sub">Every minute you get back is billable. MDD finds the ones leaking out of your service lane.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Resell lost hours</h3>
+        <p>15 minutes back on every RO. A few thousand ROs a month is hundreds of billable hours — no new bays, no new techs.</p>
+        <span class="metric">~15 min saved per RO</span>
       </div>
-      <div class="pain-card">
-        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
-          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        </div>
-        <div>
-          <h3>No Process Visibility</h3>
-          <p>Advisors don't know where customer vehicles really are in the process.</p>
-        </div>
+      <div class="home-card">
+        <h3>Bottlenecks stop hiding</h3>
+        <p>Automatically measure dwell time in Write-up, Staging, In-Bay, and Service Complete. Confirm test drives happened. Every vehicle's cycle time measured. Any production drops flagged.</p>
+        <span class="metric">40–60% more bay turns</span>
       </div>
-      <div class="pain-card">
-        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
-          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </div>
-        <div>
-          <h3>Manual Updates Fail</h3>
-          <p>Someone has to log status changes. They forget. Dashboard becomes fiction.</p>
-        </div>
-      </div>
-      <div class="pain-card">
-        <div class="p-icon" style="width:48px;height:48px;background:rgba(245,158,11,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(245,158,11,0.3);">
-          <svg width="24" height="24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div>
-          <h3>CSI Takes a Hit</h3>
-          <p>Completed vehicles sit uncommunicated. Customers call repeatedly for updates.</p>
-        </div>
+      <div class="home-card">
+        <h3>Protect your CSI</h3>
+        <p>MDD knows when a customer has been waiting too long and alerts you so you can do something about it. No one wants to wait 3 hours for an oil change.</p>
+        <span class="metric">Higher loyalty scores</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LOCATEIQ DIFFERENCE - Custom intro text + VS -->
-<section class="section bg-dark">
-  <div class="container-sm">
-    <div class="section-tag light">The MDD Difference</div>
-    <h2 style="color:var(--white);margin-bottom:12px;">Locate<span style="color:var(--green);">IQ</span> — automation powered by real vehicle location.</h2>
-    <p style="font-size:16px;max-width:640px;margin-bottom:36px;">Because we track the physical position of every car and key, MDD can automatically advance your workflow when vehicles move. No manual updates. No stale dashboards. No guessing.</p>
-    <div class="vs-grid">
-      <div class="vs-col bad">
-        <h3>Other Workflow Tools</h3>
-        <ul>
-          <li>Rely on manual status updates</li>
-          <li>Data only as good as last person who logged it</li>
-          <li>Bottlenecks discovered after the fact</li>
-          <li>No physical location intelligence</li>
-          <li>Dashboard accuracy depends on staff discipline</li>
-        </ul>
+<!-- SHOWCASE (light) -->
+<section class="section bg-light home-showcase" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">See It</div>
+    <h2 class="lp-light-h2" style="margin-bottom:24px;">Every vehicle in the lane, every stage, in real time.</h2>
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Service Workflow dashboard showing every vehicle in the service lane and its current stage in real time">
+  </div>
+</section>
+
+<!-- HOW IT WORKS (light) -->
+<section class="section bg-light" id="how">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
+    <h2 class="lp-light-h2">RTLS knows where the car is.</h2>
+    <p class="lp-light-sub">Other tools wait for someone to log that a car left the bay. MDD already knows — so the status is always accurate.</p>
+    <div class="home-steps">
+      <div class="home-step">
+        <div class="n">1</div>
+        <h3>Tag at Arrival</h3>
+        <p>Every vehicle and key gets a tracking tag the moment it hits the drive. Nothing for advisors to babysit.</p>
       </div>
-      <div class="vs-divider">VS</div>
-      <div class="vs-col good">
-        <h3>MDD + LocateIQ</h3>
-        <ul>
-          <li>Workflows advance automatically when vehicles move</li>
-          <li>Real-time accuracy without extra work</li>
-          <li>Instant bottleneck alerts before they compound</li>
-          <li>Powered by physical vehicle location</li>
-          <li>Always accurate, always current</li>
-        </ul>
+      <div class="home-step">
+        <div class="n">2</div>
+        <h3>Stages Advance</h3>
+        <p>As the car moves from write-up to bay to QC to ready, each step logs itself — nothing to forget, nothing to game.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">3</div>
+        <h3>See It at a Glance</h3>
+        <p>The manager's dashboard flags exactly where attention is needed — before the delivery promise breaks.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS - REAL RESULTS -->
+<!-- PLACARDS (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <style>
+      .sw-placards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:760px;margin:36px auto 0;}
+      .sw-pcard{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:24px;box-shadow:0 2px 16px rgba(0,0,0,.05);}
+      .sw-pcard img{width:100%;height:auto;display:block;}
+      .sw-storage{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;}
+      .sw-storage img{width:100%;height:220px;object-fit:cover;border-radius:14px;border:1px solid var(--border-light);box-shadow:0 2px 16px rgba(0,0,0,.06);}
+      @media(max-width:768px){.sw-placards{grid-template-columns:1fr;max-width:320px;}.sw-storage{grid-template-columns:1fr 1fr;}}
+    </style>
+    <div class="section-tag light no-border" style="display:inline-block;">The Hardware</div>
+    <h2 class="lp-light-h2">Reusable placards, not paper hang tags.</h2>
+    <p class="lp-light-sub">Paper hang tags are single-use, easy to lose, and tell you nothing. MDD's durable, color-coded placards clip on at write-up — each with a built-in tracker that reports the exact location of the vehicle and its key in real time. Reuse them for years.</p>
+    <div class="sw-placards">
+      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-green.png') }}" alt="MDD reusable green tracking placard that replaces a paper hang tag"></div>
+      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-yellow.png') }}" alt="MDD reusable yellow tracking placard"></div>
+      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-red.png') }}" alt="MDD reusable red tracking placard"></div>
+    </div>
+    <p class="lp-light-sub" style="margin-top:18px;font-size:15px;">Color-code by status, lane, or department for an at-a-glance read across the drive.</p>
+  </div>
+</section>
+
+<!-- STORAGE (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Easy to Store, Fast to Grab</div>
+    <h2 class="lp-light-h2">Store them easily. Grab them in seconds.</h2>
+    <p class="lp-light-sub">Keep your placards on a wall rack, in a cabinet, or at the tire racks — wherever's handy. They store neatly and are quick to grab and clip into a customer's vehicle. And because they replace single-use paper hang tags, dealers save about <strong style="color:var(--dark-text);">$500 a month</strong> on average.</p>
+    <div class="sw-storage">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-wall-hanger.jpg') }}" alt="MDD placards organized on a service-drive wall rack">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-cabinet.jpg') }}" alt="MDD placards stored in a service-drive cabinet">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-tire-rack-1.jpg') }}" alt="MDD placards hung on a tire-storage rack">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-tire-rack-2.jpg') }}" alt="MDD placards organized at the tire racks">
+    </div>
+  </div>
+</section>
+
+<!-- FREE SAMPLE -->
+{% module "sample_cta"
+   path="../modules/sample-cta.module",
+   section_id="free-placard",
+   eyebrow="Free Sample",
+   headline="Hold a placard in your hand.",
+   description="We'll mail you a free reusable placard sample — red, yellow, or green — so you can feel the difference from paper.",
+   button_text="Get a Free Placard →",
+   button_url="https://mdd.io/contact-us"
+%}
+
+<!-- STATS (dark band) -->
+<section class="section section-sm bg-dark" style="padding-bottom:0;text-align:center;">
+  <div class="container">
+    <div class="section-tag green no-border" style="display:inline-block;">Proven on the Drive</div>
+    <h2 style="color:var(--white);margin-bottom:8px;">Corwin Toyota went from 2.5 hours to under 90 minutes.</h2>
+    <p style="color:var(--body-text);margin:0;">Express wait times cut in half — and CSI climbed with it.</p>
+  </div>
+</section>
 {% module "stats"
    path="../modules/stats-bar.module",
    columns="4",
@@ -110,58 +187,60 @@
    stat_1_label="of customers out within 60 minutes",
    stat_1_dealer="Corwin Toyota",
    stat_1_color="green",
-   stat_2_number="41 min",
-   stat_2_label="saved per repair order",
-   stat_2_dealer="Brandon Honda",
+   stat_2_number="96%",
+   stat_2_label="of services done within 90 minutes",
+   stat_2_dealer="Corwin Toyota",
    stat_2_color="gold",
    stat_3_number="40-60%",
    stat_3_label="increase in bay turns",
    stat_3_dealer="Corwin Toyota",
    stat_3_color="green",
-   stat_4_number="96%",
-   stat_4_label="services completed within 90 min",
-   stat_4_dealer="Corwin Toyota",
+   stat_4_number="41 min",
+   stat_4_label="saved per repair order",
+   stat_4_dealer="Brandon Honda",
    stat_4_color="gold",
-   background="light",
-   section_size="normal"
-%}
-
-<!-- HOW IT WORKS -->
-{% module "how_it_works"
-   path="../modules/steps-grid.module",
-   section_id="how",
-   section_tag="How It Works",
-   tag_style="light",
-   headline="Set up once. Automate forever.",
-   step_1_title="Define Your Stages",
-   step_1_description="Set up workflow stages: check-in, inspection, repair, quality check, ready for pickup. Customize to match your process.",
-   step_2_title="Tag Your Vehicles",
-   step_2_description="Attach Bluetooth tags to vehicles. The system tracks physical location and updates workflow automatically.",
-   step_3_title="Watch Bottlenecks Disappear",
-   step_3_description="Get alerts when vehicles stall. Hold vendors accountable. Reduce cycle time without manual updates.",
-   show_bottom_cta=false,
    background="dark"
 %}
 
-<!-- TESTIMONIAL -->
-{% module "testimonial"
-   path="../modules/testimonial.module",
-   style="large",
-   quote="With this cycle time tool, we know at the 40-minute mark whether we're having an issue with a particular delivery. We can get help there immediately to meet our delivery promise.",
-   author="Warren Weimer",
-   role="Service & Parts Director",
-   company="Corwin Toyota",
-   accent_color="green",
-   background="card"
+<!-- CSI / COMMUNICATION (light) -->
+<section class="section bg-light home-showcase" style="padding-bottom:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">CSI Lives or Dies Here</div>
+    <h2 class="lp-light-h2">A ready car the customer doesn't know about kills CSI.</h2>
+    <p class="lp-light-sub" style="margin-bottom:24px;">Because MDD knows the exact moment a unit is ready, your team keeps customers in the loop without remembering to check.</p>
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/service-workflow.png') }}" alt="MDD Service Workflow dashboard showing each vehicle's stage and the moment it hits ready">
+  </div>
+</section>
+
+<!-- TESTIMONIAL (light) -->
+<section class="section bg-light">
+  <div class="container home-quote">
+    <blockquote>"With this cycle time tool, we know at the 40-minute mark whether we're having an issue with a particular delivery. We can get help there immediately to meet our delivery promise."</blockquote>
+    <div class="who"><b>Warren Weimer</b> — Service &amp; Parts Director, Corwin Toyota</div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+{% module "lead_form"
+   path="../modules/lead-form.module",
+   section_id="get-the-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"Readiness at the Door.\"",
+   description="Why the first five minutes now decide the sale — and how real-time location turns readiness into a process. Enter your email for instant access.",
+   article_label="Readiness at the Door",
+   article_url="https://585393.hs-sites.com/null/blog/readiness-at-the-door-wins-the-sale",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
+   background="light"
 %}
 
-<!-- CTA -->
+<!-- CTA (dark) -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
-   headline="Turn downtime into dollars.",
-   description="See how leading dealerships are cutting cycle times, increasing bay turns, and boosting CSI scores with LocateIQ-powered workflows.",
-   cta_text="Schedule Your Demo",
+   headline="Resell the hours you're already losing.",
+   description="See how LocateIQ-powered Service Workflow cuts cycle time, lifts bay turns, and protects CSI — measured, not guessed.",
+   cta_text="Schedule Your Demo →",
    cta_url="https://mdd.io/contact-us",
    show_phone=true,
    phone_number="844-292-7110",

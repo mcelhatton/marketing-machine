@@ -6,134 +6,196 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<!-- HERO -->
+<style>
+  /* Light-first homepage styles */
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;margin-bottom:18px;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;}
+  .home-showcase img{width:100%;border:1px solid var(--border-light);border-radius:16px;box-shadow:var(--shadow-lg);}
+  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
+  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--dark-text);font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .home-step h3{color:var(--dark-text);font-size:18px;font-weight:700;margin-bottom:6px;}
+  .home-step p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
+  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--dark-text);line-height:1.45;font-style:italic;margin-bottom:16px;}
+  .home-quote .who{font-size:15px;color:var(--muted);}
+  .home-quote .who b{color:var(--dark-text);}
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
 {% module "hero"
    path="../modules/hero.module",
-   product_tag="LocateIQ",
+   product_tag="MDD Locate · Lot Management",
    tag_style="locateiq",
-   headline="Know where every vehicle is — <em>instantly.</em>",
-   subtitle="Sub-foot accuracy across your entire lot, indoors and out. Track every car across all your properties from one dashboard.",
-   primary_cta_text="Schedule a 15-Min Demo",
+   headline="Know where every vehicle is — <em>across every lot.</em>",
+   subtitle="Storage lots, overflow, multi-level garages — MDD shows your team the exact location of every car and key. Even which floor.",
+   primary_cta_text="Schedule a 15-Min Demo →",
    primary_cta_url="https://mdd.io/contact-us",
    show_secondary_cta=true,
-   secondary_cta_text="How It Works",
+   secondary_cta_text="See How It Works",
    secondary_cta_url="#how",
-   hero_image_src="https://mdd.io/hubfs/Geofences%20on%20Macbook%20with%20pins.png",
-   hero_image_alt="MDD lot management geofencing",
-   image_max_width=500,
-   layout="two_column"
+   layout="centered"
 %}
 
-<!-- THE PROBLEM -->
-{% module "pain_strip"
-   path="../modules/pain-strip.module",
-   section_id="problem",
-   tag_text="Sound Familiar?",
-   tag_style="gold",
-   headline="Walking the lot wastes everyone's time.",
-   description="Your team spends hours every week searching for vehicles. Customers wait. Sales stall. And nobody knows where that car actually is.",
-   pain_item_1="15+ minutes per customer looking for vehicles",
-   pain_item_2="Vehicles get moved, nobody updates the system",
-   pain_item_3="Multi-lot operations have zero visibility",
-   pain_item_4="Customers wait while your team searches",
-   background="card"
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Built for Scale</div>
+    <h2 class="lp-light-h2">Big rooftops have the same problems — just multiplied.</h2>
+    <p class="lp-light-sub">Tag every car and key once. MDD finds them across the whole operation.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Every lot, one dashboard</h3>
+        <p>Storage, overflow, multi-level garages. MDD knows which floor a unit is on — where GPS goes blind.</p>
+        <span class="metric">2,000+ units tracked</span>
+      </div>
+      <div class="home-card">
+        <h3>Audits in minutes, not hours</h3>
+        <p>Reconcile floor-plan against known locations. No all-hands hunt across the lot.</p>
+        <span class="metric">Hours → minutes</span>
+      </div>
+      <div class="home-card">
+        <h3>Lot rot, flagged early</h3>
+        <p>See exactly which units haven't moved in days. Exercise them on schedule before they stall a deal.</p>
+        <span class="metric">No curbside surprises</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE (light) -->
+<section class="section bg-light home-showcase" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">See It</div>
+    <h2 class="lp-light-h2" style="margin-bottom:24px;">Every car, every key — across every lot and every floor.</h2>
+    <img src="{{ get_asset_url('../mdd-assets/lotwithtext2.png') }}" alt="MDD Locate graphic: aerial view of a dealership lot, service bays, and 4-story parking garage with every vehicle pinpointed by real-time location">
+  </div>
+</section>
+
+<!-- FREE SAMPLE -->
+{% module "sample_cta"
+   path="../modules/sample-cta.module",
+   section_id="free-tracking-tag",
+   eyebrow="Free Sample",
+   headline="See it on your own lot — free.",
+   description="We'll send a free MDD tracking tag so you can drop it on a vehicle and watch it appear in real time.",
+   button_text="Get a Free Tracking Tag →",
+   button_url="https://mdd.io/contact-us"
 %}
 
-<!-- STATS BAR -->
+<!-- STATS (dark band) -->
+<section class="section section-sm bg-dark" style="padding-bottom:0;text-align:center;">
+  <div class="container">
+    <div class="section-tag green no-border" style="display:inline-block;">Proven at Scale</div>
+    <h2 style="color:var(--white);margin-bottom:8px;">Results from the highest-volume stores in the country.</h2>
+  </div>
+</section>
 {% module "stats"
    path="../modules/stats-bar.module",
    columns="3",
    stat_1_number="2,000+",
-   stat_1_label="Vehicles tracked across multiple lots",
+   stat_1_label="vehicles located instantly across multiple lots",
    stat_1_dealer="Bill Brown Ford",
    stat_1_color="green",
    stat_2_number="90%",
-   stat_2_label="Sales team adoption",
+   stat_2_label="sales-team adoption",
    stat_2_dealer="Bill Brown Ford",
    stat_2_color="gold",
-   stat_3_number="25 min to sec",
-   stat_3_label="Vehicle location time",
+   stat_3_number="25 min → seconds",
+   stat_3_label="time to locate a vehicle",
    stat_3_dealer="Longo Toyota",
    stat_3_color="green",
-   background="dark",
-   section_size="small"
-%}
-
-<!-- HOW IT WORKS -->
-{% module "how_it_works"
-   path="../modules/steps-grid.module",
-   section_id="how",
-   section_tag="How It Works",
-   tag_style="green",
-   headline="Real-time vehicle location in three steps.",
-   step_1_title="Tag Every Vehicle",
-   step_1_description="Attach a weatherproof tag when the vehicle arrives. Battery-powered, no wiring.",
-   step_1_image="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg",
-   step_2_title="Track Automatically",
-   step_2_description="Location updates automatically as vehicles move. No manual check-ins needed.",
-   step_2_image="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}",
-   step_3_title="Find Any Vehicle",
-   step_3_description="Search by VIN, stock number, or description. Walk directly to the car.",
-   step_3_image="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png",
-   show_bottom_cta=false,
-   background="light"
-%}
-
-<!-- FEATURES -->
-{% module "features"
-   path="../modules/feature-grid.module",
-   section_tag="What You Get",
-   tag_style="light",
-   headline="Built for real dealership operations.",
-   columns="2",
-   background="dark",
-   card_style="dark",
-   center_content=false,
-   feature_1_title="Sub-Foot Accuracy",
-   feature_1_description="Pinpoint vehicle location with sub-foot accuracy. Works indoors and outdoors, in service bays and across the lot.",
-   feature_1_icon="key",
-   feature_1_highlight="none",
-   feature_2_title="Multi-Lot Support",
-   feature_2_description="Track vehicles across multiple properties from a single dashboard. Bill Brown Ford tracks 2,000+ vehicles across several lots.",
-   feature_2_icon="grid",
-   feature_2_highlight="none",
-   feature_3_title="Movement Alerts",
-   feature_3_description="Get instant notifications when vehicles move outside geofenced areas or during off-hours.",
-   feature_3_icon="bell",
-   feature_3_highlight="none",
-   feature_4_title="DMS Integration",
-   feature_4_description="Syncs with Reynolds & Reynolds, CDK, and more. Stock numbers and VINs auto-populate.",
-   feature_4_icon="link",
-   feature_4_highlight="none",
-   feature_5_title="Floor Plan Audits",
-   feature_5_description="Simplify audits with instant location verification. No more walking the lot to find every car.",
-   feature_5_icon="check",
-   feature_5_highlight="none",
-   feature_6_title="Mobile Access",
-   feature_6_description="Access real-time tracking from any device. Desktop, tablet, or phone. Works everywhere.",
-   feature_6_icon="car",
-   feature_6_highlight="none"
-%}
-
-<!-- TESTIMONIAL -->
-{% module "testimonial"
-   path="../modules/testimonial.module",
-   style="large",
-   quote="Mobile Dealer Data allows us to instantly locate the exact position of 2,000 vehicles spread across several lots. This means we can prepare a vehicle for delivery or a show-ready status without the delays caused by previous key location methods.",
-   author="Dave Bird",
-   role="New Car Inventory Manager",
-   company="Bill Brown Ford (World's Largest Ford Dealer)",
-   accent_color="green",
    background="dark"
 %}
 
-<!-- CTA -->
+<!-- HOW IT WORKS (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
+    <h2 class="lp-light-h2">Three steps. Zero guesswork.</h2>
+    <div class="home-steps" id="how">
+      <div class="home-step">
+        <div class="n">1</div>
+        <h3>Tag</h3>
+        <p>Every car and key gets a tracking tag at stock-in. Scan the QR, assign the VIN — done in seconds.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">2</div>
+        <h3>Track</h3>
+        <p>The whole team sees live location — any lot, any overflow, any garage level — from phone or desktop.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">3</div>
+        <h3>Manage</h3>
+        <p>Walk straight to the unit, keys in hand. Audits take minutes and stale units flag themselves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARAGE / FLOOR (light) -->
+<section class="section bg-light home-showcase" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Which Floor</div>
+    <h2 class="lp-light-h2" style="margin-bottom:24px;">A GPS dot can't read a parking garage. MDD knows the floor.</h2>
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-details.png') }}" alt="MDD vehicle detail view showing exact location including which floor of a parking garage a car is parked on">
+  </div>
+</section>
+
+<!-- TESTIMONIAL (light) -->
+<section class="section bg-light">
+  <div class="container home-quote">
+    <blockquote>"MDD lets us instantly locate the exact position of 2,000 vehicles spread across several lots — and prep for delivery without the old key-hunting delays."</blockquote>
+    <div class="who"><b>Dave Bird</b> — New Car Inventory Manager, Bill Brown Ford (World's Largest Ford Dealer)</div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+{% module "lead_form"
+   path="../modules/lead-form.module",
+   section_id="get-the-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"Every Car, Every Key.\"",
+   description="Why lot visibility is the operational edge most dealers overlook — multi-lot coverage, garage-level location, lot-rot reports, and faster audits. Enter your email for instant access.",
+   article_label="Every Car, Every Key",
+   article_url="https://585393.hs-sites.com/null/blog/every-car-every-key-lot-visibility",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
+   background="light"
+%}
+
+<!-- CTA (dark) -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
-   headline="Stop walking the lot. Start selling.",
-   description="See how Lot Management works for your dealership in a quick 15-minute demo. No commitment. No pressure.",
-   cta_text="Schedule Your Demo",
+   headline="See it on your lot in 15 minutes.",
+   description="No commitment. No pressure. We'll show you exactly how MDD finds any car or key — even on the third floor of the garage.",
+   cta_text="Schedule Your Demo →",
    cta_url="https://mdd.io/contact-us",
    show_phone=true,
    phone_number="844-292-7110",

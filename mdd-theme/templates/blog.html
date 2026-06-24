@@ -1,0 +1,99 @@
+<!--
+  templateType: blog
+  label: MDD Blog
+  isAvailableForNewContent: true
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_meta.html_title }}</title>
+  <meta name="description" content="{{ page_meta.meta_description }}">
+  {{ standard_header_includes }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ get_asset_url('../css/theme.css') }}">
+  <style>
+    .blog-wrap{padding-top:175px;}
+    @media(max-width:1100px){.blog-wrap{padding-top:96px;}}
+    .blog-article{max-width:760px;margin:0 auto;}
+    .blog-back{display:inline-block;color:var(--green-dark);font-weight:700;text-decoration:none;font-size:14px;margin-bottom:18px;}
+    .blog-back:hover{color:var(--green);}
+    .blog-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green-dark);margin-bottom:12px;}
+    .blog-article h1{color:var(--dark-text);font-size:clamp(30px,4.5vw,46px);font-weight:800;line-height:1.12;letter-spacing:-0.5px;margin:0 0 14px;}
+    .blog-meta{color:var(--muted);font-size:14px;margin-bottom:36px;border-bottom:1px solid var(--border-light);padding-bottom:20px;}
+    .blog-body{color:var(--body-dark);font-size:18px;line-height:1.75;}
+    .blog-body h2{color:var(--dark-text);font-size:28px;font-weight:800;margin:36px 0 14px;line-height:1.25;}
+    .blog-body h3{color:var(--dark-text);font-size:21px;font-weight:700;margin:28px 0 10px;}
+    .blog-body p{margin:0 0 20px;}
+    .blog-body ul,.blog-body ol{margin:0 0 20px 22px;}
+    .blog-body li{margin-bottom:10px;}
+    .blog-body a{color:var(--green-dark);text-decoration:underline;}
+    .blog-body strong{color:var(--dark-text);}
+    .blog-body img{max-width:100%;height:auto;border-radius:12px;margin:24px 0;}
+    .blog-cta{margin-top:40px;background:var(--charcoal);border-radius:16px;padding:32px;text-align:center;}
+    .blog-cta h3{color:#fff;font-size:22px;font-weight:800;margin-bottom:10px;}
+    .blog-cta p{color:var(--body-text);margin-bottom:20px;}
+    .blog-cta a{display:inline-block;background:var(--green);color:var(--charcoal);font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;}
+    .blog-cta a:hover{background:var(--green-dark);color:#fff;}
+    /* Listing */
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;text-align:left;}
+    .blog-lcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.05);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;}
+    .blog-lcard:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.10);border-color:var(--green);}
+    .blog-lcard h3{color:var(--dark-text);font-size:18px;font-weight:800;line-height:1.35;margin-bottom:12px;flex:1;}
+    .blog-lcard p{color:var(--body-dark);font-size:14px;line-height:1.6;margin-bottom:14px;}
+    .blog-lcard .r{color:var(--green-dark);font-weight:700;font-size:15px;}
+    @media(max-width:900px){.blog-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:600px){.blog-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+{% global_partial path="../partials/header.html" %}
+
+<div class="blog-wrap">
+{% if is_listing_view %}
+  <!-- BLOG LISTING -->
+  <section class="section bg-light">
+    <div class="container" style="text-align:center;">
+      <div class="section-tag light no-border" style="display:inline-block;color:var(--green);">MDD Insights</div>
+      <h1 style="color:var(--dark-text);font-size:clamp(32px,4vw,46px);font-weight:800;letter-spacing:-1px;">Insights for dealers who run a tight ship.</h1>
+      <div class="blog-grid">
+        {% for content in contents %}
+          <a class="blog-lcard" href="{{ content.absolute_url }}">
+            <h3>{{ content.name }}</h3>
+            <p>{{ content.meta_description }}</p>
+            <span class="r">Read the article →</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% else %}
+  <!-- BLOG POST -->
+  <article class="section bg-light">
+    <div class="container">
+      <div class="blog-article">
+        <a href="https://mdd.io/insights" class="blog-back">← All insights</a>
+        <div class="blog-eyebrow">Mobile Dealer Data · Industry Insight</div>
+        <h1>{{ content.name }}</h1>
+        <div class="blog-meta">{{ content.publish_date_localized }}{% if content.blog_post_author %} · {{ content.blog_post_author.display_name }}{% endif %}</div>
+        <div class="blog-body">{{ content.post_body }}</div>
+        <div class="blog-cta">
+          <h3>See it on your lot in 15 minutes.</h3>
+          <p>No commitment. We'll show you exactly how MDD works on a live dealership lot.</p>
+          <a href="https://mdd.io/contact-us">Schedule a 15-Min Demo →</a>
+        </div>
+      </div>
+    </div>
+  </article>
+{% endif %}
+</div>
+
+{% global_partial path="../partials/footer.html" %}
+
+{{ standard_footer_includes }}
+</body>
+</html>

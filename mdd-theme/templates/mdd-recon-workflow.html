@@ -6,37 +6,194 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<!-- HERO -->
+<style>
+  /* Light-first homepage styles */
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;margin-bottom:18px;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;}
+  .home-showcase img{width:100%;border:1px solid var(--border-light);border-radius:16px;box-shadow:var(--shadow-lg);}
+  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
+  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--dark-text);font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .home-step h3{color:var(--dark-text);font-size:18px;font-weight:700;margin-bottom:6px;}
+  .home-step p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
+  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--dark-text);line-height:1.45;font-style:italic;margin-bottom:16px;}
+  .home-quote .who{font-size:15px;color:var(--muted);}
+  .home-quote .who b{color:var(--dark-text);}
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
+  /* Page-specific */
+  .recon-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px;}
+  .recon-chip{background:#fff;border:1px solid var(--border-light);border-radius:9999px;padding:8px 16px;color:var(--dark-text);font-size:14px;font-weight:600;}
+  .recon-chip b{color:var(--green-dark);}
+</style>
+
+<!-- HERO (dark) -->
 {% module "hero"
    path="../modules/hero.module",
-   product_tag="LocateIQ",
+   product_tag="Recon Workflow · Powered by LocateIQ",
    tag_style="locateiq",
    headline="Recon that tracks <em>itself.</em>",
-   subtitle="Know exactly where every used car is in your reconditioning pipeline. Automatic updates. No manual logging. Reduce days to frontline.",
-   primary_cta_text="See LocateIQ in Action",
+   subtitle="Front-end gross is thin. The profit you still control sits in the recon line — and MDD shortens it with Time-to-Line data you can actually trust.",
+   primary_cta_text="Schedule a 15-Min Demo →",
    primary_cta_url="https://mdd.io/contact-us",
    show_secondary_cta=true,
-   secondary_cta_text="See the Problem",
-   secondary_cta_url="#problem",
+   secondary_cta_text="See How It Works",
+   secondary_cta_url="#how",
    layout="centered"
 %}
 
-<!-- THE PROBLEM -->
-{% module "pain_strip"
-   path="../modules/pain-strip.module",
-   section_id="problem",
-   tag_text="Sound Familiar?",
-   tag_style="gold",
-   headline="A $40K car sitting in recon is dead capital.",
-   description="Every extra day a vehicle sits in reconditioning is cash sitting on the lot. But you can't fix bottlenecks you can't see.",
-   pain_item_1="Cars stuck at vendors for days",
-   pain_item_2="No visibility into recon stages",
-   pain_item_3="Manual updates get skipped",
-   pain_item_4="Outside auditors cost a fortune",
-   background="card"
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE MATH (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">The Margin Is Made in Recon</div>
+    <h2 class="lp-light-h2">Every day in recon is money off the hood.</h2>
+    <p class="lp-light-sub">Holding a used unit costs about $40 a day. Cut one day off Time-to-Line and the numbers add up fast.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Dead capital adds up</h3>
+        <p>A $40K car sitting six extra days in recon burns roughly $240 before it's ever merchandised.</p>
+        <span class="metric">~$40/day holding cost</span>
+      </div>
+      <div class="home-card">
+        <h3>One day is real money</h3>
+        <p>Shaving a single day off recon across your inventory is worth about $45K a year.</p>
+        <span class="metric">$45K/yr per day cut</span>
+      </div>
+      <div class="home-card">
+        <h3>The last lever you control</h3>
+        <p>In a compressed-margin market, reconditioning speed is one of the last profit levers fully in your hands.</p>
+        <span class="metric">35% fewer days to lot</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE WEDGE (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">The Real Problem</div>
+    <h2 class="lp-light-h2">Other recon tools wait for someone to click a button.</h2>
+    <p class="lp-light-sub">A car moves to detail, but the system doesn't know until someone updates it — if they do. People forget. And when pay is tied to step times, timestamps get gamed. You end up measuring memory, not your process.</p>
+  </div>
+</section>
+
+<!-- SHOWCASE (light) -->
+<section class="section bg-light home-showcase" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">See It</div>
+    <h2 class="lp-light-h2" style="margin-bottom:24px;">Every used car, every recon stage, in real time.</h2>
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Recon Workflow dashboard showing every used vehicle and its current reconditioning stage in real time">
+  </div>
+</section>
+
+<!-- HOW IT WORKS (light) -->
+<section class="section bg-light" id="how">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
+    <h2 class="lp-light-h2">AI automation that knows every car's status and location.</h2>
+    <p class="lp-light-sub">Service and Recon workflows use AI automation to let you know the work status and location of every car. No more false reports or gaming the system. Less clicks and more accuracy!</p>
+    <div class="home-steps" style="margin-top:36px;">
+      <div class="home-step">
+        <div class="n">1</div>
+        <h3>Tag at Acquisition</h3>
+        <p>Every vehicle gets a tracking tag the moment it arrives.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">2</div>
+        <h3>AI Tracks Status &amp; Location</h3>
+        <p>As the car moves through shop, detail, and photos, AI automation keeps its work status and location current — no false reports, no gamed timestamps.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">3</div>
+        <h3>Shorten Time-to-Line</h3>
+        <p>See exactly where a unit stalled and hold vendors accountable with clean, defensible numbers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE APPS ROW (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">In Every Tech's Pocket</div>
+    <h2 class="lp-light-h2" style="margin-bottom:32px;">Recon runs from the phone your team already carries.</h2>
+    <style>
+      .recon-phones{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:760px;margin:0 auto;align-items:start;}
+      .recon-phones img{width:100%;height:auto;border:1px solid var(--border-light);border-radius:18px;box-shadow:var(--shadow-lg);}
+      @media(max-width:600px){.recon-phones{gap:12px;}}
+    </style>
+    <div class="recon-phones">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-mobile.png') }}" alt="MDD Workflow mobile app showing a vehicle's recon stage">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan.png') }}" alt="MDD Work Plan mobile app showing the day's recon tasks">
+    </div>
+  </div>
+</section>
+
+<!-- CORE STEPS (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Benchmarkable by Design</div>
+    <h2 class="lp-light-h2">Locked Core Steps. Unlimited Sub-Steps.</h2>
+    <p class="lp-light-sub">Built for dealer groups. Because every store moves through the same locked Core Steps, your data rolls up into one apples-to-apples comparison across every rooftop — something freeform systems can't do, so you can never truly compare one store to the rest. MDD even gamifies it, stack-ranking your stores against each other to drive the whole group's Time-to-Line down. Unlimited Sub-Steps still keep each store's local process intact.</p>
+    <div class="recon-chips">
+      <span class="recon-chip"><b>1.</b> Pending</span>
+      <span class="recon-chip"><b>2.</b> Inspection</span>
+      <span class="recon-chip"><b>3.</b> Estimate Approval</span>
+      <span class="recon-chip"><b>4.</b> Mechanical</span>
+      <span class="recon-chip"><b>5.</b> Cosmetic</span>
+      <span class="recon-chip"><b>6.</b> Detail</span>
+      <span class="recon-chip"><b>7.</b> Photos</span>
+      <span class="recon-chip"><b>8.</b> Ready</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE 2 (light) -->
+<section class="section bg-light home-showcase" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Tamper-Proof History</div>
+    <h2 class="lp-light-h2" style="margin-bottom:24px;">Accurate dwell time at every stage — with AI accuracy you can trust.</h2>
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD workflow history showing automatic, tamper-proof dwell time logged at each recon stage">
+  </div>
+</section>
+
+<!-- FREE SAMPLE -->
+{% module "sample_cta"
+   path="../modules/sample-cta.module",
+   section_id="free-test-drive",
+   eyebrow="Free Test Drive",
+   headline="Take Recon Workflow for a test drive.",
+   description="Try LocateIQ-powered recon on your own inventory — free, no commitment. See your real Time-to-Line.",
+   button_text="Start a Free Test Drive →",
+   button_url="https://mdd.io/contact-us"
 %}
 
-<!-- STATS -->
+<!-- STATS (dark band) -->
 {% module "stats"
    path="../modules/stats-bar.module",
    columns="3",
@@ -44,73 +201,46 @@
    stat_1_label="saved per car in recon",
    stat_1_dealer="Longo Toyota",
    stat_1_color="green",
-   stat_2_number="35%",
-   stat_2_label="reduction in days to lot",
-   stat_2_dealer="Aggregate",
+   stat_2_number="25 min → seconds",
+   stat_2_label="to locate a vehicle",
+   stat_2_dealer="Longo Toyota",
    stat_2_color="gold",
-   stat_3_number="25 min to sec",
-   stat_3_label="vehicle location time",
-   stat_3_dealer="Longo Toyota",
+   stat_3_number="35%",
+   stat_3_label="reduction in days to lot",
+   stat_3_dealer="MDD dealers",
    stat_3_color="green",
-   background="dark",
-   section_size="small"
-%}
-
-<!-- HOW IT WORKS -->
-{% module "how_it_works"
-   path="../modules/steps-grid.module",
-   section_id="how",
-   section_tag="How It Works",
-   tag_style="green",
-   headline="Track every vehicle from acquisition to frontline.",
-   step_1_title="Tag at Acquisition",
-   step_1_description="Attach a tag when the vehicle arrives. System tracks it through every recon step automatically.",
-   step_2_title="Monitor Progress",
-   step_2_description="See where every car is: inspection, detail, photos, mechanical. Get alerts when vehicles stall.",
-   step_3_title="Reduce Days to Lot",
-   step_3_description="Hold vendors accountable. Eliminate bottlenecks. Get cars frontline-ready faster.",
-   show_bottom_cta=false,
-   background="light"
-%}
-
-<!-- VS COMPARISON -->
-{% module "vs_comparison"
-   path="../modules/vs-comparison.module",
-   section_tag="The MDD Difference",
-   tag_style="light",
-   headline="Other tools rely on someone updating the system. MDD doesn't.",
-   left_title="Traditional Recon Tools",
-   left_item_1="Manual status updates required",
-   left_item_2="Data only as good as last person who logged it",
-   left_item_3="Bottlenecks discovered after the fact",
-   left_item_4="Expensive outside auditors needed",
-   right_title="MDD + LocateIQ",
-   right_item_1="Automatic updates when vehicles move",
-   right_item_2="Real-time accuracy without extra work",
-   right_item_3="Instant bottleneck alerts",
-   right_item_4="Reduce or eliminate auditor costs",
-   background="card"
-%}
-
-<!-- TESTIMONIAL -->
-{% module "testimonial"
-   path="../modules/testimonial.module",
-   style="large",
-   quote="MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.",
-   author="Mark Seipel",
-   role="Fixed Operations Director",
-   company="Longo Toyota",
-   accent_color="green",
    background="dark"
 %}
 
-<!-- CTA -->
+<!-- TESTIMONIAL (light) -->
+<section class="section bg-light">
+  <div class="container home-quote">
+    <blockquote>"MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results."</blockquote>
+    <div class="who"><b>Mark Seipel</b> — Fixed Operations Director, Longo Toyota</div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+{% module "lead_form"
+   path="../modules/lead-form.module",
+   section_id="get-the-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"The Margin Is Made in Recon.\"",
+   description="Time-to-Line economics, why manual recon data fails, and how RTLS fixes it. Get instant access.",
+   article_label="The Margin Is Made in Recon",
+   article_url="https://585393.hs-sites.com/null/blog/the-margin-is-made-in-recon",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
+   background="card"
+%}
+
+<!-- CTA (dark) -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
-   headline="Get cars to the lot faster.",
-   description="See how Recon Workflow can reduce your days to frontline and eliminate bottlenecks.",
-   cta_text="Schedule Your Demo",
+   headline="Shorten your days to frontline — measured, not guessed.",
+   description="See how RTLS-driven recon turns the last profit lever you control into measurable gross.",
+   cta_text="Schedule Your Demo →",
    cta_url="https://mdd.io/contact-us",
    show_phone=true,
    phone_number="844-292-7110",

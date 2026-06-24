@@ -1,0 +1,68 @@
+{# Lead Form module — email capture that delivers a thought-leadership article.
+   Posts to HubSpot Forms Submission API when form_guid is set; otherwise
+   gracefully sends the visitor straight to the article. #}
+{% set uid = "leadform_" ~ name %}
+<section class="section bg-{{ module.background }}" id="{{ module.section_id }}">
+  <div class="container-sm">
+    <div class="lead-form-card">
+      <div class="lead-form-copy">
+        {% if module.eyebrow %}<div class="section-tag green">{{ module.eyebrow }}</div>{% endif %}
+        {% if module.headline %}<h2 style="color:var(--white);margin-bottom:12px;">{{ module.headline }}</h2>{% endif %}
+        {% if module.description %}<p style="color:var(--body-text);">{{ module.description }}</p>{% endif %}
+      </div>
+      <form class="lead-form" id="{{ uid }}" novalidate>
+        <div class="lead-form-row">
+          <input type="email" name="email" required placeholder="you@dealership.com" aria-label="Work email">
+          <button type="submit">{{ module.button_text }}</button>
+        </div>
+        <p class="lead-form-fineprint">No spam. Just the occasional dealer insight. Unsubscribe anytime.</p>
+        <p class="lead-form-success" style="display:none;">✓ Thanks! Your article just opened in a new tab. <a href="{{ module.article_url }}" target="_blank" rel="noopener">Open it again →</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+.lead-form-card{background:var(--charcoal);border:1px solid var(--green);border-radius:18px;padding:40px;box-shadow:0 8px 40px rgba(138,200,51,0.12);}
+.lead-form-copy{margin-bottom:20px;}
+.lead-form-row{display:flex;gap:10px;flex-wrap:wrap;}
+.lead-form-row input{flex:1;min-width:240px;background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;color:var(--white);font-family:var(--font-body);font-size:16px;}
+.lead-form-row input:focus{outline:none;border-color:var(--green);}
+.lead-form-row button{background:var(--green);color:var(--charcoal);font-weight:700;font-size:16px;border:none;padding:14px 24px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
+.lead-form-row button:hover{background:var(--green-dark);color:#fff;}
+.lead-form-fineprint{font-size:12px;color:var(--muted);margin-top:12px;}
+.lead-form-success{font-size:15px;color:var(--green);font-weight:600;margin-top:14px;}
+.lead-form-success a{color:var(--green);text-decoration:underline;}
+</style>
+
+<script>
+(function(){
+  var form = document.getElementById("{{ uid }}");
+  if(!form) return;
+  var portalId = "585393";
+  var formGuid = "{{ module.form_guid }}";
+  var articleUrl = "{{ module.article_url }}";
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var email = form.querySelector('input[name=email]').value.trim();
+    if(!email){ return; }
+    // 1) Deliver the article immediately. Opened inside the click gesture so popup blockers allow it.
+    if(articleUrl){ window.open(articleUrl, "_blank", "noopener"); }
+    // 2) Capture the lead in HubSpot (fire-and-forget).
+    if(formGuid){
+      fetch("https://api.hsforms.com/submissions/v3/integration/submit/"+portalId+"/"+formGuid, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+          fields:[{name:"email",value:email}],
+          context:{pageUri:location.href, pageName:document.title}
+        })
+      }).catch(function(){});
+    }
+    // 3) Confirm on-page with a fallback link.
+    form.querySelector('.lead-form-row').style.display = 'none';
+    form.querySelector('.lead-form-fineprint').style.display = 'none';
+    form.querySelector('.lead-form-success').style.display = 'block';
+  });
+})();
+</script>

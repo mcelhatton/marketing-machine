@@ -197,7 +197,7 @@ h1 em, h2 em, h3 em { font-style: normal; color: var(--green); }
    HERO SECTIONS
    ══════════════════════════════ */
 .hero {
-  padding: 140px 24px 80px;
+  padding: 175px 24px 80px;
   position: relative; overflow: hidden;
 }
 .hero::before {
@@ -237,9 +237,19 @@ h1 em, h2 em, h3 em { font-style: normal; color: var(--green); }
 .bg-dark { background: var(--charcoal); }
 .bg-card { background: var(--card); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
 .bg-light { background: var(--off-white); }
+
+/* Dealership-lot photo behind every dark section (hero, dark bands, CTA), with a dark overlay for readability */
+.hero, .bg-dark {
+  background-image: linear-gradient(100deg, rgba(26,30,36,0.94) 0%, rgba(26,30,36,0.84) 48%, rgba(26,30,36,0.58) 100%), url("https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/dealerlot.png");
+  background-size: cover;
+  background-position: center;
+}
+.hero::before, .hero-glow, .cta-glow { display: none; }
 .bg-white { background: var(--white); }
 
 .section { padding: 80px 24px; }
+/* Hero needs extra top clearance for the fixed header at desktop widths (beats .section) */
+@media (min-width: 1101px) { .section.hero { padding: 175px 24px 80px; } }
 .section.section-sm { padding: 48px 24px; }
 
 /* ══════════════════════════════
@@ -549,6 +559,39 @@ h1 em, h2 em, h3 em { font-style: normal; color: var(--green); }
   box-shadow: 0 0 0 3px var(--green-glow);
 }
 .form-group textarea { min-height: 120px; resize: vertical; }
+
+/* ══════════════════════════════
+   READABILITY PASS — larger body copy site-wide
+   ══════════════════════════════ */
+body { font-size: 18px; line-height: 1.65; }
+/* Storytelling paragraphs (split image+text sections) */
+.mdd-split p { font-size: 18px; line-height: 1.7; }
+.mdd-split h2 { font-size: clamp(26px, 3vw, 34px); }
+/* Generic section body copy that sets only color inline still inherits 18px from body */
+.section p { line-height: 1.7; }
+/* Pain strip */
+.pain-strip h2 { font-size: 26px; }
+.pain-strip p { font-size: 18px; line-height: 1.6; }
+.pain-item { font-size: 17px; }
+/* How-it-works steps */
+.step p { font-size: 16px; line-height: 1.65; }
+.step h3 { font-size: 19px; }
+/* VS comparison */
+.vs-col li { font-size: 16px; line-height: 1.65; }
+/* Feature cards */
+.feature-card p { font-size: 16px; line-height: 1.6; }
+.feature-card h3 { font-size: 17px; }
+/* Stats */
+.stat-card .label { font-size: 15px; }
+/* Testimonials */
+.test-card blockquote { font-size: 16px; }
+.testimonial-lg blockquote { font-size: 22px; }
+/* Proof cards */
+.proof-card .quote { font-size: 15px; }
+/* CTA */
+.cta-section p { font-size: 18px; }
+/* Hero subtitle */
+.hero .sub { font-size: 19px; line-height: 1.6; }
 
 /* ══════════════════════════════
    RESPONSIVE — TABLET (768px)

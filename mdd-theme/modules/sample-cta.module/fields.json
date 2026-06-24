@@ -1,0 +1,8 @@
+[
+  { "name": "section_id", "label": "Section ID", "type": "text", "default": "free-sample" },
+  { "name": "eyebrow", "label": "Eyebrow", "type": "text", "default": "Free Sample" },
+  { "name": "headline", "label": "Headline", "type": "text", "default": "Try it for free." },
+  { "name": "description", "label": "Description", "type": "text", "default": "We'll mail you a free sample — no commitment." },
+  { "name": "button_text", "label": "Button Text", "type": "text", "default": "Get a Free Sample →" },
+  { "name": "button_url", "label": "Button URL", "type": "text", "default": "https://mdd.io/contact-us" }
+]

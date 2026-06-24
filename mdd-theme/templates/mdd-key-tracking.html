@@ -6,166 +6,242 @@
 {% extends "./base.html" %}
 {% block body %}
 
-<!-- HERO -->
+<style>
+  /* Light-first homepage styles */
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;margin-bottom:18px;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;}
+  .home-showcase img{width:100%;border:1px solid var(--border-light);border-radius:16px;box-shadow:var(--shadow-lg);}
+  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
+  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--dark-text);font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .home-step h3{color:var(--dark-text);font-size:18px;font-weight:700;margin-bottom:6px;}
+  .home-step p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
+  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--dark-text);line-height:1.45;font-style:italic;margin-bottom:16px;}
+  .home-quote .who{font-size:15px;color:var(--muted);}
+  .home-quote .who b{color:var(--dark-text);}
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
 {% module "hero"
    path="../modules/hero.module",
-   product_tag="LocateIQ",
+   product_tag="MDD Locate · Key & Vehicle Tracking",
    tag_style="locateiq",
-   headline="Find any key in <em>seconds</em> — not minutes.",
-   subtitle="Real-time location for every key in your dealership. No check-outs, no scanning, no key boxes. Just instant visibility.",
-   primary_cta_text="Schedule a 15-Min Demo",
+   headline="Find every car and key. <em>Instantly.</em>",
+   subtitle="A customer is 30 minutes out for one specific vehicle. MDD puts your hands on that exact car — and its key — before they pull in.",
+   primary_cta_text="Schedule a 15-Min Demo →",
    primary_cta_url="https://mdd.io/contact-us",
    show_secondary_cta=true,
-   secondary_cta_text="How It Works",
+   secondary_cta_text="See How It Works",
    secondary_cta_url="#how",
-   hero_image_src="{{ get_asset_url('../mdd-assets/warmer-colder.webp') }}",
-   hero_image_alt="MDD key tracking warmer/colder",
-   image_max_width=320,
-   layout="two_column"
+   layout="centered"
 %}
 
-<!-- THE PROBLEM -->
-{% module "pain_strip"
-   path="../modules/pain-strip.module",
-   section_id="problem",
-   tag_text="Sound Familiar?",
-   tag_style="gold",
-   headline="Keys disappear. Deals stall. Money walks.",
-   description="Your salesperson has a customer ready to buy, but they can't find the key. Now everyone is searching while the customer waits awkwardly.",
-   pain_item_1="15+ minutes per search",
-   pain_item_2="$500+ per lost key",
-   pain_item_3="Deals lost to customer frustration",
-   pain_item_4="Key machines show accountability, not location",
-   background="card"
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">The Problem</div>
+    <h2 class="lp-light-h2">Three things turn a confident opening into an apology.</h2>
+    <p class="lp-light-sub">The deal starts before the handshake. Put hands on the exact car and its key before the customer arrives — not while they stand there waiting.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Can't find the car</h3>
+        <p>It's in inventory, but nobody knows where across your lots, vendors and aftermarket locations.</p>
+        <span class="metric">Customer waiting</span>
+      </div>
+      <div class="home-card">
+        <h3>Can't find the key</h3>
+        <p>Nothing worse than the customer standing at the vehicle they came to purchase and no one can find its key.</p>
+        <span class="metric">Momentum dying</span>
+      </div>
+      <div class="home-card">
+        <h3>Lot rot</h3>
+        <p>The car hasn't moved in days. Dead battery, flat spot, surprise during the demo drive.</p>
+        <span class="metric">Deal at risk</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE OLD WAY (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag gold no-border" style="display:inline-block;">The Old Way</div>
+    <h2 class="lp-light-h2">Every car, every key, on one screen.</h2>
+    <p class="lp-light-sub" style="margin-bottom:28px;">A missing key on a Saturday is a missing deal. MDD puts every car and key on one screen — so the scramble never happens.</p>
+    <style>
+      .kt-chaos{position:relative;max-width:1000px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow-lg);}
+      .kt-chaos img{display:block;width:100%;height:auto;}
+      .kt-chaos-cap{position:absolute;left:0;right:0;bottom:0;padding:64px 28px 22px;text-align:left;background:linear-gradient(to top, rgba(26,30,36,0.94) 10%, rgba(26,30,36,0));}
+      .kt-chaos-cap span{color:#fff;font-size:clamp(17px,2.2vw,24px);font-weight:800;line-height:1.35;display:block;max-width:680px;}
+      .kt-chaos-cap b{color:var(--green);}
+      @media(max-width:600px){.kt-chaos-cap{padding:40px 16px 16px;}}
+    </style>
+    <div class="kt-chaos">
+      <img src="{{ get_asset_url('../mdd-assets/keyboard.png') }}" alt="A dealership key control board with a 2023 BMW X3 key marked MISSING while the sales team panics before a customer appointment — the chaos MDD eliminates">
+      <div class="kt-chaos-cap"><span>Key missing. Customer waiting. The whole floor scrambling. <b>MDD makes sure this never happens again.</b></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE APPROACH (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">The Approach</div>
+    <h2 class="lp-light-h2">Tag the car. Tag the key. At stock-in.</h2>
+    <p class="lp-light-sub">A tracking tag on every car and every key. The whole team sees any location in seconds — from their phone.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Walk straight to it</h3>
+        <p>Pull up the app, walk to the vehicle, keys in hand the first time.</p>
+        <span class="metric">No more hunting</span>
+      </div>
+      <div class="home-card">
+        <h3>Beat lot rot</h3>
+        <p>MDD flags any unit not driven, so cars get exercised on a schedule.</p>
+        <span class="metric">Lot-rot flag</span>
+      </div>
+      <div class="home-card">
+        <h3>Audit in minutes</h3>
+        <p>Every unit's location is already known, so floor-plan audits stop being an all-hands hunt.</p>
+        <span class="metric">Fast reconciliation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT FOR EVERY LOT (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Built For Every Lot</div>
+    <h2 class="lp-light-h2">Multiple lots. Overflow. Garage floors.</h2>
+    <p class="lp-light-sub" style="margin-bottom:32px;">GPS goes blind indoors. MDD knows which floor of a garage a car is parked on — wherever it sits across your operation.</p>
+    <style>
+      .kt-phones{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:760px;margin:0 auto;align-items:start;}
+      .kt-phones img{width:100%;height:auto;border:1px solid var(--border-light);border-radius:18px;box-shadow:var(--shadow-lg);}
+      @media(max-width:600px){.kt-phones{gap:12px;}}
+    </style>
+    <div class="kt-phones">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location on the lot">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan-mobile.png') }}" alt="MDD mobile app showing the day's work plan on a phone">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/communication-mobile.png') }}" alt="MDD mobile app showing customer communication tied to a vehicle">
+    </div>
+  </div>
+</section>
+
+<!-- FREE SAMPLE -->
+{% module "sample_cta"
+   path="../modules/sample-cta.module",
+   section_id="free-tracking-tag",
+   eyebrow="Free Sample",
+   headline="Try a tracking tag on your own keys.",
+   description="We'll mail you a free MDD tracking tag — put it on a car or key and see the location for yourself. No commitment.",
+   button_text="Get a Free Tracking Tag →",
+   button_url="https://mdd.io/contact-us"
 %}
 
-<!-- STATS BAR -->
+<!-- STATS (dark band) -->
 {% module "stats"
    path="../modules/stats-bar.module",
    columns="4",
    stat_1_number="2,000+",
-   stat_1_label="Vehicles tracked across multiple lots",
+   stat_1_label="vehicles tracked across lots",
    stat_1_dealer="Bill Brown Ford",
    stat_1_color="green",
    stat_2_number="90%",
-   stat_2_label="Sales team adoption in first month",
+   stat_2_label="sales-team adoption",
    stat_2_dealer="Bill Brown Ford",
    stat_2_color="gold",
-   stat_3_number="25 min to sec",
-   stat_3_label="Vehicle location time reduction",
+   stat_3_number="25 min → sec",
+   stat_3_label="vehicle location time",
    stat_3_dealer="Longo Toyota",
    stat_3_color="green",
    stat_4_number="Zero",
-   stat_4_label="Lost keys after implementation",
+   stat_4_label="lost keys after MDD",
    stat_4_dealer="Brandon Honda",
    stat_4_color="gold",
-   background="dark",
-   section_size="small"
-%}
-
-<!-- HOW IT WORKS -->
-{% module "how_it_works"
-   path="../modules/steps-grid.module",
-   section_id="how",
-   section_tag="How It Works",
-   tag_style="green",
-   headline="Three steps. Never lose a key again.",
-   step_1_title="Tag",
-   step_1_description="Scan the QR code, attach a Bluetooth tag to the key. Takes 10 seconds. Battery-powered, no wiring required.",
-   step_1_image="https://mdd.io/hs-fs/hubfs/Tracking%20Tags%20Image%20K41MD%20and%20K15%20White%20Background%20Removed.jpg",
-   step_2_title="Track",
-   step_2_description="See every key and car location in real-time. Desktop dashboard or mobile app. No check-outs required.",
-   step_2_image="{{ get_asset_url('../mdd-assets/mdd-locate-mobile.webp') }}",
-   step_3_title="Find",
-   step_3_description="Search by VIN, stock number, or description. Walk directly to the key or car. Done.",
-   step_3_image="https://mdd.io/hubfs/Audi%20Nashua%20dealership%20management%20interface.png",
-   show_bottom_cta=false,
-   background="light"
-%}
-
-<!-- FEATURES -->
-{% module "features"
-   path="../modules/feature-grid.module",
-   section_tag="What You Get",
-   tag_style="light",
-   headline="Built for real dealership operations.",
-   columns="2",
-   background="dark",
-   card_style="dark",
-   center_content=false,
-   feature_1_title="Real-Time Key Location",
-   feature_1_description="See exactly where every key is — on a desk, in a pocket, across the lot. No more key machines that only show who took it last.",
-   feature_1_icon="key",
-   feature_1_highlight="none",
-   feature_2_title="Vehicle Location Too",
-   feature_2_description="Track every car across multiple properties with sub-foot accuracy. Know instantly when vehicles move.",
-   feature_2_icon="car",
-   feature_2_highlight="none",
-   feature_3_title="After-Hours Movement Alerts",
-   feature_3_description="Get instant notifications when vehicles move outside geofenced areas or during off-hours. Peace of mind 24/7.",
-   feature_3_icon="bell",
-   feature_3_highlight="none",
-   feature_4_title="DMS Integration",
-   feature_4_description="Syncs with Reynolds & Reynolds, CDK, and more. Stock numbers and VINs auto-populate. Zero double-entry.",
-   feature_4_icon="link",
-   feature_4_highlight="none",
-   feature_5_title="Daily Audit Tools",
-   feature_5_description="Simplify floor plan audits with instant location verification. No more walking the lot to find every car.",
-   feature_5_icon="check",
-   feature_5_highlight="none",
-   feature_6_title="Key Accountability",
-   feature_6_description="See who last checked out a key and where it went. Eliminate finger-pointing when keys go missing.",
-   feature_6_icon="user",
-   feature_6_highlight="none"
-%}
-
-<!-- WHO USES IT -->
-{% module "who_uses_it"
-   path="../modules/feature-grid.module",
-   section_tag="Built For Your Whole Team",
-   tag_style="green",
-   headline="Every department saves time with LocateIQ.",
-   columns="2",
-   background="light",
-   card_style="light",
-   center_content=true,
-   feature_1_title="Sales Managers",
-   feature_1_description="Get customers into vehicles faster. No waiting for keys to be found. Close more deals.",
-   feature_1_icon="star",
-   feature_1_highlight="none",
-   feature_2_title="Service Advisors",
-   feature_2_description="Find customer keys instantly when vehicles are ready for pickup. Improve CSI scores.",
-   feature_2_icon="wrench",
-   feature_2_highlight="gold_top",
-   feature_3_title="Lot Attendants",
-   feature_3_description="Locate keys for vehicle moves without hunting through drawers. Move cars faster.",
-   feature_3_icon="grid",
-   feature_3_highlight="none",
-   feature_4_title="General Managers",
-   feature_4_description="Eliminate lost key costs, reduce customer wait times, improve operational efficiency across the board.",
-   feature_4_icon="chart",
-   feature_4_highlight="gold_top"
-%}
-
-<!-- TESTIMONIAL -->
-{% module "testimonial"
-   path="../modules/testimonial.module",
-   style="large",
-   quote="MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.",
-   author="Mark Seipel",
-   role="Fixed Operations Director",
-   company="Longo Toyota",
-   accent_color="green",
    background="dark"
 %}
 
-<!-- CTA -->
+<!-- HOW IT WORKS (light) -->
+<section class="section bg-light" id="how">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
+    <h2 class="lp-light-h2">Tag once. Find anything in seconds.</h2>
+    <div class="home-steps">
+      <div class="home-step">
+        <div class="n">1</div>
+        <h3>Tag at Stock-In</h3>
+        <p>Every car and key gets a tracking tag on arrival. Scan the QR, assign the VIN, done in ten seconds.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">2</div>
+        <h3>See It in the App</h3>
+        <p>The whole team sees the live location of any car or key from phone or desktop — indoors and out.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">3</div>
+        <h3>Start Every Deal Right</h3>
+        <p>Car identified, key in hand, recently driven — so it starts clean and shows the way it should.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL (light) -->
+<section class="section bg-light">
+  <div class="container home-quote">
+    <blockquote>"MDD instantly locates 2,000 vehicles on multiple lots all over town. We get cars customer-delivered without delays."</blockquote>
+    <div class="who"><b>Dave Bird</b> — New Car Inventory Manager, Bill Brown Ford</div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+{% module "lead_form"
+   path="../modules/lead-form.module",
+   section_id="get-the-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"Every Car, Every Key.\"",
+   description="Why lot visibility is the operational edge most dealers overlook. Enter your email for instant access.",
+   article_label="Every Car, Every Key",
+   article_url="https://585393.hs-sites.com/null/blog/every-car-every-key-lot-visibility",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
+   background="card"
+%}
+
+<!-- CTA (dark) -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
-   headline="Stop losing keys. Start saving money.",
-   description="See how Key Tracking works for your dealership in a quick 15-minute demo. No commitment. No pressure.",
-   cta_text="Schedule Your Demo",
+   headline="See it on your lot in 15 minutes.",
+   description="We'll put the exact car and key in your team's hands in seconds — on a live dealership lot. No commitment. No pressure.",
+   cta_text="Schedule Your Demo →",
    cta_url="https://mdd.io/contact-us",
    show_phone=true,
    phone_number="844-292-7110",

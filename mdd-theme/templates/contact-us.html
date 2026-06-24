@@ -6,6 +6,49 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<style>
+  /* Contact page: shorter hero, no demo button (they're already here) */
+  .section.hero{padding:120px 24px 32px;}
+  .hero .cta-group{display:none;}
+  /* The form is the star */
+  .cu-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:start;max-width:1040px;margin:0 auto;}
+  .cu-form-card{background:#fff;border:1px solid var(--border-light);border-radius:18px;padding:40px;box-shadow:0 16px 50px rgba(0,0,0,.12);}
+  .cu-form-card h2{color:var(--dark-text);font-size:28px;font-weight:800;margin-bottom:6px;}
+  .cu-form-card .cu-sub{color:var(--body-dark);font-size:16px;margin-bottom:26px;}
+  .cu-field{margin-bottom:18px;}
+  .cu-field label{display:block;font-size:14px;font-weight:700;color:var(--dark-text);margin-bottom:7px;}
+  .cu-field input,.cu-field textarea{width:100%;box-sizing:border-box;padding:14px 16px;background:#fff;border:1.5px solid #cfd4da;border-radius:10px;color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
+  .cu-field input::placeholder,.cu-field textarea::placeholder{color:#9aa1ab;}
+  .cu-field input:focus,.cu-field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
+  .cu-field textarea{min-height:110px;resize:vertical;}
+  .cu-submit{width:100%;background:var(--green);color:var(--charcoal);font-weight:800;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;}
+  .cu-submit:hover{background:var(--green-dark);color:#fff;}
+  /* Match the embedded HubSpot form to the card */
+  .cu-hsform .hs-form-field{margin-bottom:18px;}
+  .cu-hsform .hs-form-field>label{display:block;font-size:14px;font-weight:700;color:var(--dark-text);margin-bottom:7px;}
+  .cu-hsform .hs-form-required{color:#e5484d;margin-left:2px;}
+  .cu-hsform .hs-input{width:100%!important;box-sizing:border-box;padding:14px 16px;background:#fff;border:1.5px solid #cfd4da;border-radius:10px;color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
+  .cu-hsform .hs-input::placeholder{color:#9aa1ab;}
+  .cu-hsform select.hs-input{height:52px;}
+  .cu-hsform .hs-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
+  .cu-hsform textarea.hs-input{min-height:110px;resize:vertical;}
+  .cu-hsform input[type=checkbox].hs-input,.cu-hsform input[type=radio].hs-input{width:auto!important;margin-right:8px;}
+  .cu-hsform fieldset{max-width:100%!important;}
+  .cu-hsform fieldset .hs-form-field{width:100%!important;float:none;padding:0;}
+  .cu-hsform fieldset .input{margin-right:0!important;}
+  .cu-hsform .hs-button{width:100%;background:var(--green);color:var(--charcoal);font-weight:800;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;font-family:'DM Sans',sans-serif;margin-top:6px;}
+  .cu-hsform .hs-button:hover{background:var(--green-dark)!important;color:#fff;}
+  .cu-hsform .hs-error-msg,.cu-hsform .hs-error-msgs label{color:#e5484d!important;font-size:13px;font-weight:500;}
+  .cu-hsform .legal-consent-container,.cu-hsform .hs-richtext{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5;}
+  .cu-hsform .submitted-message,.cu-hsform .hs-main-font-element{color:var(--dark-text);font-size:16px;font-weight:600;}
+  .cu-info{display:flex;flex-direction:column;gap:16px;}
+  .cu-info-card{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:24px;}
+  .cu-info-card h3{color:var(--green-dark);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .cu-info-card p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .cu-phone{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--dark-text);text-decoration:none;}
+  @media(max-width:768px){.cu-grid{grid-template-columns:1fr;}.cu-form-card{padding:28px;}}
+</style>
+
 <!-- HERO -->
 {% module "hero"
    path="../modules/hero.module",
@@ -17,41 +60,59 @@
    layout="centered"
 %}
 
-<!-- CONTACT FORM SECTION - Custom two-column layout -->
-<section class="section bg-card">
-  <div class="container-xs">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
-      <div>
-        <h2 style="color:var(--white);font-size:24px;margin-bottom:16px;">Schedule a Demo</h2>
-        <p style="margin-bottom:24px;">Fill out the form and our team will reach out within one business day to schedule your personalized demo.</p>
-
-        {# HubSpot form will be added via page editor #}
-
-        <div class="contact-form">
-          <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
-          <div class="form-group"><label>Email</label><input type="email" placeholder="you@dealership.com"></div>
-          <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 123-4567"></div>
-          <div class="form-group"><label>Dealership Name</label><input type="text" placeholder="Your dealership"></div>
-          <div class="form-group"><label>Message (optional)</label><textarea placeholder="Tell us about your biggest challenge..."></textarea></div>
-          <button class="btn-primary" style="width:100%;justify-content:center;">Request My Demo →</button>
-        </div>
-      </div>
-      <div>
-        <div style="background:var(--charcoal);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;margin-bottom:20px;">
-          <h3 style="color:var(--green);font-size:16px;margin-bottom:12px;">Prefer to call?</h3>
-          <a href="tel:8442927110" style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:var(--white);">844-292-7110</a>
-        </div>
-        <div style="background:var(--charcoal);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;margin-bottom:20px;">
-          <h3 style="color:var(--green);font-size:16px;margin-bottom:12px;">Location</h3>
-          <p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>
-        </div>
-        <div style="background:var(--charcoal);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;">
-          <h3 style="color:var(--green);font-size:16px;margin-bottom:12px;">What to expect</h3>
-          <p style="font-size:14px;line-height:1.6;">A 15-minute discovery call where we learn about your dealership, show you the platform, and discuss how MDD can solve your specific challenges. No hard sell. Just answers.</p>
-        </div>
-      </div>
+<!-- TRUSTED BY (light) -->
+<section style="background:#fff;border-bottom:1px solid var(--border-light);">
+  <div style="max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;">
+    <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Trusted by the best-run dealerships in the country</div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;">
+      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Bill Brown Ford</span>
+      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Longo Toyota</span>
+      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Corwin Toyota</span>
+      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Morgan Automotive</span>
+      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Penske Automotive</span>
+      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Lithia Automotive</span>
     </div>
   </div>
 </section>
+
+<!-- CONTACT FORM SECTION (light, form-forward) -->
+<section class="section bg-light" style="padding-top:48px;">
+  <div class="container">
+    <div class="cu-grid">
+      <!-- THE FORM (star) -->
+      <div class="cu-form-card">
+        <h2>Schedule your demo</h2>
+        <p class="cu-sub">Fill out the form and our team reaches out within one business day.</p>
+        <div id="hs-demo-form" class="cu-hsform"></div>
+      </div>
+      <!-- INFO (secondary) -->
+      <aside class="cu-info">
+        <div class="cu-info-card">
+          <h3>Prefer to call?</h3>
+          <a href="tel:8442927110" class="cu-phone">844-292-7110</a>
+        </div>
+        <div class="cu-info-card">
+          <h3>What to expect</h3>
+          <p>A 15-minute discovery call where we learn about your dealership, show you the platform, and discuss how MDD solves your specific challenges. No hard sell. Just answers.</p>
+        </div>
+        <div class="cu-info-card">
+          <h3>Location</h3>
+          <p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- HubSpot form embed -->
+<script charset="utf-8" src="https://js.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "585393",
+    formId: "27a12045-4078-4851-9ae9-cdbd68214b93",
+    target: "#hs-demo-form"
+  });
+</script>
 
 {% endblock body %}

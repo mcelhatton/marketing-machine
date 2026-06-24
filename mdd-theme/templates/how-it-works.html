@@ -6,34 +6,190 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<style>
+  /* Light-first homepage styles */
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .home-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+  .home-card h3{color:var(--dark-text);font-size:20px;font-weight:800;margin-bottom:10px;}
+  .home-card p{color:var(--body-dark);font-size:16px;line-height:1.6;margin-bottom:18px;}
+  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--green-dark);background:var(--green-soft);border-radius:9999px;padding:6px 14px;}
+  .home-showcase img{width:100%;border:1px solid var(--border-light);border-radius:16px;box-shadow:var(--shadow-lg);}
+  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
+  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--dark-text);font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .home-step h3{color:var(--dark-text);font-size:18px;font-weight:700;margin-bottom:6px;}
+  .home-step p{color:var(--body-dark);font-size:15px;line-height:1.6;}
+  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
+  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--dark-text);line-height:1.45;font-style:italic;margin-bottom:16px;}
+  .home-quote .who{font-size:15px;color:var(--muted);}
+  .home-quote .who b{color:var(--dark-text);}
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
 {% module "hero"
    path="../modules/hero.module",
    product_tag="How It Works",
    tag_style="green",
-   headline="Three steps. Instant visibility.",
-   subtitle="Tag, track, find. It really is that simple.",
-   primary_cta_text="Schedule a Demo",
+   headline="Built for the lot, <em>not the highway.</em>",
+   subtitle="GPS was borrowed from trucking and never fit a dealership. We built MDD from the ground up — new wireless tracking, not GPS — at the hardest lot on earth.",
+   primary_cta_text="Schedule a 15-Min Demo →",
    primary_cta_url="https://mdd.io/contact-us",
+   show_secondary_cta=true,
+   secondary_cta_text="See How It Works",
+   secondary_cta_url="#how",
    layout="centered"
 %}
 
-{% module "how_it_works"
-   path="../modules/steps-grid.module",
-   section_tag="The Process",
-   headline="Setup takes less than a day.",
-   step_1_title="Tag",
-   step_1_description="Attach Bluetooth tags to keys and vehicles. Takes 10 seconds per tag.",
-   step_2_title="Track",
-   step_2_description="See real-time locations on desktop or mobile. No check-outs needed.",
-   step_3_title="Find",
-   step_3_description="Search by VIN or stock number. Walk directly to the key or car.",
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOT GPS (light) -->
+<section class="section bg-light">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">The Wrong Tool</div>
+    <h2 class="lp-light-h2">GPS goes dark right when you need it.</h2>
+    <p class="lp-light-sub">A dealership isn't a fleet. Your inventory lives indoors, stacks vertically, and moves by the minute.</p>
+    <div class="home-cards" style="text-align:left;">
+      <div class="home-card">
+        <h3>Blind indoors</h3>
+        <p>GPS loses the signal in bays, showrooms, and storage — exactly where your cars actually sit.</p>
+        <span class="metric">Built for highways</span>
+      </div>
+      <div class="home-card">
+        <h3>Can't read a garage</h3>
+        <p>No idea which floor of a six-story structure a vehicle is parked on. Not phone-native, either.</p>
+        <span class="metric">No vertical sense</span>
+      </div>
+      <div class="home-card">
+        <h3>Never tracked keys</h3>
+        <p>A fleet tool only follows the vehicle. It says nothing about the key the car can't move without.</p>
+        <span class="metric">Cars only</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT AT LONGO (light) -->
+<section class="section bg-light home-showcase" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">Built at the Hardest Lot on Earth</div>
+    <h2 class="lp-light-h2">We built it at the largest dealership in the world.</h2>
+    <p class="lp-light-sub" style="margin-bottom:24px;">In 2015 we built MDD at Longo Toyota — 50 acres, a six-story garage, 90+ bays. They're still a customer 10+ years later. The same platform even runs inside Case New Holland plants.</p>
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/locate.png') }}" alt="MDD Locate dashboard showing the real-time location of every vehicle and key on a dealership lot">
+  </div>
+</section>
+
+<!-- STATS (dark band) -->
+{% module "stats"
+   path="../modules/stats-bar.module",
+   columns="3",
+   stat_1_number="~15 min",
+   stat_1_label="saved per repair order",
+   stat_1_dealer="Longo Toyota",
+   stat_1_color="green",
+   stat_2_number="90%",
+   stat_2_label="key-retrieval time reduction",
+   stat_2_dealer="MDD dealers",
+   stat_2_color="gold",
+   stat_3_number="85%",
+   stat_3_label="vehicle-location time reduction",
+   stat_3_dealer="MDD dealers",
+   stat_3_color="green",
+   background="dark"
+%}
+
+<!-- HOW IT WORKS (light) -->
+<section class="section bg-light" id="how">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
+    <h2 class="lp-light-h2">Tag. Track. Manage.</h2>
+    <p class="lp-light-sub">New wireless tracking, not GPS. One location platform powers Locate, Service, Recon, and VehicleVault.</p>
+    <div class="home-steps">
+      <div class="home-step">
+        <div class="n">1</div>
+        <h3>Tag</h3>
+        <p>Attach a tracking tag to every car and key. Scan the QR, assign the VIN — done in seconds.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">2</div>
+        <h3>Track</h3>
+        <p>See live location on your phone or desktop. Walk straight to the car or key, indoors or out.</p>
+      </div>
+      <div class="home-step">
+        <div class="n">3</div>
+        <h3>Manage</h3>
+        <p>Workflows advance on their own as the car moves. Audits take minutes, not hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE (light) -->
+<section class="section bg-light" style="padding-top:0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag light no-border" style="display:inline-block;">In Every Pocket</div>
+    <h2 class="lp-light-h2" style="margin-bottom:32px;">Real-time location on the phone your team already carries.</h2>
+    <style>
+      .hiw-phones{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:760px;margin:0 auto;align-items:start;}
+      .hiw-phones img{width:100%;height:auto;border:1px solid var(--border-light);border-radius:18px;box-shadow:var(--shadow-lg);}
+      @media(max-width:600px){.hiw-phones{gap:12px;}}
+    </style>
+    <div class="hiw-phones">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-mobile.png') }}" alt="MDD Workflow mobile app showing a vehicle's current stage">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/communication-mobile.png') }}" alt="MDD mobile app showing customer communication tied to a vehicle">
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL (light) -->
+<section class="section bg-light">
+  <div class="container home-quote">
+    <blockquote>"Now we find that car immediately, so we can get it cleaned up and customer-delivered without delays."</blockquote>
+    <div class="who"><b>Dave Bird</b> — New Car Inventory Manager, Bill Brown Ford (~2,000 vehicles, 90% sales-team adoption)</div>
+  </div>
+</section>
+
+<!-- LEAD FORM (light) -->
+{% module "lead_form"
+   path="../modules/lead-form.module",
+   section_id="get-the-guide",
+   eyebrow="Free Industry Insight",
+   headline="Get \"Built for the Lot, Not the Highway.\"",
+   description="The full origin story — why GPS was wrong for dealers, and how purpose-built RTLS proves itself. Enter your email for instant access.",
+   article_label="Built for the Lot, Not the Highway",
+   article_url="https://585393.hs-sites.com/null/blog/built-for-the-lot-not-the-highway",
+   form_guid="3d76806a-22b9-4859-987d-431a40058df2",
+   button_text="Get the Article →",
    background="light"
 %}
 
+<!-- CTA (dark) -->
 {% module "cta"
    path="../modules/cta-section.module",
-   headline="Ready to see it work?",
-   cta_text="Schedule Your Demo",
+   section_id="demo",
+   headline="See it on your lot in 15 minutes.",
+   description="No commitment. No pressure. We'll show you exactly how MDD finds every car and key.",
+   cta_text="Schedule Your Demo →",
    cta_url="https://mdd.io/contact-us",
    show_phone=true,
    phone_number="844-292-7110",

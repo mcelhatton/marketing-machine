@@ -1,0 +1,175 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Insights
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<style>
+  /* Shared light-first helpers */
+  .lp-light-h2{color:var(--dark-text);}
+  .lp-light-sub{color:var(--body-dark);max-width:640px;margin:0 auto;}
+  .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
+  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
+  .home-trust .eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
+  .home-trust .names span{font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;white-space:nowrap;}
+  /* Insights gate */
+  .ins-gate{max-width:580px;margin:0 auto;text-align:center;background:var(--charcoal);border:1px solid var(--green);border-radius:18px;padding:44px;box-shadow:0 8px 40px rgba(138,200,51,.12);}
+  .ins-gate h2{color:var(--white);margin-bottom:12px;}
+  .ins-gate p{color:var(--body-text);margin:0 auto;max-width:460px;}
+  .ins-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;}
+  .ins-form input{flex:1;min-width:240px;background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;color:#fff;font-family:var(--font-body);font-size:16px;}
+  .ins-form input:focus{outline:none;border-color:var(--green);}
+  .ins-form button{background:var(--green);color:var(--charcoal);font-weight:700;font-size:16px;border:none;padding:14px 24px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
+  .ins-form button:hover{background:var(--green-dark);color:#fff;}
+  .ins-fine{font-size:12px;color:var(--muted);margin-top:14px;}
+  /* Insights library grid */
+  .ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;text-align:left;}
+  .ins-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.05);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;}
+  .ins-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.10);border-color:var(--green);}
+  .ins-card .ins-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green-dark);margin-bottom:12px;}
+  .ins-card h3{color:var(--dark-text);font-size:18px;font-weight:800;line-height:1.35;margin-bottom:16px;flex:1;}
+  .ins-card .ins-read{color:var(--green-dark);font-weight:700;font-size:15px;}
+  @media(max-width:900px){.ins-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:600px){.ins-grid{grid-template-columns:1fr;}}
+</style>
+
+<!-- HERO (dark) -->
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="MDD Insights",
+   tag_style="green",
+   headline="Intelligence for dealers who <em>run a tight ship.</em>",
+   subtitle="Deep dives on recon margin, lost-key cost, service cycle time, F&I, and the real-time data that runs a modern store. Drop your email to unlock the full library.",
+   primary_cta_text="Unlock the Library →",
+   primary_cta_url="#library",
+   show_secondary_cta=false,
+   layout="centered"
+%}
+
+<!-- TRUSTED BY (light) -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
+    </div>
+  </div>
+</section>
+
+<!-- GATE + LIBRARY (light) -->
+<section class="section bg-light" id="library">
+  <div class="container">
+
+    <!-- Gate (visible until unlocked) -->
+    <div id="insights-gate" class="ins-gate">
+      <div class="section-tag green no-border" style="display:inline-block;">Free Access</div>
+      <h2>Unlock the full insight library.</h2>
+      <p>One email unlocks every MDD article — written for operators, backed by named-dealer results.</p>
+      <form id="ins-form" novalidate>
+        <div class="ins-form">
+          <input type="email" name="email" required placeholder="you@dealership.com" aria-label="Work email">
+          <button type="submit">Unlock the Library →</button>
+        </div>
+        <p class="ins-fine">No spam. Just the occasional dealer insight. Unsubscribe anytime.</p>
+      </form>
+    </div>
+
+    <!-- Library (revealed after unlock) -->
+    <div id="insights-library" style="display:none;">
+      <div style="text-align:center;">
+        <div class="section-tag light no-border" style="display:inline-block;">The Library</div>
+        <h2 class="lp-light-h2">Topical automotive news, in one place.</h2>
+      </div>
+      <div class="ins-grid">
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/dealership-service-market-share-capacity-2026" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">This Week · Fixed Ops</span>
+          <h3>What Dealers' Shrinking Service Share Really Means for Operations</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/built-for-the-lot-not-the-highway" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Origin Story</span>
+          <h3>Built for the Lot, Not the Highway: Why Dealers Needed More Than GPS</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/every-car-every-key-lot-visibility" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Locate</span>
+          <h3>Every Car, Every Key: Why Lot Visibility Is the Edge Most Dealers Overlook</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/readiness-at-the-door-wins-the-sale" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Sales</span>
+          <h3>As It Begins, So It Goes: Why Readiness at the Door Now Decides the Sale</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/the-margin-is-made-in-recon" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Recon</span>
+          <h3>The Margin Is Made in Recon: Why Reconditioning Now Decides the Deal</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/three-departments-one-platform" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Platform</span>
+          <h3>Three Departments, One Platform: Margin Hiding in Plain Sight</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/ftc-addendums-dealer-pricing-playbook" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">F&amp;I &amp; Compliance</span>
+          <h3>Addendums, Transparency &amp; the FTC: Rethinking the Dealer Pricing Playbook</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+        <a class="ins-card" href="https://585393.hs-sites.com/null/blog/future-of-automotive-reinsurance-wisetrak" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">F&amp;I &amp; Reinsurance</span>
+          <h3>The Future of Automotive Reinsurance: Unlocking New Participation Income</h3>
+          <span class="ins-read">Read the article →</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA (dark) -->
+{% module "cta"
+   path="../modules/cta-section.module",
+   section_id="demo",
+   headline="See the platform behind the insights.",
+   description="We'll show you exactly how MDD finds every car and key — and what it's worth to your store.",
+   cta_text="Schedule Your Demo →",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
+
+<script>
+(function(){
+  var KEY="mdd_insights_unlocked";
+  var gate=document.getElementById("insights-gate");
+  var lib=document.getElementById("insights-library");
+  var form=document.getElementById("ins-form");
+  if(!gate||!lib||!form) return;
+  function unlock(){ gate.style.display="none"; lib.style.display="block"; }
+  try{ if(localStorage.getItem(KEY)==="1"){ unlock(); } }catch(e){}
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var email=form.querySelector('input[name=email]').value.trim();
+    if(!email){ return; }
+    fetch("https://api.hsforms.com/submissions/v3/integration/submit/585393/3d76806a-22b9-4859-987d-431a40058df2",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({fields:[{name:"email",value:email}],context:{pageUri:location.href,pageName:document.title}})
+    }).catch(function(){});
+    try{ localStorage.setItem(KEY,"1"); }catch(e){}
+    unlock();
+    lib.scrollIntoView({behavior:"smooth"});
+  });
+})();
+</script>
+
+{% endblock body %}
