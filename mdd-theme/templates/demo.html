@@ -1,0 +1,1949 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: false
+  label: MDD Sales Demo
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDD Sales Demo</title>
+<style>
+  :root {
+    --sidebar-bg: #0C0E0A;
+    --sidebar-fg: #e5e7eb;
+    --sidebar-muted: #9ca3af;
+    --accent: #84cc16;
+    --accent-bright: #a3e635;
+    --accent-soft: rgba(132,204,22,.15);
+    --stage-bg: #f3f4f6;
+    --slide-grad: linear-gradient(135deg, #0C0E0A 0%, #1c2413 100%);
+    --danger: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; height: 100vh; overflow: hidden; display: flex; }
+
+  /* ---------- Sidebar (20%) ---------- */
+  #sidebar { width: 20%; min-width: 250px; background: var(--sidebar-bg); color: var(--sidebar-fg); display: flex; flex-direction: column; height: 100vh; }
+  #sidebar header { padding: 16px 16px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  #sidebar header h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+  #sidebar header .sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 2px; }
+  #nav { flex: 1; overflow-y: auto; padding: 8px 0; }
+  .section { margin-bottom: 2px; }
+  .section-title { display: flex; align-items: center; gap: 6px; padding: 18px 14px 6px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--accent-bright); cursor: pointer; user-select: none; }
+  .section:not(:first-child) .section-title { border-top: 1px solid rgba(255,255,255,.07); margin-top: 4px; }
+  .section-title:hover .sec-name { color: #fff; }
+  .caret { width: 12px; font-size: 9px; opacity: .7; flex-shrink: 0; }
+  .step { display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 22px; font-size: 13px; cursor: pointer; border-left: 3px solid transparent; color: var(--sidebar-fg); }
+  .step:hover { background: rgba(255,255,255,.06); }
+  .step.active { background: var(--accent-soft); border-left-color: var(--accent); font-weight: 600; }
+  .step .icon { font-size: 11px; opacity: .75; width: 16px; text-align: center; }
+  .step .num { margin-left: auto; font-size: 10px; color: var(--sidebar-muted); }
+  .step.live { color: var(--accent-bright); font-weight: 700; }
+  .step.live .icon { opacity: 1; }
+  .live-badge { font-size: 9px; font-weight: 800; letter-spacing: .05em; background: var(--accent); color: #0C0E0A; padding: 1px 5px; border-radius: 4px; margin-left: 6px; flex-shrink: 0; }
+  body.editing .live-badge { display: none; }
+  .edit-ctrls { display: none; margin-left: auto; gap: 2px; }
+  body.editing .edit-ctrls { display: inline-flex; }
+  body.editing .step .num { display: none; }
+  .mini-btn { background: none; border: none; color: var(--sidebar-muted); cursor: pointer; font-size: 11px; padding: 2px 3px; border-radius: 3px; }
+  .mini-btn:hover { color: #fff; background: rgba(255,255,255,.15); }
+  .add-step-btn, .add-section-btn { display: none; width: calc(100% - 28px); margin: 4px 14px; padding: 5px; font-size: 11px; background: none; border: 1px dashed rgba(255,255,255,.25); color: var(--sidebar-muted); border-radius: 6px; cursor: pointer; }
+  body.editing .add-step-btn, body.editing .add-section-btn { display: block; }
+  .add-step-btn:hover, .add-section-btn:hover { color: #fff; border-color: var(--accent); }
+  #sidebar footer { padding: 10px 12px; border-top: 1px solid rgba(255,255,255,.08); display: flex; flex-wrap: wrap; gap: 6px; }
+  .btn { flex: 1; min-width: 60px; padding: 7px 8px; font-size: 11px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: rgba(255,255,255,.1); color: var(--sidebar-fg); text-align: center; }
+  .btn:hover { background: rgba(255,255,255,.2); }
+  .btn.primary { background: var(--accent); color: #0C0E0A; }
+  .btn.primary:hover { background: var(--accent-bright); }
+
+  /* ---------- Stage (80%) ---------- */
+  #stage { flex: 1; display: flex; flex-direction: column; background: var(--stage-bg); height: 100vh; }
+  #stage-toolbar { display: flex; align-items: center; gap: 10px; padding: 8px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; min-height: 46px; }
+  #stage-toolbar .title { font-size: 14px; font-weight: 600; color: #111827; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #stage-toolbar .spacer { flex: 1; }
+  .tbtn { padding: 6px 10px; font-size: 12px; border: 1px solid #d1d5db; background: #fff; border-radius: 6px; cursor: pointer; color: #374151; }
+  .tbtn:hover { background: #f3f4f6; }
+  #progress { font-size: 12px; color: #6b7280; white-space: nowrap; }
+  #stage-content { flex: 1; position: relative; overflow: hidden; }
+
+  /* ---------- Full-bleed deck slide image (legacy fallback) ---------- */
+  #imgslide { display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: linear-gradient(140deg,#0C0E0A 0%, #123018 55%, #1d2a13 100%); }
+  #imgslide img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
+
+  /* ---------- Live page launch card ---------- */
+  #launch { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #fff; text-align: center; padding: 5%; }
+  #launch .l-icon { font-size: clamp(48px, 5vw, 76px); }
+  #launch .l-title { font-size: clamp(28px, 3.4vw, 48px); font-weight: 800; color: #111827; letter-spacing: -.02em; }
+  #launch .l-url { font-size: clamp(18px, 2vw, 30px); font-weight: 700; color: #3f6212; font-family: ui-monospace, monospace; word-break: break-all; max-width: 92%; background: rgba(94,151,15,.12); border: 1px solid rgba(94,151,15,.32); border-radius: 12px; padding: 12px 20px; }
+  #launch .l-btn { padding: 16px 36px; font-size: clamp(17px, 1.9vw, 24px); font-weight: 700; background: var(--accent); color: #0C0E0A; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 10px 28px -8px rgba(132,204,22,.55); }
+  #launch .l-btn:hover { background: var(--accent-bright); }
+  #launch .l-hint { font-size: 12px; color: #9ca3af; max-width: 520px; line-height: 1.5; }
+  #launch .l-phone { width: 90px; height: 178px; border: 4px solid #111827; border-radius: 18px; position: relative; background: #f9fafb; }
+  #launch .l-phone::before { content: ""; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); width: 28px; height: 5px; background: #111827; border-radius: 3px; }
+  #launch .l-phone::after { content: "📱"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+
+  /* ---------- Slide system (full-bleed · big · mixed light/dark) ---------- */
+  #slide { display: none; width: 100%; height: 100%; overflow-y: auto; color: #10160e;
+    --pad: clamp(40px, 4.6vw, 112px);
+    background: linear-gradient(160deg, #ffffff 0%, #e7efda 100%); }
+  #slide.dark { color: #fff; background: linear-gradient(140deg, #0C0E0A 0%, #123018 50%, #1e2c12 100%); }
+  .slide-inner { min-height: 100%; width: 100%; padding: var(--pad); display: flex; flex-direction: column; justify-content: center; gap: clamp(20px, 3.2vh, 46px); }
+  .s-head { display: flex; flex-direction: column; gap: clamp(10px, 1.4vh, 20px); }
+  .s-body { display: flex; flex-direction: column; justify-content: center; gap: clamp(18px, 2.6vh, 36px); }
+  .slide-inner > .s-body { flex: 1 1 auto; }
+
+  .s-kicker { font-size: clamp(14px, 1.35vw, 21px); font-weight: 800; text-transform: uppercase; letter-spacing: .16em; color: #5E970F; }
+  #slide.dark .s-kicker { color: #a3e635; }
+  .s-title { font-size: clamp(42px, 6.4vw, 116px); font-weight: 800; line-height: 1.0; letter-spacing: -.025em; color: #0f1710; max-width: 20ch; }
+  #slide.dark .s-title { color: #fff; }
+  .s-subtitle { font-size: clamp(20px, 2.2vw, 38px); color: #46543f; max-width: 42ch; line-height: 1.35; font-weight: 500; }
+  #slide.dark .s-subtitle { color: #c9d5c0; }
+
+  #slide ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr)); gap: clamp(12px,1.7vh,22px) clamp(30px,3.2vw,72px); width: 100%; align-content: center; }
+  #slide li { font-size: clamp(18px, 2vw, 32px); padding-left: 44px; position: relative; color: #2c3626; line-height: 1.28; font-weight: 500; }
+  #slide li::before { content: "▸"; position: absolute; left: 4px; color: #5E970F; font-weight: 800; }
+  #slide.dark li { color: #dde7d2; }
+  #slide.dark li::before { color: #a3e635; }
+
+  /* stat cards */
+  .s-stats { display: flex; flex-wrap: wrap; gap: clamp(14px,1.4vw,22px); }
+  .s-stat { background: rgba(94,151,15,.09); border: 1px solid rgba(94,151,15,.28); border-radius: 16px; padding: clamp(16px,1.7vw,26px) clamp(20px,2vw,34px); min-width: 170px; }
+  .s-stat .v { font-size: clamp(28px, 3vw, 52px); font-weight: 800; color: #5E970F; letter-spacing: -.01em; line-height: 1; }
+  .s-stat .l { font-size: clamp(12px, 1.05vw, 16px); color: #5b6b52; margin-top: 8px; line-height: 1.3; }
+  #slide.dark .s-stat { background: rgba(163,230,53,.10); border-color: rgba(163,230,53,.35); }
+  #slide.dark .s-stat .v { color: #a3e635; }
+  #slide.dark .s-stat .l { color: #c9d5c0; }
+
+  /* split (text + media) — fills the frame */
+  .sl-split { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 4vw, 84px); align-items: center; flex: 1 1 auto; min-height: 0; width: 100%; }
+  .sl-split .s-body { justify-content: center; }
+  .sl-split .s-title { font-size: clamp(34px, 4.6vw, 80px); }
+  .s-media { display: flex; align-items: center; justify-content: center; height: 100%; }
+  .s-media img { width: auto; max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 18px; box-shadow: 0 34px 80px -26px rgba(12,20,8,.55); border: 1px solid rgba(0,0,0,.06); background: #fff; }
+  #slide.dark .s-media img { border-color: rgba(255,255,255,.1); }
+
+  /* hero opener cards */
+  .s-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px,1.6vw,26px); margin-top: 8px; }
+  .s-card { background: rgba(163,230,53,.06); border: 1px solid rgba(163,230,53,.25); border-radius: 16px; padding: clamp(18px,1.8vw,30px); }
+  .s-card .t { font-weight: 800; font-size: clamp(17px, 1.5vw, 24px); color: #a3e635; margin-bottom: 8px; }
+  .s-card .d { font-size: clamp(13px, 1.1vw, 17px); color: #c9d5c0; line-height: 1.4; }
+
+  /* section divider */
+  .sl-section { justify-content: center; }
+  .s-num { font-size: clamp(90px, 15vw, 240px); font-weight: 900; line-height: .8; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 2px rgba(163,230,53,.5); }
+
+  /* before / after — big cards that fill the frame */
+  .sl-ba { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 2.4vw, 44px); flex: 1 1 auto; min-height: 0; width: 100%; }
+  .ba-col { border-radius: 22px; padding: clamp(24px, 2.8vw, 52px); border: 1px solid; display: flex; flex-direction: column; }
+  .ba-old { background: #fbeaea; border-color: #f2caca; }
+  .ba-new { background: #eef7e0; border-color: #cfe8a8; }
+  #slide.dark .ba-old { background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.32); }
+  #slide.dark .ba-new { background: rgba(132,204,22,.12); border-color: rgba(163,230,53,.4); }
+  .ba-col h4 { font-size: clamp(14px, 1.25vw, 20px); text-transform: uppercase; letter-spacing: .1em; font-weight: 800; margin-bottom: clamp(16px,1.8vh,26px); }
+  .ba-old h4 { color: #b91c1c; } .ba-new h4 { color: #3f6212; }
+  #slide.dark .ba-old h4 { color: #fca5a5; } #slide.dark .ba-new h4 { color: #a3e635; }
+  #slide .ba-col ul { list-style: none; display: flex; flex-direction: column; gap: clamp(14px,2.2vh,28px); max-width: none; justify-content: center; flex: 1; }
+  #slide .ba-col li { font-size: clamp(17px, 1.7vw, 28px); padding-left: 36px; position: relative; line-height: 1.3; color: #3a3f37; font-weight: 500; }
+  #slide.dark .ba-col li { color: #dde7d2; }
+  #slide .ba-old li::before { content: "✕"; position: absolute; left: 0; color: #dc2626; font-weight: 800; }
+  #slide .ba-new li::before { content: "✓"; position: absolute; left: 0; color: #5E970F; font-weight: 800; }
+  #slide.dark .ba-new li::before { color: #a3e635; }
+  .ba-banner { display: flex; justify-content: center; flex-shrink: 0; width: 100%; }
+  .ba-banner img { max-height: 40vh; width: auto; max-width: 100%; object-fit: contain; border-radius: 14px; box-shadow: 0 22px 54px -22px rgba(12,20,8,.5); border: 1px solid rgba(0,0,0,.06); }
+  #slide.dark .ba-banner img { border-color: rgba(255,255,255,.1); }
+
+  /* showcase image row — big */
+  .s-shots { display: flex; gap: clamp(20px, 2.6vw, 52px); flex-wrap: wrap; align-items: center; justify-content: center; flex: 1 1 auto; min-height: 0; }
+  .s-shots img { height: auto; max-height: 62vh; width: auto; max-width: 30%; border-radius: 16px; box-shadow: 0 26px 56px -22px rgba(12,20,8,.42); border: 1px solid rgba(0,0,0,.06); background: #fff; }
+  .s-shots.placards { gap: clamp(24px, 3.2vw, 64px); }
+  .s-shots.placards img { max-height: 66vh; box-shadow: 0 22px 50px -20px rgba(12,20,8,.35); border: none; background: transparent; }
+  .s-shots.big img { max-width: 46%; max-height: 68vh; }
+  .img-ph { min-width: 240px; min-height: 210px; max-width: 44%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; border: 2px dashed #b7c7a0; border-radius: 16px; color: #5b6b52; font-family: ui-monospace, monospace; font-size: 14px; line-height: 1.5; background: rgba(94,151,15,.05); }
+  #slide.dark .img-ph { border-color: rgba(163,230,53,.4); color: #c9d5c0; background: rgba(163,230,53,.06); }
+  .s-media .img-ph { width: 100%; min-height: 320px; max-width: 100%; }
+
+  /* partners / integrations wall */
+  .p-groups { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 60px); flex: 1 1 auto; min-height: 0; width: 100%; align-content: start; }
+  .p-group h4 { font-size: clamp(13px, 1.2vw, 19px); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; color: #5E970F; margin-bottom: clamp(10px, 1.4vh, 18px); }
+  #slide.dark .p-group h4 { color: #a3e635; }
+  .p-chips { display: flex; flex-wrap: wrap; gap: 8px 10px; align-content: flex-start; }
+  .p-chip { font-size: clamp(11px, 1vw, 15px); font-weight: 600; padding: 6px 12px; border-radius: 8px; background: rgba(94,151,15,.09); border: 1px solid rgba(94,151,15,.24); color: #2c3626; white-space: nowrap; }
+  #slide.dark .p-chip { background: rgba(163,230,53,.10); border-color: rgba(163,230,53,.3); color: #dde7d2; }
+  @media (max-width: 960px) { .p-groups { grid-template-columns: 1fr; } }
+
+  /* gallery / long scroll view */
+  .g-scroll { justify-content: flex-start; }
+  .g-list { display: flex; flex-direction: column; gap: clamp(16px, 2vw, 34px); width: 100%; max-width: 1180px; margin: 0 auto; }
+  .g-row { display: flex; gap: clamp(14px, 1.6vw, 26px); justify-content: center; align-items: flex-start; }
+  .g-row img { max-width: 100%; max-height: 94vh; width: auto; height: auto; border-radius: 14px; box-shadow: 0 20px 50px -22px rgba(12,20,8,.4); border: 1px solid rgba(0,0,0,.06); background: #fff; }
+  .g-row.pair img { max-width: 48%; }
+
+  @media (max-width: 960px) {
+    .sl-split, .sl-ba, .s-cards, #slide ul { grid-template-columns: 1fr; }
+    .s-cards { grid-template-columns: 1fr 1fr; }
+    .slide-inner { justify-content: flex-start; }
+    .s-shots img { max-width: 46%; }
+  }
+
+  /* ---------- Quote / System Builder ---------- */
+  #quote { display: none; width: 100%; height: 100%; overflow-y: auto; background: #fff; padding: 24px 28px; }
+  #quote h2 { font-size: 22px; color: #111827; margin-bottom: 2px; }
+  #quote .q-sub { font-size: 12px; color: #6b7280; margin-bottom: 18px; }
+  .q-grid { display: grid; grid-template-columns: minmax(300px, 5fr) minmax(320px, 7fr); gap: 22px; align-items: start; }
+  .q-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+  .q-card h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #374151; margin-bottom: 10px; }
+  .q-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .q-row label { font-size: 13px; color: #374151; flex: 1; }
+  .q-row input[type=number], .q-row input[type=text] { width: 110px; padding: 6px 8px; font-size: 13px; border: 1px solid #d1d5db; border-radius: 6px; text-align: right; }
+  .q-row input.wide { width: 100%; text-align: left; }
+  .q-check { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 13px; color: #374151; }
+  .q-check input { accent-color: var(--accent); width: 15px; height: 15px; }
+  #quote details { margin-bottom: 14px; }
+  #quote details summary { cursor: pointer; font-size: 12px; font-weight: 700; color: #6b7280; padding: 8px 4px; }
+  #quote details .q-card { border-style: dashed; }
+  .q-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .q-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; padding: 6px 8px; border-bottom: 1px solid #e5e7eb; }
+  .q-table td { padding: 7px 8px; border-bottom: 1px solid #f3f4f6; color: #111827; }
+  .q-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .q-total { display: flex; justify-content: space-between; padding: 10px 8px; font-weight: 700; font-size: 14px; color: #111827; }
+  .q-value { background: #0C0E0A; color: #fff; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+  .q-value h3 { color: var(--accent-bright); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+  .q-value .q-row label { color: #cbd5e1; }
+  .q-value .vrow { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; color: #e2e8f0; }
+  .q-value .vrow b { color: var(--accent-bright); font-variant-numeric: tabular-nums; }
+  .q-value .vtotal { border-top: 1px solid rgba(255,255,255,.15); margin-top: 8px; padding-top: 10px; font-size: 16px; font-weight: 800; display: flex; justify-content: space-between; }
+  .q-value .vtotal span:last-child { color: var(--accent-bright); }
+  .q-actions { display: flex; gap: 8px; margin-top: 4px; }
+  .q-actions button { padding: 9px 16px; font-size: 13px; font-weight: 600; border-radius: 8px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; color: #374151; }
+  .q-actions button.primary { background: var(--accent); border-color: var(--accent); color: #0C0E0A; }
+  .q-hint { font-size: 11px; color: #9ca3af; margin-top: 8px; line-height: 1.5; }
+
+  /* ---------- Notes bar ---------- */
+  #notes { display: none; padding: 10px 16px; background: #fffbeb; border-top: 1px solid #fde68a; font-size: 13px; color: #78350f; max-height: 110px; overflow-y: auto; }
+  #notes.visible:not(:empty) { display: block; }
+
+  /* ---------- Editor panel ---------- */
+  #editor { display: none; position: absolute; inset: 0; background: #fff; overflow-y: auto; padding: 28px 36px; }
+  #editor h2 { font-size: 18px; margin-bottom: 18px; color: #111827; }
+  .field { margin-bottom: 14px; max-width: 720px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+  .field input[type=text], .field textarea, .field select { width: 100%; padding: 8px 10px; font-size: 13px; border: 1px solid #d1d5db; border-radius: 6px; font-family: inherit; }
+  .field textarea { min-height: 90px; resize: vertical; }
+  .field .hint { font-size: 11px; color: #6b7280; margin-top: 3px; }
+  .editor-actions { display: flex; gap: 8px; margin-top: 20px; }
+  .ebtn { padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; }
+  .ebtn.save { background: var(--accent); color: #0C0E0A; }
+  .ebtn.cancel { background: #e5e7eb; color: #374151; }
+  .ebtn.delete { background: #fee2e2; color: var(--danger); margin-left: auto; }
+
+  /* ---------- Modal (settings/import) ---------- */
+  #modal-wrap { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 50; align-items: center; justify-content: center; }
+  #modal { background: #fff; border-radius: 12px; padding: 24px; width: min(560px, 90vw); max-height: 85vh; overflow-y: auto; }
+  #modal h2 { font-size: 16px; margin-bottom: 16px; }
+
+  #empty { display: none; height: 100%; align-items: center; justify-content: center; color: #6b7280; font-size: 14px; flex-direction: column; gap: 10px; }
+  body.fullscreen #sidebar, body.fullscreen #stage-toolbar { display: none; }
+</style>
+  {{ standard_header_includes }}
+</head>
+<body>
+
+<aside id="sidebar">
+  <header>
+    <h1 id="demo-title">MDD Sales Demo</h1>
+    <div class="sub" id="demo-subtitle">We Find Keys &amp; Cars&trade;</div>
+  </header>
+  <nav id="nav"></nav>
+  <footer>
+    <button class="btn primary" id="btn-present" title="Hide chrome, arrows to navigate (F)">Present</button>
+    <button class="btn" id="btn-notes" title="Toggle presenter notes (N)">Notes</button>
+    <button class="btn" id="btn-edit">Edit</button>
+    <button class="btn" id="btn-settings">Settings</button>
+    <button class="btn" id="btn-export" title="Download demo-config.json to share with the team">Export</button>
+    <button class="btn" id="btn-import">Import</button>
+  </footer>
+</aside>
+
+<main id="stage">
+  <div id="stage-toolbar">
+    <span class="title" id="step-title"></span>
+    <span class="spacer"></span>
+    <span id="progress"></span>
+    <button class="tbtn" id="btn-newtab" title="Open in demo window">Open &#8599;</button>
+    <button class="tbtn" id="btn-prev" title="Previous (←)">&#8592;</button>
+    <button class="tbtn" id="btn-next" title="Next (→)">&#8594;</button>
+  </div>
+  <div id="stage-content">
+    <div id="slide"></div>
+    <div id="imgslide"></div>
+    <div id="launch"></div>
+    <div id="quote"></div>
+    <div id="empty"><div>No steps yet.</div><div>Click <b>Edit</b> to build your demo script.</div></div>
+    <div id="editor"></div>
+  </div>
+  <div id="notes"></div>
+</main>
+
+<div id="modal-wrap"><div id="modal"></div></div>
+<input type="file" id="file-input" accept=".json" style="display:none">
+
+<script>
+/* ================= Default demo script =================
+   Step types:
+   - image:  full-bleed deck slide (https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/demo/slide-NN.jpg)
+   - slide:  HTML slide (kicker, title, subtitle, bullets, stats[])
+   - url:    live web app page, opens in the shared "web demo" window
+   - mobile: live page in a phone-sized window (430x880) — the mobile demo
+   - quote:  interactive System Builder / Quote Builder module
+*/
+const DEFAULT_CONFIG = {
+  "title": "MDD Sales Demo",
+  "subtitle": "We Find Keys & Cars™",
+  "baseUrl": "https://mddrtls.com",
+  "sections": [
+    {
+      "title": "1 · The MDD Difference",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "hero",
+          "title": "Born at the world's largest dealership.",
+          "kicker": "Built at Longo Toyota · 2015",
+          "subtitle": "Partnered with Longo Toyota in 2015 — the world's largest Toyota store.",
+          "cards": [
+            {
+              "t": "Physical Key Location",
+              "d": "Zero lost keys"
+            },
+            {
+              "t": "Cars in seconds",
+              "d": "Walk straight to any unit, indoors or out"
+            },
+            {
+              "t": "Service throughput",
+              "d": "More bay turns, faster cycle time"
+            },
+            {
+              "t": "Recon under 5 days",
+              "d": "Only location based recon tool"
+            }
+          ],
+          "notes": "Our founder spent 2015 at Longo Toyota building the system for them.  Longo services over 600 vehicles per day.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/customers/longoToyota.png?v=1",
+          "navTitle": "Born at Longo Toyota"
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "No more lost keys!",
+          "kicker": "Before & After · MDD Key Tracking",
+          "beforeLabel": "The Old Way",
+          "afterLabel": "With MDD",
+          "before": [
+            "$3,000+/mo replacing lost keys",
+            "Hours hunting the lot for a fob",
+            "Deals lost while the customer waits"
+          ],
+          "after": [
+            "$0 key expense",
+            "Any key located in seconds",
+            "Car and key in hand before they arrive"
+          ],
+          "notes": "Key Tracking. WITHOUT MDD: $3K+/mo replacing keys, hours hunting, deals lost while the customer waits. WITH MDD: $0 key expense, any key located in seconds, car and key in hand before they arrive. Ask: 'What do lost keys cost you a month?'",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/keyboard.png"
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "Stop walking the lot.",
+          "kicker": "Before & After · Lot Management",
+          "beforeLabel": "The Old Way",
+          "afterLabel": "With MDD",
+          "before": [
+            "Honking horns, walking rows",
+            "15+ minutes to find one unit",
+            "No idea what's quietly aging"
+          ],
+          "after": [
+            "Exact location on the map, indoors and out",
+            "Walk straight to it in seconds",
+            "Stale units flag themselves"
+          ],
+          "notes": "Lot Management. WITHOUT: honking horns, walking rows, 15+ min to find one unit. WITH: exact location on the map indoors and out — walk straight to it in seconds. 'You don't look for cars anymore — you go get cars.'",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/lotwithtext2.png"
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "A service lane that updates itself.",
+          "kicker": "Before & After · Service Workflow",
+          "beforeLabel": "The Old Way",
+          "afterLabel": "With MDD",
+          "before": [
+            "No idea when production slips",
+            "A waiter can sit 3+ hours",
+            "Quick service creeping past 2.5 hours"
+          ],
+          "after": [
+            "Live board flags slipping ROs instantly",
+            "64% of customers out within 60 minutes",
+            "96% of services done within 90 minutes",
+            "15 Minutes every repair order saved"
+          ],
+          "notes": "Service Workflow. WITHOUT: no idea when production slips, a waiter can sit 3+ hours, quick service over 2.5 hrs. WITH: a live board flags slipping ROs the moment it happens — 64% out within 1 hour, 96% within 90 min. Lead here for a Service / Fixed-Ops director.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/serviceWorkflowCorwin.png?v=1"
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "Recon you can trust.",
+          "kicker": "Before & After · Recon Workflow",
+          "beforeLabel": "The Old Way",
+          "afterLabel": "With MDD",
+          "before": [
+            "Recon data is only as good as the human entering it",
+            "Steps forgotten, timestamps gamed",
+            "A Time-to-Line number nobody believes"
+          ],
+          "after": [
+            "Only location based recon system in the market",
+            "Tamper-proof dwell time",
+            "Time-to-Line you can trust"
+          ],
+          "notes": "Recon Workflow. WITHOUT: recon data is only as good as the human entering it — steps forgotten, timestamps gamed. WITH: stages advance automatically from physical location, tamper-proof dwell time, Time-to-Line you can trust. 'Data from physics, not memory.'",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow.png"
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "Audits in minutes.",
+          "kicker": "Before & After · Inventory & Audits",
+          "beforeLabel": "The Old Way",
+          "afterLabel": "With MDD",
+          "before": [
+            "Floor-plan audits take hours or days",
+            "Lot rot goes unseen",
+            "No visibility into which units haven't moved"
+          ],
+          "after": [
+            "Audits in minutes from your desk",
+            "Automated Lot Rot reports",
+            "Every unit customer-ready"
+          ],
+          "notes": "Inventory Management. WITHOUT: floor-plan audits take hours or days, lot rot goes unseen, no visibility into which units haven't moved. WITH: audits in minutes from your desk, automated Lot Rot reports, every unit customer-ready. Ties straight into the Reporting section.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/floorPlanAuditReport.png?v=1"
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "Know the moment a car moves.",
+          "kicker": "Before & After · Security & Alerts",
+          "beforeLabel": "The Old Way",
+          "afterLabel": "With MDD",
+          "before": [
+            "No protection against theft or misuse",
+            "Salespeople take units home",
+            "Cars aging at vendors off-site"
+          ],
+          "after": [
+            "Full visibility on-lot and off",
+            "After-hours movement alerts the second a car leaves",
+            "Every movement logged"
+          ],
+          "notes": "Security. WITHOUT: no protection against theft or unauthorized use, salespeople take units home, cars aging at vendors off-site. WITH: full visibility on-lot and off, after-hours movement alerts the second a car leaves, every movement logged. 'Know the moment a car moves.'",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/offLotReporting.png?v=1"
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Retire the wire harness.",
+          "kicker": "10 second install",
+          "subtitle": "GPS installs mean a technician cutting into every vehicle. MDD doesn't touch a wire.  You also save 2/10th an hour install labor",
+          "bullets": [
+            "Scan the VIN. Scan the tag's QR code. Done — about ten seconds per unit.",
+            "The VIN auto-matches the record in your inventory feed",
+            "Battery-powered and weatherproof — no wiring, no technician, no warranty pushback",
+            "Tags come off unsold units in seconds and get reused"
+          ],
+          "notes": "Contrast with GPS: their installs mean a technician cutting into every car. Ours is a scan, not a wire — scan the VIN, scan the tracking tag's QR code, done. The VIN automatically matches the record in your inventory feed. Battery powered, weatherproof. No technician, no cut wires, no warranty pushback — tags come off unsold units in seconds. These are NOT peel-and-stick devices: the install is the scan-to-pair, not sticking something on a car.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/wireGPS.png?v=1"
+        },
+        {
+          "type": "slide",
+          "title": "Built for the Lot, Not the Highway",
+          "kicker": "RTLS — not GPS",
+          "bullets": [
+            "GPS was borrowed from trucking — it goes blind in bays, showrooms, and garages, exactly where inventory sits",
+            "MDD's wireless RTLS knows which floor of a six-story structure a car is parked on",
+            "It tracks the key — the thing the car can't move without."
+          ],
+          "stats": [
+            {
+              "v": "Cars and Keys",
+              "l": "Indoors and Outdoors"
+            },
+            {
+              "v": "Multi-Level Parking Garages",
+              "l": "Works on every lot"
+            },
+            {
+              "v": "Workflow",
+              "l": "Service, Recon and Sales Workflows"
+            }
+          ],
+          "notes": "If they have a GPS tool today, ask what happens inside the service drive or the storage garage. That's where GPS-based tools go dark — and where MDD was born."
+        }
+      ]
+    },
+    {
+      "title": "2 · About Your Operation",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Let's map your operation.",
+          "kicker": "Tell us about your operation",
+          "subtitle": "",
+          "bullets": [
+            "One lot or several — and do you move inventory across sister stores?",
+            "Any multi-level parking structures?",
+            "How many vehicles — new, used, and loaners?",
+            "Average number of open repair orders",
+            "Keys today: a key box, peg board?",
+            "Recon and vehicle tracking — Rapid Recon or Similar?",
+            "F&I: are you open to a new, high-margin revenue line?"
+          ],
+          "notes": "OPEN HERE — discovery, not a pitch. Let them talk; you're mapping the operation and the pain. Footprint sizes the system (lots, garages, unit count feed the System Builder) and tells you which modules to lead with. Map their current tools to the MDD wedge: a key box is accountability not location; GPS goes blind indoors; manual recon boards get forgotten and gamed — that's the 'before' you contrast in The MDD Difference. CHOOSE YOUR PATH — Owner/GM → Lot Management + Reporting + ROI; Service director → Service Workflow; Used-car/Sales → Recon + Reporting; F&I interest → VehicleVault. Earn the upfront close: 'If I can show you we solve that on your lot and prove the ROI, is this something you'd move on this quarter?' Write their numbers down — they become your close."
+        }
+      ]
+    },
+    {
+      "title": "3 · How It Works — Hardware & Install",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "showcase",
+          "title": "The tracking tags.",
+          "kicker": "Hardware",
+          "subtitle": "Two Bluetooth tags per unit — one for the car, one for the key. Battery-powered, weatherproof, reusable. Nothing to wire, nothing to install.",
+          "images": [
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/carQuarter.jpg",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/keyFobQuarter.jpg"
+          ],
+          "shotStyle": "big",
+          "bullets": [
+            "Car tag — larger, rides in the cabin with the vehicle",
+            "Key tag — small, rides on the key ring",
+            "Both come off in seconds when the unit sells and go back in the bin"
+          ],
+          "notes": "Show the physical hardware. Car tag (larger, rectangular) tracks the vehicle; key tag (round, smaller) tracks the key. Battery-powered, weatherproof, reusable — no wiring. Pass a sample around."
+        },
+        {
+          "type": "slide",
+          "layout": "showcase",
+          "title": "Where the tag goes.",
+          "kicker": "Placement",
+          "subtitle": "The car tag is placed in the cabin and kept visible, so it comes off before delivery. No adhesive, no wiring — placed, not stuck.",
+          "images": [
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/tagVisor.jpg",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/tagGloveBox.jpg",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/tagTrunk.jpg"
+          ],
+          "bullets": [
+            "Clip it to the passenger sun visor",
+            "Or set it in the glove box or the trunk",
+            "Visible placement is the point — it comes off at delivery, and a device left behind is zero exposure"
+          ],
+          "notes": "How the tag attaches: placed in the cabin (visor, glove box, or trunk), kept visible so it's removed before the customer drives off. Not peel-and-stick. Ties to the 'device left in a sold car = zero liability' slide."
+        },
+        {
+          "type": "slide",
+          "layout": "showcase",
+          "title": "Reusable placards, not paper hang tags.",
+          "kicker": "Service hardware",
+          "subtitle": "Color-coded placards ride with the car through the lane — grab one, hang it on the rearview mirror, reuse it. No printer, no paper, roughly $500/mo back.",
+          "images": [
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/greenPlacardWithKey.png",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/yellowPlacardWithKey.png",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/redPlacardWithKey.png"
+          ],
+          "shotStyle": "placards",
+          "bullets": [
+            "Green, yellow, red — stage and priority at a glance across the drive",
+            "Weatherproof and reusable for years — paper hang tags gone"
+          ],
+          "notes": "The service hardware. These placards replace paper hang tags — color-coded for stage/priority, scannable, reusable. ~$500/mo saved on paper alone, and the workflow advances as the car (and its placard) physically moves. Hand a sample around if you brought one."
+        },
+        {
+          "type": "slide",
+          "layout": "showcase",
+          "title": "The placard in the lane.",
+          "kicker": "Service hardware",
+          "subtitle": "Hung on the mirror at write-up so the stage and number read from across the drive — then back on the shop rack when the ticket closes.",
+          "images": [
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/placardInCar.jpg",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/placardStorageRack.jpg?v=2"
+          ],
+          "shotStyle": "big",
+          "notes": "Show the placard actually in use (on the mirror at the service drive) and the shop rack it's pulled from. Numbered and color-coded, reused for years."
+        },
+        {
+          "type": "slide",
+          "layout": "showcase",
+          "title": "Where the placards live.",
+          "kicker": "Service hardware",
+          "subtitle": "Color-coded placards hang on a rack at the service drive — grab one at write-up, hang it on the mirror, drop it back when the RO closes.",
+          "images": [
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/placardStorage.jpg",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/hardware/placardRack.jpg"
+          ],
+          "shotStyle": "big",
+          "bullets": [
+            "Numbered and color-coded for quick lookup on the drive",
+            "Reused for years — no printer, no paper",
+            "Back on the rack when the ticket closes, ready for the next car"
+          ],
+          "notes": "Show where placards are stored between uses — a rack at the drive. Reinforces reusable, not paper. The numbers are the ID the team uses."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Pair a Tag in Seconds",
+          "url": "https://mddrtls.com/pairing?org=org_BOM",
+          "notes": "Pair a tag live: scan/enter the tag, assign to a unit, done. Mention bulk import (Pairing → Import) for the initial 1,000-unit rollout. This is the whole 'training' for stock-in."
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · Pairing on the Drive",
+          "url": "https://mddrtls.com/pairing?org=org_BOM",
+          "notes": "Same flow on a phone — this is what the porter does at stock-in. Ten seconds, no clipboard, no data entry at a desk."
+        },
+        {
+          "type": "slide",
+          "title": "Your inventory is the source of truth. Not someone's memory.",
+          "kicker": "Device Management",
+          "subtitle": "MDD syncs with your inventory feeds — vAuto, Dealer.com, CDK. In inventory, it's tracked; when it sells, it's out. No manual list.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/notPairedReport.png?v=1",
+          "bullets": [
+            "New unit lands on the install report automatically",
+            "Pair in seconds — scan the VIN, scan the device, save",
+            "Place it visible — visor, glove box, or trunk",
+            "Sold: removed automatically, device reclaimed"
+          ],
+          "notes": "Inventory-driven, start to finish. The feeds (vAuto / Dealer.com / CDK) decide what's tracked — no manual list, no human step to forget. Walk the four-step lifecycle: arrive, pair, place, reclaim. Placement is visible on purpose so devices come off at delivery."
+        }
+      ]
+    },
+    {
+      "title": "4 · Integrations",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "partners",
+          "title": "Works with your DMS and inventory feeds.",
+          "notes": "Integration breadth: MDD connects to the DMS and inventory feeds dealers already use. Ask which they run and point to it on the wall. NOTE: this list was deduplicated from a scrambled paste and the DMS-vs-Inventory buckets are best-effort — verify before presenting.",
+          "kicker": "Integrations",
+          "subtitle": "MDD syncs inventory and sold status from the systems you already run — no new data entry.",
+          "groups": [
+            {
+              "label": "DMS (35)",
+              "items": [
+                "Reynolds & Reynolds",
+                "CDK Global",
+                "DealerTrack / Arkona",
+                "Tekion",
+                "PBS Systems",
+                "DealerBuilt",
+                "Auto/Mate",
+                "AutoSoft",
+                "ADAM Systems (Karmak)",
+                "Procede Excede",
+                "Quorum",
+                "Serti (Keyloop)",
+                "UCS",
+                "Wayne Reaves",
+                "Frazer",
+                "DIS",
+                "ASN Software",
+                "AutoManager / DeskManager",
+                "iDMS",
+                "Genesys (Saleslifter Pro)",
+                "ACSI",
+                "ComSoft",
+                "Dealer Solutions (KGI)",
+                "Auto Master",
+                "Advent",
+                "Micro 21",
+                "Autoflexilog",
+                "AutoFunds",
+                "Finance Express",
+                "ProMax",
+                "Dealership Tracker (Supreme Software)",
+                "L'Autopak",
+                "Auto Action",
+                "Auto Search Technologies",
+                "Automan"
+              ]
+            },
+            {
+              "label": "Inventory (42)",
+              "items": [
+                "vAuto",
+                "VinSolutions",
+                "HomeNet",
+                "FirstLook (Max Digital)",
+                "Carsforsale.com",
+                "Auction123",
+                "eBizAutos",
+                "AutoRevo",
+                "Dealer Car Search",
+                "Carbase",
+                "DealerWebsites",
+                "DealerTrend",
+                "CarThink",
+                "Chroma Cars",
+                "Fusion Zone Automotive",
+                "LotPro",
+                "Lot Wizard",
+                "AutoLot Manager",
+                "AutoXplorer",
+                "Car-Ware",
+                "Dealer Plate",
+                "Digital Dashboard (Dealer Dynamics)",
+                "MotorCar Marketing",
+                "MotorLot",
+                "PRCO Power",
+                "Profit Monster",
+                "4Dealership",
+                "Advanced Auto Dealers",
+                "Area Cars (EZ Car Pack)",
+                "Auto Click",
+                "Auto Dealer Pro",
+                "Auto Logic",
+                "AutoCorner",
+                "Boost Logics",
+                "Car Pro (Direct Link)",
+                "DCS Online",
+                "Friday Systems",
+                "Oasis",
+                "Skywerks",
+                "Southfire",
+                "Surefire Solutions",
+                "Smartlot Solutions"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "An open API for your data.",
+          "notes": "The open-API story: MDD is not a black box. Dealers generate API keys per store and pull vehicle/key/workflow data into their own applications. Name-drop the live API integrations — Rapid Recon (recon), KeyPer Systems (key management), P.E.N. E-Contracting (F&I). Good answer to 'does this play nice with our stack?'",
+          "kicker": "Integrations · API",
+          "subtitle": "Dealers create their own API keys and pull MDD data into the applications they already run.",
+          "bullets": [
+            "API keys per dealership — you control what connects",
+            "Extract vehicle, key, and workflow data into your own tools",
+            "Already integrated via API: Rapid Recon, KeyPer Systems, and P.E.N. E-Contracting"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "5 · Key & Vehicle Tracking",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Every car and key on one screen.",
+          "kicker": "MDD Locate",
+          "subtitle": "The module every store starts with — and the one the whole floor uses every day.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate.png",
+          "notes": "MDD Locate: every car and key on one screen. This is the module every store starts with, and the one the whole floor uses daily."
+        },
+        {
+          "type": "slide",
+          "title": "Readiness at the Door Wins the Sale",
+          "kicker": "MDD Locate",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate-mobile.png",
+          "bullets": [
+            "Be ready at the door, Car identified, key in hand, pulled up front — before they arrive",
+            "Walk straight to any car or key from the app — no more hunting.",
+            "Beat lot rot: MDD flags units that haven't moved so cars get exercised on schedule",
+            "Floor-plan audits in minutes — every unit's location is already known"
+          ],
+          "notes": "The Saturday story: missing key, customer waiting, whole floor scrambling. MDD makes sure it never happens again. 90% adoption matters — tools only work if the floor actually uses them, and they use this one."
+        },
+        {
+          "type": "slide",
+          "layout": "gallery",
+          "title": "App Screens (scroll)",
+          "rows": [
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/webSearch.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/webADP.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/requestVehicle.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vehicleRequestWorkflow.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate-mobile.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/mobileReconDetails.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/serviceWorkflowCorwin2.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow-details.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflowComunication.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow-mobile.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/work-plan-mobile.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/mobileReconStep.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/work-plan.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow-history-mobile.png?v=1"
+            ]
+          ],
+          "notes": "Long scroll of live app screens — scroll top to bottom. Web search / ADP, vehicle request + workflow, locate + recon detail (side by side), service workflow (Corwin), workflow board / details / comms / history / tasks, then mobile workflow / work-plan / recon views."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Locate a Car",
+          "url": "https://mddrtls.com/search?org=org_BOM",
+          "notes": "Search by stock # or VIN, open the asset details, show exact position — indoors and out. If they're multi-lot, show cross-location search: 'It's at your overflow lot, row 4.'"
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Locate a Key",
+          "url": "https://mddrtls.com/search?org=org_BUF",
+          "notes": "Same search, focused on keys — locate any key in seconds and see who had it last. The wedge for stores bleeding $300–$800 per lost fob."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Locate Car + Key",
+          "url": "https://mddrtls.com/search?org=org_BBF",
+          "notes": "The full picture: a car and its key on one screen. This is the everyday view the whole floor lives in."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Vehicle Request Workflow",
+          "url": "https://mddrtls.com/workflow?org=org_BBF&templateId=workflow_template_01KWCVJ0155M1PQ1KJVSXS737V",
+          "notes": "Show a vehicle request coming through and the team locating and staging the unit for whoever requested it."
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · Walk Straight to It",
+          "url": "https://mddrtls.com/search?org=org_BBF",
+          "notes": "Phone view: this is the salesperson walking the lot, customer in tow. Search, tap, walk to the car. Keys in hand the first time."
+        }
+      ]
+    },
+    {
+      "title": "6 · Lot Management",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Run every lot from one screen.",
+          "kicker": "Lot Management",
+          "subtitle": "Locate at scale: multi-lot visibility, geofences, alerts, and audits — built for overflow, vendor lots, and storage garages.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate-details.png",
+          "notes": "Lot Management is Locate at scale: multi-lot visibility, geofences, alerts, and audits. Built for stores with overflow, vendor lots, and storage garages."
+        },
+        {
+          "type": "slide",
+          "title": "Stop Searching the Lot. Start Selling.",
+          "kicker": "Lot Management",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate-details.png",
+          "bullets": [
+            "Every rooftop, overflow lot, and vendor location on a single dashboard",
+            "Geofences with after-hours movement alerts — security knows the second a unit leaves",
+            "Stale units flag themselves before they become lot rot",
+            "Floor-plan reconciliation stops being an all-hands hunt"
+          ],
+          "notes": "Ask who does their floor-plan audits and how long it takes. Then ask about after-hours moves — most stores find out Monday morning. MDD tells them Saturday night."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Geofences",
+          "url": "https://mddrtls.com/settings/geofences?org=org_BBF",
+          "notes": "Show a geofence drawn around a real lot. Then move to Alert Rules for after-hours notifications, and Reports for the aging/audit reports the GM cares about."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Alert Rules",
+          "url": "https://mddrtls.com/settings/rules?org=org_BBF",
+          "notes": "After-hours movement alerts — security knows the second a unit leaves the geofence. Most stores find out Monday morning; MDD tells them Saturday night."
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · The Lot in Your Pocket",
+          "url": "https://mddrtls.com/search?org=org_BBF",
+          "notes": "Porter/lot manager view on the phone: find any unit, confirm the move, done. No radio calls, no walking rows."
+        }
+      ]
+    },
+    {
+      "title": "7 · Reporting",
+      "steps": [
+        {
+          "type": "slide",
+          "title": "Reporting That Runs the Store",
+          "kicker": "Location data → daily action",
+          "subtitle": "Every report here is built from live location and key status — nobody keys it in, so it is always current.",
+          "bullets": [
+            "The reports a GM or used-car manager actually opens first thing every morning",
+            "Built from real-time location and key data — not manual logs or a stale DMS export",
+            "One click, no walking the lot, no clipboard"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate.png",
+          "notes": "Frame it: 'These are not reports someone has to build — they are a live read on your lot. Which of these would your used-car manager want open Monday at 8am?' Then walk the two or three that hit their pain, and show one live."
+        },
+        {
+          "type": "slide",
+          "title": "Lot Rot Report",
+          "kicker": "Reporting",
+          "bullets": [
+            "Flags every unit that has not moved in X days — before it becomes a dead battery, a flat spot, or a markdown",
+            "Aging sorted worst-first, by lot and by days-on-site",
+            "Catches units hiding in the wrong place: overflow, a vendor, a back row nobody checks",
+            "Turns 'we probably have some aged units' into a named list you can act on today"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/lotRotReport.png?v=1",
+          "notes": "Money angle: every aged unit is interest expense plus a coming markdown. Ask how they spot lot rot today — usually a manual walk or a DMS report that has no idea WHERE the car physically is. This one does."
+        },
+        {
+          "type": "slide",
+          "title": "Instant Floor Plan Audit",
+          "kicker": "Reporting",
+          "bullets": [
+            "Audit hundreds of units against the floor plan in minutes — from your desk",
+            "Every VIN confirmed present and located, exceptions flagged automatically",
+            "Replaces the all-hands lot walk and the outside audit fee",
+            "Run it on demand the moment the floor-plan company calls"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/floorPlanAuditReport.png?v=1",
+          "notes": "This one lands with the GM and the office. Ask what a floor-plan audit costs them today in labor and outside-auditor fees, and how confident they are the DMS matches the ground. MDD makes the audit a click."
+        },
+        {
+          "type": "slide",
+          "title": "Missing Vehicles",
+          "kicker": "Reporting",
+          "bullets": [
+            "Any unit in inventory the system cannot currently locate — surfaced before a customer asks for it",
+            "Separates 'sold and gone' from 'here but not detected' from 'left the lot'",
+            "Catches units at a vendor, out on a demo, or quietly gone missing"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/missingKeyCar.png?v=1",
+          "notes": "This is the report that prevents the Saturday scramble. A missing unit found Friday afternoon is a non-event; found while a customer waits, it is a lost deal."
+        },
+        {
+          "type": "slide",
+          "title": "Missing Keys",
+          "kicker": "Reporting",
+          "bullets": [
+            "Every key not accounted for — and who had it last",
+            "Key accountability without a lockbox that is only as good as the last person who used it",
+            "Cuts $300–$800 key replacements and the delivery delays a lost key causes"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/missingKeyCar.png?v=1",
+          "notes": "Key control is the wedge for a lot of stores. Ask how many keys they replace a year — most have no idea, which is the point. At $300–$800 each it adds up fast, and the report makes it visible."
+        },
+        {
+          "type": "slide",
+          "title": "Vehicles at Sister Stores",
+          "kicker": "Reporting",
+          "bullets": [
+            "See and locate inventory across every rooftop in the group, on one screen",
+            "Find the right unit at a sister store instead of buying another at auction",
+            "Know it is actually there — and exactly where — before you promise it to a customer"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow.png",
+          "notes": "For any group or multi-point dealer. Ask how they locate a unit at a sister store today — usually a phone call and a guess. Cross-store visibility turns the whole group into one lot."
+        },
+        {
+          "type": "slide",
+          "title": "Enterprise Reporting",
+          "kicker": "Reporting",
+          "bullets": [
+            "Roll lot rot, audits, missing units, and cycle times up across every rooftop",
+            "Compare stores on the metrics that move gross — aging, time-to-line, service throughput",
+            "The dashboard the group VP or dealer principal opens, not just the store manager",
+            "The bigger the group, the bigger the leak this closes"
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/service-workflow.png",
+          "notes": "Aim this at the exec or group buyer. Their pain is inconsistency across stores — this puts every rooftop on the same yardstick and surfaces the outliers."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Run the Reports",
+          "url": "https://mddrtls.com/reports",
+          "notes": "Reuses the same signed-in demo window. Navigate to Reports and run whichever one fits their pain live — Lot Rot and the Floor Plan Audit demo especially well. Let them pick which report to see."
+        }
+      ]
+    },
+    {
+      "title": "8 · Service Workflow",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "A service lane that updates itself.",
+          "kicker": "Service Workflow · Powered by MDD Locate",
+          "subtitle": "Other tools wait for someone to click a button. MDD already knows where the car is — so every stage advances on its own.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/service-workflow.png",
+          "notes": "Powered by LocateIQ. The pitch in one line: other tools wait for someone to click a button — MDD already knows where the car is, so every stage advances on its own."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Run the drive from your phone.",
+          "kicker": "Service Workflow · Mobile",
+          "subtitle": "Advisors, techs, and porters all see the same live board — no one checks on a car by walking the lot.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow-mobile.png",
+          "notes": "Managers run the drive from their phone. Advisors, techs, and porters all see the same live board — no one 'checks on a car' by walking the lot."
+        },
+        {
+          "type": "slide",
+          "title": "Recover 15 Minutes Per R.O.",
+          "kicker": "In the shop, you sell time",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/service-workflow.png",
+          "bullets": [
+            "Stages advance as the car physically moves — nothing to click, nothing to forget, nothing to game",
+            "Dwell time measured in Write-up, Staging, In-Bay, and Complete — bottlenecks stop hiding",
+            "Alerts before a delivery promise breaks — protect CSI while there's still time to act",
+            "Reusable color-coded placards replace paper hang tags (~$500/mo saved on paper alone)"
+          ],
+          "notes": "Corwin story: express service went from 2.5 hours to under 90 minutes, and CSI climbed with it. Quote Warren Weimer: 'At the 40-minute mark we know if a delivery is in trouble — and we get help there immediately.' A few thousand ROs a month × 15 minutes = hundreds of billable hours with no new bays or techs."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Service Workflow Board",
+          "url": "https://mddrtls.com/workflow?org=org_CCS&templateId=workflow_template_01KVTY3WVAC4WVM3S0WCW9842Y",
+          "notes": "The live board: every vehicle in the lane, its stage, its dwell time. Pick a car and show the tamper-proof history. Tie to their process: 'Where does a car sit longest at your store?'"
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · The Drive on a Phone",
+          "url": "https://mddrtls.com/workflow?org=org_CCS&templateId=workflow_template_01KVTY3WVAC4WVM3S0WCW9842Y",
+          "notes": "Service manager's phone view — run the lane from anywhere. This is what 'checking on a car' looks like now."
+        }
+      ]
+    },
+    {
+      "title": "9 · Recon Workflow",
+      "steps": [
+        {
+          "type": "slide",
+          "title": "The Margin Is Made in Recon",
+          "kicker": "Time-to-Line · Powered by LocateIQ",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow-history.png",
+          "bullets": [
+            "Only location based reconditioning tool",
+            "Other recon tools measure memory: someone forgets to click, timestamps get gamed",
+            "MDD's RTLS + AI advance stages automatically as the car moves — tamper-proof history you can trust"
+          ],
+          "notes": "Front-end gross is thin; recon speed is one of the last profit levers fully in their control. Ask what their current T2L number is — then ask if they trust it. If steps are hand-updated, they're measuring memory, not process."
+        },
+        {
+          "type": "slide",
+          "title": "Locked Core Steps. Unlimited Sub-Steps.",
+          "kicker": "Built for dealer groups",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow.png",
+          "bullets": [
+            "8 locked Core Steps: Pending → Inspection → Estimate Approval → Mechanical → Cosmetic → Detail → Photos → Ready",
+            "Every store measures the same way — apples-to-apples T2L across every rooftop",
+            "Stack-ranked stores gamify the group's Time-to-Line",
+            "Unlimited Sub-Steps keep each store's local process intact"
+          ],
+          "notes": "Group-level hook: freeform systems can't compare stores because every store builds different steps. MDD locks the core so the group rollup is real — then stack-ranks stores against each other. GMs hate being last."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Recon Board & Templates",
+          "url": "https://mddrtls.com/workflow?org=org_01KQ7S1HNCSR2BDVWNYQ3H3V7W&templateId=workflow_template_01KQDED8GNE938MG0ZGAASTXRG",
+          "notes": "Switch the board to the Recon template. Show a unit's stage history and dwell times. Templates live under Settings → Workflow Templates — show the locked core steps + custom sub-steps."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Recon Board — Second Store",
+          "url": "https://mddrtls.com/workflow?org=org_01JV2HH26WJNJ3VN8VH16YFJJA&templateId=workflow_template_01KXGW5AF8NT9YJ9BB4MQ2WDSC",
+          "notes": "A second recon org/template — use to show a different store's setup or a group rollup comparison."
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · Recon in Every Tech's Pocket",
+          "url": "https://mddrtls.com/workflow?org=org_01KQ7S1HNCSR2BDVWNYQ3H3V7W&templateId=workflow_template_01KQDED8GNE938MG0ZGAASTXRG",
+          "notes": "Recon runs from the phone: tech sees the day's work plan, unit location, and stage — vendors can't hide, and neither can bottlenecks."
+        }
+      ]
+    },
+    {
+      "title": "10 · VehicleVault F&I",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "$400 more gross on every car you retail.",
+          "kicker": "VehicleVault · F&I Sell-Through",
+          "subtitle": "A dealer-branded key and vehicle tracking app, sold at the desk. The customer gets two Bluetooth trackers and your app; you keep high-margin backend gross on every deal.",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv1.png",
+          "notes": "Shift gears: everything so far SAVES money — VehicleVault MAKES it. A dealer-branded key-tracking app sold through F&I. Customer gets two trackers + your app; you keep high-margin backend gross on every deal."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "60 packages a month, $400 each.",
+          "kicker": "The Math · Modeled 200-Unit Store",
+          "bullets": [
+            "30% sell-through on 200 retail units = 60 packages a month",
+            "60 × $400 = $24,000/mo in backend profit — recurring and non-cancelable",
+            "Brandon Honda runs it at a high-volume store: $308K in a single month",
+            "Zero chargebacks across every MDD dealer — reinsured, nothing claws back"
+          ],
+          "stats": [
+            { "v": "$24K/mo", "l": "modeled backend profit" },
+            { "v": "$308K/mo", "l": "Brandon Honda, one month" },
+            { "v": "Zero", "l": "chargebacks, all dealers" }
+          ],
+          "notes": "The money slide. Keep the two proof points distinct: $24K/mo is the illustrative 200-unit store (30% sell-through × $400); $308K/mo is Brandon Honda's actual at a high-volume rooftop. Their real number comes out of the ROI builder with their inputs — this is the model."
+        },
+        {
+          "type": "slide",
+          "layout": "beforeafter",
+          "title": "The theft product you already sell drives off the lot.",
+          "kicker": "vs. Hard-Wired GPS",
+          "beforeLabel": "Hard-Wired GPS",
+          "afterLabel": "VehicleVault",
+          "before": [
+            "Wired to the battery by a technician — labor on every unit",
+            "Installed in all 200, sold in 60; the other 140 drive off wired in and unrecoverable",
+            "~$9,800/mo in dead hardware — pure loss",
+            "Vehicle only, no keys; blind on which garage floor; splicing risks OEM warranty"
+          ],
+          "after": [
+            "Placed in seconds — no wiring, no technician",
+            "Recyclable — pull it off any unsold unit and reuse it, $0 dead cost",
+            "Keys and vehicle both tracked; Bluetooth pinpoints the floor and the spot",
+            "Addendum option keeps penetration even without an F&I sale"
+          ],
+          "stats": [
+            { "v": "$9,800/mo", "l": "GPS dead hardware avoided" },
+            { "v": "$0", "l": "drive-off cost — recyclable" }
+          ],
+          "notes": "For a dealer already running a hard-wired GPS/theft product in F&I. The killer is drive-off: they install in every unit but only sell 30%, so 70% drive off wired in and can't be recovered — dead money every month. VehicleVault's device is recyclable: pull it off unsold units and reuse it. Don't get into device cost per unit — stay on the outcome."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "A product that survives disclosure.",
+          "kicker": "Compliant · Removable · Reinsurance-Ready",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv4.png",
+          "bullets": [
+            "Value that clearly beats cost — used every day, with your name on it",
+            "No install, no cut wires, comes off in ~30 seconds",
+            "High-volume, low-loss premium — strengthens a book as VSC margins compress"
+          ],
+          "notes": "FTC/addendum angle without lecturing: modern packages need products where value clearly exceeds cost, low install, and removable. VehicleVault hits all three — and the premium is reinsurance-ready."
+        },
+        {
+          "type": "slide",
+          "layout": "showcase",
+          "title": "Their keys and car on a live map.",
+          "kicker": "The Customer Experience",
+          "shotStyle": "big",
+          "images": [
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv2.png",
+            "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv3.png"
+          ],
+          "bullets": [
+            "Find any key or the vehicle instantly — the everyday reason they open it",
+            "Two Bluetooth trackers ride on the fobs; the app does the rest"
+          ],
+          "notes": "The daily-use hook. This is why the product doesn't charge back — customers actually use it. Best version: mirror a real iPhone running the dealer-branded app instead of the stills."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "The same app schedules their next service.",
+          "kicker": "After the Sale",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv5.png",
+          "bullets": [
+            "Find-my-keys is the daily habit; the My Dealership hub is the payoff",
+            "Chat, schedule service, quick service, RO tracker, value-my-trade — all yours",
+            "The next sale starts on your service drive, not a competitor's"
+          ],
+          "notes": "Retention is the quiet win. The reason they open the app every day (find keys) puts your brand and your service drive one tap away. Recurring subscription keeps the relationship — and the revenue — alive between purchases."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · VehicleVault Packages",
+          "url": "https://mddrtls.com/settings/packages?org=org_01KRM2C4R0HZE9D16RHPYR84SF",
+          "notes": "Walk the product page: app screenshots, compliant-package section, reinsurance story. Keep it short — the numbers slide already made the case."
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · The Customer's App",
+          "url": "https://mdd.io/mdd-vehiclevault",
+          "notes": "Phone-sized view of the consumer experience. BEST version: mirror an iPhone running the actual dealer-branded VehicleVault app via QuickTime and share that window."
+        }
+      ]
+    },
+    {
+      "title": "11 · Case Studies",
+      "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "2,000+ vehicles located across town, instantly.",
+          "kicker": "Bill Brown Ford · Livonia, MI · World's largest Ford dealer",
+          "bullets": [
+            "Thousands of units across four lots — keys ending up on desks, in pockets, across the lot",
+            "Bluetooth tags on every key and car, integrated with Reynolds & Reynolds",
+            "90% of the 29-person new-car sales team adopted it — cars delivered without the search"
+          ],
+          "stats": [
+            { "v": "2,000+", "l": "vehicles tracked, multiple lots" },
+            { "v": "90%", "l": "sales-team adoption" }
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/locate.png",
+          "notes": "The scale and credibility story — best for Owner / GM / Sales Manager. Read Dave Bird, New Car Inventory Manager: 'MDD instantly locates 2,000 vehicles on multiple lots all over town. We get cars customer-delivered without delays.' He can also verify whether a key is in the control system or on someone's desk."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Express service: 2.5 hours to under 90 minutes.",
+          "kicker": "Corwin Toyota · Colorado Springs, CO · Service & Parts",
+          "bullets": [
+            "Customers were walking to quick-lube competitors; no visibility into bottlenecks",
+            "LocateIQ advances the workflow as cars physically move — no manual logging",
+            "The team knows at the 40-minute mark if a delivery is slipping, and gets help there"
+          ],
+          "stats": [
+            { "v": "64%", "l": "out in 60 min" },
+            { "v": "96%", "l": "done in 90 min" },
+            { "v": "+40–60%", "l": "bay turns" }
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/service-workflow.png",
+          "notes": "Service-manager story — CSI is tied to their pay. Read Warren Weimer, Service & Parts Director: 'No one wants to wait two hours for an oil change.' Wait times fell from 2.5 hours to under 90 minutes, with an uptick in Toyota loyalty and CSI."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "Finding a car went from 25 minutes to seconds.",
+          "kicker": "Longo Toyota · Fixed Operations",
+          "bullets": [
+            "Staff walked the lots to find cars; days were lost in the recon pipeline",
+            "Real-time location plus automated recon workflow, live from acquisition to frontline",
+            "15 minutes back on every RO; 3 days off every recon car"
+          ],
+          "stats": [
+            { "v": "3 days", "l": "saved per recon car" },
+            { "v": "15 min", "l": "saved per RO" }
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow.png",
+          "notes": "Recon and fixed-ops story — best for Used-Car / Sales / Service. Read Mark Seipel, Fixed Operations Director: 'Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results.' At ~100 recon cars/mo, 3 days each is roughly $12K/mo less holding cost."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "$308K a month in new F&I revenue — zero chargebacks.",
+          "kicker": "Brandon Honda · Morgan Automotive Group",
+          "bullets": [
+            "Ran the full platform: key & vehicle tracking, service workflow, and VehicleVault F&I",
+            "Zero lost keys; 41 minutes back on every repair order",
+            "VehicleVault sold at the desk — recurring, reinsured, nothing claws back"
+          ],
+          "stats": [
+            { "v": "$308K/mo", "l": "added F&I revenue" },
+            { "v": "41 min", "l": "saved per RO" },
+            { "v": "Zero", "l": "lost keys & chargebacks" }
+          ],
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv1.png",
+          "notes": "The full-stack closer: MDD saves money in service AND makes money in F&I. Read the summary: 'No longer loses keys, shaved 41 minutes per RO in service, and generates an additional $308K per month selling VehicleVault.' Best for Owner / GM / F&I Manager."
+        }
+      ]
+    },
+    {
+      "title": "12 · Partner, Not a Vendor",
+      "steps": [
+        {
+          "type": "slide",
+          "title": "We Watch Your Usage So You Don't Have To",
+          "kicker": "Partner, not a vendor",
+          "bullets": [
+            "Every customer has a live Health Score — gateways, adoption, searches, tasks, comments",
+            "Our team reviews it proactively: if usage dips, we call you before you ever notice",
+            "Dealers don't shelve MDD — they run the store on it, every single day",
+            "This is a real store's last 30 days →"
+          ],
+          "notes": "This is the anti-shelfware slide. Most software gets bought and abandoned; we built an internal Customer Health dashboard because our model only works if you USE the system. If health slips, our CSM reaches out with more training — not an invoice."
+        },
+        {
+          "type": "url",
+          "title": "Live Web · Our Customer Health Dashboard",
+          "url": "https://mddrtls.com/admin/customer-health?org=org_01KQ7S1HNCSR2BDVWNYQ3H3V7W",
+          "notes": "INTERNAL VIEW — show it proudly: 'This is how we watch every customer's adoption.' Health breakdown, activity curves, per-user table. Point out the usage rhythm: closed Sundays, heavy weekdays. This is what partnership looks like operationally."
+        },
+        {
+          "type": "mobile",
+          "title": "Live Mobile · Health On the Go",
+          "url": "https://mddrtls.com/admin/customer-health?org=org_01KQ7S1HNCSR2BDVWNYQ3H3V7W",
+          "notes": "Optional: same dashboard phone-sized — our team monitors accounts from anywhere. Skip if short on time."
+        }
+      ]
+    },
+    {
+      "title": "13 · Wrap-Up",
+      "steps": [
+        {
+          "type": "quote",
+          "title": "System Builder & Investment",
+          "notes": "Build their system live: rooftops, inventory, ROs. Hardware counts auto-calculate; gateway count is finalized by our free site survey. The Value panel does the ROI math with THEIR numbers — let them own the assumptions. Pricing lives in the collapsed Pricing panel — set it before the call, don't open it on screen share. TRIAL CLOSE once the net-value number lands: 'If those are your numbers, is there any reason this wouldn't work for your store?' Then go to the close."
+        }
+      ]
+    }
+  ],
+  "quote": {
+    "dealer": "",
+    "rooftops": 1,
+    "newInv": 300,
+    "usedInv": 150,
+    "loaners": 25,
+    "usedSoldMo": 60,
+    "serviceROs": 1500,
+    "laborRate": 150,
+    "sellThrough": 30,
+    "gatewaysOverride": 0,
+    "modLocate": true,
+    "modLot": true,
+    "modService": true,
+    "modRecon": true,
+    "modVV": false,
+    "minPerRO": 15,
+    "reconDaysCut": 3,
+    "holdingCost": 40,
+    "pTag": 40,
+    "pKeyTag": 20,
+    "pPlacard": 60,
+    "pGateway": 250,
+    "pInstall": 5000,
+    "pMoPerUnit": 2,
+    "pMoFlat": 695,
+    "pVVPreload": 0,
+    "pVVUpgrade": 400
+  }
+};
+
+/* ================= State ================= */
+const LS_KEY = "mdd-demo-config-v3";
+let config = null;
+let cur = { s: 0, i: 0 };
+let editing = false;
+let openSecs = new Set();
+let notesVisible = false;
+
+const $ = id => document.getElementById(id);
+const BUST = Date.now();   // cache-bust slide images once per app load so updated slides always show
+const bust = src => src && !/^https?:/i.test(src) ? src + (src.includes("?") ? "&" : "?") + "v=" + BUST : src;
+const flat = () => config.sections.flatMap((sec, s) => sec.steps.map((st, i) => ({ s, i })));
+
+async function loadConfig() {
+  try { localStorage.removeItem(LS_KEY); } catch (e) {}   // purge legacy localStorage cache
+  const saved = sessionStorage.getItem(LS_KEY);
+  if (saved) { try { config = JSON.parse(saved); if (!config.quote) config.quote = JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)); return; } catch (e) {} }
+  try {
+    const r = await fetch("demo-config.json", { cache: "no-store" });
+    if (r.ok) { config = await r.json(); if (!config.quote) config.quote = JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)); return; }
+  } catch (e) {}
+  config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+}
+function persist() { sessionStorage.setItem(LS_KEY, JSON.stringify(config)); }
+
+/* ================= Rendering ================= */
+const TYPE_ICONS = { url: "&#127760;", mobile: "&#128241;", image: "&#9635;", quote: "&#129518;", slide: "&#9646;" };
+
+function renderNav() {
+  $("demo-title").textContent = config.title || "Sales Demo";
+  $("demo-subtitle").textContent = config.subtitle || "";
+  const nav = $("nav");
+  nav.innerHTML = "";
+  let n = 0;
+  config.sections.forEach((sec, s) => {
+    const open = editing || openSecs.has(s) || s === cur.s;
+    const div = document.createElement("div");
+    div.className = "section" + (open ? " open" : "");
+    const t = document.createElement("div");
+    t.className = "section-title";
+    t.dataset.sec = s;
+    t.innerHTML = `<span class="caret">${open ? "&#9662;" : "&#9656;"}</span><span class="sec-name" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(sec.title)}</span>
+      <span class="edit-ctrls">
+        <button class="mini-btn" data-act="sec-up" data-s="${s}" title="Move up">&#9650;</button>
+        <button class="mini-btn" data-act="sec-down" data-s="${s}" title="Move down">&#9660;</button>
+        <button class="mini-btn" data-act="sec-ren" data-s="${s}" title="Rename">&#9998;</button>
+        <button class="mini-btn" data-act="sec-del" data-s="${s}" title="Delete section">&#10005;</button>
+      </span>`;
+    div.appendChild(t);
+    sec.steps.forEach((st, i) => {
+      n++;
+      if (!open) return;
+      const isLive = st.type === "url" || st.type === "mobile";
+      const el = document.createElement("div");
+      el.className = "step" + (s === cur.s && i === cur.i ? " active" : "") + (isLive ? " live" : "");
+      el.dataset.s = s; el.dataset.i = i;
+      el.innerHTML = `<span class="icon">${TYPE_ICONS[st.type] || TYPE_ICONS.slide}</span>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(st.navTitle || st.title)}</span>
+        ${isLive ? `<span class="live-badge">LIVE</span>` : ""}
+        <span class="num">${n}</span>
+        <span class="edit-ctrls">
+          <button class="mini-btn" data-act="st-up" data-s="${s}" data-i="${i}" title="Move up">&#9650;</button>
+          <button class="mini-btn" data-act="st-down" data-s="${s}" data-i="${i}" title="Move down">&#9660;</button>
+          <button class="mini-btn" data-act="st-del" data-s="${s}" data-i="${i}" title="Delete">&#10005;</button>
+        </span>`;
+      div.appendChild(el);
+    });
+    if (open) {
+      const add = document.createElement("button");
+      add.className = "add-step-btn"; add.textContent = "+ Add step";
+      add.dataset.act = "st-add"; add.dataset.s = s;
+      div.appendChild(add);
+    }
+    nav.appendChild(div);
+  });
+  const addSec = document.createElement("button");
+  addSec.className = "add-section-btn"; addSec.textContent = "+ Add section";
+  addSec.dataset.act = "sec-add";
+  nav.appendChild(addSec);
+}
+
+function currentStep() {
+  const sec = config.sections[cur.s];
+  return sec ? sec.steps[cur.i] : null;
+}
+
+function resolveUrl(u) {
+  if (!u) return "";
+  if (/^https?:\/\//i.test(u)) return u;
+  const base = (config.baseUrl || "").replace(/\/+$/, "");
+  return base + (u.startsWith("/") ? u : "/" + u);
+}
+
+/* Live pages open in named, reusable windows that stay signed in.
+   Web steps share one window; mobile steps share a phone-sized one. */
+function openLive(url, mobile = false) {
+  const w = mobile
+    ? window.open(url, "mdd-live-mobile", "width=430,height=880,menubar=no,toolbar=no,location=yes,status=no")
+    : window.open(url, "mdd-live-demo");
+  if (w) w.focus();
+  return w;
+}
+
+function isDarkLayout(st) {
+  if (st.theme === "dark") return true;
+  if (st.theme === "light") return false;
+  return st.layout === "hero" || st.layout === "section";
+}
+/* Alternate dark/light across the deck's slide steps. Explicit theme wins; hero/section always dark. */
+function slideDark(cs, ci) {
+  let ord = 0;
+  for (let s = 0; s < config.sections.length; s++) {
+    const steps = config.sections[s].steps;
+    for (let i = 0; i < steps.length; i++) {
+      const st = steps[i];
+      if (!(st.type === "slide" || !st.type)) continue;
+      if (s === cs && i === ci) {
+        if (st.theme === "dark") return true;
+        if (st.theme === "light") return false;
+        if (st.layout === "hero" || st.layout === "section") return true;
+        return ord % 2 === 0;
+      }
+      ord++;
+    }
+  }
+  return false;
+}
+function imgFallback(el) {
+  const name = (el.getAttribute("src") || "").split("?")[0].split("/").pop();
+  const d = document.createElement("div");
+  d.className = "img-ph";
+  d.textContent = "Image needed: " + name;
+  if (el.parentNode) el.replaceWith(d);
+}
+function renderSlideHTML(st) {
+  const layout = st.layout || "content";
+  const kicker = st.kicker ? `<div class="s-kicker">${esc(st.kicker)}</div>` : "";
+  const title = st.title ? `<div class="s-title">${esc(st.title)}</div>` : "";
+  const sub = st.subtitle ? `<div class="s-subtitle">${esc(st.subtitle)}</div>` : "";
+  const bullets = (st.bullets && st.bullets.length) ? `<ul>${st.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>` : "";
+  const stats = (st.stats && st.stats.length) ? `<div class="s-stats">${st.stats.map(x => `<div class="s-stat"><div class="v">${esc(x.v)}</div><div class="l">${esc(x.l)}</div></div>`).join("")}</div>` : "";
+  if (layout === "section") {
+    return `<div class="slide-inner sl-section">${st.num ? `<div class="s-num">${esc(st.num)}</div>` : ""}${kicker}${title}${sub}${stats}</div>`;
+  }
+  if (layout === "hero") {
+    const cards = (st.cards && st.cards.length) ? `<div class="s-cards">${st.cards.map(c => `<div class="s-card"><div class="t">${esc(c.t)}</div><div class="d">${esc(c.d)}</div></div>`).join("")}</div>` : "";
+    const style = st.image ? ` style="background:linear-gradient(135deg,rgba(10,12,8,.9),rgba(15,32,20,.72)),url('${escAttr(st.image)}') center/cover no-repeat"` : "";
+    return `<div class="slide-inner"${style}>${kicker}${title}${sub}${cards}${stats}</div>`;
+  }
+  if (layout === "beforeafter") {
+    const col = (items, cls, h) => `<div class="ba-col ${cls}"><h4>${esc(h)}</h4><ul>${(items || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    const banner = st.image ? `<div class="ba-banner"><img src="${escAttr(st.image)}" alt="" onerror="imgFallback(this)"></div>` : "";
+    return `<div class="slide-inner"><div class="s-head">${kicker}${title}${sub}</div>${banner}<div class="sl-ba">${col(st.before, "ba-old", st.beforeLabel || "Without MDD")}${col(st.after, "ba-new", st.afterLabel || "With MDD")}</div>${stats}</div>`;
+  }
+  if (layout === "showcase") {
+    const imgs = (st.images && st.images.length) ? `<div class="s-shots${st.shotStyle ? " " + st.shotStyle : ""}">${st.images.map(u => `<img src="${escAttr(u)}" alt="" onerror="imgFallback(this)">`).join("")}</div>` : "";
+    return `<div class="slide-inner"><div class="s-head">${kicker}${title}${sub}</div>${imgs}${bullets}${stats}</div>`;
+  }
+  if (layout === "gallery") {
+    const row = imgs => `<div class="g-row${imgs.length > 1 ? " pair" : ""}">${imgs.map(u => `<img src="${escAttr(u)}" alt="" onerror="imgFallback(this)">`).join("")}</div>`;
+    return `<div class="slide-inner g-scroll"><div class="g-list">${(st.rows || []).map(row).join("")}</div></div>`;
+  }
+  if (layout === "partners") {
+    const grp = g => `<div class="p-group"><h4>${esc(g.label)}</h4><div class="p-chips">${(g.items || []).map(x => `<span class="p-chip">${esc(x)}</span>`).join("")}</div></div>`;
+    return `<div class="slide-inner"><div class="s-head">${kicker}${title}${sub}</div><div class="p-groups">${(st.groups || []).map(grp).join("")}</div></div>`;
+  }
+  const text = `<div class="s-body">${kicker}${title}${sub}${bullets}${stats}</div>`;
+  if (st.image) {
+    return `<div class="slide-inner"><div class="sl-split">${text}<div class="s-media"><img src="${escAttr(st.image)}" alt="" onerror="imgFallback(this)"></div></div></div>`;
+  }
+  return `<div class="slide-inner">${text}</div>`;
+}
+
+function renderStage(userNav = false) {
+  const st = currentStep();
+  const panes = ["slide", "launch", "empty", "imgslide", "quote"];
+  panes.forEach(p => $(p).style.display = "none");
+  $("editor").style.display = "none";
+  if (!st) { $("empty").style.display = "flex"; $("step-title").textContent = ""; $("progress").textContent = ""; return; }
+  $("step-title").textContent = st.title || "";
+  const f = flat();
+  const idx = f.findIndex(x => x.s === cur.s && x.i === cur.i);
+  $("progress").textContent = (idx + 1) + " / " + f.length;
+  const isLive = st.type === "url" || st.type === "mobile";
+  $("btn-newtab").style.display = isLive ? "" : "none";
+  if (isLive) {
+    const target = resolveUrl(st.url);
+    const isMobile = st.type === "mobile";
+    $("launch").innerHTML =
+      (isMobile ? `<div class="l-phone"></div>` : `<div class="l-icon">&#127760;</div>`) +
+      `<div class="l-title">${esc(st.title)}</div>
+       <div class="l-url">${esc(target)}</div>
+       <button class="l-btn" id="launch-open">${isMobile ? "Open in phone window &#128241;" : "Open in demo window &#8599;"}</button>
+       <div class="l-hint">${isMobile
+         ? "Opens a phone-sized window (430&times;880) that stays signed in — share it in Teams to demo the mobile experience. For the native app itself, mirror an iPhone via QuickTime and share that window."
+         : "Opens in a separate browser window that stays signed in. Every live web step reuses the same window &mdash; put it on your shared screen and keep this script on your own."}</div>`;
+    $("launch-open").onclick = () => openLive(target, isMobile);
+    $("launch").style.display = "flex";
+    if (userNav) openLive(target, isMobile);
+  } else if (st.type === "image") {
+    $("imgslide").innerHTML = `<img src="${escAttr(bust(st.src || ""))}" alt="${escAttr(st.title || "")}">`;
+    $("imgslide").style.display = "flex";
+  } else if (st.type === "quote") {
+    renderQuote();
+    $("quote").style.display = "block";
+  } else {
+    const slide = $("slide");
+    slide.className = slideDark(cur.s, cur.i) ? "dark" : "";
+    slide.innerHTML = renderSlideHTML(st);
+    slide.style.display = "block";
+  }
+  const notes = $("notes");
+  notes.textContent = st.notes || "";
+  notes.style.display = notesVisible && st.notes ? "block" : "none";
+}
+
+function render(userNav = false) { renderNav(); renderStage(userNav); }
+function goTo(s, i) { cur = { s, i }; if (editing) openStepEditor(s, i); else render(true); }
+function move(delta) {
+  const f = flat();
+  if (!f.length) return;
+  let idx = f.findIndex(x => x.s === cur.s && x.i === cur.i);
+  idx = Math.min(Math.max(idx + delta, 0), f.length - 1);
+  cur = { s: f[idx].s, i: f[idx].i };
+  render(true);
+}
+
+function esc(s) { return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function escAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
+const fmt$ = n => "$" + Math.round(n).toLocaleString("en-US");
+
+/* ================= System Builder / Quote Builder ================= */
+function qCalc(q) {
+  const units = (+q.newInv || 0) + (+q.usedInv || 0) + (+q.loaners || 0);
+  const vehicleTags = units;
+  const keyTags = units;
+  const placards = q.modService ? Math.max(10, Math.ceil((+q.serviceROs || 0) / 22 * 1.25)) : 0;
+  const gatewaysAuto = Math.round(Math.min(35, Math.max(15, 15 + (units - 200) / 500 * 20)));
+  const gateways = +q.gatewaysOverride > 0 ? +q.gatewaysOverride : gatewaysAuto;
+  const oneTime = vehicleTags * (+q.pTag || 0) + keyTags * (+q.pKeyTag || 0) +
+                  placards * (+q.pPlacard || 0) + gateways * (+q.pGateway || 0) + (+q.pInstall || 0);
+  const monthly = (+q.pMoFlat || 0);
+  const leaseUnits = units + placards;
+  const leaseOneTime = (+q.pInstall || 0);
+  const leaseMonthly = (+q.pMoFlat || 0) + (+q.pMoPerUnit || 0) * leaseUnits;
+  const svcValue = q.modService ? (+q.serviceROs || 0) * ((+q.minPerRO || 0) / 60) * (+q.laborRate || 0) : 0;
+  const placardValue = q.modService ? 500 : 0;
+  const reconValue = q.modRecon ? (+q.usedSoldMo || 0) * (+q.reconDaysCut || 0) * (+q.holdingCost || 0) : 0;
+  const vvInventory = (+q.newInv || 0) + (+q.usedInv || 0);
+  const vvPerPkg = Math.max(0, (+q.pVVUpgrade || 0) - (+q.pVVPreload || 0));
+  const vvPackages = q.modVV ? vvInventory * 0.60 * ((+q.sellThrough || 0) / 100) : 0;
+  const vvValue = q.modVV ? vvPackages * vvPerPkg : 0;
+  const totalValue = svcValue + placardValue + reconValue + vvValue;
+  const net = totalValue - monthly;
+  const leaseNet = totalValue - leaseMonthly;
+  const payback = oneTime > 0 && net > 0 ? oneTime / net : 0;
+  return { units, vehicleTags, keyTags, placards, gateways, gatewaysAuto, oneTime, monthly, leaseUnits, leaseOneTime, leaseMonthly, leaseNet, svcValue, placardValue, reconValue, vvInventory, vvPerPkg, vvPackages, vvValue, totalValue, net, payback };
+}
+
+function qInput(label, key, opts = {}) {
+  const q = config.quote;
+  const val = q[key] ?? "";
+  return `<div class="q-row"><label>${label}</label>
+    <input type="${opts.text ? "text" : "number"}" ${opts.text ? 'class="wide"' : 'min="0"'} data-qkey="${key}" value="${escAttr(val)}" ${opts.ph ? `placeholder="${opts.ph}"` : ""}></div>`;
+}
+function qCheck(label, key) {
+  return `<label class="q-check"><input type="checkbox" data-qkey="${key}" ${config.quote[key] ? "checked" : ""}> ${label}</label>`;
+}
+
+function renderQuote() {
+  const q = config.quote;
+  $("quote").innerHTML = `
+    <h2>System Builder &amp; Investment</h2>
+    <div class="q-sub">Size the system with the dealer's real numbers. Hardware counts auto-calculate &middot; gateway count finalized by free site survey.</div>
+    <div class="q-grid">
+      <div>
+        <div class="q-card"><h3>Dealership Profile</h3>
+          ${qInput("Dealership / group", "dealer", { text: true, ph: "e.g. Truck Ranch" })}
+          ${qInput("Rooftops / lots", "rooftops")}
+          ${qInput("New inventory (units)", "newInv")}
+          ${qInput("Used inventory (units)", "usedInv")}
+          ${qInput("Loaners / fleet (units)", "loaners")}
+          ${qInput("Used retailed / month", "usedSoldMo")}
+          ${qInput("Service ROs / month", "serviceROs")}
+          ${qInput("Effective labor rate ($/hr)", "laborRate")}
+          ${qInput("Sell-through % (VehicleVault attach)", "sellThrough")}
+        </div>
+        <div class="q-card"><h3>Modules</h3>
+          ${qCheck("Key &amp; Vehicle Tracking (MDD Locate)", "modLocate")}
+          ${qCheck("Lot Management", "modLot")}
+          ${qCheck("Service Workflow", "modService")}
+          ${qCheck("Recon Workflow", "modRecon")}
+          ${qCheck("VehicleVault F&amp;I", "modVV")}
+        </div>
+        <div class="q-card"><h3>Assumptions</h3>
+          ${qInput("Minutes saved per RO", "minPerRO")}
+          ${qInput("Recon days cut (T2L)", "reconDaysCut")}
+          ${qInput("Holding cost $/day (used)", "holdingCost")}
+          ${qInput("Gateways (0 = auto)", "gatewaysOverride")}
+        </div>
+        <details><summary>&#128274; Pricing</summary>
+          <div class="q-card">
+            ${qInput("Vehicle tag ($ each)", "pTag")}
+            ${qInput("Key tag ($ each)", "pKeyTag")}
+            ${qInput("Service placard ($ each)", "pPlacard")}
+            ${qInput("Gateway ($ each)", "pGateway")}
+            ${qInput("Install (flat $)", "pInstall")}
+            ${qInput("Lease per-vehicle ($/mo)", "pMoPerUnit")}
+            ${qInput("Monthly flat $", "pMoFlat")}
+            ${qInput("VehicleVault pre-load ($/pkg)", "pVVPreload")}
+            ${qInput("VehicleVault upgrade ($/pkg)", "pVVUpgrade")}
+            <div class="q-hint">Set once, then Export the config — the whole team gets your pricing defaults.</div>
+          </div>
+        </details>
+      </div>
+      <div>
+        <div class="q-card"><h3 id="q-sys-title">The System</h3><div id="q-hardware"></div></div>
+        <div class="q-value"><h3>Monthly Value Recovered</h3><div id="q-value"></div></div>
+        <div class="q-card"><h3>Investment</h3><div id="q-invest"></div></div>
+        <div class="q-actions">
+          <button class="primary" id="q-copy">Copy summary</button>
+          <button id="q-reset">Reset</button>
+        </div>
+        <div class="q-hint">Estimates for conversation — final hardware counts confirmed by MDD's free site survey. 1-day install &middot; 4-week hypercare &middot; dedicated CSM &middot; 90-day money-back guarantee.</div>
+      </div>
+    </div>`;
+  $("quote").querySelectorAll("[data-qkey]").forEach(el => {
+    el.addEventListener("input", () => {
+      const k = el.dataset.qkey;
+      config.quote[k] = el.type === "checkbox" ? el.checked : (el.type === "number" ? +el.value : el.value);
+      persist(); qRefresh();
+    });
+  });
+  $("q-copy").onclick = () => { navigator.clipboard.writeText(qSummaryText()).then(() => { $("q-copy").textContent = "Copied ✓"; setTimeout(() => $("q-copy").textContent = "Copy summary", 1500); }); };
+  $("q-reset").onclick = () => { if (!confirm("Reset System Builder to defaults? (Pricing is kept)")) return;
+    const p = {}; ["pTag","pKeyTag","pPlacard","pGateway","pInstall","pMoPerUnit","pMoFlat","pVVPreload","pVVUpgrade"].forEach(k => p[k] = config.quote[k]);
+    config.quote = Object.assign(JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)), p);
+    persist(); renderQuote(); };
+  qRefresh();
+}
+
+function qRefresh() {
+  const q = config.quote, c = qCalc(q);
+  $("q-sys-title").textContent = q.dealer ? `The System — ${q.dealer}` : "The System";
+  const hasPricing = c.oneTime > 0 || c.monthly > 0;
+  $("q-hardware").innerHTML = `<table class="q-table">
+    <tr><th>Hardware</th><th style="text-align:right">Qty</th></tr>
+    <tr><td>Vehicle tracking tags</td><td class="num">${c.vehicleTags.toLocaleString()}</td></tr>
+    <tr><td>Key tracking tags</td><td class="num">${c.keyTags.toLocaleString()}</td></tr>
+    ${c.placards ? `<tr><td>Reusable service placards</td><td class="num">${c.placards.toLocaleString()}</td></tr>` : ""}
+    <tr><td>Gateways ${+q.gatewaysOverride > 0 ? "(manual)" : "(est., site survey to confirm)"}</td><td class="num">${c.gateways.toLocaleString()}</td></tr>
+    <tr><td><b>Tracked units</b></td><td class="num"><b>${c.units.toLocaleString()}</b></td></tr>
+  </table>`;
+  $("q-value").innerHTML =
+    (c.svcValue ? `<div class="vrow"><span>Service: ${(+q.serviceROs).toLocaleString()} ROs × ${q.minPerRO} min × $${q.laborRate}/hr</span><b>${fmt$(c.svcValue)}</b></div>` : "") +
+    (c.placardValue ? `<div class="vrow"><span>Paper hang tags eliminated</span><b>${fmt$(c.placardValue)}</b></div>` : "") +
+    (c.reconValue ? `<div class="vrow"><span>Recon: ${q.usedSoldMo} units × ${q.reconDaysCut} days × $${q.holdingCost}/day</span><b>${fmt$(c.reconValue)}</b></div>` : "") +
+    (c.vvValue ? `<div class="vrow"><span>VehicleVault: ${c.vvInventory.toLocaleString()} inv &times; 60% &times; ${q.sellThrough}% &times; ${fmt$(c.vvPerPkg)}/pkg</span><b>${fmt$(c.vvValue)}</b></div>` : "") +
+    ((!c.totalValue) ? `<div class="vrow"><span>Enable modules & assumptions to see value</span><b>—</b></div>` : "") +
+    `<div class="vtotal"><span>Total / month</span><span>${fmt$(c.totalValue)}</span></div>` +
+    (c.totalValue ? `<div class="vrow" style="margin-top:6px"><span>Per year</span><b>${fmt$(c.totalValue * 12)}</b></div>` : "");
+  const optH = 'font-size:12px;font-weight:700;color:var(--accent-bright);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px';
+  $("q-invest").innerHTML = hasPricing
+    ? `<div style="margin-bottom:14px"><div style="${optH}">Buy — own the hardware</div>
+         <div class="q-total"><span>One-time (hardware + install)</span><span>${fmt$(c.oneTime)}</span></div>
+         <div class="q-total"><span>Monthly (flat)</span><span>${fmt$(c.monthly)}</span></div>` +
+         (c.payback ? `<div class="q-total" style="color:#15803d"><span>Payback</span><span>${c.payback < 1 ? "&lt; 1 month" : c.payback.toFixed(1) + " months"}</span></div>` : "") +
+         (c.monthly && c.totalValue ? `<div class="q-total" style="color:#15803d"><span>Net value / month</span><span>${fmt$(c.net)}</span></div>` : "") +
+       `</div>
+       <div><div style="${optH}">Lease — hardware in the monthly</div>
+         <div class="q-total"><span>One-time (install)</span><span>${fmt$(c.leaseOneTime)}</span></div>
+         <div class="q-total"><span>Monthly (${fmt$(+q.pMoFlat || 0)} flat + ${fmt$(+q.pMoPerUnit || 0)} &times; ${c.leaseUnits.toLocaleString()} veh+plac)</span><span>${fmt$(c.leaseMonthly)}</span></div>` +
+         (c.leaseMonthly && c.totalValue ? `<div class="q-total" style="color:#15803d"><span>Net value / month</span><span>${fmt$(c.leaseNet)}</span></div>` : "") +
+       `</div>`
+    : `<div class="q-hint">Pricing not set. Open the Pricing panel (before the call) or discuss investment live — the value math above stands on its own.</div>`;
+}
+
+function qSummaryText() {
+  const q = config.quote, c = qCalc(q);
+  const lines = [
+    `MDD System Summary${q.dealer ? " — " + q.dealer : ""}`,
+    `Rooftops: ${q.rooftops} · Tracked units: ${c.units} (${q.newInv} new / ${q.usedInv} used / ${q.loaners} loaner)`,
+    ``,
+    `HARDWARE`,
+    `- Vehicle tags: ${c.vehicleTags}`,
+    `- Key tags: ${c.keyTags}`,
+    c.placards ? `- Service placards: ${c.placards}` : null,
+    `- Gateways: ${c.gateways} (final count by site survey)`,
+    ``,
+    `MODULES: ${[q.modLocate ? "Locate" : null, q.modLot ? "Lot Management" : null, q.modService ? "Service Workflow" : null, q.modRecon ? "Recon Workflow" : null, q.modVV ? "VehicleVault F&I" : null].filter(Boolean).join(", ") || "\u2014"}`,
+    ``,
+    `MONTHLY VALUE RECOVERED: ${fmt$(c.totalValue)} (${fmt$(c.totalValue * 12)}/yr)`,
+    c.svcValue ? `- Service (${q.serviceROs} ROs × ${q.minPerRO} min × $${q.laborRate}/hr): ${fmt$(c.svcValue)}` : null,
+    c.placardValue ? `- Paper hang tags eliminated: ${fmt$(c.placardValue)}` : null,
+    c.reconValue ? `- Recon T2L (${q.usedSoldMo} × ${q.reconDaysCut} days × $${q.holdingCost}): ${fmt$(c.reconValue)}` : null,
+    c.vvValue ? `- VehicleVault (${c.vvInventory} \u00d7 60% \u00d7 ${q.sellThrough}% \u00d7 ${fmt$(c.vvPerPkg)}/pkg): ${fmt$(c.vvValue)}` : null,
+    (c.oneTime || c.monthly) ? `\nINVESTMENT — BUY: ${fmt$(c.oneTime)} one-time · ${fmt$(c.monthly)}/mo flat${c.payback ? ` · payback ${c.payback < 1 ? "<1" : c.payback.toFixed(1)} months` : ""}` : null,
+    (c.leaseMonthly) ? `INVESTMENT — LEASE: ${fmt$(c.leaseOneTime)} one-time (install) · ${fmt$(c.leaseMonthly)}/mo (${fmt$(+q.pMoFlat || 0)} flat + ${fmt$(+q.pMoPerUnit || 0)}/veh × ${c.leaseUnits})` : null,
+    ``,
+    `1-day install · 4-week hypercare · dedicated CSM · 90-day money-back guarantee`
+  ].filter(x => x !== null);
+  return lines.join("\n");
+}
+
+/* ================= Editor ================= */
+function openStepEditor(s, i) {
+  renderNav();
+  const st = config.sections[s].steps[i];
+  const ed = $("editor");
+  ["slide", "launch", "empty", "imgslide", "quote"].forEach(p => $(p).style.display = "none");
+  ed.style.display = "block";
+  const t = st.type || "slide";
+  ed.innerHTML = `
+    <h2>Edit Step</h2>
+    <div class="field"><label>Type</label>
+      <select id="e-type">
+        <option value="slide" ${t === "slide" ? "selected" : ""}>Slide (text)</option>
+        <option value="image" ${t === "image" ? "selected" : ""}>Deck slide (image)</option>
+        <option value="url" ${t === "url" ? "selected" : ""}>Live web page (URL)</option>
+        <option value="mobile" ${t === "mobile" ? "selected" : ""}>Live mobile page (phone window)</option>
+        <option value="quote" ${t === "quote" ? "selected" : ""}>System Builder / Quote</option>
+      </select></div>
+    <div class="field"><label>Title</label><input type="text" id="e-title" value="${escAttr(st.title || "")}"></div>
+    <div id="e-url-fields" style="display:${t === "url" || t === "mobile" ? "block" : "none"}">
+      <div class="field"><label>URL</label><input type="text" id="e-url" value="${escAttr(st.url || "")}">
+        <div class="hint">Full URL (https://…) or a path like <code>/main/search</code> resolved against the base URL in Settings.</div></div>
+    </div>
+    <div id="e-img-fields" style="display:${t === "image" ? "block" : "none"}">
+      <div class="field"><label>Slide image</label><input type="text" id="e-src" value="${escAttr(st.src || "")}">
+        <div class="hint">Path relative to this file, e.g. <code>https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/demo/slide-04.jpg</code>.</div></div>
+    </div>
+    <div id="e-slide-fields" style="display:${t === "slide" ? "block" : "none"}">
+      <div class="field"><label>Kicker (small text above title)</label><input type="text" id="e-kicker" value="${escAttr(st.kicker || "")}"></div>
+      <div class="field"><label>Subtitle</label><input type="text" id="e-subtitle" value="${escAttr(st.subtitle || "")}"></div>
+      <div class="field"><label>Bullets (one per line)</label><textarea id="e-bullets">${esc((st.bullets || []).join("\n"))}</textarea></div>
+      <div class="field"><label>Stat cards (one per line: value | label)</label><textarea id="e-stats">${esc((st.stats || []).map(x => x.v + " | " + x.l).join("\n"))}</textarea>
+        <div class="hint">e.g. <code>41 min | saved per RO — Brandon Honda</code></div></div>
+      <div class="field"><label>Image URL (optional)</label><input type="text" id="e-image" value="${escAttr(st.image || "")}"></div>
+    </div>
+    <div class="field"><label>Presenter notes</label><textarea id="e-notes">${esc(st.notes || "")}</textarea>
+      <div class="hint">Only visible when Notes is toggled on — never shown on the slide itself.</div></div>
+    <div class="editor-actions">
+      <button class="ebtn save" id="e-save">Save step</button>
+      <button class="ebtn cancel" id="e-cancel">Done editing</button>
+      <button class="ebtn delete" id="e-delete">Delete step</button>
+    </div>`;
+  $("e-type").onchange = e => {
+    const v = e.target.value;
+    $("e-url-fields").style.display = v === "url" || v === "mobile" ? "block" : "none";
+    $("e-img-fields").style.display = v === "image" ? "block" : "none";
+    $("e-slide-fields").style.display = v === "slide" ? "block" : "none";
+  };
+  $("e-save").onclick = () => {
+    st.type = $("e-type").value;
+    st.title = $("e-title").value.trim();
+    st.notes = $("e-notes").value.trim();
+    ["bullets","subtitle","kicker","image","src","url","stats"].forEach(k => delete st[k]);
+    if (st.type === "url" || st.type === "mobile") {
+      st.url = $("e-url").value.trim();
+    } else if (st.type === "image") {
+      st.src = $("e-src").value.trim();
+    } else if (st.type === "slide") {
+      st.kicker = $("e-kicker").value.trim();
+      st.subtitle = $("e-subtitle").value.trim();
+      st.bullets = $("e-bullets").value.split("\n").map(x => x.trim()).filter(Boolean);
+      st.stats = $("e-stats").value.split("\n").map(x => x.trim()).filter(Boolean).map(line => {
+        const p = line.split("|"); return { v: (p[0] || "").trim(), l: (p.slice(1).join("|") || "").trim() };
+      }).filter(x => x.v);
+      st.image = $("e-image").value.trim();
+    }
+    persist(); toggleEdit(false); render();
+  };
+  $("e-cancel").onclick = () => { toggleEdit(false); render(); };
+  $("e-delete").onclick = () => {
+    if (!confirm("Delete this step?")) return;
+    config.sections[s].steps.splice(i, 1);
+    persist(); cur = { s: 0, i: 0 }; toggleEdit(false); render();
+  };
+}
+
+function toggleEdit(on) {
+  editing = on === undefined ? !editing : on;
+  document.body.classList.toggle("editing", editing);
+  $("btn-edit").textContent = editing ? "Done" : "Edit";
+  if (!editing) render(); else renderNav();
+}
+
+function navAction(act, s, i) {
+  const secs = config.sections;
+  if (act === "sec-add") { secs.push({ title: "New Section", steps: [] }); }
+  else if (act === "sec-del") { if (!confirm(`Delete section "${secs[s].title}" and its steps?`)) return; secs.splice(s, 1); cur = { s: 0, i: 0 }; }
+  else if (act === "sec-ren") { const t = prompt("Section title:", secs[s].title); if (t) secs[s].title = t; }
+  else if (act === "sec-up" && s > 0) { [secs[s-1], secs[s]] = [secs[s], secs[s-1]]; }
+  else if (act === "sec-down" && s < secs.length - 1) { [secs[s+1], secs[s]] = [secs[s], secs[s+1]]; }
+  else if (act === "st-add") { secs[s].steps.push({ type: "slide", title: "New Slide", bullets: [], notes: "" }); persist(); renderNav(); openStepEditor(s, secs[s].steps.length - 1); return; }
+  else if (act === "st-del") { if (!confirm("Delete this step?")) return; secs[s].steps.splice(i, 1); cur = { s: 0, i: 0 }; }
+  else if (act === "st-up" && i > 0) { const a = secs[s].steps; [a[i-1], a[i]] = [a[i], a[i-1]]; }
+  else if (act === "st-down" && i < secs[s].steps.length - 1) { const a = secs[s].steps; [a[i+1], a[i]] = [a[i], a[i+1]]; }
+  persist(); renderNav();
+}
+
+/* ================= Settings & import/export ================= */
+function openSettings() {
+  const m = $("modal");
+  m.innerHTML = `
+    <h2>Settings</h2>
+    <div class="field"><label>Demo title</label><input type="text" id="s-title" value="${escAttr(config.title || "")}"></div>
+    <div class="field"><label>Subtitle</label><input type="text" id="s-subtitle" value="${escAttr(config.subtitle || "")}"></div>
+    <div class="field"><label>Live app base URL</label><input type="text" id="s-base" value="${escAttr(config.baseUrl || "")}">
+      <div class="hint">Relative step URLs (e.g. /main/search) load from here. Web steps share one signed-in demo window; mobile steps share a phone-sized one.</div></div>
+    <div class="editor-actions">
+      <button class="ebtn save" id="s-save">Save</button>
+      <button class="ebtn cancel" id="s-cancel">Cancel</button>
+      <button class="ebtn delete" id="s-reset">Reset to shared config</button>
+    </div>`;
+  $("modal-wrap").style.display = "flex";
+  $("s-save").onclick = () => {
+    config.title = $("s-title").value.trim();
+    config.subtitle = $("s-subtitle").value.trim();
+    config.baseUrl = $("s-base").value.trim();
+    persist(); closeModal(); render();
+  };
+  $("s-cancel").onclick = closeModal;
+  $("s-reset").onclick = () => {
+    if (!confirm("Discard local edits and reload the shared demo-config.json (or built-in default)?")) return;
+    sessionStorage.removeItem(LS_KEY); location.reload();
+  };
+}
+function closeModal() { $("modal-wrap").style.display = "none"; }
+
+function exportConfig() {
+  const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "demo-config.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importConfig(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const c = JSON.parse(r.result);
+      if (!c.sections) throw new Error("Missing sections");
+      if (!c.quote) c.quote = JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote));
+      config = c; persist(); cur = { s: 0, i: 0 }; render();
+    } catch (e) { alert("Invalid demo config file: " + e.message); }
+  };
+  r.readAsText(file);
+}
+
+/* ================= Events ================= */
+$("nav").addEventListener("click", e => {
+  const btn = e.target.closest("[data-act]");
+  if (btn) { navAction(btn.dataset.act, +btn.dataset.s, +btn.dataset.i); return; }
+  const step = e.target.closest(".step");
+  if (step) { goTo(+step.dataset.s, +step.dataset.i); return; }
+  const secTitle = e.target.closest(".section-title");
+  if (secTitle && !editing && secTitle.dataset.sec !== undefined) {
+    const s = +secTitle.dataset.sec;
+    if (openSecs.has(s)) openSecs.delete(s); else openSecs.add(s);
+    renderNav();
+  }
+});
+$("btn-prev").onclick = () => move(-1);
+$("btn-next").onclick = () => move(1);
+$("btn-newtab").onclick = () => { const st = currentStep(); if (st && (st.type === "url" || st.type === "mobile")) openLive(resolveUrl(st.url), st.type === "mobile"); };
+$("btn-edit").onclick = () => toggleEdit();
+$("btn-settings").onclick = openSettings;
+$("btn-export").onclick = exportConfig;
+$("btn-import").onclick = () => $("file-input").click();
+$("file-input").onchange = e => { if (e.target.files[0]) importConfig(e.target.files[0]); e.target.value = ""; };
+$("btn-notes").onclick = () => { notesVisible = !notesVisible; renderStage(); };
+$("btn-present").onclick = () => {
+  document.body.classList.add("fullscreen");
+  if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+};
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) document.body.classList.remove("fullscreen");
+});
+$("modal-wrap").addEventListener("click", e => { if (e.target.id === "modal-wrap") closeModal(); });
+document.addEventListener("keydown", e => {
+  if (e.target.matches("input, textarea, select")) return;
+  if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); move(1); }
+  else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); move(-1); }
+  else if (e.key.toLowerCase() === "n") { notesVisible = !notesVisible; renderStage(); }
+  else if (e.key.toLowerCase() === "f") { $("btn-present").click(); }
+  else if (e.key === "Escape" && document.body.classList.contains("fullscreen")) { document.body.classList.remove("fullscreen"); }
+});
+
+/* ================= Init ================= */
+loadConfig().then(render);
+</script>
+{{ standard_footer_includes }}
+</body>
+</html>

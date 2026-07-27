@@ -1,0 +1,70 @@
+{# FAQ module — renders a visible accordion AND emits FAQPage JSON-LD from the same fields. #}
+{% set pairs = [
+  {"q": module.q1, "a": module.a1},
+  {"q": module.q2, "a": module.a2},
+  {"q": module.q3, "a": module.a3},
+  {"q": module.q4, "a": module.a4},
+  {"q": module.q5, "a": module.a5},
+  {"q": module.q6, "a": module.a6},
+  {"q": module.q7, "a": module.a7},
+  {"q": module.q8, "a": module.a8}
+] %}
+{% set ns = namespace(items=[]) %}
+{% for p in pairs %}
+  {% if p.q and p.a %}{% set ns.items = ns.items + [p] %}{% endif %}
+{% endfor %}
+
+{% if ns.items %}
+<style>
+  .faq-mod__h{margin-bottom:10px;}
+  .faq-mod.bg-light .faq-mod__h,.faq-mod.bg-card .faq-mod__h{color:var(--dark-text);}
+  .faq-mod.bg-dark .faq-mod__h{color:#fff;}
+  .faq-mod__sub{max-width:640px;margin:0 auto;}
+  .faq-mod.bg-light .faq-mod__sub,.faq-mod.bg-card .faq-mod__sub{color:var(--body-dark);}
+  .faq-mod.bg-dark .faq-mod__sub{color:var(--body);}
+  .faq-mod .faq-list{max-width:820px;margin:32px auto 0;text-align:left;}
+  .faq-mod .faq-item{border:1px solid var(--border-light);border-radius:12px;background:#fff;margin-bottom:12px;overflow:hidden;}
+  .faq-mod .faq-item summary{list-style:none;cursor:pointer;padding:18px 22px;font-size:17px;font-weight:700;color:var(--dark-text);display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  .faq-mod .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-mod .faq-item summary::after{content:"+";font-size:24px;font-weight:400;color:var(--green-dark);line-height:1;flex-shrink:0;transition:transform .2s ease;}
+  .faq-mod .faq-item[open] summary::after{content:"\2013";}
+  .faq-mod .faq-item .faq-a{padding:0 22px 20px;color:var(--body-dark);font-size:16px;line-height:1.62;}
+  .faq-mod.bg-dark .faq-item{background:var(--card);border-color:var(--card-border);}
+  .faq-mod.bg-dark .faq-item summary{color:#fff;}
+  .faq-mod.bg-dark .faq-item .faq-a{color:var(--body);}
+  @media (prefers-reduced-motion:reduce){.faq-mod .faq-item summary::after{transition:none;}}
+</style>
+
+<section class="section faq-mod bg-{{ module.background }}">
+  <div class="container" style="text-align:center;">
+    {% if module.section_tag %}<div class="section-tag {% if module.background == 'dark' %}green{% else %}light{% endif %} no-border" style="display:inline-block;">{{ module.section_tag }}</div>{% endif %}
+    {% if module.headline %}<h2 class="faq-mod__h">{{ module.headline }}</h2>{% endif %}
+    {% if module.subhead %}<p class="faq-mod__sub">{{ module.subhead }}</p>{% endif %}
+
+    <div class="faq-list">
+      {% for p in ns.items %}
+      <details class="faq-item">
+        <summary>{{ p.q }}</summary>
+        <div class="faq-a">{{ p.a }}</div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for p in ns.items %}
+    {
+      "@type": "Question",
+      "name": "{{ p.q|replace('"', '\\"') }}",
+      "acceptedAnswer": { "@type": "Answer", "text": "{{ p.a|replace('"', '\\"') }}" }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

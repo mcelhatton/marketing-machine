@@ -6,6 +6,20 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "MDD Service Workflow",
+  "brand": { "@type": "Brand", "name": "Mobile Dealer Data" },
+  "manufacturer": { "@id": "https://mdd.io/#organization" },
+  "category": "Dealership Service Workflow Software",
+  "url": "https://mdd.io/mdd-service-workflow",
+  "description": "Real-time service lane workflow that advances automatically as the vehicle physically moves — powered by LocateIQ. Cuts cycle time, lifts bay turns, and protects CSI without manual status updates.",
+  "audience": { "@type": "BusinessAudience", "name": "Dealership service departments" }
+}
+</script>
+
 <style>
   /* Light-first homepage styles */
   .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
@@ -93,7 +107,7 @@
   <div class="container" style="text-align:center;">
     <div class="section-tag light no-border" style="display:inline-block;">See It</div>
     <h2 class="lp-light-h2" style="margin-bottom:24px;">Every vehicle in the lane, every stage, in real time.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Service Workflow dashboard showing every vehicle in the service lane and its current stage in real time">
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Service Workflow dashboard showing every vehicle in the service lane and its current stage in real time" width="1600" height="905" loading="eager" fetchpriority="high" decoding="async">
   </div>
 </section>
 
@@ -138,9 +152,9 @@
     <h2 class="lp-light-h2">Reusable placards, not paper hang tags.</h2>
     <p class="lp-light-sub">Paper hang tags are single-use, easy to lose, and tell you nothing. MDD's durable, color-coded placards clip on at write-up — each with a built-in tracker that reports the exact location of the vehicle and its key in real time. Reuse them for years.</p>
     <div class="sw-placards">
-      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-green.png') }}" alt="MDD reusable green tracking placard that replaces a paper hang tag"></div>
-      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-yellow.png') }}" alt="MDD reusable yellow tracking placard"></div>
-      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-red.png') }}" alt="MDD reusable red tracking placard"></div>
+      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-green.png') }}" alt="MDD reusable green tracking placard that replaces a paper hang tag" width="520" height="520" loading="lazy" decoding="async"></div>
+      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-yellow.png') }}" alt="MDD reusable yellow tracking placard" width="520" height="520" loading="lazy" decoding="async"></div>
+      <div class="sw-pcard"><img src="{{ get_asset_url('../mdd-assets/equipment/placard-red.png') }}" alt="MDD reusable red tracking placard" width="520" height="520" loading="lazy" decoding="async"></div>
     </div>
     <p class="lp-light-sub" style="margin-top:18px;font-size:15px;">Color-code by status, lane, or department for an at-a-glance read across the drive.</p>
   </div>
@@ -153,10 +167,10 @@
     <h2 class="lp-light-h2">Store them easily. Grab them in seconds.</h2>
     <p class="lp-light-sub">Keep your placards on a wall rack, in a cabinet, or at the tire racks — wherever's handy. They store neatly and are quick to grab and clip into a customer's vehicle. And because they replace single-use paper hang tags, dealers save about <strong style="color:var(--dark-text);">$500 a month</strong> on average.</p>
     <div class="sw-storage">
-      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-wall-hanger.jpg') }}" alt="MDD placards organized on a service-drive wall rack">
-      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-cabinet.jpg') }}" alt="MDD placards stored in a service-drive cabinet">
-      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-tire-rack-1.jpg') }}" alt="MDD placards hung on a tire-storage rack">
-      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-tire-rack-2.jpg') }}" alt="MDD placards organized at the tire racks">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-wall-hanger.jpg') }}" alt="MDD placards organized on a service-drive wall rack" width="720" height="540" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-cabinet.jpg') }}" alt="MDD placards stored in a service-drive cabinet" width="540" height="720" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-tire-rack-1.jpg') }}" alt="MDD placards hung on a tire-storage rack" width="800" height="1067" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/equipment/storage-tire-rack-2.jpg') }}" alt="MDD placards organized at the tire racks" width="800" height="600" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -208,7 +222,7 @@
     <div class="section-tag light no-border" style="display:inline-block;">CSI Lives or Dies Here</div>
     <h2 class="lp-light-h2">A ready car the customer doesn't know about kills CSI.</h2>
     <p class="lp-light-sub" style="margin-bottom:24px;">Because MDD knows the exact moment a unit is ready, your team keeps customers in the loop without remembering to check.</p>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/service-workflow.png') }}" alt="MDD Service Workflow dashboard showing each vehicle's stage and the moment it hits ready">
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/service-workflow.png') }}" alt="MDD Service Workflow dashboard showing each vehicle's stage and the moment it hits ready" width="1600" height="681" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -228,10 +242,32 @@
    headline="Get \"Readiness at the Door.\"",
    description="Why the first five minutes now decide the sale — and how real-time location turns readiness into a process. Enter your email for instant access.",
    article_label="Readiness at the Door",
-   article_url="https://585393.hs-sites.com/null/blog/readiness-at-the-door-wins-the-sale",
+   article_url="https://mdd.io/blog/readiness-at-the-door-wins-the-sale",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    button_text="Get the Article →",
    background="light"
+%}
+
+<!-- FAQ (with schema) -->
+{% module "faq"
+   path="../modules/faq.module",
+   section_tag="Common Questions",
+   headline="Questions service directors ask about cycle time.",
+   background="light",
+   q1="How can a dealership reduce service lane cycle time?",
+   a1="By making the workflow advance automatically as the vehicle physically moves, instead of waiting for someone to update a screen. MDD Service Workflow is powered by LocateIQ, so each stage updates when the car moves. Corwin Toyota went from 2.5-hour express waits to 64% of customers out in under 60 minutes.",
+   q2="How is this different from other service workflow tools?",
+   a2="Other tools rely on someone remembering to log that a car left the bay, and they often do not. Because MDD knows where the car physically is, the workflow advances on its own — so the dashboard is actually accurate.",
+   q3="How much time does it save per repair order?",
+   a3="Brandon Honda shaved 41 minutes per repair order. Longo Toyota saves about 15 minutes per RO.",
+   q4="Does it help CSI scores?",
+   a4="Yes. Faster, more predictable delivery and better communication lifted Corwin Toyota loyalty and CSI. With cycle-time alerts, the team knows at the 40-minute mark if a job is running long and can step in to keep the delivery promise.",
+   q5="Does it increase bay turns?",
+   a5="Corwin Toyota saw a 40 to 60% increase in bay turns after adding MDD Service Workflow.",
+   q6="Does it work with our DMS?",
+   a6="Yes. MDD integrates with Reynolds and Reynolds, CDK, and other major DMS platforms.",
+   q7="What does Service Workflow cost?",
+   a7="Pricing depends on your store volume and configuration. Schedule a 15-minute demo for a custom quote."
 %}
 
 <!-- CTA (dark) -->

@@ -13,8 +13,61 @@
   {{ standard_header_includes }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  {# Load Google Fonts off the critical path; display=swap paints system-font text immediately, then swaps in DM Sans. #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap"></noscript>
   <link rel="stylesheet" href="{{ get_asset_url('../css/theme.css') }}">
+
+  {# Site-wide entity anchor for AI search / knowledge graphs. Keep NAP + sameAs identical everywhere (AEO/GEO). #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://mdd.io/#organization",
+        "name": "Mobile Dealer Data",
+        "alternateName": "MDD",
+        "url": "https://mdd.io",
+        "logo": "https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png",
+        "image": "https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png",
+        "description": "Mobile Dealer Data (MDD) builds Bluetooth-powered Real-Time Location Systems (RTLS) for car dealerships — instant key and vehicle tracking, automated service and reconditioning workflows powered by LocateIQ, and the VehicleVault F&I product.",
+        "slogan": "We Find Keys & Cars",
+        "telephone": "+1-844-292-7110",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "5600 Pioneer Creek Drive",
+          "addressLocality": "Maple Plain",
+          "addressRegion": "MN",
+          "postalCode": "55359",
+          "addressCountry": "US"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-292-7110",
+          "contactType": "sales",
+          "areaServed": "US",
+          "availableLanguage": "en"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/mobile-dealer-data",
+          "https://www.facebook.com/MobileDealerData",
+          "https://www.crunchbase.com/organization/mobile-dealer-data",
+          "https://apps.apple.com/us/app/mdd-rtls/id6467995807",
+          "https://play.google.com/store/apps/details?id=io.mdd.mddrtls"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://mdd.io/#website",
+        "url": "https://mdd.io",
+        "name": "Mobile Dealer Data",
+        "publisher": { "@id": "https://mdd.io/#organization" }
+      }
+    ]
+  }
+  </script>
+
   {% block head %}{% endblock head %}
 </head>
 <body>

@@ -1,0 +1,25 @@
+[
+  { "name": "section_tag", "label": "Section Tag", "type": "text", "default": "Common Questions" },
+  { "name": "headline", "label": "Headline", "type": "text", "default": "Questions dealers ask us." },
+  { "name": "subhead", "label": "Subhead", "type": "text", "default": "" },
+  {
+    "name": "background", "label": "Background Style", "type": "choice", "default": "light",
+    "choices": [["light", "Light"], ["card", "Card"], ["dark", "Dark"]]
+  },
+  { "name": "q1", "label": "Q1", "type": "text", "default": "" },
+  { "name": "a1", "label": "A1", "type": "text", "default": "" },
+  { "name": "q2", "label": "Q2", "type": "text", "default": "" },
+  { "name": "a2", "label": "A2", "type": "text", "default": "" },
+  { "name": "q3", "label": "Q3", "type": "text", "default": "" },
+  { "name": "a3", "label": "A3", "type": "text", "default": "" },
+  { "name": "q4", "label": "Q4", "type": "text", "default": "" },
+  { "name": "a4", "label": "A4", "type": "text", "default": "" },
+  { "name": "q5", "label": "Q5", "type": "text", "default": "" },
+  { "name": "a5", "label": "A5", "type": "text", "default": "" },
+  { "name": "q6", "label": "Q6", "type": "text", "default": "" },
+  { "name": "a6", "label": "A6", "type": "text", "default": "" },
+  { "name": "q7", "label": "Q7", "type": "text", "default": "" },
+  { "name": "a7", "label": "A7", "type": "text", "default": "" },
+  { "name": "q8", "label": "Q8", "type": "text", "default": "" },
+  { "name": "a8", "label": "A8", "type": "text", "default": "" }
+]

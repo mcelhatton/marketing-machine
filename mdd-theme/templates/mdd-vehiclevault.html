@@ -6,6 +6,20 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "VehicleVault",
+  "brand": { "@type": "Brand", "name": "Mobile Dealer Data" },
+  "manufacturer": { "@id": "https://mdd.io/#organization" },
+  "category": "F&I Product and Dealer-Branded Consumer Key-Tracking App",
+  "url": "https://mdd.io/mdd-vehiclevault",
+  "description": "A high-margin F&I product sold at the desk: the customer gets two Bluetooth key trackers and a dealer-branded app for key location, vehicle records, and loyalty rewards. Recurring revenue for the dealership with zero chargebacks.",
+  "audience": { "@type": "BusinessAudience", "name": "Dealership F&I departments" }
+}
+</script>
+
 <style>
   /* Light-first homepage styles */
   .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
@@ -100,11 +114,11 @@
       @media(max-width:600px){.vv-phones{grid-template-columns:repeat(2,1fr);gap:12px;}}
     </style>
     <div class="vv-phones">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv1.png') }}" alt="VehicleVault dealer-branded app showing My Items — tracked keys and vehicles">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv2.png') }}" alt="VehicleVault app — Secure Your Vehicle">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv3.png') }}" alt="VehicleVault app — Instant Location Tracker showing keys on a map">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv4.png') }}" alt="VehicleVault app — Smart Key Finder locating a key">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv5.png') }}" alt="VehicleVault app — Effortless Vehicle Care, the dealer-branded My Dealership hub">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv1.png') }}" alt="VehicleVault dealer-branded app showing My Items — tracked keys and vehicles" width="1080" height="2341" loading="eager" fetchpriority="high" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv2.png') }}" alt="VehicleVault app — Secure Your Vehicle" width="1080" height="2341" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv3.png') }}" alt="VehicleVault app — Instant Location Tracker showing keys on a map" width="1080" height="2341" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv4.png') }}" alt="VehicleVault app — Smart Key Finder locating a key" width="1080" height="2341" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/vv5.png') }}" alt="VehicleVault app — Effortless Vehicle Care, the dealer-branded My Dealership hub" width="1080" height="2341" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -143,7 +157,7 @@
    headline="Get \"Addendums, the FTC &amp; the Pricing Playbook.\"",
    description="What's changing in dealer pricing — and what a compliant, profitable package looks like going forward. Enter your email for instant access.",
    article_label="Addendums, the FTC & the Pricing Playbook",
-   article_url="https://585393.hs-sites.com/null/blog/ftc-addendums-dealer-pricing-playbook",
+   article_url="https://mdd.io/blog/ftc-addendums-dealer-pricing-playbook",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    button_text="Get the Article →",
    background="light"
@@ -234,7 +248,7 @@
    headline="Get \"The Future of Automotive Reinsurance.\"",
    description="How compressing VSC margins are reshaping participation income — and how a high-volume, low-loss product can strengthen your book. Enter your email for instant access.",
    article_label="The Future of Automotive Reinsurance",
-   article_url="https://585393.hs-sites.com/null/blog/future-of-automotive-reinsurance-wisetrak",
+   article_url="https://mdd.io/blog/future-of-automotive-reinsurance-wisetrak",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    button_text="Get the Article →",
    background="light"
@@ -247,6 +261,26 @@
     <div class="who"><b>Brandon Honda</b> — Morgan Automotive Group</div>
   </div>
 </section>
+
+<!-- FAQ (with schema) -->
+{% module "faq"
+   path="../modules/faq.module",
+   section_tag="Common Questions",
+   headline="Questions F&I managers ask about VehicleVault.",
+   background="light",
+   q1="What is VehicleVault?",
+   a1="VehicleVault is an F&I product you sell at the desk. The customer gets two Bluetooth key trackers and a dealer-branded app to find their keys, store vehicle info, and earn loyalty rewards. The dealership gets high-margin, recurring revenue.",
+   q2="How does VehicleVault make money for the dealership?",
+   a2="It is a high-margin add-on with recurring subscription income and zero chargebacks. Brandon Honda generates an additional $308K per month selling VehicleVault.",
+   q3="Does it have chargebacks?",
+   a3="No. VehicleVault has zero chargebacks across all MDD dealers, with flexible reinsured options.",
+   q4="Can we sell it on the front end or the back end?",
+   a4="Both. You can add it to the addendum on the front end or sell it through F&I on the back end.",
+   q5="Why do customers keep using it?",
+   a5="Every time a customer opens the app to find their keys, they see your dealership name — and they use the rewards. It keeps your brand in their pocket long after the sale.",
+   q6="What does VehicleVault cost the dealership?",
+   a6="Pricing varies by term length and benefit package. Contact a Mobile Dealer Data representative for a customized quote."
+%}
 
 <!-- CTA (dark) -->
 {% module "cta"

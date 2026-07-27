@@ -73,6 +73,24 @@
   </section>
 {% else %}
   <!-- BLOG POST -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ content.name|striptags|replace('"','\\"') }}",
+    "description": "{{ content.meta_description|replace('"','\\"') }}",
+    {% if content.featured_image %}"image": "{{ content.featured_image }}",{% endif %}
+    "datePublished": "{{ content.publish_date|datetimeformat('yyyy-MM-dd') }}",
+    "dateModified": "{{ content.updated|datetimeformat('yyyy-MM-dd') }}",
+    "author": { "@type": "Person", "name": "{{ content.blog_post_author.display_name|replace('"','\\"') }}" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Mobile Dealer Data",
+      "logo": { "@type": "ImageObject", "url": "https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png" }
+    },
+    "mainEntityOfPage": "{{ content.absolute_url }}"
+  }
+  </script>
   <article class="section bg-light">
     <div class="container">
       <div class="blog-article">

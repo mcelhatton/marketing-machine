@@ -6,6 +6,20 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "MDD Lot Management",
+  "brand": { "@type": "Brand", "name": "Mobile Dealer Data" },
+  "manufacturer": { "@id": "https://mdd.io/#organization" },
+  "category": "Dealership Lot Management Software",
+  "url": "https://mdd.io/mdd-lot-management",
+  "description": "Real-time Bluetooth vehicle location across every lot, overflow, and parking-garage floor — so any unit can be found in seconds and floor-plan audits take minutes. Works indoors where GPS goes blind.",
+  "audience": { "@type": "BusinessAudience", "name": "Automotive dealerships" }
+}
+</script>
+
 <style>
   /* Light-first homepage styles */
   .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
@@ -93,7 +107,7 @@
   <div class="container" style="text-align:center;">
     <div class="section-tag light no-border" style="display:inline-block;">See It</div>
     <h2 class="lp-light-h2" style="margin-bottom:24px;">Every car, every key — across every lot and every floor.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/lotwithtext2.png') }}" alt="MDD Locate graphic: aerial view of a dealership lot, service bays, and 4-story parking garage with every vehicle pinpointed by real-time location">
+    <img src="{{ get_asset_url('../mdd-assets/lotwithtext2.png') }}" alt="MDD Locate graphic: aerial view of a dealership lot, service bays, and 4-story parking garage with every vehicle pinpointed by real-time location" width="1400" height="934" loading="eager" fetchpriority="high" decoding="async">
   </div>
 </section>
 
@@ -163,7 +177,7 @@
   <div class="container" style="text-align:center;">
     <div class="section-tag light no-border" style="display:inline-block;">Which Floor</div>
     <h2 class="lp-light-h2" style="margin-bottom:24px;">A GPS dot can't read a parking garage. MDD knows the floor.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-details.png') }}" alt="MDD vehicle detail view showing exact location including which floor of a parking garage a car is parked on">
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-details.png') }}" alt="MDD vehicle detail view showing exact location including which floor of a parking garage a car is parked on" width="1600" height="908" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -183,10 +197,30 @@
    headline="Get \"Every Car, Every Key.\"",
    description="Why lot visibility is the operational edge most dealers overlook — multi-lot coverage, garage-level location, lot-rot reports, and faster audits. Enter your email for instant access.",
    article_label="Every Car, Every Key",
-   article_url="https://585393.hs-sites.com/null/blog/every-car-every-key-lot-visibility",
+   article_url="https://mdd.io/blog/every-car-every-key-lot-visibility",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    button_text="Get the Article →",
    background="light"
+%}
+
+<!-- FAQ (with schema) -->
+{% module "faq"
+   path="../modules/faq.module",
+   section_tag="Common Questions",
+   headline="Questions dealers ask about lot management.",
+   background="light",
+   q1="What is dealership lot management software?",
+   a1="It is a system that shows you where every vehicle is across all your lots in real time. MDD tags each car with a Bluetooth locator at stock-in, so any unit can be found from a phone or desktop without walking the lot.",
+   q2="How do you track inventory across multiple lots and parking garages?",
+   a2="MDD works indoors and out, including which floor of a parking garage a car is parked on. GPS cannot do that. Bill Brown Ford tracks 2,000+ vehicles across multiple properties from one dashboard.",
+   q3="How does MDD speed up floor-plan audits?",
+   a3="Every unit location is already known, so a floor-plan audit stops being an all-hands hunt. You reconcile from the dashboard in minutes instead of sending people to walk every lot.",
+   q4="Can it flag cars that have not moved?",
+   a4="Yes. MDD flags any unit that has not been driven so cars get exercised on a schedule — avoiding the dead batteries and flat spots that surprise you on a demo drive.",
+   q5="Does lot management use GPS?",
+   a5="No, Bluetooth. GPS drifts and goes dark indoors. Bluetooth gives accurate, floor-level location everywhere on your property.",
+   q6="What does lot management cost?",
+   a6="Pricing scales to your vehicle count and number of lots, with no long-term contracts. Schedule a 15-minute demo for a custom quote."
 %}
 
 <!-- CTA (dark) -->

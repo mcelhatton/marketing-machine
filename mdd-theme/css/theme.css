@@ -240,9 +240,15 @@ h1 em, h2 em, h3 em { font-style: normal; color: var(--green); }
 
 /* Dealership-lot photo behind every dark section (hero, dark bands, CTA), with a dark overlay for readability */
 .hero, .bg-dark {
-  background-image: linear-gradient(100deg, rgba(26,30,36,0.94) 0%, rgba(26,30,36,0.84) 48%, rgba(26,30,36,0.58) 100%), url("https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/dealerlot.png");
+  background-image: linear-gradient(100deg, rgba(26,30,36,0.94) 0%, rgba(26,30,36,0.84) 48%, rgba(26,30,36,0.58) 100%), url("{{ get_asset_url('../mdd-assets/dealerlot.png') }}");
   background-size: cover;
   background-position: center;
+}
+/* Serve a much lighter hero photo on phones (helps mobile LCP) */
+@media (max-width: 768px) {
+  .hero, .bg-dark {
+    background-image: linear-gradient(100deg, rgba(26,30,36,0.94) 0%, rgba(26,30,36,0.84) 48%, rgba(26,30,36,0.58) 100%), url("{{ get_asset_url('../mdd-assets/dealerlot-mobile.png') }}");
+  }
 }
 .hero::before, .hero-glow, .cta-glow { display: none; }
 .bg-white { background: var(--white); }

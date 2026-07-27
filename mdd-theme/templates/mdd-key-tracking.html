@@ -6,6 +6,20 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "MDD Locate",
+  "brand": { "@type": "Brand", "name": "Mobile Dealer Data" },
+  "manufacturer": { "@id": "https://mdd.io/#organization" },
+  "category": "Dealership Key and Vehicle Tracking System",
+  "url": "https://mdd.io/mdd-key-tracking",
+  "description": "Bluetooth Real-Time Location System (RTLS) that shows dealership staff the exact location of every key and vehicle on the lot — indoors and out, down to the garage floor. Powered by LocateIQ.",
+  "audience": { "@type": "BusinessAudience", "name": "Automotive dealerships" }
+}
+</script>
+
 <style>
   /* Light-first homepage styles */
   .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
@@ -103,7 +117,7 @@
       @media(max-width:600px){.kt-chaos-cap{padding:40px 16px 16px;}}
     </style>
     <div class="kt-chaos">
-      <img src="{{ get_asset_url('../mdd-assets/keyboard.png') }}" alt="A dealership key control board with a 2023 BMW X3 key marked MISSING while the sales team panics before a customer appointment — the chaos MDD eliminates">
+      <img src="{{ get_asset_url('../mdd-assets/keyboard.png') }}" alt="A dealership key control board with a 2023 BMW X3 key marked MISSING while the sales team panics before a customer appointment — the chaos MDD eliminates" width="1400" height="934" loading="eager" fetchpriority="high" decoding="async">
       <div class="kt-chaos-cap"><span>Key missing. Customer waiting. The whole floor scrambling. <b>MDD makes sure this never happens again.</b></span></div>
     </div>
   </div>
@@ -147,9 +161,9 @@
       @media(max-width:600px){.kt-phones{gap:12px;}}
     </style>
     <div class="kt-phones">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location on the lot">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan-mobile.png') }}" alt="MDD mobile app showing the day's work plan on a phone">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/communication-mobile.png') }}" alt="MDD mobile app showing customer communication tied to a vehicle">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location on the lot" width="1080" height="2349" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan-mobile.png') }}" alt="MDD mobile app showing the day's work plan on a phone" width="1080" height="2349" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/communication-mobile.png') }}" alt="MDD mobile app showing customer communication tied to a vehicle" width="1080" height="2349" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -229,10 +243,32 @@
    headline="Get \"Every Car, Every Key.\"",
    description="Why lot visibility is the operational edge most dealers overlook. Enter your email for instant access.",
    article_label="Every Car, Every Key",
-   article_url="https://585393.hs-sites.com/null/blog/every-car-every-key-lot-visibility",
+   article_url="https://mdd.io/blog/every-car-every-key-lot-visibility",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    button_text="Get the Article →",
    background="card"
+%}
+
+<!-- FAQ (with schema) -->
+{% module "faq"
+   path="../modules/faq.module",
+   section_tag="Common Questions",
+   headline="Questions dealers ask about finding keys and cars.",
+   background="light",
+   q1="How do dealerships keep from losing keys and cars?",
+   a1="Every vehicle and key gets a Bluetooth tracking tag at stock-in. Your team sees the live location of any car or key from a phone or desktop, indoors and out. Bill Brown Ford tracks 2,000+ vehicles across multiple lots this way.",
+   q2="Is MDD Locate GPS tracking?",
+   a2="No. MDD uses Bluetooth, not GPS. GPS goes blind indoors — in service bays, detail shops, and parking garages — which is exactly where dealership cars sit. Bluetooth gives accurate location everywhere on your property, down to which floor of a garage a car is parked on.",
+   q3="How fast can you find a specific vehicle?",
+   a3="Seconds. Longo Toyota went from 25 minutes of walking the lot to locating any vehicle in seconds.",
+   q4="How much does a lost key cost a dealership?",
+   a4="A modern key fob runs $300 to $800 to replace, and the losses add up quietly. After implementing MDD, Brandon Honda reports zero lost keys.",
+   q5="Does MDD integrate with our DMS?",
+   a5="Yes. MDD integrates with Reynolds and Reynolds, CDK, and other major DMS platforms. Stock numbers and VINs auto-populate when you tag a vehicle.",
+   q6="How long does setup take?",
+   a6="Most dealerships are fully operational within a day. Each tag takes about 10 seconds to attach at stock-in, and MDD handles the configuration and training.",
+   q7="What does MDD Locate cost?",
+   a7="Pricing is customized to your dealership size and lot configuration. Most dealers say it pays for itself in the first month from reduced lost keys alone. Schedule a 15-minute demo for a custom quote."
 %}
 
 <!-- CTA (dark) -->

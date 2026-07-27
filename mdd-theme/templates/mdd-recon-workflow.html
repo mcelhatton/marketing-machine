@@ -6,6 +6,20 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "MDD Recon Workflow",
+  "brand": { "@type": "Brand", "name": "Mobile Dealer Data" },
+  "manufacturer": { "@id": "https://mdd.io/#organization" },
+  "category": "Vehicle Reconditioning Workflow Software",
+  "url": "https://mdd.io/mdd-recon-workflow",
+  "description": "Tracks every used vehicle from acquisition through reconditioning and advances each stage from the car's real location — powered by LocateIQ. Surfaces bottlenecks and shortens days to frontline (time to line).",
+  "audience": { "@type": "BusinessAudience", "name": "Used-car and sales departments" }
+}
+</script>
+
 <style>
   /* Light-first homepage styles */
   .home-trust{background:#fff;border-bottom:1px solid var(--border-light);}
@@ -106,7 +120,7 @@
   <div class="container" style="text-align:center;">
     <div class="section-tag light no-border" style="display:inline-block;">See It</div>
     <h2 class="lp-light-h2" style="margin-bottom:24px;">Every used car, every recon stage, in real time.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Recon Workflow dashboard showing every used vehicle and its current reconditioning stage in real time">
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Recon Workflow dashboard showing every used vehicle and its current reconditioning stage in real time" width="1600" height="905" loading="eager" fetchpriority="high" decoding="async">
   </div>
 </section>
 
@@ -147,9 +161,9 @@
       @media(max-width:600px){.recon-phones{gap:12px;}}
     </style>
     <div class="recon-phones">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-mobile.png') }}" alt="MDD Workflow mobile app showing a vehicle's recon stage">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan.png') }}" alt="MDD Work Plan mobile app showing the day's recon tasks">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location" width="1080" height="2349" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-mobile.png') }}" alt="MDD Workflow mobile app showing a vehicle's recon stage" width="1080" height="2349" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan.png') }}" alt="MDD Work Plan mobile app showing the day's recon tasks" width="1080" height="2349" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -178,7 +192,7 @@
   <div class="container" style="text-align:center;">
     <div class="section-tag light no-border" style="display:inline-block;">Tamper-Proof History</div>
     <h2 class="lp-light-h2" style="margin-bottom:24px;">Accurate dwell time at every stage — with AI accuracy you can trust.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD workflow history showing automatic, tamper-proof dwell time logged at each recon stage">
+    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD workflow history showing automatic, tamper-proof dwell time logged at each recon stage" width="1600" height="903" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -228,10 +242,30 @@
    headline="Get \"The Margin Is Made in Recon.\"",
    description="Time-to-Line economics, why manual recon data fails, and how RTLS fixes it. Get instant access.",
    article_label="The Margin Is Made in Recon",
-   article_url="https://585393.hs-sites.com/null/blog/the-margin-is-made-in-recon",
+   article_url="https://mdd.io/blog/the-margin-is-made-in-recon",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    button_text="Get the Article →",
    background="card"
+%}
+
+<!-- FAQ (with schema) -->
+{% module "faq"
+   path="../modules/faq.module",
+   section_tag="Common Questions",
+   headline="Questions used-car managers ask about recon.",
+   background="light",
+   q1="What is recon workflow software?",
+   a1="It tracks every used vehicle from acquisition through reconditioning so you can see exactly where each car is in the process and where it is stuck. MDD Recon Workflow is powered by LocateIQ, so stages advance based on the car real location.",
+   q2="How do you reduce days to frontline?",
+   a2="By eliminating the waiting and guesswork between recon steps and flagging cars that are stuck so you can clear the bottleneck. Longo Toyota saves 3 days per car in reconditioning, and MDD dealers see roughly a 35% reduction in days to lot.",
+   q3="Why does recon time cost money?",
+   a3="A $40,000 car sitting in recon for six extra days is dead capital. Every extra day a car sits is cash on the lot instead of on the front line.",
+   q4="How is this different from other recon tools?",
+   a4="Other recon tools wait for someone to click a button to move a car to the next step. MDD advances the workflow from the car physical location, so dwell times are accurate and no step gets skipped or gamed.",
+   q5="Who approves and tracks the recon work?",
+   a5="The sales or used-car manager gets real-time visibility into every car stage and can approve recon work from the phone the team already carries.",
+   q6="What does Recon Workflow cost?",
+   a6="Pricing is customized to your used-car volume. Schedule a 15-minute demo for a custom quote."
 %}
 
 <!-- CTA (dark) -->

@@ -1,0 +1,134 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: MDD Glossary
+-->
+{% extends "./base.html" %}
+{% block body %}
+
+<style>
+  .gl-hero{background:#fff;border-bottom:1px solid var(--border-light);}
+  .gl-hero .inner{max-width:820px;margin:0 auto;padding:60px 24px 40px;text-align:center;}
+  .gl-hero h1{color:var(--dark-text);font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.08;margin-bottom:16px;}
+  .gl-hero p{color:var(--body-dark);font-size:18px;line-height:1.6;max-width:640px;margin:0 auto;}
+  .gl-body{max-width:820px;margin:0 auto;padding:40px 24px 20px;}
+  .gl-term{border-bottom:1px solid var(--border-light);padding:26px 0;}
+  .gl-term:last-child{border-bottom:none;}
+  .gl-term h2{color:var(--dark-text);font-size:22px;font-weight:800;margin-bottom:10px;scroll-margin-top:90px;}
+  .gl-term p{color:var(--body-dark);font-size:16.5px;line-height:1.65;margin:0;}
+  .gl-term p + p{margin-top:10px;}
+  .gl-term a{color:var(--green-dark);font-weight:600;}
+</style>
+
+<section class="gl-hero">
+  <div class="inner">
+    <div class="section-tag light no-border" style="display:inline-block;">Glossary</div>
+    <h1>Dealership location &amp; workflow terms, defined.</h1>
+    <p>Plain-English definitions of the technology and operations terms behind real-time location systems for car dealerships — RTLS, LocateIQ, days to frontline, and more.</p>
+  </div>
+</section>
+
+<section class="section bg-light" style="padding-top:20px;">
+  <div class="gl-body">
+
+    <div class="gl-term" id="rtls">
+      <h2>RTLS (Real-Time Location System)</h2>
+      <p>A Real-Time Location System (RTLS) shows the live physical location of assets — in a dealership, every vehicle and key — on a map or dashboard that updates continuously. MDD is a Bluetooth-based RTLS: each car and key carries a small tracking tag, and staff see its location from a phone or desktop. Unlike GPS, an indoor-capable RTLS keeps working inside service bays, detail shops, and parking garages.</p>
+    </div>
+
+    <div class="gl-term" id="locateiq">
+      <h2>LocateIQ</h2>
+      <p>LocateIQ is MDD's underlying technology: workflow automation powered by real vehicle location. Because the system knows where a car physically is, service and recon workflows advance automatically as the car moves — no one has to remember to update a screen. It is what makes MDD's Service Workflow and Recon Workflow more accurate than tools that depend on manual status updates.</p>
+    </div>
+
+    <div class="gl-term" id="bluetooth-vs-gps">
+      <h2>Bluetooth tracking vs. GPS</h2>
+      <p>GPS locates using satellites, which works outdoors but drifts or goes dark indoors — precisely where dealership vehicles often sit. Bluetooth tracking uses low-power tags and fixed readers to locate assets accurately indoors and out, down to which floor of a parking garage a car is on. MDD uses Bluetooth, not GPS, which is why it works across service bays, detail areas, and covered lots.</p>
+    </div>
+
+    <div class="gl-term" id="key-control">
+      <h2>Key control</h2>
+      <p>Key control is how a dealership secures and accounts for its vehicle keys. Traditional key lock boxes create accountability — they log who took a key last — but not location, so keys still end up on desks, in pockets, and across the lot. Location-based key tracking shows where a key actually is right now, not just who signed it out.</p>
+    </div>
+
+    <div class="gl-term" id="days-to-frontline">
+      <h2>Days to frontline (Time to Line, T2L)</h2>
+      <p>Days to frontline — also called time to line or T2L — is the number of days it takes a used vehicle to go from acquisition to being ready for sale on the front line. Every extra day is holding cost and dead capital. Shortening recon time is one of the most direct ways to improve used-car profitability; MDD dealers see roughly a 35% reduction in days to lot, and Longo Toyota saves about 3 days per car.</p>
+    </div>
+
+    <div class="gl-term" id="reconditioning">
+      <h2>Reconditioning (recon)</h2>
+      <p>Reconditioning, or recon, is the process of preparing an acquired used vehicle for sale — inspection, mechanical work, detailing, and photography. Recon workflow software tracks each car through those stages and flags where cars get stuck, so a $40,000 unit is not sitting idle as dead capital while it waits for the next step.</p>
+    </div>
+
+    <div class="gl-term" id="bay-turns">
+      <h2>Bay turns</h2>
+      <p>Bay turns measure how many vehicles a service bay completes in a given period. Higher bay turns mean more billable hours from the same physical space. Reducing cycle time raises bay turns — after adding MDD Service Workflow, Corwin Toyota saw a 40 to 60% increase in bay turns.</p>
+    </div>
+
+    <div class="gl-term" id="service-cycle-time">
+      <h2>Service cycle time</h2>
+      <p>Service cycle time is how long a vehicle takes to move through the service lane, from check-in to delivery. Long cycle times push customers to quick-lube competitors and hurt CSI. Automatically advancing the workflow as the car moves lets a store spot delays early — Corwin Toyota cut express waits from 2.5 hours to 64% of customers out in under 60 minutes.</p>
+    </div>
+
+    <div class="gl-term" id="dwell-time">
+      <h2>Dwell time</h2>
+      <p>Dwell time is how long a vehicle sits at a single stage of a workflow — a service step or a recon step — before moving on. Accurate dwell-time data reveals bottlenecks. When stages advance from the car's real location instead of a manual click, dwell times can be trusted rather than gamed.</p>
+    </div>
+
+    <div class="gl-term" id="lot-rot">
+      <h2>Lot rot</h2>
+      <p>Lot rot is the deterioration that happens when a vehicle sits unmoved for too long — dead batteries, flat spots, and unpleasant surprises during a demo drive. Flagging units that have not been driven lets a store exercise cars on a schedule and keep inventory demo-ready.</p>
+    </div>
+
+    <div class="gl-term" id="dms">
+      <h2>DMS (Dealer Management System)</h2>
+      <p>A Dealer Management System (DMS) is the core software a dealership runs its business on — inventory, sales, service, and accounting. MDD integrates with major platforms including Reynolds and Reynolds and CDK, so stock numbers and VINs auto-populate when a vehicle is tagged.</p>
+    </div>
+
+    <div class="gl-term" id="fi">
+      <h2>F&amp;I (Finance &amp; Insurance)</h2>
+      <p>F&amp;I is the finance and insurance office where a dealership sells financing and add-on products after the vehicle sale. VehicleVault is an F&amp;I product: a dealer-branded key-tracking app that adds high-margin, recurring revenue with zero chargebacks — Brandon Honda generates an additional $308K per month selling it.</p>
+    </div>
+
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Dealership Location & Workflow Glossary",
+  "url": "https://mdd.io/glossary",
+  "publisher": { "@id": "https://mdd.io/#organization" },
+  "hasDefinedTerm": [
+    { "@type": "DefinedTerm", "name": "RTLS (Real-Time Location System)", "description": "A system that shows the live physical location of every vehicle and key in a dealership on a continuously updating dashboard. MDD is a Bluetooth-based RTLS that works indoors where GPS fails." },
+    { "@type": "DefinedTerm", "name": "LocateIQ", "description": "MDD workflow automation powered by real vehicle location: service and recon workflows advance automatically as the car moves, with no manual status updates." },
+    { "@type": "DefinedTerm", "name": "Bluetooth tracking vs. GPS", "description": "GPS drifts and goes dark indoors where dealership cars sit; Bluetooth tracking locates assets accurately indoors and out, down to the garage floor. MDD uses Bluetooth, not GPS." },
+    { "@type": "DefinedTerm", "name": "Key control", "description": "How a dealership secures and accounts for keys. Lock boxes create accountability but not location; location-based key tracking shows where a key is right now." },
+    { "@type": "DefinedTerm", "name": "Days to frontline (Time to Line, T2L)", "description": "The number of days a used vehicle takes to go from acquisition to front-line ready. Every extra day is holding cost; MDD dealers see roughly a 35% reduction." },
+    { "@type": "DefinedTerm", "name": "Reconditioning (recon)", "description": "Preparing an acquired used vehicle for sale through inspection, mechanical work, detail, and photos. Recon workflow software tracks each stage and flags where cars get stuck." },
+    { "@type": "DefinedTerm", "name": "Bay turns", "description": "How many vehicles a service bay completes in a period. Higher bay turns mean more billable hours; Corwin Toyota saw a 40 to 60% increase with MDD." },
+    { "@type": "DefinedTerm", "name": "Service cycle time", "description": "How long a vehicle takes to move through the service lane from check-in to delivery. Corwin Toyota cut express waits from 2.5 hours to 64% of customers out under 60 minutes." },
+    { "@type": "DefinedTerm", "name": "Dwell time", "description": "How long a vehicle sits at a single workflow stage before moving on. Accurate dwell-time data reveals bottlenecks when stages advance from real location instead of a manual click." },
+    { "@type": "DefinedTerm", "name": "Lot rot", "description": "Deterioration from a vehicle sitting unmoved too long — dead batteries and flat spots. Flagging undriven units keeps inventory demo-ready." },
+    { "@type": "DefinedTerm", "name": "DMS (Dealer Management System)", "description": "The core software a dealership runs on. MDD integrates with major platforms including Reynolds and Reynolds and CDK." },
+    { "@type": "DefinedTerm", "name": "F&I (Finance & Insurance)", "description": "The office that sells financing and add-on products after the vehicle sale. VehicleVault is an F&I product adding recurring revenue with zero chargebacks." }
+  ]
+}
+</script>
+
+<!-- CTA (dark) -->
+{% module "cta"
+   path="../modules/cta-section.module",
+   section_id="demo",
+   headline="See real-time location on your own lot.",
+   description="Fifteen minutes. We'll show you exactly how MDD finds any car or key — indoors and out. No commitment, no pressure.",
+   cta_text="Schedule Your Demo →",
+   cta_url="https://mdd.io/contact-us",
+   show_phone=true,
+   phone_number="844-292-7110",
+   background="dark"
+%}
+
+{% endblock body %}

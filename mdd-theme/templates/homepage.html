@@ -4,6 +4,12 @@
   label: MDD Homepage
 -->
 {% extends "./base.html" %}
+
+{% block head %}
+  <link rel="preload" as="image" href="{{ get_asset_url('../mdd-assets/dealerlot-mobile.png') }}" media="(max-width:768px)" fetchpriority="high">
+  <link rel="preload" as="image" href="{{ get_asset_url('../mdd-assets/dealerlot.png') }}" media="(min-width:769px)" fetchpriority="high">
+{% endblock head %}
+
 {% block body %}
 
 <style>
@@ -38,6 +44,7 @@
   @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}.home-stats{grid-template-columns:1fr 1fr;}}
   /* Home hero: lighter overlay toward the right so the lot photo is more vivid */
   .hero{background-image:linear-gradient(100deg, rgba(26,30,36,0.95) 0%, rgba(26,30,36,0.8) 42%, rgba(26,30,36,0.32) 100%), url("{{ get_asset_url('../mdd-assets/dealerlot.png') }}");}
+  @media(max-width:768px){.hero{background-image:linear-gradient(100deg, rgba(26,30,36,0.95) 0%, rgba(26,30,36,0.8) 42%, rgba(26,30,36,0.32) 100%), url("{{ get_asset_url('../mdd-assets/dealerlot-mobile.png') }}");}}
 </style>
 
 <!-- HERO (dark) -->
@@ -85,7 +92,7 @@
       <div class="home-card">
         <h3>Workflows that update themselves</h3>
         <p>Service and recon steps advance automatically as the car moves. Nothing to remember to click — and nothing to game.</p>
-        <span class="metric">5 fewer days in recon</span>
+        <span class="metric">Under 5 days total in recon</span>
       </div>
       <div class="home-card">
         <h3>F&amp;I revenue customers love</h3>
@@ -101,7 +108,7 @@
   <div class="container" style="text-align:center;">
     <div class="section-tag light no-border" style="display:inline-block;">See It</div>
     <h2 class="lp-light-h2" style="margin-bottom:24px;">One screen. Every car, every key, every workflow.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/lotwithtext2.png') }}" alt="MDD Locate graphic: aerial view of a dealership lot, service bays, and 4-story parking garage with every vehicle pinpointed by real-time location">
+    <img src="{{ get_asset_url('../mdd-assets/lotwithtext2.png') }}" alt="MDD Locate graphic: aerial view of a dealership lot, service bays, and 4-story parking garage with every vehicle pinpointed by real-time location" width="1400" height="934" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -113,7 +120,7 @@
     <p style="color:var(--body-text);margin:0;">Typical results for MDD dealers.</p>
     <div class="home-stats">
       <div class="home-stat"><div class="num green">~15 min</div><div class="label">saved per repair order</div></div>
-      <div class="home-stat"><div class="num gold">5 days</div><div class="label">fewer in recon</div></div>
+      <div class="home-stat"><div class="num gold">Under 5 days</div><div class="label">total time in recon</div></div>
       <div class="home-stat"><div class="num green">$0</div><div class="label">key loss expense</div></div>
       <div class="home-stat"><div class="num gold">$24K</div><div class="label">added F&amp;I revenue</div></div>
     </div>
@@ -153,7 +160,7 @@
    headline="Get \"Three Departments, One Platform.\"",
    description="How the best-run dealers find fresh margin in service, used cars, and F&I — without adding a fourth department. Enter your email for instant access.",
    article_label="Three Departments, One Platform",
-   article_url="https://585393.hs-sites.com/null/blog/three-departments-one-platform",
+   article_url="https://mdd.io/blog/three-departments-one-platform",
    button_text="Get the Article →",
    form_guid="3d76806a-22b9-4859-987d-431a40058df2",
    background="light"
@@ -187,7 +194,7 @@
     </style>
     <div class="home-products">
       <div class="hp-card">
-        <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a key's exact location">
+        <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a key's exact location" width="1080" height="2349" loading="lazy" decoding="async">
         <div class="hp-body">
           <h3>Key Tracking</h3>
           <p>Tag every key and grab the right one the first time — no more digging through the key box while a customer waits.</p>
@@ -195,7 +202,7 @@
         </div>
       </div>
       <div class="hp-card">
-        <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-details.png') }}" alt="MDD Locate showing a vehicle's exact location">
+        <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-details.png') }}" alt="MDD Locate showing a vehicle's exact location" width="1600" height="908" loading="lazy" decoding="async">
         <div class="hp-body">
           <h3>Vehicle Tracking</h3>
           <p>See the live location of any vehicle, indoors or out — even which floor of the parking garage it's on.</p>
@@ -203,7 +210,7 @@
         </div>
       </div>
       <div class="hp-card">
-        <img src="{{ get_asset_url('../mdd-assets/dealerlot.png') }}" alt="Aerial view of a dealership lot with every vehicle pinpointed">
+        <img src="{{ get_asset_url('../mdd-assets/dealerlot.png') }}" alt="Aerial view of a dealership lot with every vehicle pinpointed" width="1536" height="1024" loading="lazy" decoding="async">
         <div class="hp-body">
           <h3>Lot Management</h3>
           <p>Run floor-plan audits in minutes and flag stale units before they cost a sale — across every lot you run.</p>
@@ -211,7 +218,7 @@
         </div>
       </div>
       <div class="hp-card">
-        <img src="{{ get_asset_url('../mdd-assets/screenshots/service-workflow.png') }}" alt="MDD Service Workflow dashboard">
+        <img src="{{ get_asset_url('../mdd-assets/screenshots/service-workflow.png') }}" alt="MDD Service Workflow dashboard" width="1600" height="681" loading="lazy" decoding="async">
         <div class="hp-body">
           <h3>Service Workflow</h3>
           <p>Each job advances on its own as the car moves. Recover ~15 minutes per RO and protect your CSI.</p>
@@ -219,7 +226,7 @@
         </div>
       </div>
       <div class="hp-card">
-        <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD Recon Workflow showing tamper-proof stage history">
+        <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD Recon Workflow showing tamper-proof stage history" width="1600" height="903" loading="lazy" decoding="async">
         <div class="hp-body">
           <h3>Recon Workflow</h3>
           <p>Shorten Time-to-Line with recon steps that update themselves — and dwell-time data you can trust.</p>
@@ -227,7 +234,7 @@
         </div>
       </div>
       <div class="hp-card">
-        <img src="{{ get_asset_url('../mdd-assets/screenshots/vv1.png') }}" alt="VehicleVault dealer-branded customer app">
+        <img src="{{ get_asset_url('../mdd-assets/screenshots/vv1.png') }}" alt="VehicleVault dealer-branded customer app" width="1080" height="2341" loading="lazy" decoding="async">
         <div class="hp-body">
           <h3>F&amp;I Sell Through</h3>
           <p>VehicleVault: a dealer-branded key-tracking app customers actually use. High-margin backend, zero chargebacks.</p>
