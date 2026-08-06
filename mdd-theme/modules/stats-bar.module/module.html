@@ -1,36 +1,34 @@
-{# Stats bar — renders the brand figure component. Every figure carries its
-   source; that attribution is a house rule, not a decoration. #}
-<section class="section{% if module.section_size == 'small' %} section-sm{% endif %} bg-{{ module.background }}">
-  <div class="container">
-    <div class="stat-grid cols-{{ module.columns }}">
-      {% if module.stat_1_number %}
-      <div class="stat-card">
-        <div class="num">{{ module.stat_1_number }}</div>
-        <div class="label">{{ module.stat_1_label }}</div>
-        {% if module.stat_1_dealer %}<div class="dealer">{{ module.stat_1_dealer }}</div>{% endif %}
-      </div>
-      {% endif %}
-      {% if module.stat_2_number %}
-      <div class="stat-card">
-        <div class="num">{{ module.stat_2_number }}</div>
-        <div class="label">{{ module.stat_2_label }}</div>
-        {% if module.stat_2_dealer %}<div class="dealer">{{ module.stat_2_dealer }}</div>{% endif %}
-      </div>
-      {% endif %}
-      {% if module.stat_3_number %}
-      <div class="stat-card">
-        <div class="num">{{ module.stat_3_number }}</div>
-        <div class="label">{{ module.stat_3_label }}</div>
-        {% if module.stat_3_dealer %}<div class="dealer">{{ module.stat_3_dealer }}</div>{% endif %}
-      </div>
-      {% endif %}
-      {% if module.stat_4_number %}
-      <div class="stat-card">
-        <div class="num">{{ module.stat_4_number }}</div>
-        <div class="label">{{ module.stat_4_label }}</div>
-        {% if module.stat_4_dealer %}<div class="dealer">{{ module.stat_4_dealer }}</div>{% endif %}
-      </div>
-      {% endif %}
+{# Stats bar — the `.mdd-fig` signature component in a `.mdd-data` strip,
+   identical to the homepage and VehicleVault data strips.
+
+   Ground is a real `.mdd-ink2` / `.mdd-pap` rather than the legacy `bg-dark`,
+   so every ink-scoped figure rule in brand.css (white value, green source,
+   ink hairlines) applies natively instead of needing a `.bg-dark` mirror.
+
+   `stat_N_dealer` renders as `.src`. House rule 4: an unattributed number is
+   off-brand, so a figure with no source is not emitted at all.
+   `stat_N_color` is ignored — gold is retired (house rule 2). #}
+{% set figs = [
+  {"n": module.stat_1_number, "l": module.stat_1_label, "s": module.stat_1_dealer},
+  {"n": module.stat_2_number, "l": module.stat_2_label, "s": module.stat_2_dealer},
+  {"n": module.stat_3_number, "l": module.stat_3_label, "s": module.stat_3_dealer},
+  {"n": module.stat_4_number, "l": module.stat_4_label, "s": module.stat_4_dealer}
+] %}
+{% set ns = namespace(items=[]) %}
+{% for f in figs %}
+  {% if f.n %}{% set ns.items = ns.items + [f] %}{% endif %}
+{% endfor %}
+
+{% if ns.items %}
+<section class="{% if module.background == "light" %}mdd-pap{% else %}mdd-ink2{% endif %} mdd-band-sm">
+  <div class="mdd-wrap mdd-data cols-{{ ns.items|length }}">
+    {% for f in ns.items %}
+    <div class="mdd-fig mdd-r"{% if not loop.first %} style="--d:{{ loop.index0 * 70 }}ms;"{% endif %}>
+      <span class="v">{{ f.n }}</span>
+      {% if f.l %}<span class="k">{{ f.l }}</span>{% endif %}
+      {% if f.s %}<span class="src">{{ f.s }}</span>{% endif %}
     </div>
+    {% endfor %}
   </div>
 </section>
+{% endif %}

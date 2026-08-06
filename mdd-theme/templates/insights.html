@@ -8,36 +8,55 @@
 
 <div class="mdd">
 <style>
-  /* Shared light-first helpers */
-  .lp-light-h2{color:var(--on-pap-1);}
-  .lp-light-sub{color:var(--on-pap-2);max-width:640px;margin:0 auto;}
-  .home-trust{background:var(--paper-3);border-bottom:1px solid var(--line-pap);}
-  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
-  .home-trust .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--on-pap-3);margin-bottom:14px;}
-  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
-  .home-trust .names span{font-size:17px;font-weight:700;color:var(--on-pap-1);opacity:.85;white-space:nowrap;}
-  /* Insights gate */
-  .ins-gate{max-width:580px;margin:0 auto;text-align:center;background:var(--ink-800);border:1px solid var(--green);border-radius:0;padding:44px;box-shadow:0 8px 40px rgba(138,200,51,.12);}
-  .ins-gate h2{color:var(--white);margin-bottom:12px;}
-  .ins-gate p{color:var(--body-text);margin:0 auto;max-width:460px;}
-  .ins-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;}
-  .ins-form input{flex:1;min-width:240px;background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;color:#fff;font-family:var(--font-body);font-size:16px;}
-  .ins-form input:focus{outline:none;border-color:var(--green);}
-  .ins-form button{background:var(--green);color:var(--ink-800);font-weight:700;font-size:16px;border:none;padding:14px 24px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
-  .ins-form button:hover{background:var(--grn-700);color:#fff;}
-  .ins-fine{font-size:12px;color:var(--on-pap-3);margin-top:14px;}
-  /* Insights library grid */
-  .ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;text-align:left;}
-  .ins-card{display:flex;flex-direction:column;background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:28px;box-shadow:none;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;}
-  .ins-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.10);border-color:var(--green);}
-  .ins-card .ins-eyebrow{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--grn-700);margin-bottom:12px;}
-  .ins-card h3{color:var(--on-pap-1);font-size:18px;font-weight:500;line-height:1.35;margin-bottom:16px;flex:1;}
-  .ins-card .ins-read{color:var(--grn-700);font-weight:700;font-size:15px;}
-  @media(max-width:900px){.ins-grid{grid-template-columns:1fr 1fr;}}
-  @media(max-width:600px){.ins-grid{grid-template-columns:1fr;}}
+  /* ── Page composition only. Every token and component comes from brand.css. ── */
+
+  /* The gate. Was a green-bordered dark box floating on paper — a card, which
+     the system doesn't do. It is now the same hairline lift band the
+     VehicleVault lead forms use. */
+  .ins-gate .mdd-form{ max-width:520px; }
+
+  /* Library — hairline columns, no card, no hover lift. */
+  .ins-grid{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:0; margin-top:clamp(40px,4.6vw,64px);
+    border-top:1px solid var(--line-pap);
+  }
+  .ins-card{
+    display:flex; flex-direction:column;
+    padding:var(--s6) var(--s6) var(--s6) var(--s6);
+    border-left:1px solid var(--line-pap); border-bottom:1px solid var(--line-pap);
+    text-decoration:none; color:inherit;
+    transition:background var(--fast) var(--ease);
+  }
+  .ins-grid > .ins-card:nth-child(3n+1){ border-left:none; padding-left:0; }
+  .ins-card:hover{ background:rgba(15,18,22,.025); }
+  .ins-card .ins-eyebrow{
+    font-size:10.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--on-pap-3); margin-bottom:var(--s4);
+  }
+  .ins-card h3{
+    font-size:18px; font-weight:500; line-height:1.3; letter-spacing:-.018em;
+    color:var(--on-pap-1); margin-bottom:var(--s5); flex:1;
+  }
+  .ins-card .ins-read{
+    font-size:14.5px; font-weight:500; color:var(--on-pap-1);
+    padding-bottom:3px; border-bottom:1px solid transparent; align-self:flex-start;
+    transition:color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+  }
+  .ins-card:hover .ins-read{ color:var(--grn-700); border-bottom-color:var(--grn-700); }
+
+  @media (max-width:1000px){
+    .ins-grid{ grid-template-columns:1fr 1fr; }
+    .ins-grid > .ins-card:nth-child(3n+1){ border-left:1px solid var(--line-pap); padding-left:var(--s6); }
+    .ins-grid > .ins-card:nth-child(odd){ border-left:none; padding-left:0; }
+  }
+  @media (max-width:600px){
+    .ins-grid{ grid-template-columns:1fr; }
+    .ins-card,.ins-grid > .ins-card:nth-child(3n+1){ border-left:none; padding:var(--s5) 0; }
+  }
 </style>
 
-<!-- HERO (dark) -->
+<!-- ══ HERO (ink) ══ -->
 {% module "hero"
    path="../modules/hero.module",
    product_tag="MDD Insights",
@@ -50,7 +69,7 @@
    layout="centered"
 %}
 
-<!-- TRUSTED BY (light) -->
+<!-- ══ TRUST (paper) ══ -->
 <section class="home-trust">
   <div class="inner">
     <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
@@ -65,98 +84,106 @@
   </div>
 </section>
 
-<!-- GATE + LIBRARY (light) -->
-<section class="section bg-light" id="library">
-  <div class="container">
-
-    <!-- Gate (visible until unlocked) -->
-    <div id="insights-gate" class="ins-gate">
-      <div class="section-tag green no-border" style="display:inline-block;">Free Access</div>
-      <h2>Unlock the full insight library.</h2>
-      <p>One email unlocks every MDD article — written for operators, backed by named-dealer results.</p>
-      <form id="ins-form" novalidate>
-        <div class="ins-form">
-          <input type="email" name="email" required placeholder="you@dealership.com" aria-label="Work email">
-          <button type="submit">Unlock the Library →</button>
-        </div>
-        <p class="ins-fine">No spam. Just the occasional dealer insight. Unsubscribe anytime.</p>
-      </form>
+<!-- ══ GATE + LIBRARY ══ -->
+<!-- Gate (visible until unlocked) -->
+<!-- #library is the hero CTA target: it must land on the gate, which is what the
+     visitor has to act on, not on the library section that is still hidden. -->
+<section class="mdd-lift mdd-band ins-gate" id="library"
+         style="border-bottom:1px solid var(--line-pap);">
+  <div class="mdd-wrap mdd-split" style="align-items:center;">
+    <div class="mdd-r">
+      <span class="mdd-label">Free access</span>
+      <h2 class="mdd-d2" style="margin-bottom:var(--s5);">Unlock the full insight library.</h2>
+      <p class="mdd-lede">One email unlocks every MDD article — written for operators, backed by named-dealer results.</p>
     </div>
-
-    <!-- Library (revealed after unlock) -->
-    <div id="insights-library" style="display:none;">
-      <div style="text-align:center;">
-        <div class="section-tag light no-border" style="display:inline-block;">The Library</div>
-        <h2 class="lp-light-h2">Topical automotive news, in one place.</h2>
+    <form class="mdd-form mdd-r" id="ins-form" novalidate style="--d:100ms;">
+      <div class="row">
+        <input type="email" name="email" required placeholder="you@dealership.com" aria-label="Work email">
+        <button type="submit" class="mdd-btn">Unlock the Library <span class="ar">&rarr;</span></button>
       </div>
-      <div class="ins-grid">
-        <a class="ins-card" href="https://mdd.io/blog/fixed-ops-capacity-dealership-operations" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">This Week · Fixed Ops</span>
-          <h3>What the Fixed-Ops Capacity Race Means for Dealership Operations</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/q2-2026-fixed-ops-stall-dealership-throughput" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Fixed Ops</span>
-          <h3>Everybody Added Capacity. Nobody Added Output: What Q2's Fixed Ops Stall Means</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/80-day-lot-rising-inventory-dealership-operations" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Sales &amp; Inventory</span>
-          <h3>The 80-Day Lot Is Back: What Swelling Inventory Means for Dealership Operations</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/dealership-ai-boom-service-drive" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Technology &amp; Fixed Ops</span>
-          <h3>What the Dealership AI Boom Means for Operations — and Why It Starts in the Service Drive</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/dealership-service-market-share-capacity-2026" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Fixed Ops</span>
-          <h3>What Dealers' Shrinking Service Share Really Means for Operations</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/built-for-the-lot-not-the-highway" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Origin Story</span>
-          <h3>Built for the Lot, Not the Highway: Why Dealers Needed More Than GPS</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/every-car-every-key-lot-visibility" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Locate</span>
-          <h3>Every Car, Every Key: Why Lot Visibility Is the Edge Most Dealers Overlook</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/readiness-at-the-door-wins-the-sale" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Sales</span>
-          <h3>As It Begins, So It Goes: Why Readiness at the Door Now Decides the Sale</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/the-margin-is-made-in-recon" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Recon</span>
-          <h3>The Margin Is Made in Recon: Why Reconditioning Now Decides the Deal</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/three-departments-one-platform" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">Platform</span>
-          <h3>Three Departments, One Platform: Margin Hiding in Plain Sight</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/ftc-addendums-dealer-pricing-playbook" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">F&amp;I &amp; Compliance</span>
-          <h3>Addendums, Transparency &amp; the FTC: Rethinking the Dealer Pricing Playbook</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-        <a class="ins-card" href="https://mdd.io/blog/future-of-automotive-reinsurance-wisetrak" target="_blank" rel="noopener">
-          <span class="ins-eyebrow">F&amp;I &amp; Reinsurance</span>
-          <h3>The Future of Automotive Reinsurance: Unlocking New Participation Income</h3>
-          <span class="ins-read">Read the article →</span>
-        </a>
-      </div>
-    </div>
-
+      <p class="fine">No spam. Just the occasional dealer insight. Unsubscribe anytime.</p>
+    </form>
   </div>
 </section>
 
-<!-- CTA (dark) -->
+<!-- Library (revealed after unlock) -->
+<section class="mdd-pap mdd-band">
+  <div class="mdd-wrap">
+    <div id="insights-library" style="display:none;">
+      <div class="mdd-head mdd-r">
+        <div style="max-width:24ch;">
+          <span class="mdd-label">The library</span>
+          <h2 class="mdd-d2">Topical automotive news, in one place.</h2>
+        </div>
+        <span class="mdd-head__rule"></span>
+      </div>
+      <div class="ins-grid">
+        <a class="ins-card mdd-r" href="https://mdd.io/blog/fixed-ops-capacity-dealership-operations" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">This Week · Fixed Ops</span>
+          <h3>What the Fixed-Ops Capacity Race Means for Dealership Operations</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:60ms;" href="https://mdd.io/blog/q2-2026-fixed-ops-stall-dealership-throughput" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Fixed Ops</span>
+          <h3>Everybody Added Capacity. Nobody Added Output: What Q2's Fixed Ops Stall Means</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:120ms;" href="https://mdd.io/blog/80-day-lot-rising-inventory-dealership-operations" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Sales &amp; Inventory</span>
+          <h3>The 80-Day Lot Is Back: What Swelling Inventory Means for Dealership Operations</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" href="https://mdd.io/blog/dealership-ai-boom-service-drive" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Technology &amp; Fixed Ops</span>
+          <h3>What the Dealership AI Boom Means for Operations — and Why It Starts in the Service Drive</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:60ms;" href="https://mdd.io/blog/dealership-service-market-share-capacity-2026" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Fixed Ops</span>
+          <h3>What Dealers' Shrinking Service Share Really Means for Operations</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:120ms;" href="https://mdd.io/blog/built-for-the-lot-not-the-highway" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Origin Story</span>
+          <h3>Built for the Lot, Not the Highway: Why Dealers Needed More Than GPS</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" href="https://mdd.io/blog/every-car-every-key-lot-visibility" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Locate</span>
+          <h3>Every Car, Every Key: Why Lot Visibility Is the Edge Most Dealers Overlook</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:60ms;" href="https://mdd.io/blog/readiness-at-the-door-wins-the-sale" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Sales</span>
+          <h3>As It Begins, So It Goes: Why Readiness at the Door Now Decides the Sale</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:120ms;" href="https://mdd.io/blog/the-margin-is-made-in-recon" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Recon</span>
+          <h3>The Margin Is Made in Recon: Why Reconditioning Now Decides the Deal</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" href="https://mdd.io/blog/three-departments-one-platform" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">Platform</span>
+          <h3>Three Departments, One Platform: Margin Hiding in Plain Sight</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:60ms;" href="https://mdd.io/blog/ftc-addendums-dealer-pricing-playbook" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">F&amp;I &amp; Compliance</span>
+          <h3>Addendums, Transparency &amp; the FTC: Rethinking the Dealer Pricing Playbook</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+        <a class="ins-card mdd-r" style="--d:120ms;" href="https://mdd.io/blog/future-of-automotive-reinsurance-wisetrak" target="_blank" rel="noopener">
+          <span class="ins-eyebrow">F&amp;I &amp; Reinsurance</span>
+          <h3>The Future of Automotive Reinsurance: Unlocking New Participation Income</h3>
+          <span class="ins-read">Read the article &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLOSE (ink) ══ -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
@@ -172,11 +199,18 @@
 <script>
 (function(){
   var KEY="mdd_insights_unlocked";
-  var gate=document.getElementById("insights-gate");
+  var gate=document.querySelector(".ins-gate");
   var lib=document.getElementById("insights-library");
   var form=document.getElementById("ins-form");
   if(!gate||!lib||!form) return;
-  function unlock(){ gate.style.display="none"; lib.style.display="block"; }
+  function unlock(){
+    gate.style.display="none";
+    lib.style.display="block";
+    /* The library starts hidden, so its .mdd-r elements were never observed.
+       Reveal them directly rather than waiting for a scroll that may not come. */
+    var els=lib.querySelectorAll(".mdd-r");
+    for(var i=0;i<els.length;i++) els[i].classList.add("in");
+  }
   try{ if(localStorage.getItem(KEY)==="1"){ unlock(); } }catch(e){}
   form.addEventListener("submit", function(e){
     e.preventDefault();

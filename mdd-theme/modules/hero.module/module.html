@@ -1,32 +1,44 @@
-{# Hero — brand system. The lot photograph stays as the ground; .hero in
-   brand.css supplies the scrim, spacing and type. #}
-<section class="section hero{% if module.layout == 'centered' %} hero-center{% endif %}">
+{# Hero — built on the brand components, matching homepage.html and
+   mdd-vehiclevault.html. The lot photograph and its scrim come from `.hero` in
+   brand.css; everything inside is `.mdd-*`.
+
+   This module also owns `id="main-content"`, the target of the header's skip
+   link. Only the two hand-built pages had one, so the link was dead on every
+   other page.
+   The hero carries no `.mdd-r`: it is the LCP on every page and must paint
+   immediately rather than start at opacity:0 waiting on the observer.
+
+   `tag_style` is retained so existing module instances keep validating, but it
+   no longer renders: one accent, and `.mdd-label` is never coloured (house
+   rules 1 and 2). Gold is retired. #}
+<section class="section hero{% if module.layout == 'centered' %} hero-center{% endif %}" id="main-content">
   {% if module.layout == "two_column" and module.hero_image_src %}
   <div class="hero-grid">
     <div class="hero-content">
-      {% if module.product_tag %}<span class="tag">{{ module.product_tag }}</span>{% endif %}
-      <h1>{{ module.headline }}</h1>
-      <p class="sub">{{ module.subtitle }}</p>
-      <div class="cta-group">
-        <a href="{{ module.primary_cta_url }}" class="btn btn-primary">{{ module.primary_cta_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
+      {% if module.product_tag %}<span class="mdd-label">{{ module.product_tag }}</span>{% endif %}
+      <h1 class="mdd-d1">{{ module.headline }}</h1>
+      <p class="mdd-lede">{{ module.subtitle }}</p>
+      <div class="mdd-actions">
+        <a href="{{ module.primary_cta_url }}" class="mdd-btn">{{ module.primary_cta_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
         {% if module.show_secondary_cta %}
-        <a href="{{ module.secondary_cta_url }}" class="btn-outline">{{ module.secondary_cta_text }}</a>
+        <a href="{{ module.secondary_cta_url }}" class="mdd-alink">{{ module.secondary_cta_text }} <span class="ar">&rarr;</span></a>
         {% endif %}
       </div>
     </div>
-    <div class="hero-image">
-      <img src="{{ module.hero_image_src }}" alt="{{ module.hero_image_alt }}" loading="eager" fetchpriority="high" decoding="async">
+    <div class="hero-image mdd-stage">
+      <img src="{{ module.hero_image_src }}" alt="{{ module.hero_image_alt }}"
+           loading="eager" fetchpriority="high" decoding="async">
     </div>
   </div>
   {% else %}
   <div class="hero-content">
-    {% if module.product_tag %}<span class="tag">{{ module.product_tag }}</span>{% endif %}
-    <h1>{{ module.headline }}</h1>
-    <p class="sub">{{ module.subtitle }}</p>
-    <div class="cta-group">
-      <a href="{{ module.primary_cta_url }}" class="btn btn-primary">{{ module.primary_cta_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
+    {% if module.product_tag %}<span class="mdd-label">{{ module.product_tag }}</span>{% endif %}
+    <h1 class="mdd-d1">{{ module.headline }}</h1>
+    <p class="mdd-lede">{{ module.subtitle }}</p>
+    <div class="mdd-actions">
+      <a href="{{ module.primary_cta_url }}" class="mdd-btn">{{ module.primary_cta_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
       {% if module.show_secondary_cta %}
-      <a href="{{ module.secondary_cta_url }}" class="btn-outline">{{ module.secondary_cta_text }}</a>
+      <a href="{{ module.secondary_cta_url }}" class="mdd-alink">{{ module.secondary_cta_text }} <span class="ar">&rarr;</span></a>
       {% endif %}
     </div>
   </div>

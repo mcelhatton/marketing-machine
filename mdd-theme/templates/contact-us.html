@@ -8,49 +8,92 @@
 
 <div class="mdd">
 <style>
-  /* Contact page: shorter hero, no demo button (they're already here) */
-  .section.hero{padding:120px 24px 32px;}
-  .hero .cta-group{display:none;}
-  /* The form is the star */
-  .cu-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:start;max-width:1040px;margin:0 auto;}
-  .cu-form-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:40px;box-shadow:0 16px 50px rgba(0,0,0,.12);}
-  .cu-form-card h2{color:var(--on-pap-1);font-size:28px;font-weight:500;margin-bottom:6px;}
-  .cu-form-card .cu-sub{color:var(--on-pap-2);font-size:16px;margin-bottom:26px;}
-  .cu-field{margin-bottom:18px;}
-  .cu-field label{display:block;font-size:14px;font-weight:700;color:var(--on-pap-1);margin-bottom:7px;}
-  .cu-field input,.cu-field textarea{width:100%;box-sizing:border-box;padding:14px 16px;background:var(--paper-3);border:1.5px solid #cfd4da;border-radius:10px;color:var(--on-pap-1);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
-  .cu-field input::placeholder,.cu-field textarea::placeholder{color:#9aa1ab;}
-  .cu-field input:focus,.cu-field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
-  .cu-field textarea{min-height:110px;resize:vertical;}
-  .cu-submit{width:100%;background:var(--green);color:var(--ink-800);font-weight:500;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;}
-  .cu-submit:hover{background:var(--grn-700);color:#fff;}
-  /* Match the embedded HubSpot form to the card */
-  .cu-hsform .hs-form-field{margin-bottom:18px;}
-  .cu-hsform .hs-form-field>label{display:block;font-size:14px;font-weight:700;color:var(--on-pap-1);margin-bottom:7px;}
-  .cu-hsform .hs-form-required{color:#e5484d;margin-left:2px;}
-  .cu-hsform .hs-input{width:100%!important;box-sizing:border-box;padding:14px 16px;background:var(--paper-3);border:1.5px solid #cfd4da;border-radius:10px;color:var(--on-pap-1);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
-  .cu-hsform .hs-input::placeholder{color:#9aa1ab;}
-  .cu-hsform select.hs-input{height:52px;}
-  .cu-hsform .hs-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
-  .cu-hsform textarea.hs-input{min-height:110px;resize:vertical;}
-  .cu-hsform input[type=checkbox].hs-input,.cu-hsform input[type=radio].hs-input{width:auto!important;margin-right:8px;}
-  .cu-hsform fieldset{max-width:100%!important;}
-  .cu-hsform fieldset .hs-form-field{width:100%!important;float:none;padding:0;}
-  .cu-hsform fieldset .input{margin-right:0!important;}
-  .cu-hsform .hs-button{width:100%;background:var(--green);color:var(--ink-800);font-weight:500;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;font-family:'DM Sans',sans-serif;margin-top:6px;}
-  .cu-hsform .hs-button:hover{background:var(--grn-700)!important;color:#fff;}
-  .cu-hsform .hs-error-msg,.cu-hsform .hs-error-msgs label{color:#e5484d!important;font-size:13px;font-weight:500;}
-  .cu-hsform .legal-consent-container,.cu-hsform .hs-richtext{font-size:12px;color:var(--on-pap-3);margin-top:8px;line-height:1.5;}
-  .cu-hsform .submitted-message,.cu-hsform .hs-main-font-element{color:var(--on-pap-1);font-size:16px;font-weight:600;}
-  .cu-info{display:flex;flex-direction:column;gap:16px;}
-  .cu-info-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:24px;}
-  .cu-info-card h3{color:var(--grn-700);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-  .cu-info-card p{color:var(--on-pap-2);font-size:15px;line-height:1.6;}
-  .cu-phone{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--on-pap-1);text-decoration:none;}
-  @media(max-width:768px){.cu-grid{grid-template-columns:1fr;}.cu-form-card{padding:28px;}}
+  /* ── Page composition only. Every token and component comes from brand.css. ── */
+
+  /* Shorter hero: the visitor is already here to convert, so no demo button
+     and no photograph competing with the form below.
+     NB the hero module now emits `.mdd-actions`, not `.cta-group` — hiding the
+     old class name would let a "Schedule a Demo" button appear on the one page
+     whose whole job is that form. */
+  .mdd .section.hero{ padding:clamp(112px,13vw,150px) var(--gut) clamp(36px,4vw,56px); }
+  .mdd .hero .mdd-actions{ display:none; }
+
+  /* Form left, the practical details right. */
+  .cu-grid{
+    display:grid; grid-template-columns:minmax(0,6fr) minmax(0,4fr);
+    gap:clamp(36px,5vw,72px); align-items:start;
+  }
+  .cu-form h2{ margin-bottom:var(--s3); }
+  .cu-sub{ margin-bottom:var(--s7); }
+
+  .cu-info{ border-top:1px solid var(--line-pap); }
+  .cu-info > div{ padding:var(--s6) 0; border-bottom:1px solid var(--line-pap); }
+  .cu-info h3{
+    font-size:10.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--on-pap-3); margin-bottom:var(--s4);
+  }
+  .cu-info p{ font-size:15px; line-height:1.6; }
+  .cu-phone{
+    font-size:26px; font-weight:400; letter-spacing:-.03em; color:var(--on-pap-1);
+    text-decoration:none; font-variant-numeric:tabular-nums;
+    border-bottom:1px solid transparent; transition:color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+  }
+  .cu-phone:hover{ color:var(--grn-700); border-bottom-color:var(--grn-700); }
+
+  /* ── The embedded HubSpot form ──
+     Styling here targets HubSpot's own markup, which this template does not
+     control. Keep the selectors; only the visual values are brand-aligned:
+     hairline underline fields, no boxes, one pill button. */
+  .cu-hsform .hs-form-field{ margin-bottom:var(--s5); }
+  .cu-hsform .hs-form-field > label{
+    display:block; font-size:13px; font-weight:600; letter-spacing:.02em;
+    color:var(--on-pap-1); margin-bottom:var(--s2);
+  }
+  .cu-hsform .hs-form-required{ color:var(--red); margin-left:2px; }
+  .cu-hsform .hs-input{
+    width:100% !important; box-sizing:border-box;
+    padding:13px 0; background:transparent;
+    border:none; border-bottom:1px solid var(--line-pap); border-radius:0;
+    color:var(--on-pap-1); font-family:'DM Sans',sans-serif; font-size:16.5px;
+    transition:border-color var(--fast) var(--ease);
+  }
+  .cu-hsform .hs-input::placeholder{ color:var(--on-pap-3); }
+  .cu-hsform select.hs-input{ height:48px; }
+  .cu-hsform .hs-input:focus{ outline:none; border-bottom-color:var(--grn-700); }
+  .cu-hsform textarea.hs-input{ min-height:104px; resize:vertical; }
+  .cu-hsform input[type=checkbox].hs-input,
+  .cu-hsform input[type=radio].hs-input{ width:auto !important; margin-right:8px; border-bottom:none; }
+  .cu-hsform fieldset{ max-width:100% !important; }
+  .cu-hsform fieldset .hs-form-field{ width:100% !important; float:none; padding:0; }
+  .cu-hsform fieldset .input{ margin-right:0 !important; }
+  .cu-hsform .hs-button{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--grn-500); color:var(--ink-800);
+    font-family:'DM Sans',sans-serif; font-size:15.5px; font-weight:700; letter-spacing:-.008em;
+    border:none; border-radius:999px; padding:16px 32px; margin-top:var(--s5);
+    cursor:pointer; box-shadow:none;
+    transition:background var(--fast) var(--ease), transform var(--fast) var(--ease);
+  }
+  .cu-hsform .hs-button:hover{
+    background:var(--grn-400) !important; color:var(--ink-800);
+    transform:translateY(-1px);
+  }
+  .cu-hsform .hs-error-msg,.cu-hsform .hs-error-msgs label{
+    color:var(--red) !important; font-size:13px; font-weight:500;
+  }
+  .cu-hsform .legal-consent-container,.cu-hsform .hs-richtext{
+    font-size:13px; color:var(--on-pap-3); margin-top:var(--s3); line-height:1.5;
+  }
+  .cu-hsform .submitted-message,.cu-hsform .hs-main-font-element{
+    color:var(--on-pap-1); font-size:16.5px; font-weight:500;
+  }
+
+  @media (max-width:1000px){
+    .cu-grid{ grid-template-columns:1fr; }
+  }
 </style>
 
-<!-- HERO -->
+<!-- ══ HERO (ink) ══ -->
 {% module "hero"
    path="../modules/hero.module",
    product_tag="Get Started",
@@ -61,47 +104,44 @@
    layout="centered"
 %}
 
-<!-- TRUSTED BY (light) -->
-<section style="background:#fff;border-bottom:1px solid var(--border-light);">
-  <div style="max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;">
-    <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Trusted by the best-run dealerships in the country</div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;">
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Bill Brown Ford</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Longo Toyota</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Corwin Toyota</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Morgan Automotive</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Penske Automotive</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Lithia Automotive</span>
+<!-- ══ TRUST (paper) ══ -->
+<section class="home-trust">
+  <div class="inner">
+    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
+    <div class="names">
+      <span>Bill Brown Ford</span>
+      <span>Longo Toyota</span>
+      <span>Corwin Toyota</span>
+      <span>Morgan Automotive</span>
+      <span>Penske Automotive</span>
+      <span>Lithia Automotive</span>
     </div>
   </div>
 </section>
 
-<!-- CONTACT FORM SECTION (light, form-forward) -->
-<section class="section bg-light" style="padding-top:48px;">
-  <div class="container">
-    <div class="cu-grid">
-      <!-- THE FORM (star) -->
-      <div class="cu-form-card">
-        <h2>Schedule your demo</h2>
-        <p class="cu-sub">Fill out the form and our team reaches out within one business day.</p>
-        <div id="hs-demo-form" class="cu-hsform"></div>
-      </div>
-      <!-- INFO (secondary) -->
-      <aside class="cu-info">
-        <div class="cu-info-card">
-          <h3>Prefer to call?</h3>
-          <a href="tel:8442927110" class="cu-phone">844-292-7110</a>
-        </div>
-        <div class="cu-info-card">
-          <h3>What to expect</h3>
-          <p>A 15-minute discovery call where we learn about your dealership, show you the platform, and discuss how MDD solves your specific challenges. No hard sell. Just answers.</p>
-        </div>
-        <div class="cu-info-card">
-          <h3>Location</h3>
-          <p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>
-        </div>
-      </aside>
+<!-- ══ THE FORM (paper) ══ -->
+<section class="mdd-pap mdd-band">
+  <div class="mdd-wrap cu-grid">
+    <div class="cu-form mdd-r">
+      <h2 class="mdd-d2">Schedule your demo</h2>
+      <p class="mdd-lede cu-sub">Fill out the form and our team reaches out within one business day.</p>
+      <div id="hs-demo-form" class="cu-hsform"></div>
     </div>
+
+    <aside class="cu-info mdd-r" style="--d:120ms;">
+      <div>
+        <h3>Prefer to call?</h3>
+        <a href="tel:8442927110" class="cu-phone">844-292-7110</a>
+      </div>
+      <div>
+        <h3>What to expect</h3>
+        <p>A 15-minute discovery call where we learn about your dealership, show you the platform, and discuss how MDD solves your specific challenges. No hard sell. Just answers.</p>
+      </div>
+      <div>
+        <h3>Location</h3>
+        <p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>
+      </div>
+    </aside>
   </div>
 </section>
 

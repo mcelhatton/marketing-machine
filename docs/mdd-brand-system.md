@@ -201,17 +201,58 @@ hasn't. All live pages are converted:
 Plus `blog.html` (standalone template — links `brand.css` itself) and `glossary.html`.
 `demo.html` is the internal sales-demo app and is deliberately **not** on the system.
 
-### Two levels of conversion
+### Conversion state — every page is now rebuilt on the components
 
-**VehicleVault is the reference implementation** — rebuilt on the components directly
-(`.mdd-d1`, `.mdd-fig`, `.mdd-split`, `.mdd-field`). Use it as the model.
+The rollout originally landed in two tiers: VehicleVault rebuilt on the components, and
+everything else merely restyled through the site-vocabulary layer while keeping its
+centred composition. **That second tier is gone.** As of 2026-08-06 all eleven pages are
+composed directly on `.mdd-*` components — asymmetric `.mdd-split` / `.mdd-head` headers,
+`.mdd-data` figure strips, `.mdd-field` ink moments, staggered `.mdd-r` reveals.
 
-**Every other page is converted through the site-vocabulary layer** at the bottom of
-`brand.css`, which re-expresses the existing class vocabulary (`.home-card`,
-`.section-tag`, `.lp-light-h2` …) in brand terms. Those pages keep their original
-centred composition and copy; what changed is palette, type, spacing, and the removal
-of cards. **They have not been re-laid-out or re-written.** Converting one properly
-means rebuilding its markup on the components the way VehicleVault was.
+Reference implementations, in order of usefulness as a model:
+
+| Page | Why copy it |
+|---|---|
+| `mdd-vehiclevault.html` | Densest use of the components; hand-built lead-capture bands |
+| `homepage.html` | The canonical hero + data strip + product-grid rhythm |
+| `mdd-key-tracking.html` | The pattern for a standard product page built out of modules |
+
+**The site-vocabulary layer still exists and is still load-bearing.** Four legacy grids
+were kept deliberately, because the layer already renders them exactly as the system
+wants and rewriting them would have been churn for no visual change:
+`.home-cards` / `.home-card`, `.home-steps` / `.home-step`, `.home-quote`, `.home-trust`.
+Everything else in that layer (`.section`, `.bg-light`, `.lp-light-h2`, `.section-tag`,
+the `.hero` scrim, module output) is now reached only through the shared modules.
+
+Those four grids were written for paper only. Placing one on an ink ground needs the
+`.mdd-ink` / `.mdd-ink2` variants added alongside them in `brand.css` — without those the
+copy renders dark-on-dark.
+
+### The shared modules
+
+`hero`, `stats-bar`, `sample-cta`, `lead-form`, `faq` and `cta-section` are what nine of
+the eleven pages are assembled from, so they carry the system rather than each page
+re-implementing it.
+
+- **`hero.module`** emits `.mdd-label` / `.mdd-d1` / `.mdd-lede` / `.mdd-actions`, and owns
+  `id="main-content"` — the header's skip-link target, which previously existed only on
+  the two hand-built pages and was a dead link everywhere else. It carries **no `.mdd-r`**:
+  the hero is the LCP on every page and must paint immediately rather than start at
+  `opacity:0` waiting on the observer. Don't add one.
+- **`stats-bar.module`** emits a `.mdd-data` strip of `.mdd-fig`s on a real `.mdd-ink2`
+  ground, so the ink-scoped figure rules apply natively. `stat_N_dealer` becomes the `.src`
+  line, and a figure with no source is **not rendered at all** — house rule 4, enforced in
+  the template. `stat_N_color` is dead; the field survives only so existing module
+  instances keep validating.
+- The `background` field maps to grounds, not to legacy `bg-*` classes: `light` → paper,
+  anything else → ink.
+
+`.mdd-data` defaults to four tracks; `.cols-3` / `.cols-2` / `.cols-1` match the strip to
+however many attributed figures a page actually has.
+
+The reveal-on-entry observer lives in **`base.html`**, once, guarded by `window.__mddReveal`.
+Pages no longer ship their own copy. Anything hidden at load (the Insights library) has to
+add `.in` itself on reveal, since the observer never saw it.
 
 ### Site chrome
 
@@ -233,6 +274,19 @@ sections had been rendering unstyled:
   trailing arrow and append a single `<span class="ar">`.
 - Every dark band repeated the same dealership-lot photograph. The photo is now
   reserved for the hero; `.mdd .bg-dark` is flat ink.
+
+Found and fixed in the 2026-08-06 page rollout:
+
+- The header's **skip link pointed at `#main-content`, which existed on two pages.** On the
+  other nine it went nowhere. `hero.module` now emits the id.
+- **Gold survived on live pages** after being retired — `section-tag gold` on key-tracking,
+  recon and about, and `stat_N_color="gold"` on five stat bars. All gone. (`mdd-locate.html`
+  and `mdd-workflow.html` still contain gold; both are off the live nav and were left alone.)
+- The **aggregate figures on `/mdd-proof` shipped with empty `stat_N_dealer`**, i.e.
+  unattributed numbers on the page whose entire job is attribution. They now read
+  "Across MDD dealers".
+- `.mdd-split` with a **single child** lands in column 3, not column 1 — both the
+  `:first-child` and `:last-child` rules match it. A lone section header wants `.mdd-head`.
 
 ### Deploying
 

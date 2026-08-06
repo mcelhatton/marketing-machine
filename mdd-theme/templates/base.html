@@ -141,6 +141,30 @@
 
 {% global_partial path="../partials/footer.html" %}
 
+{# Reveal on entry — staggered via the --d custom property on each element.
+   Site-wide so any page that wraps its content in .mdd and marks elements
+   .mdd-r animates, without each template carrying its own copy. Guarded so a
+   page that still declares its own observer cannot double-bind. #}
+<script>
+(function(){
+  if (window.__mddReveal) return;
+  window.__mddReveal = true;
+  var els = document.querySelectorAll('.mdd-r');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (var i=0;i<els.length;i++) els[i].classList.add('in');
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  for (var j=0;j<els.length;j++) io.observe(els[j]);
+})();
+</script>
+
 {{ standard_footer_includes }}
 </body>
 </html>

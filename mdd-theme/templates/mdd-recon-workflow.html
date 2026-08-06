@@ -22,40 +22,49 @@
 </script>
 
 <style>
-  /* Light-first homepage styles */
-  .home-trust{background:var(--paper-3);border-bottom:1px solid var(--line-pap);}
-  .home-trust .inner{max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;}
-  .home-trust .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--on-pap-3);margin-bottom:14px;}
-  .home-trust .names{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;}
-  .home-trust .names span{font-size:17px;font-weight:700;color:var(--on-pap-1);opacity:.85;white-space:nowrap;}
-  .home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
-  .home-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:32px;box-shadow:none;}
-  .home-card h3{color:var(--on-pap-1);font-size:20px;font-weight:500;margin-bottom:10px;}
-  .home-card p{color:var(--on-pap-2);font-size:16px;line-height:1.6;margin-bottom:18px;}
-  .home-card .metric{display:inline-block;font-size:14px;font-weight:700;color:var(--grn-700);background:transparent;border-radius:9999px;padding:6px 14px;}
-  .home-showcase img{width:100%;border:1px solid var(--line-pap);border-radius:0;box-shadow:var(--shadow-lg);}
-  .home-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px;}
-  .home-step .n{width:40px;height:40px;border-radius:9999px;background:var(--green);color:var(--on-pap-1);font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-  .home-step h3{color:var(--on-pap-1);font-size:18px;font-weight:700;margin-bottom:6px;}
-  .home-step p{color:var(--on-pap-2);font-size:15px;line-height:1.6;}
-  .home-quote{max-width:820px;margin:0 auto;text-align:center;}
-  .home-quote blockquote{font-size:clamp(20px,2.4vw,26px);font-weight:600;color:var(--on-pap-1);line-height:1.45;font-style:italic;margin-bottom:16px;}
-  .home-quote .who{font-size:15px;color:var(--on-pap-3);}
-  .home-quote .who b{color:var(--on-pap-1);}
-  .lp-light-h2{color:var(--on-pap-1);}
-  .lp-light-sub{color:var(--on-pap-2);max-width:640px;margin:0 auto;}
-  @media(max-width:768px){.home-cards,.home-steps{grid-template-columns:1fr;}}
-  /* Page-specific */
-  .recon-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px;}
-  .recon-chip{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:9999px;padding:8px 16px;color:var(--on-pap-1);font-size:14px;font-weight:600;}
-  .recon-chip b{color:var(--grn-700);}
+  /* ── Page composition only. Every token and component comes from brand.css. ── */
+
+  /* The eight locked Core Steps. A hairline rail rather than pills — the
+     sequence is the point, and pills would be cards (house rule 3). */
+  .rc-steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    margin-top:clamp(32px,3.6vw,52px); border-top:1px solid var(--line-pap);
+  }
+  .rc-steps > div{
+    padding:var(--s5) var(--s5) var(--s5) 0;
+    border-bottom:1px solid var(--line-pap); border-left:1px solid var(--line-pap);
+    padding-left:var(--s5);
+  }
+  .rc-steps > div:nth-child(4n+1){ border-left:none; padding-left:0; }
+  .rc-steps .n{
+    display:block; font-size:10.5px; font-weight:600; letter-spacing:.17em;
+    color:var(--grn-700); font-variant-numeric:tabular-nums; margin-bottom:var(--s2);
+  }
+  .rc-steps .s{ font-size:15.5px; font-weight:500; color:var(--on-pap-1); }
+
+  /* Three phone screens, held at a readable width rather than stretched. */
+  .rc-phones{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:clamp(20px,3vw,40px); max-width:820px; align-items:start;
+    margin-top:clamp(32px,3.6vw,52px);
+  }
+  .rc-phones img{ width:100%; height:auto; display:block; }
+
+  @media (max-width:768px){
+    .rc-steps{ grid-template-columns:1fr 1fr; }
+    .rc-steps > div:nth-child(4n+1){ border-left:1px solid var(--line-pap); padding-left:var(--s5); }
+    .rc-steps > div:nth-child(odd){ border-left:none; padding-left:0; }
+  }
+  @media (max-width:600px){
+    .rc-phones{ grid-template-columns:1fr; max-width:300px; margin-left:auto; margin-right:auto; }
+  }
 </style>
 
-<!-- HERO (dark) -->
+<!-- ══ HERO (ink) ══ -->
 {% module "hero"
    path="../modules/hero.module",
    product_tag="Recon Workflow · Powered by LocateIQ",
-   tag_style="locateiq",
+   tag_style="green",
    headline="Recon that tracks <em>itself.</em>",
    subtitle="Front-end gross is thin. The profit you still control sits in the recon line — and MDD shortens it with Time-to-Line data you can actually trust.",
    primary_cta_text="Schedule a 15-Min Demo →",
@@ -66,7 +75,23 @@
    layout="centered"
 %}
 
-<!-- TRUSTED BY (light) -->
+<!-- ══ TECHNICAL DATA (ink-2) ══ -->
+{% module "stats"
+   path="../modules/stats-bar.module",
+   columns="3",
+   stat_1_number="3 days",
+   stat_1_label="Saved per car in recon.",
+   stat_1_dealer="Longo Toyota",
+   stat_2_number="25 min → seconds",
+   stat_2_label="To locate a vehicle.",
+   stat_2_dealer="Longo Toyota",
+   stat_3_number="35%",
+   stat_3_label="Reduction in days to lot.",
+   stat_3_dealer="MDD dealers",
+   background="dark"
+%}
+
+<!-- ══ TRUST (paper) ══ -->
 <section class="home-trust">
   <div class="inner">
     <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
@@ -81,13 +106,17 @@
   </div>
 </section>
 
-<!-- THE MATH (light) -->
-<section class="section bg-light">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">The Margin Is Made in Recon</div>
-    <h2 class="lp-light-h2">Every day in recon is money off the hood.</h2>
-    <p class="lp-light-sub">Holding a used unit costs about $40 a day. Cut one day off Time-to-Line and the numbers add up fast.</p>
-    <div class="home-cards" style="text-align:left;">
+<!-- ══ THE MARGIN IS MADE IN RECON (paper) ══ -->
+<section class="mdd-pap mdd-band">
+  <div class="mdd-wrap">
+    <div class="mdd-split is-baseline">
+      <div class="mdd-r">
+        <span class="mdd-label">The margin is made in recon</span>
+        <h2 class="mdd-d2">Every day in recon is money off the hood.</h2>
+      </div>
+      <p class="mdd-lede mdd-r" style="--d:120ms;">Holding a used unit costs about $40 a day. Cut one day off Time-to-Line and the numbers add up fast.</p>
+    </div>
+    <div class="home-cards mdd-r" style="--d:180ms;">
       <div class="home-card">
         <h3>Dead capital adds up</h3>
         <p>A $40K car sitting six extra days in recon burns roughly $240 before it's ever merchandised.</p>
@@ -107,43 +136,53 @@
   </div>
 </section>
 
-<!-- THE WEDGE (light) -->
-<section class="section bg-light">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">The Real Problem</div>
-    <h2 class="lp-light-h2">Other recon tools wait for someone to click a button.</h2>
-    <p class="lp-light-sub">A car moves to detail, but the system doesn't know until someone updates it — if they do. People forget. And when pay is tied to step times, timestamps get gamed. You end up measuring memory, not your process.</p>
+<!-- ══ THE REAL PROBLEM (paper — editorial statement) ══ -->
+<section class="mdd-pap mdd-band" style="padding-top:0;">
+  <div class="mdd-wrap mdd-split">
+    <h2 class="mdd-d3 mdd-r">Other recon tools wait for someone to click a button.</h2>
+    <p class="mdd-lede mdd-r" style="--d:120ms;padding-top:.55em;">A car moves to detail, but the system doesn't know until someone updates it — if they do. People forget. And when pay is tied to step times, timestamps get gamed. You end up measuring memory, not your process.</p>
   </div>
 </section>
 
-<!-- SHOWCASE (light) -->
-<section class="section bg-light home-showcase" style="padding-top:0;">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">See It</div>
-    <h2 class="lp-light-h2" style="margin-bottom:24px;">Every used car, every recon stage, in real time.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Recon Workflow dashboard showing every used vehicle and its current reconditioning stage in real time" width="1600" height="905" loading="eager" fetchpriority="high" decoding="async">
+<!-- ══ SEE IT (ink — the product moment) ══ -->
+<section class="mdd-ink mdd-field mdd-band" style="--fx:50%;--fy:42%;">
+  <div class="mdd-wrap">
+    <div class="mdd-head mdd-r" style="margin-bottom:clamp(32px,3.6vw,52px);">
+      <div style="max-width:24ch;">
+        <span class="mdd-label">See it</span>
+        <h2 class="mdd-d2">Every used car, every recon stage, in real time.</h2>
+      </div>
+      <span class="mdd-head__rule"></span>
+    </div>
+    <div class="mdd-stage mdd-r" style="--d:180ms;">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow.png') }}" alt="MDD Recon Workflow dashboard showing every used vehicle and its current reconditioning stage in real time" width="1600" height="905" loading="eager" fetchpriority="high" decoding="async">
+    </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS (light) -->
-<section class="section bg-light" id="how">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">How It Works</div>
-    <h2 class="lp-light-h2">AI automation that knows every car's status and location.</h2>
-    <p class="lp-light-sub">Service and Recon workflows use AI automation to let you know the work status and location of every car. No more false reports or gaming the system. Less clicks and more accuracy!</p>
-    <div class="home-steps" style="margin-top:36px;">
+<!-- ══ HOW IT WORKS (paper) ══ -->
+<section class="mdd-pap mdd-band" id="how">
+  <div class="mdd-wrap">
+    <div class="mdd-split is-baseline">
+      <div class="mdd-r">
+        <span class="mdd-label">How it works</span>
+        <h2 class="mdd-d2">AI automation that knows every car's status and location.</h2>
+      </div>
+      <p class="mdd-lede mdd-r" style="--d:120ms;">Service and Recon workflows use AI automation to let you know the work status and location of every car. No more false reports or gaming the system. Less clicks and more accuracy!</p>
+    </div>
+    <div class="home-steps mdd-r" style="--d:180ms;">
       <div class="home-step">
-        <div class="n">1</div>
+        <div class="n">01</div>
         <h3>Tag at Acquisition</h3>
         <p>Every vehicle gets a tracking tag the moment it arrives.</p>
       </div>
       <div class="home-step">
-        <div class="n">2</div>
+        <div class="n">02</div>
         <h3>AI Tracks Status &amp; Location</h3>
         <p>As the car moves through shop, detail, and photos, AI automation keeps its work status and location current — no false reports, no gamed timestamps.</p>
       </div>
       <div class="home-step">
-        <div class="n">3</div>
+        <div class="n">03</div>
         <h3>Shorten Time-to-Line</h3>
         <p>See exactly where a unit stalled and hold vendors accountable with clean, defensible numbers.</p>
       </div>
@@ -151,17 +190,17 @@
   </div>
 </section>
 
-<!-- MOBILE APPS ROW (light) -->
-<section class="section bg-light" style="padding-top:0;">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">In Every Tech's Pocket</div>
-    <h2 class="lp-light-h2" style="margin-bottom:32px;">Recon runs from the phone your team already carries.</h2>
-    <style>
-      .recon-phones{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:760px;margin:0 auto;align-items:start;}
-      .recon-phones img{width:100%;height:auto;border:1px solid var(--line-pap);border-radius:0;box-shadow:var(--shadow-lg);}
-      @media(max-width:600px){.recon-phones{gap:12px;}}
-    </style>
-    <div class="recon-phones">
+<!-- ══ IN EVERY TECH'S POCKET (paper) ══ -->
+<section class="mdd-pap mdd-band" style="padding-top:0;">
+  <div class="mdd-wrap">
+    <div class="mdd-head mdd-r">
+      <div style="max-width:26ch;">
+        <span class="mdd-label">In every tech's pocket</span>
+        <h2 class="mdd-d2">Recon runs from the phone your team already carries.</h2>
+      </div>
+      <span class="mdd-head__rule"></span>
+    </div>
+    <div class="rc-phones mdd-r" style="--d:120ms;">
       <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location" width="1080" height="2349" loading="lazy" decoding="async">
       <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-mobile.png') }}" alt="MDD Workflow mobile app showing a vehicle's recon stage" width="1080" height="2349" loading="lazy" decoding="async">
       <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan.png') }}" alt="MDD Work Plan mobile app showing the day's recon tasks" width="1080" height="2349" loading="lazy" decoding="async">
@@ -169,35 +208,46 @@
   </div>
 </section>
 
-<!-- CORE STEPS (light) -->
-<section class="section bg-light" style="padding-top:0;">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">Benchmarkable by Design</div>
-    <h2 class="lp-light-h2">Locked Core Steps. Unlimited Sub-Steps.</h2>
-    <p class="lp-light-sub">Built for dealer groups. Because every store moves through the same locked Core Steps, your data rolls up into one apples-to-apples comparison across every rooftop — something freeform systems can't do, so you can never truly compare one store to the rest. MDD even gamifies it, stack-ranking your stores against each other to drive the whole group's Time-to-Line down. Unlimited Sub-Steps still keep each store's local process intact.</p>
-    <div class="recon-chips">
-      <span class="recon-chip"><b>1.</b> Pending</span>
-      <span class="recon-chip"><b>2.</b> Inspection</span>
-      <span class="recon-chip"><b>3.</b> Estimate Approval</span>
-      <span class="recon-chip"><b>4.</b> Mechanical</span>
-      <span class="recon-chip"><b>5.</b> Cosmetic</span>
-      <span class="recon-chip"><b>6.</b> Detail</span>
-      <span class="recon-chip"><b>7.</b> Photos</span>
-      <span class="recon-chip"><b>8.</b> Ready</span>
+<!-- ══ BENCHMARKABLE BY DESIGN (paper) ══ -->
+<section class="mdd-pap mdd-band" style="padding-top:0;">
+  <div class="mdd-wrap">
+    <div class="mdd-split is-baseline">
+      <div class="mdd-r">
+        <span class="mdd-label">Benchmarkable by design</span>
+        <h2 class="mdd-d2">Locked Core Steps. Unlimited Sub-Steps.</h2>
+      </div>
+      <p class="mdd-lede mdd-r" style="--d:120ms;">Built for dealer groups. Because every store moves through the same locked Core Steps, your data rolls up into one apples-to-apples comparison across every rooftop — something freeform systems can't do, so you can never truly compare one store to the rest. MDD even gamifies it, stack-ranking your stores against each other to drive the whole group's Time-to-Line down. Unlimited Sub-Steps still keep each store's local process intact.</p>
+    </div>
+    <div class="rc-steps mdd-r" style="--d:180ms;">
+      <div><span class="n">01</span><span class="s">Pending</span></div>
+      <div><span class="n">02</span><span class="s">Inspection</span></div>
+      <div><span class="n">03</span><span class="s">Estimate Approval</span></div>
+      <div><span class="n">04</span><span class="s">Mechanical</span></div>
+      <div><span class="n">05</span><span class="s">Cosmetic</span></div>
+      <div><span class="n">06</span><span class="s">Detail</span></div>
+      <div><span class="n">07</span><span class="s">Photos</span></div>
+      <div><span class="n">08</span><span class="s">Ready</span></div>
     </div>
   </div>
 </section>
 
-<!-- SHOWCASE 2 (light) -->
-<section class="section bg-light home-showcase" style="padding-top:0;">
-  <div class="container" style="text-align:center;">
-    <div class="section-tag light no-border" style="display:inline-block;">Tamper-Proof History</div>
-    <h2 class="lp-light-h2" style="margin-bottom:24px;">Accurate dwell time at every stage — with AI accuracy you can trust.</h2>
-    <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD workflow history showing automatic, tamper-proof dwell time logged at each recon stage" width="1600" height="903" loading="lazy" decoding="async">
+<!-- ══ TAMPER-PROOF HISTORY (paper) ══ -->
+<section class="mdd-pap mdd-band" style="padding-top:0;">
+  <div class="mdd-wrap">
+    <div class="mdd-head mdd-r" style="margin-bottom:clamp(32px,3.6vw,52px);">
+      <div style="max-width:28ch;">
+        <span class="mdd-label">Tamper-proof history</span>
+        <h2 class="mdd-d2">Accurate dwell time at every stage — with AI accuracy you can trust.</h2>
+      </div>
+      <span class="mdd-head__rule"></span>
+    </div>
+    <div class="mdd-stage mdd-r" style="--d:180ms;">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/workflow-history.png') }}" alt="MDD workflow history showing automatic, tamper-proof dwell time logged at each recon stage" width="1600" height="903" loading="lazy" decoding="async">
+    </div>
   </div>
 </section>
 
-<!-- FREE SAMPLE -->
+<!-- ══ FREE TEST DRIVE (paper) ══ -->
 {% module "sample_cta"
    path="../modules/sample-cta.module",
    section_id="free-test-drive",
@@ -208,34 +258,15 @@
    button_url="https://mdd.io/contact-us"
 %}
 
-<!-- STATS (dark band) -->
-{% module "stats"
-   path="../modules/stats-bar.module",
-   columns="3",
-   stat_1_number="3 days",
-   stat_1_label="saved per car in recon",
-   stat_1_dealer="Longo Toyota",
-   stat_1_color="green",
-   stat_2_number="25 min → seconds",
-   stat_2_label="to locate a vehicle",
-   stat_2_dealer="Longo Toyota",
-   stat_2_color="gold",
-   stat_3_number="35%",
-   stat_3_label="reduction in days to lot",
-   stat_3_dealer="MDD dealers",
-   stat_3_color="green",
-   background="dark"
-%}
-
-<!-- TESTIMONIAL (light) -->
-<section class="section bg-light">
-  <div class="container home-quote">
+<!-- ══ TESTIMONIAL (paper) ══ -->
+<section class="mdd-pap mdd-band">
+  <div class="mdd-wrap home-quote mdd-r">
     <blockquote>"MDD delivers on its promises. Locating a vehicle went from 25 minutes to seconds. Every dealer needs these results."</blockquote>
     <div class="who"><b>Mark Seipel</b> — Fixed Operations Director, Longo Toyota</div>
   </div>
 </section>
 
-<!-- LEAD FORM -->
+<!-- ══ LEAD FORM (white) ══ -->
 {% module "lead_form"
    path="../modules/lead-form.module",
    section_id="get-the-guide",
@@ -249,7 +280,7 @@
    background="card"
 %}
 
-<!-- FAQ (with schema) -->
+<!-- ══ FAQ (paper, with schema) ══ -->
 {% module "faq"
    path="../modules/faq.module",
    section_tag="Common Questions",
@@ -269,7 +300,7 @@
    a6="Pricing is customized to your used-car volume. Schedule a 15-minute demo for a custom quote."
 %}
 
-<!-- CTA (dark) -->
+<!-- ══ CLOSE (ink) ══ -->
 {% module "cta"
    path="../modules/cta-section.module",
    section_id="demo",
