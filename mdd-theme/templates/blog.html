@@ -13,38 +13,56 @@
   {{ standard_header_includes }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  {# Loaded off the critical path; display=swap paints fallback text immediately. #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap"></noscript>
   <link rel="stylesheet" href="{{ get_asset_url('../css/theme.css') }}">
+  <link rel="stylesheet" href="{{ get_asset_url('../css/brand.css') }}">
   <style>
+    /* The site header is transparent by default because on marketing pages it
+       sits over a dark hero photograph, and only goes solid on scroll
+       (.is-stuck). Blog pages open on a light background, so the white nav
+       text rendered white-on-white until the reader happened to scroll.
+       Pin it solid dark here — both states, so there is no jump on scroll.
+       Literal hex, not var(--ink-800): the header sits OUTSIDE .mdd, where the
+       brand tokens are scoped. #0F1216 is the same value the mobile nav panel
+       already uses. Scoped to this template; no other page is affected. */
+    .mddx-header,
+    .mddx-header.is-stuck{
+      background:#0F1216;
+      border-bottom-color:rgba(255,255,255,.11);
+      -webkit-backdrop-filter:none;
+      backdrop-filter:none;
+    }
     .blog-wrap{padding-top:175px;}
     @media(max-width:1100px){.blog-wrap{padding-top:96px;}}
     .blog-article{max-width:760px;margin:0 auto;}
-    .blog-back{display:inline-block;color:var(--green-dark);font-weight:700;text-decoration:none;font-size:14px;margin-bottom:18px;}
-    .blog-back:hover{color:var(--green);}
-    .blog-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green-dark);margin-bottom:12px;}
-    .blog-article h1{color:var(--dark-text);font-size:clamp(30px,4.5vw,46px);font-weight:800;line-height:1.12;letter-spacing:-0.5px;margin:0 0 14px;}
-    .blog-meta{color:var(--muted);font-size:14px;margin-bottom:36px;border-bottom:1px solid var(--border-light);padding-bottom:20px;}
-    .blog-body{color:var(--body-dark);font-size:18px;line-height:1.75;}
-    .blog-body h2{color:var(--dark-text);font-size:28px;font-weight:800;margin:36px 0 14px;line-height:1.25;}
-    .blog-body h3{color:var(--dark-text);font-size:21px;font-weight:700;margin:28px 0 10px;}
+    .blog-back{display:inline-block;color:var(--on-pap-2);font-weight:500;text-decoration:none;font-size:14.5px;margin-bottom:24px;}
+    .blog-back:hover{color:var(--grn-700);}
+    .blog-eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--on-pap-3);margin-bottom:14px;}
+    .blog-article h1{color:var(--on-pap-1);font-size:clamp(34px,5vw,56px);font-weight:500;line-height:1.04;letter-spacing:-.036em;margin:0 0 16px;}
+    .blog-meta{color:var(--on-pap-3);font-size:14px;margin-bottom:44px;border-bottom:1px solid var(--line-pap);padding-bottom:22px;}
+    .blog-body{color:var(--on-pap-2);font-size:17.5px;line-height:1.72;}
+    .blog-body h2{color:var(--on-pap-1);font-size:clamp(24px,2.8vw,32px);font-weight:500;letter-spacing:-.028em;margin:44px 0 14px;line-height:1.14;}
+    .blog-body h3{color:var(--on-pap-1);font-size:21px;font-weight:500;letter-spacing:-.022em;margin:30px 0 10px;}
     .blog-body p{margin:0 0 20px;}
     .blog-body ul,.blog-body ol{margin:0 0 20px 22px;}
     .blog-body li{margin-bottom:10px;}
-    .blog-body a{color:var(--green-dark);text-decoration:underline;}
-    .blog-body strong{color:var(--dark-text);}
-    .blog-body img{max-width:100%;height:auto;border-radius:12px;margin:24px 0;}
-    .blog-cta{margin-top:40px;background:var(--charcoal);border-radius:16px;padding:32px;text-align:center;}
-    .blog-cta h3{color:#fff;font-size:22px;font-weight:800;margin-bottom:10px;}
-    .blog-cta p{color:var(--body-text);margin-bottom:20px;}
-    .blog-cta a{display:inline-block;background:var(--green);color:var(--charcoal);font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;}
-    .blog-cta a:hover{background:var(--green-dark);color:#fff;}
+    .blog-body a{color:var(--grn-700);text-decoration:underline;text-underline-offset:3px;}
+    .blog-body strong{color:var(--on-pap-1);font-weight:600;}
+    .blog-body img{max-width:100%;height:auto;border-radius:0;margin:28px 0;}
+    .blog-cta{margin-top:56px;border-top:1px solid var(--line-pap);padding:40px 0 0;text-align:left;}
+    .blog-cta h3{color:var(--on-pap-1);font-size:clamp(22px,2.4vw,28px);font-weight:500;letter-spacing:-.028em;margin-bottom:10px;}
+    .blog-cta p{color:var(--on-pap-2);margin-bottom:26px;font-size:16px;}
+    .blog-cta a{display:inline-flex;align-items:center;gap:10px;background:var(--grn-500);color:var(--ink-800);font-weight:700;font-size:15.5px;padding:16px 32px;border-radius:999px;text-decoration:none;transition:background .2s;}
+    .blog-cta a:hover{background:var(--grn-400);color:var(--ink-800);}
     /* Listing */
-    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;text-align:left;}
-    .blog-lcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.05);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;}
-    .blog-lcard:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.10);border-color:var(--green);}
-    .blog-lcard h3{color:var(--dark-text);font-size:18px;font-weight:800;line-height:1.35;margin-bottom:12px;flex:1;}
-    .blog-lcard p{color:var(--body-dark);font-size:14px;line-height:1.6;margin-bottom:14px;}
-    .blog-lcard .r{color:var(--green-dark);font-weight:700;font-size:15px;}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 32px;margin-top:56px;text-align:left;}
+    .blog-lcard{display:flex;flex-direction:column;background:none;border:none;border-top:1px solid var(--line-pap);border-radius:0;padding:28px 24px 0 0;box-shadow:none;text-decoration:none;}
+    .blog-lcard:hover .r{color:var(--grn-700);}
+    .blog-lcard h3{color:var(--on-pap-1);font-size:20px;font-weight:500;letter-spacing:-.022em;line-height:1.22;margin-bottom:12px;flex:1;}
+    .blog-lcard p{color:var(--on-pap-2);font-size:14.5px;line-height:1.55;margin-bottom:16px;}
+    .blog-lcard .r{color:var(--on-pap-1);font-weight:500;font-size:15px;transition:color .2s;}
     @media(max-width:900px){.blog-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:600px){.blog-grid{grid-template-columns:1fr;}}
   </style>
@@ -53,13 +71,14 @@
 
 {% global_partial path="../partials/header.html" %}
 
+<div class="mdd">
 <div class="blog-wrap">
 {% if is_listing_view %}
   <!-- BLOG LISTING -->
   <section class="section bg-light">
-    <div class="container" style="text-align:center;">
-      <div class="section-tag light no-border" style="display:inline-block;color:var(--green);">MDD Insights</div>
-      <h1 style="color:var(--dark-text);font-size:clamp(32px,4vw,46px);font-weight:800;letter-spacing:-1px;">Insights for dealers who run a tight ship.</h1>
+    <div class="container">
+      <div class="section-tag">MDD Insights</div>
+      <h1 style="max-width:18ch;">Insights for dealers who run a tight ship.</h1>
       <div class="blog-grid">
         {% for content in contents %}
           <a class="blog-lcard" href="{{ content.absolute_url }}">
@@ -108,6 +127,7 @@
     </div>
   </article>
 {% endif %}
+</div>
 </div>
 
 {% global_partial path="../partials/footer.html" %}

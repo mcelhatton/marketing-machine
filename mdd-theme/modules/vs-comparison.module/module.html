@@ -1,19 +1,10 @@
-{# VS Comparison Module #}
+{# Comparison — two hairline columns. Category language only, never a
+   competitor name (see .claude/rules/02-competitors.md). #}
 <section class="section bg-{{ module.background }}">
-  <div class="container-sm" style="text-align:center;">
-    {# Section Tag #}
-    {% if module.section_tag %}
-      <div class="section-tag {{ module.tag_style }}">{{ module.section_tag }}</div>
-    {% endif %}
-
-    {# Headline #}
-    {% if module.headline %}
-      <h2 style="color:var(--white);margin-bottom:36px;">{{ module.headline }}</h2>
-    {% endif %}
-
-    {# VS Grid #}
+  <div class="container">
+    {% if module.section_tag %}<div class="section-tag">{{ module.section_tag }}</div>{% endif %}
+    {% if module.headline %}<h2>{{ module.headline }}</h2>{% endif %}
     <div class="vs-grid">
-      {# Left Column (Competitor/Bad) #}
       <div class="vs-col bad">
         <h3>{{ module.left_title }}</h3>
         <ul>
@@ -24,11 +15,7 @@
           {% if module.left_item_5 %}<li>{{ module.left_item_5 }}</li>{% endif %}
         </ul>
       </div>
-
-      {# VS Divider #}
-      <div class="vs-divider">VS</div>
-
-      {# Right Column (MDD/Good) #}
+      <div class="vs-divider" aria-hidden="true"></div>
       <div class="vs-col good">
         <h3>{{ module.right_title }}</h3>
         <ul>

@@ -1,0 +1,78 @@
+[
+  {
+    "name": "form_heading",
+    "label": "Form Heading",
+    "type": "text",
+    "default": "Schedule your demo",
+    "help_text": "Sits directly above the form. Keep it to 3-5 words."
+  },
+  {
+    "name": "form_subhead",
+    "label": "Form Subhead",
+    "type": "text",
+    "default": "Fill out the form and our team reaches out within one business day.",
+    "help_text": "One line. Sets the expectation for what happens after they submit."
+  },
+  {
+    "name": "form_guid",
+    "label": "HubSpot Form GUID",
+    "type": "text",
+    "default": "27a12045-4078-4851-9ae9-cdbd68214b93",
+    "help_text": "Default is the Contact form that produced the existing deals. Only change this if you deliberately want a different form."
+  },
+  {
+    "name": "show_phone_card",
+    "label": "Show 'Prefer to call?' card",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "name": "phone_heading",
+    "label": "Phone Card Heading",
+    "type": "text",
+    "default": "Prefer to call?"
+  },
+  {
+    "name": "phone_number",
+    "label": "Phone Number",
+    "type": "text",
+    "default": "844-292-7110"
+  },
+  {
+    "name": "show_expect_card",
+    "label": "Show 'What to expect' card",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "name": "expect_heading",
+    "label": "What To Expect — Heading",
+    "type": "text",
+    "default": "What to expect"
+  },
+  {
+    "name": "expect_body",
+    "label": "What To Expect — Body",
+    "type": "richtext",
+    "default": "<p>A 15-minute discovery call where we learn about your dealership, show you the platform, and discuss how MDD solves your specific challenges. No hard sell. Just answers.</p>",
+    "help_text": "Describe exactly what the dealer gets. On the free-offer pages, spell out the deliverable."
+  },
+  {
+    "name": "show_location_card",
+    "label": "Show Location card",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "name": "location_heading",
+    "label": "Location Card Heading",
+    "type": "text",
+    "default": "Location"
+  },
+  {
+    "name": "location_body",
+    "label": "Location Card Body",
+    "type": "richtext",
+    "default": "<p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>"
+  }
+]

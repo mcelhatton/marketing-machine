@@ -1,19 +1,9 @@
-{# Testimonial Module #}
+{# Testimonial — editorial pull quote, no card, no quote-mark graphic. #}
 <section class="section bg-{{ module.background }}">
-  <div class="container-sm testimonial-section{% if module.style == 'large' %} testimonial-large{% endif %}">
-    <div class="quote-mark" style="color: var(--{{ module.accent_color }});">"</div>
-    <blockquote class="testimonial-quote">
-      <p>{{ module.quote }}</p>
-    </blockquote>
-    <div class="testimonial-author">
-      <span class="author-name">{{ module.author }}</span>
-      {% if module.role or module.company %}
-      <span class="author-role">
-        {% if module.role %}{{ module.role }}{% endif %}
-        {% if module.role and module.company %} — {% endif %}
-        {% if module.company %}{{ module.company }}{% endif %}
-      </span>
-      {% endif %}
+  <div class="container home-quote">
+    <blockquote>{{ module.quote }}</blockquote>
+    <div class="who">
+      <b>{{ module.author }}</b>{% if module.role %} — {{ module.role }}{% endif %}{% if module.company %}, {{ module.company }}{% endif %}
     </div>
   </div>
 </section>

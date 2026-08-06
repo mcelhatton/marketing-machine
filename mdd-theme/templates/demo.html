@@ -124,6 +124,14 @@
   .s-media img { width: auto; max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 18px; box-shadow: 0 34px 80px -26px rgba(12,20,8,.55); border: 1px solid rgba(0,0,0,.06); background: #fff; }
   #slide.dark .s-media img { border-color: rgba(255,255,255,.1); }
 
+  /* image-first hero — full-color media with a compact title rail */
+  .sl-image-focus { padding: clamp(18px, 2.2vw, 46px); gap: clamp(12px, 1.8vh, 24px); justify-content: flex-start; overflow: hidden; }
+  .if-head { display: flex; align-items: baseline; gap: clamp(18px, 2vw, 36px); flex-shrink: 0; }
+  .if-head .s-title { font-size: clamp(34px, 4.2vw, 68px); max-width: none; }
+  .if-head .s-subtitle { font-size: clamp(16px, 1.5vw, 24px); max-width: none; }
+  .if-media { flex: 1 1 auto; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+  .if-media img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; border-radius: 16px; box-shadow: 0 24px 64px -24px rgba(12,20,8,.42); background: #0C0E0A; }
+
   /* hero opener cards */
   .s-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px,1.6vw,26px); margin-top: 8px; }
   .s-card { background: rgba(163,230,53,.06); border: 1px solid rgba(163,230,53,.25); border-radius: 16px; padding: clamp(18px,1.8vw,30px); }
@@ -185,6 +193,7 @@
     .s-cards { grid-template-columns: 1fr 1fr; }
     .slide-inner { justify-content: flex-start; }
     .s-shots img { max-width: 46%; }
+    .if-head { flex-direction: column; align-items: flex-start; gap: 6px; }
   }
 
   /* ---------- Quote / System Builder ---------- */
@@ -357,7 +366,7 @@ const DEFAULT_CONFIG = {
         {
           "type": "slide",
           "layout": "beforeafter",
-          "title": "Stop walking the lot.",
+          "title": "Stop wondering the lot.",
           "kicker": "Before & After · Lot Management",
           "beforeLabel": "The Old Way",
           "afterLabel": "With MDD",
@@ -522,6 +531,16 @@ const DEFAULT_CONFIG = {
     {
       "title": "3 · How It Works — Hardware & Install",
       "steps": [
+        {
+          "type": "slide",
+          "layout": "imagefocus",
+          "theme": "light",
+          "title": "The Network",
+          "kicker": "How It Works",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/demo/longoGeofences.png?v=1",
+          "imageAlt": "Longo Toyota dealership map showing MDD geofence coverage across service, recon, parking, and inventory areas",
+          "notes": "This is the network mapped to the dealership. Gateways cover the indoor and outdoor zones; geofences turn physical movement into live location and workflow updates."
+        },
         {
           "type": "slide",
           "layout": "showcase",
@@ -818,9 +837,28 @@ const DEFAULT_CONFIG = {
             ],
             [
               "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow-history-mobile.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vehiclevault/vv-findMy.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vehiclevault/vv-myDealer.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vehiclevault/vv-myVehicle.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vehiclevault/vv-rewards.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv1.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv2.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv3.png?v=1",
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv4.png?v=1"
+            ],
+            [
+              "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/vv5.png?v=1"
             ]
           ],
-          "notes": "Long scroll of live app screens — scroll top to bottom. Web search / ADP, vehicle request + workflow, locate + recon detail (side by side), service workflow (Corwin), workflow board / details / comms / history / tasks, then mobile workflow / work-plan / recon views."
+          "notes": "Long scroll of live app screens — scroll top to bottom. Web search / ADP, vehicle request + workflow, locate + recon detail (side by side), service workflow (Corwin), workflow board / details / comms / history / tasks, then mobile workflow / work-plan / recon views, and finishing on the VehicleVault consumer app: Find My, My Dealership, My Vehicle, Rewards, plus the branded app-store screens."
         },
         {
           "type": "url",
@@ -836,7 +874,7 @@ const DEFAULT_CONFIG = {
         },
         {
           "type": "url",
-          "title": "Live Web · Locate Car + Key",
+          "title": "Live Web - Car + Key Manor Lot",
           "url": "https://mddrtls.com/search?org=org_BBF",
           "notes": "The full picture: a car and its key on one screen. This is the everyday view the whole floor lives in."
         },
@@ -974,7 +1012,7 @@ const DEFAULT_CONFIG = {
             "Find the right unit at a sister store instead of buying another at auction",
             "Know it is actually there — and exactly where — before you promise it to a customer"
           ],
-          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/workflow.png",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/sisterStoreReport.png?v=1",
           "notes": "For any group or multi-point dealer. Ask how they locate a unit at a sister store today — usually a phone call and a guess. Cross-store visibility turns the whole group into one lot."
         },
         {
@@ -987,13 +1025,13 @@ const DEFAULT_CONFIG = {
             "The dashboard the group VP or dealer principal opens, not just the store manager",
             "The bigger the group, the bigger the leak this closes"
           ],
-          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/screenshots/service-workflow.png",
+          "image": "https://mdd.io/hubfs/raw_assets/public/mdd-theme/mdd-assets/reports/enterpriseReport.png?v=1",
           "notes": "Aim this at the exec or group buyer. Their pain is inconsistency across stores — this puts every rooftop on the same yardstick and surfaces the outliers."
         },
         {
           "type": "url",
-          "title": "Live Web · Run the Reports",
-          "url": "https://mddrtls.com/reports",
+          "title": "Live Web · View Reporting",
+          "url": "https://mddrtls.com/reports?org=org_01KRY58D9P0MSVWGSK1R3RBD27",
           "notes": "Reuses the same signed-in demo window. Navigate to Reports and run whichever one fits their pain live — Lot Rot and the Floor Plan Audit demo especially well. Let them pick which report to see."
         }
       ]
@@ -1073,6 +1111,12 @@ const DEFAULT_CONFIG = {
             "Unlimited Sub-Steps keep each store's local process intact"
           ],
           "notes": "Group-level hook: freeform systems can't compare stores because every store builds different steps. MDD locks the core so the group rollup is real — then stack-ranks stores against each other. GMs hate being last."
+        },
+        {
+          "type": "url",
+          "title": "MDD Workflow - Recon Demo",
+          "url": "https://mddrtls.com/workflow?org=org_01KRY58D9P0MSVWGSK1R3RBD27&templateId=workflow_template_01KRY5MRZQNWZGP60PE58WQDJF",
+          "notes": "Open the live Recon Workflow demo first."
         },
         {
           "type": "url",
@@ -1283,6 +1327,52 @@ const DEFAULT_CONFIG = {
     {
       "title": "12 · Partner, Not a Vendor",
       "steps": [
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "One CSM owns it, from signed to go-live.",
+          "kicker": "Your Implementation Journey",
+          "bullets": [
+            "Deal close → a dedicated CSM is assigned; no handoffs, no 'whoever's available'",
+            "Sales & Service Discovery — we map your lot, key, RO, recon, and F&I process (virtual)",
+            "Pairing Training — hardware pairing, device setup, and admin config (virtual)",
+            "Equipment install on-site, then a go-live launch with role-based training"
+          ],
+          "stats": [
+            { "v": "6 steps", "l": "kickoff to go-live" },
+            { "v": "1 CSM", "l": "no handoffs" }
+          ],
+          "notes": "Anti-shelfware starts at rollout. Every session is led by one subject-matter-expert CSM, delivered virtually, so it's the same person the whole way. We don't force our process on the store — discovery maps how they already work and we configure MDD to match."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "We learn your workflow before we change it.",
+          "kicker": "Discovery & Role-Based Training",
+          "bullets": [
+            "Sales Discovery (45 min): sales workflow, lot layout, key process, VehicleVault placement",
+            "Service Discovery (45 min): service drive, RO & tech flow, recon, lane layout",
+            "Launch training is role-based — Sales, Service, F&I, and Management, each on what they actually touch",
+            "Segmented to fit each team's schedule, so nobody sits through what they don't need"
+          ],
+          "notes": "Two short discovery calls with the right people in the room (Sales/F&I/BDC, then Service/Advisor/Recon), then training split by role. This is why adoption sticks — every team is trained on their piece, not a generic overview."
+        },
+        {
+          "type": "slide",
+          "layout": "content",
+          "title": "The same CSM stays — HyperCare, then for life.",
+          "kicker": "After Go-Live",
+          "bullets": [
+            "4-week HyperCare: daily monitoring and proactive support through the critical adoption window",
+            "Ongoing: performance reviews, KPI & usage check-ins, and training refreshers for new hires",
+            "No handoffs, no substitutions — the person who launched you stays with you"
+          ],
+          "stats": [
+            { "v": "4 weeks", "l": "HyperCare after launch" },
+            { "v": "Same CSM", "l": "for the life of the partnership" }
+          ],
+          "notes": "This is the 'partner, not a vendor' promise. HyperCare catches early issues before they become habits; after that, the same CSM runs performance reviews and refreshers. It leads straight into the next slide — the Customer Health dashboard is HOW we watch adoption for the life of the partnership."
+        },
         {
           "type": "slide",
           "title": "We Watch Your Usage So You Don't Have To",
@@ -1499,6 +1589,10 @@ function renderSlideHTML(st) {
     const cards = (st.cards && st.cards.length) ? `<div class="s-cards">${st.cards.map(c => `<div class="s-card"><div class="t">${esc(c.t)}</div><div class="d">${esc(c.d)}</div></div>`).join("")}</div>` : "";
     const style = st.image ? ` style="background:linear-gradient(135deg,rgba(10,12,8,.9),rgba(15,32,20,.72)),url('${escAttr(st.image)}') center/cover no-repeat"` : "";
     return `<div class="slide-inner"${style}>${kicker}${title}${sub}${cards}${stats}</div>`;
+  }
+  if (layout === "imagefocus") {
+    const media = st.image ? `<div class="if-media"><img src="${escAttr(st.image)}" alt="${escAttr(st.imageAlt || st.title || "")}" width="1022" height="573" loading="eager" decoding="async" fetchpriority="high" onerror="imgFallback(this)"></div>` : "";
+    return `<div class="slide-inner sl-image-focus"><div class="if-head">${kicker}${title}${sub}</div>${media}</div>`;
   }
   if (layout === "beforeafter") {
     const col = (items, cls, h) => `<div class="ba-col ${cls}"><h4>${esc(h)}</h4><ul>${(items || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;

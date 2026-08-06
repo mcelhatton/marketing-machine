@@ -1,0 +1,1009 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MDD BRAND SYSTEM  v1
+   ---------------------------------------------------------------------------
+   Everything is scoped under `.mdd`. Pages opt in by wrapping their content
+   in <div class="mdd">. Nothing here can affect a page that hasn't opted in,
+   so the system can roll out one page at a time alongside theme.css.
+
+   THESIS — "technical data, plainly set."
+   MDD sells measurable operational outcomes. The brand voice is a spec sheet:
+   figures are the hero, everything around them is quiet. Premium here comes
+   from restraint and precision, not decoration.
+
+   HOUSE RULES
+     1. One typeface. DM Sans, three weights, strict roles. Display is ALWAYS
+        400/500 — never 700+. Heavy type reads cheap at large sizes.
+     2. One accent. Green. Gold is retired from the system. Red is errors only.
+     3. No cards. Hairlines and space carry structure. No borders + shadow +
+        radius stacks.
+     4. Every figure is attributed. `.mdd-fig` always ships a source line.
+     5. Dark is an event, not a default. Ink grounds mark beginnings, product
+        moments, and endings. Everything between them is paper.
+     6. One easing curve, two durations. Motion confirms, it never performs.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.mdd {
+
+  /* ── INK (dark grounds) ─────────────────────────────────────────────────
+     Cool neutrals pulled a few degrees toward the accent's hue so they read
+     chosen rather than inherited. Never pure #000. */
+  --ink-900:#080A0C;
+  --ink-800:#0F1216;   /* base dark ground */
+  --ink-700:#151A1F;   /* raised dark ground — data strips, inset bands */
+  --ink-600:#1E252C;   /* hover / tertiary surface */
+
+  /* ── PAPER (light grounds) ──────────────────────────────────────────────
+     Warm off-whites. #FFF is reserved for the one surface that must lift. */
+  --paper:#F6F6F3;
+  --paper-2:#FCFCFA;
+  --paper-3:#FFFFFF;
+
+  /* ── ACCENT ─────────────────────────────────────────────────────────────
+     500 is the brand green (locked by CLAUDE.md). 700 is the only green that
+     is legible as text on paper — use it for every green word/rule on light. */
+  --grn-100:#EEF7DF;
+  --grn-400:#A5DB54;
+  --grn-500:#8AC833;   /* brand primary */
+  --grn-600:#6FA820;
+  --grn-700:#4E8409;   /* text-safe on paper */
+  --grn-900:#2E4E05;
+
+  --red:#D9432F;       /* errors only, never decorative */
+
+  /* ── TEXT ── */
+  --on-ink-1:#FFFFFF;
+  --on-ink-2:rgba(255,255,255,.66);
+  --on-ink-3:rgba(255,255,255,.44);
+  --on-pap-1:#0F1216;
+  --on-pap-2:rgba(15,18,22,.62);
+  --on-pap-3:rgba(15,18,22,.42);
+
+  /* ── HAIRLINES — the system's only structural device ── */
+  --line-ink:rgba(255,255,255,.13);
+  --line-pap:rgba(15,18,22,.12);
+
+  /* ── SPACE ── */
+  --s1:4px;  --s2:8px;  --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:48px; --s8:64px; --s9:88px; --s10:120px;
+  /* Section rhythm. Tightened from 152/84 — on wide monitors the old values put
+     ~300px of dead space between every pair of sections, which read as gaps
+     rather than as air. */
+  --band:clamp(64px,7vw,112px);
+  --band-sm:clamp(40px,4.5vw,64px);
+  --gut:clamp(20px,4vw,40px);
+  --maxw:1240px;
+
+  /* ── MOTION ── */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --fast:200ms;
+  --slow:800ms;
+
+  font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-optical-sizing:auto;
+  font-size:16.5px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background:var(--paper);
+  color:var(--on-pap-2);
+}
+.mdd *,.mdd *::before,.mdd *::after{box-sizing:border-box;}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GROUNDS
+   `.mdd-ink` / `.mdd-pap` / `.mdd-lift` set ground + default text colour.
+   Component colour is always inherited from the ground, never hard-coded,
+   so any component can sit on any ground.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-ink  { background:var(--ink-800); color:var(--on-ink-2); }
+.mdd-ink2 { background:var(--ink-700); color:var(--on-ink-2); }
+.mdd-pap  { background:var(--paper);   color:var(--on-pap-2); }
+.mdd-lift { background:var(--paper-3); color:var(--on-pap-2); }
+
+.mdd-band    { padding:var(--band) var(--gut); }
+.mdd-band-sm { padding:var(--band-sm) var(--gut); }
+.mdd-wrap    { max-width:var(--maxw); margin:0 auto; }
+
+/* Hairline rules that inherit the ground */
+.mdd-rule     { border-top:1px solid var(--line-pap); }
+.mdd-ink  .mdd-rule,
+.mdd-ink2 .mdd-rule { border-top-color:var(--line-ink); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE EDITORIAL GRID
+   Section headers occupy the left five columns, supporting copy the right
+   five, with a full column of air between. The same asymmetry on every
+   section is what makes a page read designed rather than assembled.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-split{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) 1fr minmax(0,5fr);
+  gap:0 var(--s6);
+  align-items:start;
+}
+.mdd-split > :first-child{ grid-column:1; }
+.mdd-split > :last-child { grid-column:3; }
+.mdd-split.is-baseline{ align-items:end; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPE
+   One family, three weights, strict roles. Tracking tightens as size grows —
+   optical compensation, and the single biggest reason large type reads
+   expensive rather than shouty.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd h1,.mdd h2,.mdd h3,.mdd h4{
+  margin:0; font-weight:500; text-wrap:balance; color:var(--on-pap-1);
+}
+.mdd-ink h1,.mdd-ink h2,.mdd-ink h3,.mdd-ink h4,
+.mdd-ink2 h1,.mdd-ink2 h2,.mdd-ink2 h3,.mdd-ink2 h4{ color:var(--on-ink-1); }
+
+/* Display 1 — one per page, the hero statement only */
+.mdd-d1{ font-size:clamp(42px,7.4vw,96px); line-height:.99; letter-spacing:-.042em; }
+/* Display 2 — section headers */
+.mdd-d2{ font-size:clamp(32px,5vw,62px);  line-height:1.04; letter-spacing:-.036em; }
+/* Display 3 — editorial statements and pull quotes */
+.mdd-d3{ font-size:clamp(24px,3.4vw,40px);line-height:1.16; letter-spacing:-.028em; font-weight:400; }
+/* Heading — sub-section titles */
+.mdd-h { font-size:clamp(20px,2.2vw,26px);line-height:1.2;  letter-spacing:-.022em; }
+
+.mdd p{ margin:0; }
+.mdd-lede { font-size:clamp(17px,1.45vw,19.5px); line-height:1.6; max-width:54ch; }
+.mdd-body { font-size:16.5px; line-height:1.62; max-width:62ch; }
+.mdd-small{ font-size:14.5px; line-height:1.52; }
+
+/* Label — the system's only uppercase. Never coloured on dark. */
+.mdd-label{
+  display:block; margin:0 0 var(--s5);
+  font-size:10.5px; font-weight:600; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--on-pap-3);
+}
+.mdd-ink .mdd-label,.mdd-ink2 .mdd-label{ color:var(--on-ink-3); }
+
+/* Accent emphasis inside a headline. One per headline, at most. */
+.mdd em{ font-style:normal; color:var(--grn-700); }
+.mdd-ink em,.mdd-ink2 em{ color:var(--grn-500); }
+
+.mdd a{ color:inherit; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FIGURE — the signature component
+   Value, unit, meaning, source. The source line is not optional: an
+   unattributed number is off-brand (see 03-proof-points.md).
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-fig .v{
+  display:block;
+  font-size:clamp(38px,5vw,64px); font-weight:400;
+  line-height:1; letter-spacing:-.042em;
+  font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1;
+  color:var(--on-pap-1); margin-bottom:var(--s4);
+}
+.mdd-ink .mdd-fig .v,.mdd-ink2 .mdd-fig .v{ color:var(--on-ink-1); }
+.mdd-fig .u{ font-size:.40em; letter-spacing:-.01em; color:var(--on-pap-3); margin-left:.08em; }
+.mdd-ink .mdd-fig .u,.mdd-ink2 .mdd-fig .u{ color:var(--on-ink-3); }
+.mdd-fig .k{ display:block; font-size:14.5px; line-height:1.45; max-width:22ch; }
+.mdd-fig .src{
+  display:block; margin-top:var(--s3);
+  font-size:10.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--grn-700);
+}
+.mdd-ink .mdd-fig .src,.mdd-ink2 .mdd-fig .src{ color:var(--grn-500); }
+
+/* Data strip — figures across hairline dividers, spec-sheet style */
+.mdd-data{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line-pap);
+}
+.mdd-ink .mdd-data,.mdd-ink2 .mdd-data{ border-top-color:var(--line-ink); }
+.mdd-data > *{ padding:var(--s6) var(--s6) 0; border-left:1px solid var(--line-pap); }
+.mdd-ink .mdd-data > *,.mdd-ink2 .mdd-data > *{ border-left-color:var(--line-ink); }
+.mdd-data > :first-child{ border-left:none; padding-left:0; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HAIRLINE LIST — replaces the bullet list and the feature card
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-list{ border-top:1px solid var(--line-pap); }
+.mdd-ink .mdd-list,.mdd-ink2 .mdd-list{ border-top-color:var(--line-ink); }
+.mdd-list > div{
+  display:flex; gap:var(--s4); align-items:baseline;
+  padding:var(--s4) 0; border-bottom:1px solid var(--line-pap);
+}
+.mdd-ink .mdd-list > div,.mdd-ink2 .mdd-list > div{ border-bottom-color:var(--line-ink); }
+.mdd-list b{ flex:0 0 auto; font-weight:600; font-size:15px; color:var(--on-pap-1); white-space:nowrap; }
+.mdd-ink .mdd-list b,.mdd-ink2 .mdd-list b{ color:var(--on-ink-1); }
+.mdd-list span{ font-size:15px; line-height:1.5; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACTIONS
+   Flat. No gradients, no glow — both read dated and neither survives being
+   scaled up. The arrow moves on hover; that is the whole interaction.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-actions{ display:flex; align-items:center; gap:var(--s6); flex-wrap:wrap; }
+
+.mdd-btn{
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--grn-500); color:var(--ink-800);
+  font-family:inherit; font-size:15.5px; font-weight:700; letter-spacing:-.008em;
+  padding:16px 32px; border-radius:999px; border:none;
+  text-decoration:none; cursor:pointer; white-space:nowrap;
+  transition:background var(--fast) var(--ease), transform var(--fast) var(--ease);
+}
+.mdd-btn:hover{ background:var(--grn-400); color:var(--ink-800); transform:translateY(-1px); }
+.mdd-btn .ar{ transition:transform var(--fast) var(--ease); }
+.mdd-btn:hover .ar{ transform:translateX(3px); }
+
+.mdd-btn--ghost{
+  background:transparent; color:inherit;
+  border:1px solid var(--line-pap); font-weight:600;
+}
+.mdd-ink .mdd-btn--ghost,.mdd-ink2 .mdd-btn--ghost{ border-color:var(--line-ink); color:var(--on-ink-1); }
+.mdd-btn--ghost:hover{ background:transparent; border-color:var(--grn-500); color:var(--grn-700); }
+.mdd-ink .mdd-btn--ghost:hover,.mdd-ink2 .mdd-btn--ghost:hover{ color:var(--grn-500); }
+
+/* Text action — the quiet CTA */
+.mdd-alink{
+  display:inline-flex; align-items:center; gap:9px;
+  font-size:15.5px; font-weight:500; text-decoration:none;
+  color:var(--on-pap-1); padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:border-color var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.mdd-ink .mdd-alink,.mdd-ink2 .mdd-alink{ color:var(--on-ink-1); }
+.mdd-alink:hover{ color:var(--grn-700); border-bottom-color:var(--grn-700); }
+.mdd-ink .mdd-alink:hover,.mdd-ink2 .mdd-alink:hover{ color:var(--grn-500); border-bottom-color:var(--grn-500); }
+.mdd-alink .ar{ transition:transform var(--fast) var(--ease); }
+.mdd-alink:hover .ar{ transform:translateX(3px); }
+
+.mdd a:focus-visible,.mdd button:focus-visible,
+.mdd input:focus-visible,.mdd summary:focus-visible{
+  outline:2px solid var(--grn-500); outline-offset:3px; border-radius:3px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LOCATION FIELD — the brand's one graphic device
+   Concentric hairlines radiating from a point: what a real-time location
+   system actually looks like. Dark grounds only, and never above ~4% alpha —
+   it should register as atmosphere, not as a pattern.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-field{ position:relative; overflow:hidden; isolation:isolate; }
+.mdd-field > *{ position:relative; z-index:1; }
+.mdd-field::before{
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(circle at var(--fx,74%) var(--fy,26%),
+      rgba(138,200,51,.13) 0%, rgba(138,200,51,0) 58%),
+    repeating-radial-gradient(circle at var(--fx,74%) var(--fy,26%),
+      rgba(138,200,51,.055) 0 1px, rgba(138,200,51,0) 1px 92px);
+  -webkit-mask-image:radial-gradient(circle at var(--fx,74%) var(--fy,26%),
+      #000 0%, rgba(0,0,0,.5) 46%, transparent 76%);
+  mask-image:radial-gradient(circle at var(--fx,74%) var(--fy,26%),
+      #000 0%, rgba(0,0,0,.5) 46%, transparent 76%);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRODUCT STAGE
+   One light angle for every product shot on the site. Consistency here is
+   most of what separates a considered site from a collection of pages.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-stage img{
+  display:block; width:100%; height:auto; margin:0 auto;
+  filter:drop-shadow(0 34px 60px rgba(0,0,0,.42));
+}
+.mdd-ink .mdd-stage img,.mdd-ink2 .mdd-stage img{
+  filter:drop-shadow(0 38px 68px rgba(0,0,0,.62));
+}
+.mdd-stage--phone img{ max-width:300px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCORDION
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-acc{ border-top:1px solid var(--line-pap); }
+.mdd-acc details{ border-bottom:1px solid var(--line-pap); }
+.mdd-acc summary{
+  list-style:none; cursor:pointer; position:relative;
+  padding:var(--s5) 44px var(--s5) 0;
+  font-size:clamp(17px,1.7vw,20px); font-weight:500; letter-spacing:-.016em;
+  color:var(--on-pap-1);
+}
+.mdd-acc summary::-webkit-details-marker{ display:none; }
+.mdd-acc summary::after{
+  content:''; position:absolute; right:6px; top:50%; width:13px; height:13px;
+  transform:translateY(-50%); transition:transform var(--fast) var(--ease);
+  background:
+    linear-gradient(var(--on-pap-3),var(--on-pap-3)) center/13px 1px no-repeat,
+    linear-gradient(var(--on-pap-3),var(--on-pap-3)) center/1px 13px no-repeat;
+}
+.mdd-acc details[open] summary::after{
+  transform:translateY(-50%) rotate(180deg);
+  background:linear-gradient(var(--on-pap-3),var(--on-pap-3)) center/13px 1px no-repeat;
+}
+.mdd-acc .a{ padding:0 44px var(--s5) 0; font-size:16px; line-height:1.62; max-width:64ch; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORM
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-form{ display:flex; flex-direction:column; gap:var(--s3); }
+.mdd-form .row{ display:flex; gap:10px; flex-wrap:wrap; }
+.mdd-form input{
+  flex:1; min-width:220px;
+  background:var(--paper-3); border:1px solid var(--line-pap); border-radius:999px;
+  padding:16px 24px; font-family:inherit; font-size:16px; color:var(--on-pap-1);
+  transition:border-color var(--fast) var(--ease);
+}
+.mdd-form input::placeholder{ color:var(--on-pap-3); }
+.mdd-form input:focus{ outline:none; border-color:var(--grn-700); }
+.mdd-form .fine{ font-size:13px; color:var(--on-pap-3); }
+.mdd-form .ok{ display:none; font-size:16px; font-weight:500; color:var(--grn-700); }
+.mdd-form .ok a{ color:var(--grn-700); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOTION — reveal on entry, staggered inside a group.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mdd-r{
+  opacity:0; transform:translateY(18px);
+  transition:opacity var(--slow) var(--ease), transform var(--slow) var(--ease);
+  transition-delay:var(--d,0ms);
+}
+.mdd-r.in{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .mdd-r{ opacity:1; transform:none; transition:none; }
+  .mdd *,.mdd *::before,.mdd *::after{
+    transition-duration:1ms !important; animation-duration:1ms !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   Two breakpoints only. The grid collapses; the type scale is already fluid.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width:1000px){
+  .mdd-split{ grid-template-columns:1fr; gap:var(--s5) 0; }
+  .mdd-split > :first-child,
+  .mdd-split > :last-child{ grid-column:1; }
+
+  .mdd-data{ grid-template-columns:1fr 1fr; }
+  .mdd-data > *{ padding:var(--s6) var(--s5) 0; }
+  .mdd-data > :nth-child(3){ border-left:none; padding-left:0; }
+  .mdd-data > :nth-child(-n+2){ padding-bottom:var(--s6); border-bottom:1px solid var(--line-pap); }
+  .mdd-ink .mdd-data > :nth-child(-n+2),
+  .mdd-ink2 .mdd-data > :nth-child(-n+2){ border-bottom-color:var(--line-ink); }
+}
+
+@media (max-width:600px){
+  .mdd{ font-size:16px; }
+  .mdd-data{ grid-template-columns:1fr; }
+  .mdd-data > *{ border-left:none; padding:var(--s5) 0; border-bottom:1px solid var(--line-pap); }
+  .mdd-ink .mdd-data > *,.mdd-ink2 .mdd-data > *{ border-bottom-color:var(--line-ink); }
+  .mdd-data > :first-child{ padding-top:var(--s6); }
+  .mdd-data > :last-child{ border-bottom:none; }
+  .mdd-actions{ gap:var(--s5); }
+  .mdd-btn{ width:100%; justify-content:center; }
+  .mdd-list > div{ flex-direction:column; gap:var(--s1); align-items:flex-start; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SITE CHROME  —  header + footer
+   ---------------------------------------------------------------------------
+   New namespace (`.mddx-`). The live global partials still use `.df-header`,
+   so nothing here is active until those partials are switched over. That
+   keeps the chrome redesign reviewable without changing every page at once.
+
+   The floating pill + gradient button were the two least premium elements on
+   the site: gradients date fast and don't survive scaling. This is a flat bar
+   that is transparent over a dark hero and solidifies on scroll.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mddx-header{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:transparent; border-bottom:1px solid transparent;
+  transition:background 300ms cubic-bezier(.22,.61,.36,1),
+             border-color 300ms cubic-bezier(.22,.61,.36,1);
+}
+.mddx-header.is-stuck{
+  background:rgba(15,18,22,.86);
+  -webkit-backdrop-filter:saturate(160%) blur(18px);
+  backdrop-filter:saturate(160%) blur(18px);
+  border-bottom-color:rgba(255,255,255,.11);
+}
+.mddx-header__in{
+  max-width:1240px; margin:0 auto; height:76px;
+  padding:0 clamp(20px,4vw,40px);
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+}
+.mddx-header__logo{ display:flex; align-items:center; flex-shrink:0; }
+.mddx-header__logo img{ height:30px; width:auto; display:block; }
+
+.mddx-nav{ display:flex; align-items:center; gap:2px; }
+.mddx-nav__item{ position:relative; }
+.mddx-nav__link{
+  display:inline-flex; align-items:center; gap:6px;
+  background:none; border:none; cursor:pointer;
+  font-family:inherit; font-size:15px; font-weight:500; letter-spacing:-.005em;
+  color:rgba(255,255,255,.78); padding:10px 15px; border-radius:8px;
+  text-decoration:none; white-space:nowrap;
+  transition:color 200ms cubic-bezier(.22,.61,.36,1);
+}
+.mddx-nav__link:hover,
+.mddx-nav__item:hover .mddx-nav__link{ color:#fff; }
+.mddx-nav__link[aria-current="page"]{ color:#8AC833; }
+.mddx-nav__link svg{ width:11px; height:11px; opacity:.5; transition:transform 200ms cubic-bezier(.22,.61,.36,1); }
+.mddx-nav__item:hover .mddx-nav__link svg{ transform:rotate(180deg); }
+
+.mddx-drop{
+  position:absolute; top:100%; left:50%; min-width:250px; padding:8px;
+  transform:translateX(-50%) translateY(6px);
+  background:rgba(21,26,31,.97);
+  -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.11); border-radius:14px;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+  opacity:0; visibility:hidden;
+  transition:all 220ms cubic-bezier(.22,.61,.36,1);
+}
+.mddx-nav__item:hover .mddx-drop{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.mddx-drop a{
+  display:block; padding:11px 14px; border-radius:8px;
+  font-size:14.5px; font-weight:500; color:rgba(255,255,255,.82); text-decoration:none;
+  transition:background 160ms, color 160ms;
+}
+.mddx-drop a:hover{ background:rgba(138,200,51,.11); color:#8AC833; }
+
+.mddx-header__act{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.mddx-tel,.mddx-login{
+  font-size:14.5px; font-weight:500; color:rgba(255,255,255,.62);
+  padding:10px 14px; text-decoration:none; white-space:nowrap;
+  transition:color 200ms cubic-bezier(.22,.61,.36,1);
+}
+.mddx-tel:hover,.mddx-login:hover{ color:#fff; }
+.mddx-cta{
+  display:inline-flex; align-items:center; gap:8px; margin-left:8px;
+  background:#8AC833; color:#0F1216;
+  font-family:inherit; font-size:14.5px; font-weight:700; letter-spacing:-.005em;
+  padding:11px 22px; border-radius:999px; text-decoration:none; white-space:nowrap;
+  transition:background 200ms cubic-bezier(.22,.61,.36,1), transform 200ms cubic-bezier(.22,.61,.36,1);
+}
+.mddx-cta:hover{ background:#A5DB54; color:#0F1216; transform:translateY(-1px); }
+.mddx-burger{
+  display:none; width:40px; height:40px; align-items:center; justify-content:center;
+  background:none; border:none; cursor:pointer; color:#fff;
+}
+.mddx-burger svg{ width:20px; height:20px; }
+
+@media (max-width:1080px){
+  .mddx-header__in{ height:64px; }
+  .mddx-nav{
+    position:fixed; inset:0; z-index:999; display:none;
+    flex-direction:column; align-items:stretch; gap:2px;
+    background:#0F1216; padding:84px 20px 32px; overflow-y:auto;
+  }
+  .mddx-nav.is-open{ display:flex; }
+  .mddx-nav__link{ width:100%; justify-content:space-between; padding:15px 12px; font-size:16px; border-radius:10px; }
+  .mddx-drop{
+    position:static; transform:none; opacity:1; visibility:visible;
+    min-width:0; width:100%; max-height:0; overflow:hidden; padding:0;
+    background:transparent; border:none; box-shadow:none;
+  }
+  .mddx-nav__item.is-open .mddx-drop{ max-height:520px; padding:2px 0 8px 12px; }
+  .mddx-nav__item.is-open .mddx-nav__link svg{ transform:rotate(180deg); }
+  .mddx-tel,.mddx-login{ display:none; }
+  .mddx-burger{ display:inline-flex; }
+  .mddx-header__logo img{ height:26px; }
+}
+
+/* ── FOOTER ── */
+.mddx-footer{
+  background:var(--ink-900,#080A0C); color:rgba(255,255,255,.5);
+  font-family:'DM Sans',system-ui,sans-serif; font-size:15px; line-height:1.6;
+  padding:clamp(56px,7vw,88px) clamp(20px,4vw,40px) 32px;
+  border-top:1px solid rgba(255,255,255,.09);
+}
+.mddx-footer__in{ max-width:1240px; margin:0 auto; }
+.mddx-footer__top{
+  display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; gap:40px;
+  padding-bottom:44px;
+}
+.mddx-footer__brand .mark{ display:block; margin-bottom:16px; }
+.mddx-footer__brand .mark img{ height:30px; width:auto; }
+.mddx-footer__brand .tel{
+  display:inline-block; margin-top:4px;
+  font-size:19px; font-weight:500; letter-spacing:-.02em; color:#fff; text-decoration:none;
+}
+.mddx-footer__brand .tel:hover{ color:#8AC833; }
+.mddx-footer h4{
+  margin:0 0 16px; font-size:10.5px; font-weight:600; letter-spacing:.17em;
+  text-transform:uppercase; color:rgba(255,255,255,.36);
+}
+.mddx-footer ul{ list-style:none; margin:0; padding:0; }
+.mddx-footer li{ margin-bottom:9px; }
+.mddx-footer li a{ color:rgba(255,255,255,.66); text-decoration:none; transition:color 200ms; }
+.mddx-footer li a:hover{ color:#8AC833; }
+.mddx-footer__bot{
+  display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  padding-top:26px; border-top:1px solid rgba(255,255,255,.09);
+  font-size:13px; color:rgba(255,255,255,.36);
+}
+.mddx-footer__bot a{ color:rgba(255,255,255,.36); text-decoration:none; margin-left:22px; }
+.mddx-footer__bot a:hover{ color:rgba(255,255,255,.7); }
+@media (max-width:860px){
+  .mddx-footer__top{ grid-template-columns:1fr 1fr; gap:36px; }
+  .mddx-footer__brand{ grid-column:1 / -1; }
+}
+@media (max-width:520px){
+  .mddx-footer__top{ grid-template-columns:1fr; }
+  .mddx-footer__bot{ flex-direction:column; align-items:flex-start; }
+  .mddx-footer__bot a{ margin:0 22px 0 0; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SITE VOCABULARY
+   ---------------------------------------------------------------------------
+   The existing pages share one class vocabulary (.section, .home-card,
+   .section-tag, .lp-light-h2 …), duplicated in a <style> block on every page.
+   Rather than rewrite 5,000 lines of page markup, this layer re-expresses that
+   vocabulary in brand-system terms. Wrapping a page in `.mdd` converts it.
+
+   Everything here is `.mdd`-prefixed (0,2,0), so it beats both theme.css
+   (0,1,0) and the per-page <style> blocks (0,1,0) without needing them gone.
+   Properties are reset explicitly rather than assumed, so the layer holds up
+   even where a page block sets something unexpected.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── structure ── */
+.mdd .section        { padding:var(--band) var(--gut); }
+.mdd .section-sm     { padding:var(--band-sm) var(--gut); }
+.mdd .container      { max-width:var(--maxw); margin:0 auto; padding:0; }
+.mdd .container-sm   { max-width:880px; margin:0 auto; padding:0; }
+.mdd .container-xs   { max-width:680px; margin:0 auto; padding:0; }
+
+.mdd .bg-light{ background:var(--paper); background-image:none; color:var(--on-pap-2); }
+.mdd .bg-white{ background:var(--paper-3); background-image:none; color:var(--on-pap-2); }
+.mdd .bg-card{
+  background:var(--ink-700); background-image:none; color:var(--on-ink-2);
+  border-top:1px solid var(--line-ink); border-bottom:1px solid var(--line-ink);
+}
+/* theme.css paints the dealership-lot photo behind EVERY dark band. Repeating
+   one photo down a page is most of why the site read busy. Dark bands are now
+   flat ink; the photo is reserved for the hero. */
+.mdd .bg-dark{ background:var(--ink-800); background-image:none; color:var(--on-ink-2); }
+.mdd .bg-dark h1,.mdd .bg-dark h2,.mdd .bg-dark h3,
+.mdd .bg-card h1,.mdd .bg-card h2,.mdd .bg-card h3{ color:var(--on-ink-1); }
+
+/* ── type ── */
+.mdd h1,.mdd h2,.mdd h3,.mdd h4{ font-weight:500; letter-spacing:-.03em; line-height:1.06; }
+.mdd h1{ font-size:clamp(42px,7.4vw,96px); letter-spacing:-.042em; line-height:.99; }
+.mdd h2{ font-size:clamp(32px,5vw,62px);  letter-spacing:-.036em; line-height:1.04; }
+.mdd h3{ font-size:clamp(20px,2.2vw,26px);letter-spacing:-.022em; line-height:1.2; }
+
+.mdd .lp-light-h2{ color:var(--on-pap-1); }
+.mdd .lp-light-sub{
+  color:var(--on-pap-2); font-size:clamp(17px,1.45vw,19.5px); line-height:1.6;
+  max-width:56ch; margin-left:auto; margin-right:auto;
+}
+
+/* The mono/green/letterspaced eyebrow was the least premium element on the
+   site. Same markup, quiet label treatment. */
+.mdd .section-tag,.mdd .section-tag.light,.mdd .section-tag.green,.mdd .section-tag.gold{
+  font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--on-pap-3);
+  border-bottom:none; padding-bottom:0; margin-bottom:var(--s5);
+}
+.mdd .bg-dark .section-tag,.mdd .bg-card .section-tag,.mdd .hero .section-tag{ color:var(--on-ink-3); }
+
+/* ── actions ── */
+.mdd .btn,.mdd .btn-primary{
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--grn-500); color:var(--ink-800);
+  font-family:inherit; font-size:15.5px; font-weight:700; letter-spacing:-.008em;
+  padding:16px 32px; border-radius:999px; border:none; box-shadow:none;
+  text-decoration:none; cursor:pointer;
+  transition:background var(--fast) var(--ease), transform var(--fast) var(--ease);
+}
+.mdd .btn-primary:hover,.mdd .btn:hover{
+  background:var(--grn-400); color:var(--ink-800); transform:translateY(-1px); box-shadow:none;
+}
+.mdd .btn-outline{
+  display:inline-flex; align-items:center; gap:10px;
+  background:transparent; border:1px solid var(--line-pap); color:var(--on-pap-1);
+  font-family:inherit; font-size:15.5px; font-weight:600;
+  padding:15px 30px; border-radius:999px; text-decoration:none;
+  transition:border-color var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.mdd .bg-dark .btn-outline,.mdd .hero .btn-outline{ border-color:var(--line-ink); color:var(--on-ink-1); }
+.mdd .btn-outline:hover{ border-color:var(--grn-500); color:var(--grn-700); }
+.mdd .bg-dark .btn-outline:hover,.mdd .hero .btn-outline:hover{ color:var(--grn-500); }
+.mdd .cta-group,.mdd .cta-row{ display:flex; align-items:center; gap:var(--s6); flex-wrap:wrap; }
+.mdd .hero .cta-group,.mdd .hero .cta-row{ margin-top:var(--s7); }
+
+/* Legacy pill badge → quiet label */
+.mdd .tag,.mdd .tag-green,.mdd .tag-gold{
+  display:inline-block; background:none; border:none; padding:0;
+  font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--on-ink-3); margin-bottom:var(--s5);
+}
+
+/* ── hero ──
+   The lot photograph stays: it is a real brand asset and the homepage LCP.
+   What changes is the scrim. The old 100deg diagonal left the headline sitting
+   over a near-transparent right edge; this one is vertical with a left bias,
+   so type is legible at every width and the photo still reads. */
+.mdd .hero{
+  padding:clamp(150px,15vw,208px) var(--gut) clamp(64px,7vw,104px);
+  background-color:var(--ink-800);
+  background-position:center; background-size:cover;
+  position:relative;
+}
+/* The content column is centred at max 1240px, so on a wide monitor the copy
+   sits mid-frame, not in the left third — a left-biased scrim leaves the lede
+   over bright showroom glass. Weighted across the content zone, falling away
+   only at the far right where the service drive and most pins are. */
+.mdd .hero::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(8,10,12,.93) 0%, rgba(8,10,12,.86) 38%, rgba(8,10,12,.58) 68%, rgba(8,10,12,.22) 100%),
+    linear-gradient(180deg, rgba(8,10,12,.40) 0%, rgba(8,10,12,.18) 42%, rgba(8,10,12,.46) 100%);
+}
+@media (max-width:768px){
+  .mdd .hero::after{
+    background:linear-gradient(180deg, rgba(8,10,12,.55) 0%, rgba(8,10,12,.74) 46%, rgba(8,10,12,.88) 100%);
+  }
+}
+.mdd .hero > *{ position:relative; z-index:1; }
+.mdd .hero h1{ color:var(--on-ink-1); margin-bottom:var(--s5); }
+.mdd .hero .sub{
+  color:rgba(255,255,255,.94); font-size:clamp(17px,1.45vw,19.5px); line-height:1.6;
+  max-width:54ch; margin-bottom:0;
+}
+.mdd .hero .tag,.mdd .hero .mdd-label{ color:rgba(255,255,255,.78); }
+.mdd .hero .mdd-alink{ color:#fff; }
+.mdd .hero h1,.mdd .hero .sub,.mdd .hero .tag,
+.mdd .hero .mdd-label,.mdd .hero .mdd-alink{ text-shadow:0 1px 28px rgba(8,10,12,.55); }
+.mdd .hero-content,.mdd .hero-grid{ max-width:var(--maxw); margin:0 auto; }
+.mdd .hero-grid{
+  display:grid; grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:clamp(36px,5vw,72px); align-items:center;
+}
+.mdd .hero-image img{ border-radius:0; box-shadow:none; filter:drop-shadow(0 38px 68px rgba(0,0,0,.62)); }
+.mdd .hero-glow,.mdd .cta-glow{ display:none; }
+@media (max-width:1000px){
+  .mdd .hero{ padding-top:clamp(112px,14vw,150px); }
+  .mdd .hero-grid{ grid-template-columns:1fr; }
+}
+
+/* ── trust strip ── */
+.mdd .home-trust{ background:var(--paper); border-bottom:1px solid var(--line-pap); }
+.mdd .home-trust .inner{ max-width:var(--maxw); margin:0 auto; padding:var(--s7) var(--gut); text-align:left; }
+.mdd .home-trust .eyebrow{
+  font-size:10.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
+  color:var(--on-pap-3); margin-bottom:var(--s4);
+}
+.mdd .home-trust .names{ display:flex; flex-wrap:wrap; justify-content:flex-start; gap:12px 40px; }
+.mdd .home-trust .names span{ font-size:15px; font-weight:500; color:var(--on-pap-1); opacity:1; }
+
+/* ── cards → hairline columns ── */
+.mdd .home-cards{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  margin-top:clamp(48px,6vw,76px); border-top:1px solid var(--line-pap);
+}
+.mdd .home-card{
+  background:none; border:none; border-left:1px solid var(--line-pap);
+  border-radius:0; box-shadow:none; padding:var(--s7) var(--s6) 0;
+}
+.mdd .home-cards > .home-card:first-child{ border-left:none; padding-left:0; }
+.mdd .home-card h3{
+  color:var(--on-pap-1); font-size:clamp(20px,2.2vw,26px); font-weight:500;
+  letter-spacing:-.022em; margin-bottom:var(--s3);
+}
+.mdd .home-card p{ color:var(--on-pap-2); font-size:15px; line-height:1.55; margin-bottom:var(--s5); max-width:30ch; }
+/* the pill becomes an attributed figure line */
+.mdd .home-card .metric{
+  display:block; background:none; border-radius:0; padding:0;
+  font-size:10.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--grn-700);
+}
+.mdd .bg-dark .home-card .metric{ color:var(--grn-500); }
+
+/* ── steps ── */
+.mdd .home-steps{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  margin-top:clamp(44px,5vw,72px); border-top:1px solid var(--line-pap); text-align:left;
+}
+.mdd .home-step{ border-left:1px solid var(--line-pap); padding:var(--s7) var(--s6) 0; }
+.mdd .home-steps > .home-step:first-child{ border-left:none; padding-left:0; }
+.mdd .home-step .n{
+  width:auto; height:auto; border-radius:0; background:none; margin:0 0 var(--s5);
+  display:block; font-size:10.5px; font-weight:600; letter-spacing:.17em;
+  color:var(--grn-700); font-variant-numeric:tabular-nums;
+}
+.mdd .home-step h3{
+  color:var(--on-pap-1); font-size:clamp(20px,2.2vw,26px); font-weight:500;
+  letter-spacing:-.022em; margin-bottom:var(--s3);
+}
+.mdd .home-step p{ color:var(--on-pap-2); font-size:15px; line-height:1.55; max-width:28ch; }
+
+/* ── figures ── */
+.mdd .home-stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+  margin-top:clamp(48px,6vw,76px); border-top:1px solid var(--line-ink); text-align:left;
+}
+.mdd .home-stat{
+  background:none; border:none; border-left:1px solid var(--line-ink);
+  border-radius:0; padding:var(--s7) var(--s6) 0;
+}
+.mdd .home-stats > .home-stat:first-child{ border-left:none; padding-left:0; }
+.mdd .home-stat .num,.mdd .home-stat .num.green,.mdd .home-stat .num.gold{
+  font-size:clamp(34px,4.4vw,58px); font-weight:400; line-height:1; letter-spacing:-.042em;
+  color:var(--on-ink-1); font-variant-numeric:tabular-nums;
+}
+.mdd .home-stat .label{ font-size:14.5px; color:var(--on-ink-2); margin-top:var(--s4); line-height:1.45; max-width:22ch; }
+
+/* ── quote ── */
+.mdd .home-quote{ max-width:none; margin:0; text-align:left; }
+.mdd .home-quote blockquote{
+  font-size:clamp(24px,3.4vw,40px); font-weight:400; font-style:normal;
+  line-height:1.16; letter-spacing:-.028em; color:var(--on-pap-1);
+  max-width:22ch; margin-bottom:var(--s6);
+}
+.mdd .bg-dark .home-quote blockquote{ color:var(--on-ink-1); }
+.mdd .home-quote .who{
+  font-size:14.5px; color:var(--on-pap-3);
+  padding-top:var(--s5); border-top:1px solid var(--line-pap);
+}
+.mdd .home-quote .who b{ color:var(--on-pap-1); font-weight:600; }
+
+/* ── showcase image ── */
+.mdd .home-showcase img{ border:none; border-radius:0; box-shadow:0 34px 60px rgba(0,0,0,.16); }
+
+/* ── product grid ── */
+.mdd .home-products{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s7) var(--s6);
+  margin-top:clamp(48px,6vw,76px); text-align:left;
+}
+.mdd .hp-card{ background:none; border:none; border-radius:0; box-shadow:none; overflow:visible; display:flex; flex-direction:column; }
+.mdd .hp-card img{ border:none; border-bottom:none; border-radius:0; background:var(--ink-800); height:200px; object-fit:cover; }
+.mdd .hp-body{ padding:var(--s5) 0 0; border-top:1px solid var(--line-pap); margin-top:var(--s5); display:flex; flex-direction:column; flex:1; }
+.mdd .hp-body h3{ color:var(--on-pap-1); font-size:clamp(19px,2vw,23px); font-weight:500; letter-spacing:-.022em; margin-bottom:var(--s2); }
+.mdd .hp-body p{ color:var(--on-pap-2); font-size:15px; line-height:1.55; margin-bottom:var(--s5); flex:1; }
+.mdd .hp-more{
+  align-self:flex-start; background:none; border:none; border-radius:0; padding:0 0 3px;
+  border-bottom:1px solid transparent; color:var(--on-pap-1);
+  font-weight:500; font-size:15px; text-decoration:none;
+  transition:color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.mdd .hp-more:hover{ background:none; color:var(--grn-700); border-bottom-color:var(--grn-700); }
+
+/* ── legacy theme.css components, de-carded ── */
+.mdd .stat-card,.mdd .feature-card,.mdd .proof-card,.mdd .test-card,.mdd .vs-col,.mdd .guarantee{
+  background:none; border:none; border-radius:0; box-shadow:none; transform:none;
+}
+.mdd .stat-grid{ gap:0; border-top:1px solid var(--line-pap); }
+.mdd .bg-dark .stat-grid{ border-top-color:var(--line-ink); }
+.mdd .stat-card{ border-left:1px solid var(--line-pap); padding:var(--s7) var(--s6) 0; text-align:left; }
+.mdd .bg-dark .stat-card{ border-left-color:var(--line-ink); }
+.mdd .stat-grid > .stat-card:first-child{ border-left:none; padding-left:0; }
+.mdd .stat-card:hover{ transform:none; }
+.mdd .stat-card .num,.mdd .stat-card .num.gold{
+  font-family:inherit; font-size:clamp(34px,4.4vw,58px); font-weight:400;
+  letter-spacing:-.042em; line-height:1; color:var(--on-pap-1); font-variant-numeric:tabular-nums;
+}
+.mdd .bg-dark .stat-card .num,.mdd .bg-dark .stat-card .num.gold{ color:var(--on-ink-1); }
+.mdd .stat-card .label{ font-size:14.5px; margin-top:var(--s4); line-height:1.45; max-width:22ch; }
+.mdd .stat-card .dealer{
+  font-size:10.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--grn-700); margin-top:var(--s3);
+}
+.mdd .bg-dark .stat-card .dealer{ color:var(--grn-500); }
+.mdd .feature-card:hover{ background:none; border-color:transparent; }
+.mdd .feature-card h3{ font-size:clamp(19px,2vw,23px); font-weight:500; letter-spacing:-.022em; }
+.mdd .vs-col.bad{ border-top:1px solid var(--red); padding:var(--s5) var(--s5) 0 0; }
+.mdd .vs-col.good{ border-top:1px solid var(--grn-500); padding:var(--s5) var(--s5) 0 0; }
+.mdd .testimonial-lg .quote-mark{ display:none; }
+.mdd .testimonial-lg blockquote{
+  font-size:clamp(24px,3.4vw,40px); font-weight:400; font-style:normal;
+  line-height:1.16; letter-spacing:-.028em; color:var(--on-ink-1);
+}
+.mdd .cta-section{ padding:var(--band) var(--gut); }
+.mdd .cta-section::before{ display:none; }
+.mdd .cta-section h2{ font-size:clamp(32px,5vw,62px); }
+.mdd .cta-section p{ font-size:clamp(17px,1.45vw,19.5px); }
+
+@media (max-width:1000px){
+  .mdd .home-cards,.mdd .home-steps,.mdd .home-products{ grid-template-columns:1fr 1fr; }
+  .mdd .home-stats,.mdd .stat-grid.cols-4{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:600px){
+  .mdd .home-cards,.mdd .home-steps,.mdd .home-products,
+  .mdd .home-stats,.mdd .stat-grid,.mdd .stat-grid.cols-3,.mdd .stat-grid.cols-4{ grid-template-columns:1fr; }
+  .mdd .home-card,.mdd .home-step,.mdd .home-stat,.mdd .stat-card{
+    border-left:none; padding:var(--s5) 0; border-bottom:1px solid var(--line-pap);
+  }
+  .mdd .home-stat,.mdd .bg-dark .stat-card{ border-bottom-color:var(--line-ink); }
+  .mdd .home-cards > :last-child,.mdd .home-steps > :last-child,
+  .mdd .home-stats > :last-child,.mdd .stat-grid > :last-child{ border-bottom:none; }
+  .mdd .home-trust .names{ gap:8px 24px; }
+  .mdd .btn,.mdd .btn-primary,.mdd .btn-outline{ width:100%; justify-content:center; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MODULE OUTPUT
+   Styles for the markup the shared modules emit. Every class here is one a
+   module actually renders — the previous set (bg--light, tag--gold,
+   feature-grid--3col, .step-card, .testimonial-quote) existed in no
+   stylesheet, which is why those sections rendered unstyled.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Arrow glyph shared by every action */
+.mdd .ar{ display:inline-block; transition:transform var(--fast) var(--ease); }
+.mdd .btn:hover .ar,.mdd .btn-primary:hover .ar,
+.mdd .btn-outline:hover .ar,.mdd .hp-more:hover .ar{ transform:translateX(3px); }
+
+/* ── hero, centered variant ── */
+.mdd .hero.hero-center .hero-content{ text-align:left; }
+.mdd .hero .hero-content{ max-width:var(--maxw); }
+.mdd .hero h1{ max-width:18ch; }
+.mdd .hero.hero-center h1{ max-width:20ch; }
+
+/* ── closing CTA ── */
+.mdd .cta-section{ text-align:left; }
+.mdd .cta-section h2{ max-width:16ch; margin-bottom:var(--s5); }
+.mdd .cta-section .cta-desc{ color:var(--on-ink-2); max-width:52ch; margin:0; }
+.mdd .cta-section.bg-light .cta-desc{ color:var(--on-pap-2); }
+.mdd .cta-group-center{ margin-top:var(--s7); }
+.mdd .cta-phone{
+  font-size:15px; color:var(--on-ink-2); text-decoration:none;
+  padding-bottom:3px; border-bottom:1px solid var(--line-ink);
+  transition:color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.mdd .cta-phone:hover{ color:var(--grn-500); border-bottom-color:var(--grn-500); }
+.mdd .bg-light .cta-phone{ color:var(--on-pap-2); border-bottom-color:var(--line-pap); }
+.mdd .bg-light .cta-phone:hover{ color:var(--grn-700); border-bottom-color:var(--grn-700); }
+
+/* ── pain strip ── */
+.mdd .pain-strip{ text-align:left; }
+.mdd .pain-strip h2{ max-width:20ch; }
+.mdd .pain-strip .pain-desc{
+  font-size:clamp(17px,1.45vw,19.5px); line-height:1.6; max-width:54ch; margin-top:var(--s5);
+}
+.mdd .pain-items{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0;
+  margin-top:clamp(44px,5vw,72px); border-top:1px solid var(--line-pap);
+}
+.mdd .bg-dark .pain-items{ border-top-color:var(--line-ink); }
+.mdd .pain-item{
+  font-family:inherit; font-size:16px; color:inherit;
+  padding:var(--s5) var(--s6) var(--s5) 0; border-bottom:1px solid var(--line-pap);
+}
+.mdd .bg-dark .pain-item{ border-bottom-color:var(--line-ink); color:var(--on-ink-1); }
+.mdd .pain-item::before{ content:''; }
+
+/* ── feature grid ── */
+.mdd .feature-grid{ gap:0; margin-top:clamp(44px,5vw,72px); border-top:1px solid var(--line-pap); }
+.mdd .bg-dark .feature-grid{ border-top-color:var(--line-ink); }
+.mdd .feature-card{
+  display:block; padding:var(--s7) var(--s6) 0;
+  border-left:1px solid var(--line-pap); text-align:left;
+}
+.mdd .bg-dark .feature-card{ border-left-color:var(--line-ink); }
+.mdd .feature-grid > .feature-card:first-child{ border-left:none; padding-left:0; }
+.mdd .feature-card h3{ color:var(--on-pap-1); margin-bottom:var(--s3); }
+.mdd .bg-dark .feature-card h3{ color:var(--on-ink-1); }
+.mdd .feature-card p{ font-size:15px; line-height:1.55; max-width:32ch; color:inherit; }
+
+/* ── comparison ── */
+.mdd .vs-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,6vw,88px);
+  margin-top:clamp(44px,5vw,72px); text-align:left;
+}
+.mdd .vs-divider{ display:none; }
+.mdd .vs-col h3{ font-size:clamp(19px,2vw,23px); text-transform:none; letter-spacing:-.022em; margin-bottom:var(--s4); }
+.mdd .vs-col.bad h3{ color:var(--on-pap-1); }
+.mdd .vs-col.good h3{ color:var(--on-pap-1); }
+.mdd .bg-dark .vs-col h3{ color:var(--on-ink-1); }
+.mdd .vs-col ul{ list-style:none; margin:0; padding:0; }
+.mdd .vs-col li{
+  font-size:15px; line-height:1.5; padding:var(--s4) 0 var(--s4) 26px;
+  border-bottom:1px solid var(--line-pap); margin:0; position:relative; color:inherit;
+}
+.mdd .bg-dark .vs-col li{ border-bottom-color:var(--line-ink); }
+.mdd .vs-col.bad li::before{ content:'\2715'; position:absolute; left:0; top:var(--s4); color:var(--red); font-size:13px; }
+.mdd .vs-col.good li::before{ content:'\2713'; position:absolute; left:0; top:var(--s4); color:var(--grn-700); font-size:13px; }
+.mdd .bg-dark .vs-col.good li::before{ color:var(--grn-500); }
+
+/* ── steps image ── */
+.mdd .step-img{ margin-top:var(--s5); border:none; border-radius:0; box-shadow:0 24px 44px rgba(0,0,0,.14); }
+
+/* ── free-sample band ── */
+.mdd .sample-cta-section{ background:var(--paper); }
+.mdd .sample-cta{
+  display:flex; align-items:center; gap:var(--s7); flex-wrap:wrap;
+  background:none; border:none; border-radius:0; box-shadow:none; padding:0;
+  border-top:1px solid var(--line-pap); border-bottom:1px solid var(--line-pap);
+  padding-top:var(--s7); padding-bottom:var(--s7);
+}
+.mdd .sample-cta-text{ flex:1; min-width:260px; }
+.mdd .sample-cta-text h3{ color:var(--on-pap-1); margin-bottom:var(--s2); }
+.mdd .sample-cta-text p{ color:var(--on-pap-2); font-size:15px; line-height:1.55; max-width:52ch; margin:0; }
+.mdd .sample-cta-icon{ display:none; }
+
+/* ── lead form band ── */
+.mdd .lead-form-band{ background:var(--paper-3); border-top:1px solid var(--line-pap); border-bottom:1px solid var(--line-pap); }
+.mdd .lead-form-grid{
+  display:grid; grid-template-columns:minmax(0,5fr) 1fr minmax(0,5fr);
+  gap:0 var(--s6); align-items:center; text-align:left;
+}
+.mdd .lead-form-grid > :first-child{ grid-column:1; }
+.mdd .lead-form-grid > :last-child{ grid-column:3; }
+.mdd .lead-form-grid h3{ color:var(--on-pap-1); margin-bottom:var(--s3); }
+.mdd .lead-form-sub{ font-size:15px; line-height:1.55; color:var(--on-pap-2); max-width:44ch; }
+.mdd .lead-form-band .btn-primary{ white-space:nowrap; }
+
+/* ── FAQ ── */
+.mdd .faq-grid{
+  display:grid; grid-template-columns:minmax(0,5fr) 1fr minmax(0,5fr);
+  gap:0 var(--s6); align-items:start; text-align:left;
+}
+.mdd .faq-grid > :first-child{ grid-column:1; }
+.mdd .faq-grid > :last-child{ grid-column:3; }
+.mdd .faq-sub{ font-size:15px; line-height:1.55; color:var(--on-pap-2); max-width:40ch; margin-top:var(--s5); }
+.mdd .bg-dark .mdd-acc summary{ color:var(--on-ink-1); }
+.mdd .bg-dark .mdd-acc,.mdd .bg-dark .mdd-acc details{ border-color:var(--line-ink); }
+.mdd .bg-dark .mdd-acc .a{ color:var(--on-ink-2); }
+
+@media (max-width:1000px){
+  .mdd .lead-form-grid,.mdd .faq-grid{ grid-template-columns:1fr; gap:var(--s6) 0; }
+  .mdd .lead-form-grid > :first-child,.mdd .lead-form-grid > :last-child,
+  .mdd .faq-grid > :first-child,.mdd .faq-grid > :last-child{ grid-column:1; }
+  .mdd .feature-grid.cols-3,.mdd .feature-grid.cols-2{ grid-template-columns:1fr 1fr; }
+  .mdd .vs-grid{ grid-template-columns:1fr; gap:var(--s7); }
+}
+@media (max-width:600px){
+  .mdd .feature-grid,.mdd .feature-grid.cols-2,.mdd .feature-grid.cols-3{ grid-template-columns:1fr; }
+  .mdd .feature-card{ border-left:none; padding:var(--s5) 0; border-bottom:1px solid var(--line-pap); }
+  .mdd .feature-grid > .feature-card:last-child{ border-bottom:none; }
+  .mdd .sample-cta{ gap:var(--s5); }
+}
+
+/* footer additions used by partials/footer.html */
+.mddx-footer p{ margin:0; color:rgba(255,255,255,.6); }
+.mddx-footer p a{ color:rgba(255,255,255,.66); text-decoration:none; transition:color 200ms; }
+.mddx-footer p a:hover{ color:#8AC833; }
+.mddx-footer__apps{ display:flex; gap:10px; margin-top:24px; }
+.mddx-footer__apps img{ height:34px; width:auto; border-radius:6px; display:block; }
+.mddx-skip:focus{ position:static !important; left:auto !important; display:inline-block; padding:10px 16px; background:#8AC833; color:#0F1216; }
+
+/* The dealership-lot hero photograph.
+   HubL is processed in theme CSS, but get_asset_url resolves to the fs1 CDN
+   host here and to mdd.io in HTML context. The homepage preloads this image in
+   its head block, so homepage.html re-declares the same rule with the mdd.io
+   URL — matching the preload instead of racing it. Other pages take the fs1
+   copy, which is what they already did via theme.css.
+   NB: never write a literal HubL tag in a comment here — the template
+   validator parses it and rejects the upload. */
+.mdd .hero{ background-image:url("{{ get_asset_url('../mdd-assets/hero-lot.jpg') }}"); }
+@media (max-width:768px){
+  .mdd .hero{ background-image:url("{{ get_asset_url('../mdd-assets/hero-lot-mobile.jpg') }}"); }
+}
+
+/* ── SECTION HEAD WITH RULE ──
+   A bare section header leaves the other half of the row empty, which reads as
+   unfinished rather than as air. The rule runs from the heading to the edge and
+   closes the line — the system's own hairline doing structural work, no extra
+   copy required. Use where a header has no supporting column. */
+.mdd-head{ display:flex; align-items:flex-end; gap:var(--s6); }
+.mdd-head > :first-child{ flex:0 1 auto; }
+.mdd-head__rule{ flex:1 1 auto; min-width:40px; height:1px; background:var(--line-pap); margin-bottom:.42em; }
+.mdd-ink .mdd-head__rule,.mdd-ink2 .mdd-head__rule{ background:var(--line-ink); }
+@media (max-width:700px){ .mdd-head__rule{ display:none; } }

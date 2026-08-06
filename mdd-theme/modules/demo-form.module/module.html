@@ -1,0 +1,52 @@
+{# Demo Form Panel — the two-column "form + what to expect" block from Contact
+   Us, with every string exposed as a field so each demo/offer page can speak to
+   its own offer. The form itself stays the Contact form by default (the one
+   that produced the existing deals); change form_guid only on purpose. #}
+{% set target = "hs-demo-form-" ~ name %}
+<section class="section bg-light" style="padding-top:48px;" id="demo">
+  <div class="container">
+    <div class="df-grid">
+
+      {# THE FORM (star) #}
+      <div class="df-form-card">
+        {% if module.form_heading %}<h2>{{ module.form_heading }}</h2>{% endif %}
+        {% if module.form_subhead %}<p class="df-sub">{{ module.form_subhead }}</p>{% endif %}
+        <div id="{{ target }}" class="df-hsform"></div>
+      </div>
+
+      {# INFO (secondary) #}
+      <aside class="df-info">
+        {% if module.show_phone_card %}
+        <div class="df-info-card">
+          <h3>{{ module.phone_heading }}</h3>
+          <a href="tel:{{ module.phone_number|replace('-','')|replace(' ','')|replace('(','')|replace(')','') }}" class="df-phone">{{ module.phone_number }}</a>
+        </div>
+        {% endif %}
+        {% if module.show_expect_card %}
+        <div class="df-info-card">
+          <h3>{{ module.expect_heading }}</h3>
+          {{ module.expect_body }}
+        </div>
+        {% endif %}
+        {% if module.show_location_card %}
+        <div class="df-info-card">
+          <h3>{{ module.location_heading }}</h3>
+          {{ module.location_body }}
+        </div>
+        {% endif %}
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+{# HubSpot form embed #}
+<script charset="utf-8" src="https://js.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "585393",
+    formId: "{{ module.form_guid }}",
+    target: "#{{ target }}"
+  });
+</script>

@@ -1,0 +1,38 @@
+/* Demo Form Panel — the form is the star. Lifted from the Contact Us page so
+   every demo/offer page renders identically to the page that produced the
+   existing deals. Scoped under .mdd so the brand tokens resolve. */
+
+.mdd .df-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:start;max-width:1040px;margin:0 auto;}
+.mdd .df-form-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:40px;box-shadow:0 16px 50px rgba(0,0,0,.12);}
+.mdd .df-form-card h2{color:var(--on-pap-1);font-size:28px;font-weight:500;margin-bottom:6px;}
+.mdd .df-form-card .df-sub{color:var(--on-pap-2);font-size:16px;margin-bottom:26px;}
+
+/* Match the embedded HubSpot form to the card */
+.mdd .df-hsform .hs-form-field{margin-bottom:18px;}
+.mdd .df-hsform .hs-form-field>label{display:block;font-size:14px;font-weight:700;color:var(--on-pap-1);margin-bottom:7px;}
+.mdd .df-hsform .hs-form-required{color:#e5484d;margin-left:2px;}
+.mdd .df-hsform .hs-input{width:100%!important;box-sizing:border-box;padding:14px 16px;background:var(--paper-3);border:1.5px solid #cfd4da;border-radius:10px;color:var(--on-pap-1);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
+.mdd .df-hsform .hs-input::placeholder{color:#9aa1ab;}
+.mdd .df-hsform select.hs-input{height:52px;}
+.mdd .df-hsform .hs-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
+.mdd .df-hsform textarea.hs-input{min-height:110px;resize:vertical;}
+.mdd .df-hsform input[type=checkbox].hs-input,.mdd .df-hsform input[type=radio].hs-input{width:auto!important;margin-right:8px;}
+.mdd .df-hsform fieldset{max-width:100%!important;}
+.mdd .df-hsform fieldset .hs-form-field{width:100%!important;float:none;padding:0;}
+.mdd .df-hsform fieldset .input{margin-right:0!important;}
+.mdd .df-hsform .hs-button{width:100%;background:var(--green);color:var(--ink-800);font-weight:500;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;font-family:'DM Sans',sans-serif;margin-top:6px;}
+.mdd .df-hsform .hs-button:hover{background:var(--grn-700)!important;color:#fff;}
+.mdd .df-hsform .hs-error-msg,.mdd .df-hsform .hs-error-msgs label{color:#e5484d!important;font-size:13px;font-weight:500;}
+.mdd .df-hsform .legal-consent-container,.mdd .df-hsform .hs-richtext{font-size:12px;color:var(--on-pap-3);margin-top:8px;line-height:1.5;}
+.mdd .df-hsform .submitted-message,.mdd .df-hsform .hs-main-font-element{color:var(--on-pap-1);font-size:16px;font-weight:600;}
+
+.mdd .df-info{display:flex;flex-direction:column;gap:16px;}
+.mdd .df-info-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:24px;}
+.mdd .df-info-card h3{color:var(--grn-700);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.mdd .df-info-card p{color:var(--on-pap-2);font-size:15px;line-height:1.6;}
+.mdd .df-phone{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--on-pap-1);text-decoration:none;}
+
+@media(max-width:768px){
+  .mdd .df-grid{grid-template-columns:1fr;}
+  .mdd .df-form-card{padding:28px;}
+}

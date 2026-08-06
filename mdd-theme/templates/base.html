@@ -17,6 +17,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap"></noscript>
   <link rel="stylesheet" href="{{ get_asset_url('../css/theme.css') }}">
+  {# MDD Brand System. Everything is scoped under `.mdd`, so it is inert on any
+     page that has not opted in by wrapping its content. Loaded after theme.css
+     so the brand layer wins where both define a class. #}
+  <link rel="stylesheet" href="{{ get_asset_url('../css/brand.css') }}">
 
   {# Site-wide entity anchor for AI search / knowledge graphs. Keep NAP + sameAs identical everywhere (AEO/GEO). #}
   <script type="application/ld+json">
@@ -66,6 +70,64 @@
       }
     ]
   }
+  </script>
+
+  {# ── OpenAI / ChatGPT Ads measurement pixel ───────────────────────────────
+     Pixel ID Si7m84XwuJJGmzwa11obit. The stub queues calls until the async SDK
+     lands, so `oaiq("measure", ...)` below is safe even if it fires first.
+     Loaded site-wide so ChatGPT-sourced traffic is attributable, not just the
+     conversion. #}
+  <script>
+    window.oaiq = window.oaiq || function () {
+      (window.oaiq.q = window.oaiq.q || []).push(arguments);
+    };
+    oaiq("init", { pixelId: "Si7m84XwuJJGmzwa11obit" });
+  </script>
+  <script async src="https://bzrcdn.openai.com/sdk/oaiq.min.js"></script>
+
+  {# ── Ad-platform conversions on HubSpot form submit ───────────────────────
+     One listener drives every ad pixel so they fire on identical conditions.
+
+     Meta: HubSpot's ads integration only fires `Lead` on HubSpot-hosted landing
+     pages (585393.hs-sites.com). On website pages like mdd.io it fires
+     PageView and nothing else, so Meta's optimiser had never received a single
+     website conversion from this site. Verified by instrumented live test on
+     /demo-key-tracking, Aug 1 2026.
+
+     Listen on BOTH callbacks with a dedupe guard: the Contact form redirects to
+     meetings.hubspot.com within milliseconds, so `onFormSubmitted` (canonical)
+     can lose the race to the navigation, while `onFormSubmit` fires early
+     enough to beat it. First one wins, second is ignored.
+
+     Meta value/currency are required — a Lead with neither is what dragged the
+     pixel's data-quality score to 3.5/10. 175 = midpoint of the $150-200 per
+     real dealership lead.
+
+     NO event_id is sent on either pixel, deliberately. The submission GUID that
+     both browser and server could agree on does not exist yet at
+     `onFormSubmit`. Neither platform may send a matching server-side
+     conversion until that changes, or every lead double-counts. #}
+  <script>
+  (function () {
+    var fired = {};
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || d.type !== 'hsFormCallback') return;
+      if (d.eventName !== 'onFormSubmit' && d.eventName !== 'onFormSubmitted') return;
+
+      // One conversion per form submission, whichever callback lands first.
+      var key = d.id || 'form';
+      if (fired[key]) return;
+      fired[key] = true;
+
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', { value: 175, currency: 'USD' });
+      }
+      if (typeof window.oaiq === 'function') {
+        window.oaiq('measure', 'lead_created', { type: 'customer_action' });
+      }
+    });
+  })();
   </script>
 
   {% block head %}{% endblock head %}

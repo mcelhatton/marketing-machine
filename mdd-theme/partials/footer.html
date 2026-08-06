@@ -2,41 +2,65 @@
   templateType: global_partial
   label: MDD Footer
 -->
-<footer class="mdd-footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="https://mdd.io" class="logo"><img src="https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png?width=280&height=84" alt="Mobile Dealer Data" width="280" height="84" loading="lazy" decoding="async" style="height:32px;width:auto;margin-bottom:12px;"></a>
-      <p class="tagline">Transforming dealership operations with real-time vehicle and key tracking. Find every car, every key, every time.</p>
-      <div class="app-badges">
-        <a href="https://apps.apple.com/us/app/mdd-rtls/id6467995807"><img src="https://mdd.io/hubfs/appstore.png" alt="Download on App Store" loading="lazy" decoding="async"></a>
-        <a href="https://play.google.com/store/apps/details?id=io.mdd.mddrtls&pli=1"><img src="https://mdd.io/hubfs/googleplay.webp" alt="Get on Google Play" loading="lazy" decoding="async"></a>
+{# MDD Brand System footer. Styles live in css/brand.css under `.mddx-`. #}
+
+<footer class="mddx-footer">
+  <div class="mddx-footer__in">
+    <div class="mddx-footer__top">
+
+      <div class="mddx-footer__brand">
+        <a href="https://mdd.io" class="mark" title="Mobile Dealer Data">
+          <img src="https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png?width=280&height=84"
+               alt="Mobile Dealer Data" width="280" height="84" loading="lazy" decoding="async">
+        </a>
+        <a href="tel:8442927110" class="tel">844-292-7110</a>
+        <div class="mddx-footer__apps">
+          <a href="https://apps.apple.com/us/app/mdd-rtls/id6467995807">
+            <img src="https://mdd.io/hubfs/appstore.png" alt="Download on the App Store" loading="lazy" decoding="async">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=io.mdd.mddrtls&pli=1">
+            <img src="https://mdd.io/hubfs/googleplay.webp" alt="Get it on Google Play" loading="lazy" decoding="async">
+          </a>
+        </div>
       </div>
+
+      <div>
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="https://mdd.io/mdd-key-tracking">Key Tracking</a></li>
+          <li><a href="https://mdd.io/mdd-lot-management">Lot Management</a></li>
+          <li><a href="https://mdd.io/mdd-service-workflow">Service Workflow</a></li>
+          <li><a href="https://mdd.io/mdd-recon-workflow">Recon Workflow</a></li>
+          <li><a href="https://mdd.io/mdd-vehiclevault">VehicleVault F&amp;I</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="https://mdd.io/how-it-works">How It Works</a></li>
+          <li><a href="https://mdd.io/mdd-proof">Proof</a></li>
+          <li><a href="https://mdd.io/insights">Insights</a></li>
+          <li><a href="https://mdd.io/about">About</a></li>
+          <li><a href="https://mdd.io/contact-us">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contact</h4>
+        <p>5600 Pioneer Creek Drive<br>Maple Plain, MN 55359</p>
+        <p style="margin-top:12px;"><a href="https://mddrtls.com/signin">Customer Login</a></p>
+      </div>
+
     </div>
-    <div class="footer-links">
-      <h4>Solutions</h4>
-      <ul>
-        <li><a href="https://mdd.io/mdd-key-tracking">Key Tracking</a></li>
-        <li><a href="https://mdd.io/mdd-lot-management">Lot Management</a></li>
-        <li><a href="https://mdd.io/mdd-service-workflow">Service Workflow</a></li>
-        <li><a href="https://mdd.io/mdd-recon-workflow">Recon Workflow</a></li>
-        <li><a href="https://mdd.io/mdd-vehiclevault">VehicleVault F&amp;I</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="https://mdd.io">Home</a></li>
-        <li><a href="https://mdd.io/how-it-works">How It Works</a></li>
-        <li><a href="https://mdd.io/mdd-proof">Proof</a></li>
-        <li><a href="https://mdd.io/contact-us">Contact Us</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; {{ year }} Mobile Dealer Data. All rights reserved.</span>
-    <div>
-      <a href="https://mdd.io/privacy-policy">Privacy Policy</a>
-      <a href="tel:8442927110">844-292-7110</a>
+
+    <div class="mddx-footer__bot">
+      <span>&copy; {{ year }} Mobile Dealer Data. All rights reserved.</span>
+      <span>
+        <a href="https://mdd.io/privacy-policy">Privacy Policy</a>
+        <a href="https://mdd.io/glossary">Glossary</a>
+        <a href="tel:8442927110">844-292-7110</a>
+      </span>
     </div>
   </div>
 </footer>

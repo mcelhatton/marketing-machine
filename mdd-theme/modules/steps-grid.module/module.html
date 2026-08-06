@@ -1,55 +1,37 @@
-{# Steps Grid Module #}
+{# Steps — numbered because the content genuinely is a sequence. #}
 <section id="{{ module.section_id }}" class="section bg-{{ module.background }}">
   <div class="container">
-    {% if module.section_tag %}
-    <span class="tag tag-{{ module.tag_style }}">{{ module.section_tag }}</span>
-    {% endif %}
-
-    {% if module.headline %}
-    <h2 class="section-headline">{{ module.headline }}</h2>
-    {% endif %}
-
-    <div class="steps-grid">
-      {# Step 1 #}
-      <div class="step-card">
-        <div class="step-num">1</div>
-        {% if module.step_1_image %}
-        <div class="step-image">
-          <img src="{{ module.step_1_image }}" alt="{{ module.step_1_title }}" style="max-width: 180px;">
-        </div>
-        {% endif %}
+    {% if module.section_tag %}<div class="section-tag">{{ module.section_tag }}</div>{% endif %}
+    {% if module.headline %}<h2>{{ module.headline }}</h2>{% endif %}
+    <div class="home-steps">
+      {% if module.step_1_title %}
+      <div class="home-step">
+        <div class="n">01</div>
         <h3>{{ module.step_1_title }}</h3>
         <p>{{ module.step_1_description }}</p>
+        {% if module.step_1_image %}<img class="step-img" src="{{ module.step_1_image }}" alt="{{ module.step_1_title }}" loading="lazy" decoding="async">{% endif %}
       </div>
-
-      {# Step 2 #}
-      <div class="step-card">
-        <div class="step-num">2</div>
-        {% if module.step_2_image %}
-        <div class="step-image">
-          <img src="{{ module.step_2_image }}" alt="{{ module.step_2_title }}" style="max-width: 180px;">
-        </div>
-        {% endif %}
+      {% endif %}
+      {% if module.step_2_title %}
+      <div class="home-step">
+        <div class="n">02</div>
         <h3>{{ module.step_2_title }}</h3>
         <p>{{ module.step_2_description }}</p>
+        {% if module.step_2_image %}<img class="step-img" src="{{ module.step_2_image }}" alt="{{ module.step_2_title }}" loading="lazy" decoding="async">{% endif %}
       </div>
-
-      {# Step 3 #}
-      <div class="step-card">
-        <div class="step-num">3</div>
-        {% if module.step_3_image %}
-        <div class="step-image">
-          <img src="{{ module.step_3_image }}" alt="{{ module.step_3_title }}" style="max-width: 180px;">
-        </div>
-        {% endif %}
+      {% endif %}
+      {% if module.step_3_title %}
+      <div class="home-step">
+        <div class="n">03</div>
         <h3>{{ module.step_3_title }}</h3>
         <p>{{ module.step_3_description }}</p>
+        {% if module.step_3_image %}<img class="step-img" src="{{ module.step_3_image }}" alt="{{ module.step_3_title }}" loading="lazy" decoding="async">{% endif %}
       </div>
+      {% endif %}
     </div>
-
     {% if module.show_bottom_cta %}
-    <div class="section-cta">
-      <a href="{{ module.cta_url }}" class="btn btn-primary">{{ module.cta_text }} &rarr;</a>
+    <div class="cta-group" style="margin-top:48px;">
+      <a href="{{ module.cta_url }}" class="btn btn-primary">{{ module.cta_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
     </div>
     {% endif %}
   </div>

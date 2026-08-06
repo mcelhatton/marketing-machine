@@ -1,19 +1,13 @@
-{# CTA Section Module #}
+{# Closing CTA — brand system. #}
 <section id="{{ module.section_id }}" class="section cta-section bg-{{ module.background }}">
-  <div class="cta-glow"></div>
-  <div class="container-sm cta-content">
-    {% if module.headline %}
-    <h2>{{ module.headline }}</h2>
-    {% endif %}
-
-    {% if module.description %}
-    <p class="cta-desc">{{ module.description }}</p>
-    {% endif %}
-
-    <a href="{{ module.cta_url }}" class="btn btn-primary btn-large">{{ module.cta_text }} &rarr;</a>
-
-    {% if module.show_phone and module.phone_number %}
-    <p class="cta-phone">Or call us: <a href="tel:{{ module.phone_number }}">{{ module.phone_number }}</a></p>
-    {% endif %}
+  <div class="container-sm">
+    {% if module.headline %}<h2>{{ module.headline }}</h2>{% endif %}
+    {% if module.description %}<p class="cta-desc">{{ module.description }}</p>{% endif %}
+    <div class="cta-group cta-group-center">
+      <a href="{{ module.cta_url }}" class="btn btn-primary">{{ module.cta_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
+      {% if module.show_phone and module.phone_number %}
+      <a href="tel:{{ module.phone_number }}" class="cta-phone">Or call {{ module.phone_number }}</a>
+      {% endif %}
+    </div>
   </div>
 </section>

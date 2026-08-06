@@ -2,120 +2,110 @@
   templateType: global_partial
   label: MDD Header
 -->
-{# Dark "df-header" styled for the new preview site. Links point to preview-* pages. #}
-<style>
-.df-header{left:0;padding:1rem 1.5rem;position:fixed;right:0;top:0;z-index:1000}.df-header__inner{margin:0 auto;max-width:1280px}.df-header__card{align-items:center;background:#1A1E24;border:1px solid #2D3239;border-radius:9999px;box-shadow:0 4px 20px rgba(0,0,0,.35);display:flex;justify-content:space-between;padding:.6rem .6rem .6rem 1.5rem}.df-header__logo{align-items:center;display:flex;flex-shrink:0}.df-header__logo img{height:40px;width:auto}.df-header__nav{align-items:center;display:flex;gap:.375rem}.df-header__nav-item{position:relative}.df-header__nav-link{align-items:center;background:none;border:none;border-radius:9999px;color:#fff;cursor:pointer;display:inline-flex;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-size:.95rem;font-weight:600;gap:.3rem;padding:.6rem .9rem;text-decoration:none;transition:all .2s ease;white-space:nowrap}.df-header__nav-link:hover{background-color:rgba(255,255,255,.06);color:#8ac833}.df-header__nav-link svg{height:14px;transition:transform .2s ease;width:14px}.df-header__nav-item:hover .df-header__nav-link svg{transform:rotate(180deg)}.df-header__dropdown{background:#22272E;border:1px solid #2D3239;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.5);left:50%;margin-top:.5rem;min-width:220px;opacity:0;padding:.5rem;position:absolute;top:100%;transform:translateX(-50%);transition:all .25s ease;visibility:hidden}.df-header__nav-item:hover .df-header__dropdown{opacity:1;transform:translateX(-50%) translateY(0);visibility:visible}.df-header__dropdown-link{border-radius:8px;color:#F5F6F4;display:block;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-size:.95rem;font-weight:500;padding:.65rem .95rem;text-decoration:none;transition:all .15s ease}.df-header__dropdown-link:hover{background-color:rgba(138,200,51,.12);color:#8ac833}.df-header__actions{align-items:center;display:flex;gap:.75rem}.df-header__login{border-radius:9999px;color:#fff;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-size:.95rem;font-weight:600;padding:.6rem 1rem;text-decoration:none;transition:all .2s ease}.df-header__login:hover{background-color:rgba(255,255,255,.06);color:#8ac833}.df-header__cta{align-items:center;background:linear-gradient(135deg,#8ac833,#5e970f);border-radius:9999px;box-shadow:0 2px 8px rgba(138,200,51,.25);color:#1A1E24;display:inline-flex;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-size:.95rem;font-weight:700;gap:.3rem;padding:.7rem 1.35rem;text-decoration:none;transition:all .3s ease}.df-header__cta:hover{background:linear-gradient(135deg,#8ac833,#5e970f);box-shadow:0 6px 20px rgba(138,200,51,.4);color:#1A1E24;transform:translateY(-2px)}.df-header__cta svg{height:14px;width:14px}.df-header__mobile-toggle{align-items:center;background:rgba(255,255,255,.08);border:none;border-radius:50%;cursor:pointer;display:none;height:44px;justify-content:center;transition:all .2s ease;width:44px}.df-header__mobile-toggle:hover{background:rgba(255,255,255,.15)}.df-header__mobile-toggle svg{color:#fff;height:20px;width:20px}.df-header__phone{align-items:center;color:#fff;cursor:pointer;display:inline-flex;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;font-size:.95rem;font-weight:600;gap:.35rem;border-radius:9999px;padding:.6rem .75rem;text-decoration:none;transition:all .2s ease;white-space:nowrap}.df-header__phone:hover{background-color:rgba(255,255,255,.06);color:#8ac833}.df-header__phone svg{height:14px;width:14px}@media (max-width:1100px){.df-header{padding:.25rem}.df-header__card{border-radius:14px;padding:.25rem .25rem .25rem .625rem}.df-header__nav{background:#1A1E24;border-radius:0;bottom:0;box-shadow:none;box-sizing:border-box;display:none;flex-direction:column;gap:.25rem;left:0;overflow-x:hidden;overflow-y:auto;padding:4rem .75rem 1.5rem;position:fixed;right:0;top:0;z-index:999}.df-header__nav.active{display:flex}.df-header__nav-item{width:100%}.df-header__nav-link{background:#22272E;border-radius:10px;font-size:.9375rem;justify-content:space-between;min-height:48px;padding:.875rem .75rem;width:100%}.df-header__dropdown{background:#161A1F;border:1px solid #2D3239;border-radius:10px;box-shadow:none;margin-top:.375rem;max-height:0;min-width:100%;opacity:1;overflow:hidden;padding:0;position:static;transform:none;visibility:visible;width:100%}.df-header__nav-item:hover .df-header__dropdown{transform:none}.df-header__nav-item.active .df-header__dropdown{max-height:600px;padding:.375rem}.df-header__dropdown-link{align-items:center;box-sizing:border-box;display:flex;font-size:.875rem;min-height:44px;padding:.75rem 1rem;text-align:left;white-space:normal;width:100%;word-wrap:break-word}.df-header__nav-item.active .df-header__nav-link svg{transform:rotate(180deg)}.df-header__login{display:none}.df-header__phone{display:none}.df-header__mobile-toggle{display:flex;height:36px;width:36px;z-index:1001}.df-header__mobile-toggle svg{height:18px;width:18px}.df-header__cta{font-size:.6875rem;padding:.5rem .75rem}.df-header__card{position:relative;z-index:1000}}@media (max-width:640px){.df-header{padding:.1875rem}.df-header__card{border-radius:12px;padding:.1875rem .1875rem .1875rem .5rem}.df-header__cta{font-size:.625rem;padding:.375rem .5rem}.df-header__cta svg{display:none}.df-header__logo img{height:22px}.df-header__mobile-toggle{height:32px;width:32px}.df-header__mobile-toggle svg{height:16px;width:16px}.df-header__nav{padding:3.5rem .5rem 1rem}.df-header__nav-link{border-radius:8px;font-size:.875rem;min-height:44px;padding:.75rem .625rem}.df-header__dropdown{border-radius:8px;margin-top:.25rem}.df-header__nav-item.active .df-header__dropdown{padding:.25rem}.df-header__dropdown-link{box-sizing:border-box;font-size:.8125rem;min-height:40px;padding:.625rem .875rem;width:100%}}
-</style>
+{# MDD Brand System header. Styles live in css/brand.css under `.mddx-`.
 
-<header class="df-header">
-  <a href="#main-content" class="header__skip" style="position: absolute; left: -10000px;">Skip to content</a>
+   Replaces the floating pill + gradient button: gradients date fast and do not
+   survive being scaled. This bar is transparent over a dark hero and
+   solidifies on scroll, so the hero photograph is never cropped by a chrome
+   card sitting on top of it. #}
 
-  <div class="df-header__inner">
-    <div class="df-header__card">
-      <!-- Logo -->
-      <a href="https://mdd.io" class="df-header__logo" title="Mobile Dealer Data">
-        <img src="https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png?width=280&height=84" alt="Mobile Dealer Data" width="280" height="84" fetchpriority="high" decoding="async">
-      </a>
+<header class="mddx-header" id="mddHeader">
+  <a href="#main-content" class="mddx-skip" style="position:absolute;left:-10000px;">Skip to content</a>
 
-      <!-- Navigation -->
-      <nav class="df-header__nav" id="headerNav">
+  <div class="mddx-header__in">
+    <a href="https://mdd.io" class="mddx-header__logo" title="Mobile Dealer Data">
+      <img src="https://mdd.io/hubfs/MDD%20Logos/MDD_Logo_White2.png?width=280&height=84"
+           alt="Mobile Dealer Data" width="280" height="84" fetchpriority="high" decoding="async">
+    </a>
 
-        <div class="df-header__nav-item">
-          <a href="https://mdd.io" class="df-header__nav-link">Home</a>
-        </div>
+    <nav class="mddx-nav" id="mddNav" aria-label="Main">
+      <div class="mddx-nav__item">
+        <a href="https://mdd.io" class="mddx-nav__link">Home</a>
+      </div>
 
-        <div class="df-header__nav-item">
-          <button class="df-header__nav-link" type="button">
-            Solutions
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="df-header__dropdown">
-            <a href="https://mdd.io/mdd-key-tracking" class="df-header__dropdown-link">Key Tracking</a>
-            <a href="https://mdd.io/mdd-lot-management" class="df-header__dropdown-link">Lot Management</a>
-            <a href="https://mdd.io/mdd-service-workflow" class="df-header__dropdown-link">Service Workflow</a>
-            <a href="https://mdd.io/mdd-recon-workflow" class="df-header__dropdown-link">Recon Workflow</a>
-            <a href="https://mdd.io/mdd-vehiclevault" class="df-header__dropdown-link">VehicleVault - F&amp;I Sell Through</a>
-          </div>
-        </div>
-
-        <div class="df-header__nav-item">
-          <a href="https://mdd.io/how-it-works" class="df-header__nav-link">How It Works</a>
-        </div>
-
-        <div class="df-header__nav-item">
-          <a href="https://mdd.io/mdd-proof" class="df-header__nav-link">Proof</a>
-        </div>
-
-        <div class="df-header__nav-item">
-          <a href="https://mdd.io/insights" class="df-header__nav-link">Insights</a>
-        </div>
-
-        <div class="df-header__nav-item">
-          <a href="https://mdd.io/about" class="df-header__nav-link">About</a>
-        </div>
-
-      </nav>
-
-      <!-- Actions -->
-      <div class="df-header__actions">
-        <a href="tel:8442927110" class="df-header__phone"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z"/></svg>844-292-7110</a> <a href="https://mddrtls.com/signin" class="df-header__login">Login</a>
-
-        <a href="https://mdd.io/contact-us" class="df-header__cta">
-          <span>Request Demo</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </a>
-
-        <!-- Mobile Toggle -->
-        <button class="df-header__mobile-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      <div class="mddx-nav__item">
+        <button class="mddx-nav__link" type="button" aria-expanded="false">
+          Solutions
+          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.3 7.3a1 1 0 011.4 0L10 10.6l3.3-3.3a1 1 0 111.4 1.4l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 010-1.4z" clip-rule="evenodd" />
           </svg>
         </button>
+        <div class="mddx-drop">
+          <a href="https://mdd.io/mdd-key-tracking">Key Tracking</a>
+          <a href="https://mdd.io/mdd-lot-management">Lot Management</a>
+          <a href="https://mdd.io/mdd-service-workflow">Service Workflow</a>
+          <a href="https://mdd.io/mdd-recon-workflow">Recon Workflow</a>
+          <a href="https://mdd.io/mdd-vehiclevault">VehicleVault &mdash; F&amp;I Sell Through</a>
+        </div>
       </div>
+
+      <div class="mddx-nav__item"><a href="https://mdd.io/how-it-works" class="mddx-nav__link">How It Works</a></div>
+      <div class="mddx-nav__item"><a href="https://mdd.io/mdd-proof" class="mddx-nav__link">Proof</a></div>
+      <div class="mddx-nav__item"><a href="https://mdd.io/insights" class="mddx-nav__link">Insights</a></div>
+      <div class="mddx-nav__item"><a href="https://mdd.io/about" class="mddx-nav__link">About</a></div>
+    </nav>
+
+    <div class="mddx-header__act">
+      <a href="tel:8442927110" class="mddx-tel">844-292-7110</a>
+      <a href="https://mddrtls.com/signin" class="mddx-login">Login</a>
+      <a href="https://mdd.io/contact-us" class="mddx-cta">Request Demo</a>
+
+      <button class="mddx-burger" id="mddBurger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mddNav">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
     </div>
   </div>
 </header>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  var toggle = document.getElementById("mobileMenuToggle");
-  var nav = document.getElementById("headerNav");
-  var dropdownItems = document.querySelectorAll(".df-header__nav-item");
+  var header = document.getElementById("mddHeader");
+  var nav    = document.getElementById("mddNav");
+  var burger = document.getElementById("mddBurger");
+  var items  = document.querySelectorAll(".mddx-nav__item");
 
-  if (toggle) {
-    toggle.addEventListener("click", function () { nav.classList.toggle("active"); });
+  // Transparent over the hero, solid once the page moves.
+  function onScroll(){ header.classList.toggle("is-stuck", window.scrollY > 40); }
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  if (burger) {
+    burger.addEventListener("click", function () {
+      var open = nav.classList.toggle("is-open");
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.style.overflow = open ? "hidden" : "";
+    });
   }
 
-  dropdownItems.forEach(function (item) {
-    var link = item.querySelector(".df-header__nav-link");
-    var hasDropdown = item.querySelector(".df-header__dropdown");
-    if (link && hasDropdown) {
-      link.addEventListener("click", function (e) {
-        if (window.innerWidth <= 1100) {
-          e.preventDefault();
-          dropdownItems.forEach(function (other) { if (other !== item) other.classList.remove("active"); });
-          item.classList.toggle("active");
-        }
-      });
-    }
+  // Below 1080px the dropdowns become tap-to-open accordions.
+  items.forEach(function (item) {
+    var trigger = item.querySelector("button.mddx-nav__link");
+    if (!trigger) return;
+    trigger.addEventListener("click", function () {
+      if (window.innerWidth > 1080) return;
+      items.forEach(function (other) { if (other !== item) other.classList.remove("is-open"); });
+      var open = item.classList.toggle("is-open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
   });
+
+  function closeAll(){
+    nav.classList.remove("is-open");
+    if (burger) burger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    items.forEach(function (item) { item.classList.remove("is-open"); });
+  }
 
   document.addEventListener("click", function (e) {
-    if (!e.target.closest(".df-header")) {
-      nav.classList.remove("active");
-      dropdownItems.forEach(function (item) { item.classList.remove("active"); });
-    }
+    if (!e.target.closest(".mddx-header")) closeAll();
   });
-
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeAll();
+  });
   window.addEventListener("resize", function () {
-    if (window.innerWidth > 1100) {
-      nav.classList.remove("active");
-      dropdownItems.forEach(function (item) { item.classList.remove("active"); });
-    }
+    if (window.innerWidth > 1080) closeAll();
   });
 });
 </script>

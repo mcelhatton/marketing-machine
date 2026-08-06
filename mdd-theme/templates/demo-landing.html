@@ -1,0 +1,52 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Demo Landing (MDD Theme)
+-->
+{#
+  Demo / offer landing page.
+
+  Same layout and same form as Contact Us, but every string is a module field
+  so marketing can spin up a page per product or per offer without a dev.
+  Contact Us keeps its own template (contact-us.html) and is untouched.
+
+  Editable in the page editor:
+    Hero Section      -> eyebrow (Product Tag), headline, subtitle, hero image
+    Demo Form Panel   -> form heading/subhead, form GUID, what-to-expect copy
+
+  Headline green accent: wrap the phrase in <em> — e.g.
+    Can't find the key? <em>Can't sell the car.</em>
+  `.mdd em` in brand.css renders it in #8AC833 with normal (non-italic) style.
+#}
+{% extends "./base.html" %}
+{% block body %}
+
+<div class="mdd">
+<style>
+  /* Shorter hero, no buttons — the form below is the conversion point. */
+  .section.hero{padding:120px 24px 32px;}
+  .hero .cta-group{display:none;}
+</style>
+
+{% module "hero"
+   path="../modules/hero.module",
+   product_tag="Get Started",
+   tag_style="green",
+   headline="Let's talk about your <em>dealership.</em>",
+   subtitle="15-minute discovery call. We'll show you how MDD fits your operation. No commitment. No pressure.",
+   show_secondary_cta=false,
+   layout="centered"
+%}
+
+{% global_partial path="../partials/trusted-by.html" %}
+
+{% module "demo_form"
+   path="../modules/demo-form.module",
+   form_heading="Schedule your demo",
+   form_subhead="Fill out the form and our team reaches out within one business day.",
+   form_guid="27a12045-4078-4851-9ae9-cdbd68214b93"
+%}
+
+</div>
+
+{% endblock body %}

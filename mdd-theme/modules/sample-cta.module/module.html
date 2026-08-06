@@ -1,32 +1,11 @@
-{# Sample CTA — a light, distinct "free sample / test drive" band #}
-<section class="section sample-cta-section" id="{{ module.section_id }}">
-  <div class="container-sm">
-    <div class="sample-cta">
-      <div class="sample-cta-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M3.5 2A1.5 1.5 0 002 3.5v4.879a1.5 1.5 0 00.44 1.06l8 8a1.5 1.5 0 002.12 0l4.88-4.879a1.5 1.5 0 000-2.121l-8-8A1.5 1.5 0 008.38 2H3.5zM6 7a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-        </svg>
-      </div>
-      <div class="sample-cta-text">
-        {% if module.eyebrow %}<div class="sc-eyebrow">{{ module.eyebrow }}</div>{% endif %}
-        {% if module.headline %}<h2>{{ module.headline }}</h2>{% endif %}
-        {% if module.description %}<p>{{ module.description }}</p>{% endif %}
-      </div>
-      <a href="{{ module.button_url }}" class="sample-cta-btn">{{ module.button_text }}</a>
+{# Free-sample band — a hairline strip, not a tinted green box. #}
+<section class="section section-sm sample-cta-section" id="{{ module.section_id }}">
+  <div class="container sample-cta">
+    <div class="sample-cta-text">
+      {% if module.eyebrow %}<div class="section-tag">{{ module.eyebrow }}</div>{% endif %}
+      {% if module.headline %}<h3>{{ module.headline }}</h3>{% endif %}
+      {% if module.description %}<p>{{ module.description }}</p>{% endif %}
     </div>
+    <a href="{{ module.button_url }}" class="btn btn-primary">{{ module.button_text|replace("→","")|replace("&rarr;","")|trim }} <span class="ar">&rarr;</span></a>
   </div>
 </section>
-
-<style>
-.sample-cta-section{padding:40px 24px;background:var(--off-white);}
-.sample-cta{background:var(--green-soft);border:1px solid var(--green);border-radius:18px;padding:30px 34px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;box-shadow:0 4px 24px rgba(138,200,51,0.12);}
-.sample-cta-icon{flex-shrink:0;width:56px;height:56px;border-radius:14px;background:var(--green);display:flex;align-items:center;justify-content:center;}
-.sample-cta-icon svg{width:30px;height:30px;color:var(--charcoal);}
-.sample-cta-text{flex:1;min-width:240px;}
-.sample-cta-text .sc-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green-dark);margin-bottom:6px;}
-.sample-cta-text h2{color:var(--dark-text);font-size:22px;font-weight:800;margin-bottom:4px;line-height:1.2;}
-.sample-cta-text p{color:var(--body-dark);font-size:15px;line-height:1.5;margin:0;}
-.sample-cta-btn{flex-shrink:0;background:var(--green);color:var(--charcoal);font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s;}
-.sample-cta-btn:hover{background:var(--green-dark);color:#fff;}
-@media(max-width:640px){.sample-cta{flex-direction:column;text-align:center;align-items:stretch;gap:18px;}.sample-cta-icon{margin:0 auto;}.sample-cta-btn{text-align:center;}}
-</style>

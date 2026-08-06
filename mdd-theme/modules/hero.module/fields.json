@@ -20,7 +20,8 @@
     "name": "headline",
     "label": "Headline",
     "type": "text",
-    "default": "Find any key in seconds."
+    "default": "Find any key in seconds.",
+    "help_text": "Wrap the phrase you want in green in <em>…</em> — e.g. Can't find the key? <em>Can't sell the car.</em>"
   },
   {
     "name": "subtitle",

@@ -6,28 +6,29 @@
 {% extends "./base.html" %}
 {% block body %}
 
+<div class="mdd">
 <style>
   /* Contact page: shorter hero, no demo button (they're already here) */
   .section.hero{padding:120px 24px 32px;}
   .hero .cta-group{display:none;}
   /* The form is the star */
   .cu-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:start;max-width:1040px;margin:0 auto;}
-  .cu-form-card{background:#fff;border:1px solid var(--border-light);border-radius:18px;padding:40px;box-shadow:0 16px 50px rgba(0,0,0,.12);}
-  .cu-form-card h2{color:var(--dark-text);font-size:28px;font-weight:800;margin-bottom:6px;}
-  .cu-form-card .cu-sub{color:var(--body-dark);font-size:16px;margin-bottom:26px;}
+  .cu-form-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:40px;box-shadow:0 16px 50px rgba(0,0,0,.12);}
+  .cu-form-card h2{color:var(--on-pap-1);font-size:28px;font-weight:500;margin-bottom:6px;}
+  .cu-form-card .cu-sub{color:var(--on-pap-2);font-size:16px;margin-bottom:26px;}
   .cu-field{margin-bottom:18px;}
-  .cu-field label{display:block;font-size:14px;font-weight:700;color:var(--dark-text);margin-bottom:7px;}
-  .cu-field input,.cu-field textarea{width:100%;box-sizing:border-box;padding:14px 16px;background:#fff;border:1.5px solid #cfd4da;border-radius:10px;color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
+  .cu-field label{display:block;font-size:14px;font-weight:700;color:var(--on-pap-1);margin-bottom:7px;}
+  .cu-field input,.cu-field textarea{width:100%;box-sizing:border-box;padding:14px 16px;background:var(--paper-3);border:1.5px solid #cfd4da;border-radius:10px;color:var(--on-pap-1);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
   .cu-field input::placeholder,.cu-field textarea::placeholder{color:#9aa1ab;}
   .cu-field input:focus,.cu-field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
   .cu-field textarea{min-height:110px;resize:vertical;}
-  .cu-submit{width:100%;background:var(--green);color:var(--charcoal);font-weight:800;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;}
-  .cu-submit:hover{background:var(--green-dark);color:#fff;}
+  .cu-submit{width:100%;background:var(--green);color:var(--ink-800);font-weight:500;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;}
+  .cu-submit:hover{background:var(--grn-700);color:#fff;}
   /* Match the embedded HubSpot form to the card */
   .cu-hsform .hs-form-field{margin-bottom:18px;}
-  .cu-hsform .hs-form-field>label{display:block;font-size:14px;font-weight:700;color:var(--dark-text);margin-bottom:7px;}
+  .cu-hsform .hs-form-field>label{display:block;font-size:14px;font-weight:700;color:var(--on-pap-1);margin-bottom:7px;}
   .cu-hsform .hs-form-required{color:#e5484d;margin-left:2px;}
-  .cu-hsform .hs-input{width:100%!important;box-sizing:border-box;padding:14px 16px;background:#fff;border:1.5px solid #cfd4da;border-radius:10px;color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
+  .cu-hsform .hs-input{width:100%!important;box-sizing:border-box;padding:14px 16px;background:var(--paper-3);border:1.5px solid #cfd4da;border-radius:10px;color:var(--on-pap-1);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s,box-shadow .2s;}
   .cu-hsform .hs-input::placeholder{color:#9aa1ab;}
   .cu-hsform select.hs-input{height:52px;}
   .cu-hsform .hs-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
@@ -36,16 +37,16 @@
   .cu-hsform fieldset{max-width:100%!important;}
   .cu-hsform fieldset .hs-form-field{width:100%!important;float:none;padding:0;}
   .cu-hsform fieldset .input{margin-right:0!important;}
-  .cu-hsform .hs-button{width:100%;background:var(--green);color:var(--charcoal);font-weight:800;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;font-family:'DM Sans',sans-serif;margin-top:6px;}
-  .cu-hsform .hs-button:hover{background:var(--green-dark)!important;color:#fff;}
+  .cu-hsform .hs-button{width:100%;background:var(--green);color:var(--ink-800);font-weight:500;font-size:17px;border:none;padding:16px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s;font-family:'DM Sans',sans-serif;margin-top:6px;}
+  .cu-hsform .hs-button:hover{background:var(--grn-700)!important;color:#fff;}
   .cu-hsform .hs-error-msg,.cu-hsform .hs-error-msgs label{color:#e5484d!important;font-size:13px;font-weight:500;}
-  .cu-hsform .legal-consent-container,.cu-hsform .hs-richtext{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5;}
-  .cu-hsform .submitted-message,.cu-hsform .hs-main-font-element{color:var(--dark-text);font-size:16px;font-weight:600;}
+  .cu-hsform .legal-consent-container,.cu-hsform .hs-richtext{font-size:12px;color:var(--on-pap-3);margin-top:8px;line-height:1.5;}
+  .cu-hsform .submitted-message,.cu-hsform .hs-main-font-element{color:var(--on-pap-1);font-size:16px;font-weight:600;}
   .cu-info{display:flex;flex-direction:column;gap:16px;}
-  .cu-info-card{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:24px;}
-  .cu-info-card h3{color:var(--green-dark);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-  .cu-info-card p{color:var(--body-dark);font-size:15px;line-height:1.6;}
-  .cu-phone{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--dark-text);text-decoration:none;}
+  .cu-info-card{background:var(--paper-3);border:1px solid var(--line-pap);border-radius:0;padding:24px;}
+  .cu-info-card h3{color:var(--grn-700);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .cu-info-card p{color:var(--on-pap-2);font-size:15px;line-height:1.6;}
+  .cu-phone{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--on-pap-1);text-decoration:none;}
   @media(max-width:768px){.cu-grid{grid-template-columns:1fr;}.cu-form-card{padding:28px;}}
 </style>
 
@@ -114,5 +115,6 @@
     target: "#hs-demo-form"
   });
 </script>
+</div>
 
 {% endblock body %}
