@@ -32,13 +32,6 @@
   .vv-hero .mdd-actions{ margin-top:var(--s7); }
   .vv-hero .mdd-stage img{ max-width:340px; }
 
-  .vv-trust{ display:flex; align-items:baseline; gap:14px 40px; flex-wrap:wrap; }
-  .vv-trust .lbl{
-    font-size:10.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
-    color:var(--on-pap-3); margin-right:4px;
-  }
-  .vv-trust .n{ font-size:15px; font-weight:500; color:var(--on-pap-1); white-space:nowrap; }
-
   .vv-phones{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(28px,4vw,56px); }
   .vv-phones > div:nth-child(2){ transform:translateY(34px); }
   .vv-phones h3{ margin:var(--s6) 0 var(--s2); }
@@ -137,17 +130,7 @@
   </section>
 
   <!-- ══ TRUST ══ -->
-  <section class="mdd-pap" style="padding:var(--s7) var(--gut); border-bottom:1px solid var(--line-pap);">
-    <div class="mdd-wrap vv-trust mdd-r">
-      <span class="lbl">In use at</span>
-      <span class="n">Bill Brown Ford</span>
-      <span class="n">Longo Toyota</span>
-      <span class="n">Corwin Toyota</span>
-      <span class="n">Morgan Automotive</span>
-      <span class="n">Penske Automotive</span>
-      <span class="n">Lithia Automotive</span>
-    </div>
-  </section>
+  {% global_partial path="../partials/trusted-by.html" %}
 
   <!-- ══ STATEMENT ══ -->
   <section class="mdd-pap mdd-band">

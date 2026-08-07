@@ -54,20 +54,8 @@
    background="dark"
 %}
 
-<!-- ══ TRUST (paper) ══ -->
-<section class="home-trust">
-  <div class="inner">
-    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
-    <div class="names">
-      <span>Bill Brown Ford</span>
-      <span>Longo Toyota</span>
-      <span>Corwin Toyota</span>
-      <span>Morgan Automotive</span>
-      <span>Penske Automotive</span>
-      <span>Lithia Automotive</span>
-    </div>
-  </div>
-</section>
+<!-- ══ TRUST ══ -->
+{% global_partial path="../partials/trusted-by.html" %}
 
 <!-- ══ THE WRONG TOOL (paper) ══ -->
 <section class="mdd-pap mdd-band">
@@ -153,7 +141,6 @@
         <span class="mdd-label">In every pocket</span>
         <h2 class="mdd-d2">Real-time location on the phone your team already carries.</h2>
       </div>
-      <span class="mdd-head__rule"></span>
     </div>
     <div class="hiw-phones mdd-r" style="--d:120ms;">
       <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location" width="1080" height="2349" loading="lazy" decoding="async">

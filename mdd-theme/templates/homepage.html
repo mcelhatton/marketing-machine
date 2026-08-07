@@ -37,12 +37,7 @@
      reads as an empty black bar. */
   .hp-data{ padding-top:var(--s2); padding-bottom:var(--s6); }
 
-  /* Trust strip */
-  .hp-trust{ padding:var(--s6) var(--gut); border-bottom:1px solid var(--line-pap); }
-  .hp-trust .more{ font-size:15px; font-weight:500; color:var(--grn-700); white-space:nowrap; }
-  .hp-trust .mdd-wrap{ display:flex; align-items:baseline; gap:14px 40px; flex-wrap:wrap; }
-  .hp-trust .mdd-label{ margin:0 4px 0 0; }
-  .hp-trust .n{ font-size:15px; font-weight:500; color:var(--on-pap-1); white-space:nowrap; }
+  /* Trust strip is the shared .mdd-trust component in brand.css. */
 
   /* Three-column hairline grid — pillars and steps share it */
   .hp-three{ display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line-pap); }
@@ -139,18 +134,7 @@
   </section>
 
   <!-- ══ TRUST ══ -->
-  <section class="mdd-pap hp-trust">
-    <div class="mdd-wrap mdd-r">
-      <span class="mdd-label">In use at</span>
-      <span class="n">Bill Brown Ford</span>
-      <span class="n">Longo Toyota</span>
-      <span class="n">Corwin Toyota</span>
-      <span class="n">Morgan Automotive</span>
-      <span class="n">Penske Automotive</span>
-      <span class="n">Lithia Automotive</span>
-      <span class="more">+ 250 dealerships</span>
-    </div>
-  </section>
+  {% global_partial path="../partials/trusted-by.html" %}
 
   <!-- ══ STATEMENT + PILLARS ══ -->
   <section class="mdd-pap mdd-band">
@@ -234,7 +218,6 @@
           <span class="mdd-label">How it works</span>
           <h2 class="mdd-d2">Three steps. Zero guesswork.</h2>
         </div>
-        <span class="mdd-head__rule"></span>
       </div>
       <div class="hp-three mdd-r">
         <div>

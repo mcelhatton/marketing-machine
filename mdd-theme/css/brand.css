@@ -427,6 +427,20 @@
   backdrop-filter:saturate(160%) blur(18px);
   border-bottom-color:rgba(255,255,255,.11);
 }
+/* The open mobile menu (`.mddx-nav`) is a `position:fixed` full-screen overlay
+   that lives INSIDE this header. A non-none backdrop-filter makes an element a
+   containing block for its fixed descendants — so once the header went
+   `.is-stuck` on scroll, the menu stopped resolving against the viewport and
+   collapsed to the height of the bar. Drop the filter while the menu is open;
+   the menu panel underneath is solid, so the bar just matches it. Do not
+   re-add a filter, transform, or perspective here without moving the nav out
+   of the header first. */
+.mddx-header.nav-open{
+  background:#0F1216;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  border-bottom-color:transparent;
+}
 .mddx-header__in{
   max-width:1240px; margin:0 auto; height:76px;
   padding:0 clamp(20px,4vw,40px);
@@ -693,15 +707,18 @@
   .mdd .hero-grid{ grid-template-columns:1fr; }
 }
 
-/* ── trust strip ── */
-.mdd .home-trust{ background:var(--paper); border-bottom:1px solid var(--line-pap); }
-.mdd .home-trust .inner{ max-width:var(--maxw); margin:0 auto; padding:var(--s7) var(--gut); text-align:left; }
-.mdd .home-trust .eyebrow{
-  font-size:10.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
-  color:var(--on-pap-3); margin-bottom:var(--s4);
+/* ── trust strip ──
+   One component for the dealer roster, used by every page through
+   partials/trusted-by.html. The label sits on the baseline with the names
+   rather than above them, so the strip stays one line deep on desktop. */
+.mdd .mdd-trust{
+  background:var(--paper); border-bottom:1px solid var(--line-pap);
+  padding:var(--s6) var(--gut);
 }
-.mdd .home-trust .names{ display:flex; flex-wrap:wrap; justify-content:flex-start; gap:12px 40px; }
-.mdd .home-trust .names span{ font-size:15px; font-weight:500; color:var(--on-pap-1); opacity:1; }
+.mdd .mdd-trust .mdd-wrap{ display:flex; align-items:baseline; flex-wrap:wrap; gap:14px 40px; }
+.mdd .mdd-trust .mdd-label{ margin:0 4px 0 0; }
+.mdd .mdd-trust .n{ font-size:15px; font-weight:500; color:var(--on-pap-1); white-space:nowrap; }
+.mdd .mdd-trust .more{ font-size:15px; font-weight:500; color:var(--grn-700); white-space:nowrap; }
 
 /* ── cards → hairline columns ── */
 .mdd .home-cards{
@@ -779,7 +796,11 @@
 .mdd .home-stat .label{ font-size:14.5px; color:var(--on-ink-2); margin-top:var(--s4); line-height:1.45; max-width:22ch; }
 
 /* ── quote ── */
-.mdd .home-quote{ max-width:none; margin:0; text-align:left; }
+/* The quote takes its width from whatever container it sits in — `.mdd-wrap` on
+   the product pages, `.container` in testimonial.module. It must NOT reset
+   max-width/margin: this selector outranks both, and doing so pushed the block
+   out to the section gutter, left of every other section on the page. */
+.mdd .home-quote{ text-align:left; }
 .mdd .home-quote blockquote{
   font-size:clamp(24px,3.4vw,40px); font-weight:400; font-style:normal;
   line-height:1.16; letter-spacing:-.028em; color:var(--on-pap-1);
@@ -861,7 +882,7 @@
   .mdd .home-stat,.mdd .bg-dark .stat-card{ border-bottom-color:var(--line-ink); }
   .mdd .home-cards > :last-child,.mdd .home-steps > :last-child,
   .mdd .home-stats > :last-child,.mdd .stat-grid > :last-child{ border-bottom:none; }
-  .mdd .home-trust .names{ gap:8px 24px; }
+  .mdd .mdd-trust .mdd-wrap{ gap:8px 24px; }
   .mdd .btn,.mdd .btn-primary,.mdd .btn-outline{ width:100%; justify-content:center; }
 }
 
@@ -1026,13 +1047,9 @@
   .mdd .hero{ background-image:url("{{ get_asset_url('../mdd-assets/hero-lot-mobile.jpg') }}"); }
 }
 
-/* ── SECTION HEAD WITH RULE ──
-   A bare section header leaves the other half of the row empty, which reads as
-   unfinished rather than as air. The rule runs from the heading to the edge and
-   closes the line — the system's own hairline doing structural work, no extra
-   copy required. Use where a header has no supporting column. */
+/* ── SECTION HEAD ──
+   Header for a section that has no supporting column. The heading sits on its
+   own and the rest of the row is left as air. (This block used to carry a
+   trailing hairline, `.mdd-head__rule`; it was removed site-wide.) */
 .mdd-head{ display:flex; align-items:flex-end; gap:var(--s6); }
 .mdd-head > :first-child{ flex:0 1 auto; }
-.mdd-head__rule{ flex:1 1 auto; min-width:40px; height:1px; background:var(--line-pap); margin-bottom:.42em; }
-.mdd-ink .mdd-head__rule,.mdd-ink2 .mdd-head__rule{ background:var(--line-ink); }
-@media (max-width:700px){ .mdd-head__rule{ display:none; } }

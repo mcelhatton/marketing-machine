@@ -41,8 +41,8 @@
 
   /* Three phone screens, held at a readable width rather than stretched. */
   .kt-phones{
-    display:grid; grid-template-columns:repeat(3,1fr);
-    gap:clamp(20px,3vw,40px); max-width:820px; align-items:start;
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:clamp(20px,3vw,40px); max-width:540px; align-items:start;
     margin-top:clamp(32px,3.6vw,52px);
   }
   .kt-phones img{ width:100%; height:auto; display:block; }
@@ -72,35 +72,23 @@
 {% module "stats"
    path="../modules/stats-bar.module",
    columns="4",
-   stat_1_number="2,000+",
-   stat_1_label="Vehicles tracked across multiple lots.",
-   stat_1_dealer="Bill Brown Ford",
-   stat_2_number="90%",
-   stat_2_label="Sales-team adoption.",
-   stat_2_dealer="Bill Brown Ford",
-   stat_3_number="25 min → sec",
-   stat_3_label="Time to locate a vehicle.",
-   stat_3_dealer="Longo Toyota",
-   stat_4_number="Zero",
-   stat_4_label="Lost keys after MDD.",
-   stat_4_dealer="Brandon Honda",
+   stat_1_number="$0",
+   stat_1_label="Key-loss expense.",
+   stat_1_dealer="Sales + Service",
+   stat_2_number="Zero",
+   stat_2_label="Deals lost to a missing key.",
+   stat_2_dealer="Speeds Up Sales + Service",
+   stat_3_number="~15 min",
+   stat_3_label="Back on every repair order.",
+   stat_3_dealer="More Billable Hours",
+   stat_4_number="$24K/mo",
+   stat_4_label="Added F&amp;I revenue.",
+   stat_4_dealer="Optional Sell Through",
    background="dark"
 %}
 
-<!-- ══ TRUST (paper) ══ -->
-<section class="home-trust">
-  <div class="inner">
-    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
-    <div class="names">
-      <span>Bill Brown Ford</span>
-      <span>Longo Toyota</span>
-      <span>Corwin Toyota</span>
-      <span>Morgan Automotive</span>
-      <span>Penske Automotive</span>
-      <span>Lithia Automotive</span>
-    </div>
-  </div>
-</section>
+<!-- ══ TRUST ══ -->
+{% global_partial path="../partials/trusted-by.html" %}
 
 <!-- ══ THE PROBLEM (paper) ══ -->
 <section class="mdd-pap mdd-band">
@@ -190,9 +178,8 @@
       <p class="mdd-lede mdd-r" style="--d:120ms;">GPS goes blind indoors. MDD knows which floor of a garage a car is parked on — wherever it sits across your operation.</p>
     </div>
     <div class="kt-phones mdd-r" style="--d:180ms;">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location on the lot" width="1080" height="2349" loading="lazy" decoding="async">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/work-plan-mobile.png') }}" alt="MDD mobile app showing the day's work plan on a phone" width="1080" height="2349" loading="lazy" decoding="async">
-      <img src="{{ get_asset_url('../mdd-assets/screenshots/communication-mobile.png') }}" alt="MDD mobile app showing customer communication tied to a vehicle" width="1080" height="2349" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-mobile.png') }}" alt="MDD Locate mobile app showing a vehicle's exact location on the dealership lot" width="1080" height="2348" loading="lazy" decoding="async">
+      <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-search-mobile.png') }}" alt="MDD Locate mobile app showing every tracked vehicle and key across a multi-building dealership lot" width="1080" height="2348" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -205,7 +192,6 @@
         <span class="mdd-label">How it works</span>
         <h2 class="mdd-d2">Tag once. Find anything in seconds.</h2>
       </div>
-      <span class="mdd-head__rule"></span>
     </div>
     <div class="home-steps mdd-r" style="--d:120ms;">
       <div class="home-step">

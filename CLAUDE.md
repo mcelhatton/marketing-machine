@@ -32,7 +32,10 @@ All rules files are in `.claude/rules/`. Read them before generating any content
 Always drive to demo/consult. Never "learn more." Every dealership is different — the sales team customizes. Default CTA: "Schedule a 15-Min Demo →" or "Schedule Your Demo →". Phone: 844-292-7110.
 
 ## Named Customers (approved for use in content)
-Bill Brown Ford, Corwin Toyota, Longo Toyota, Brandon Honda (Morgan Automotive Group), Penske Motor Group, Penske Automotive.
+Bill Brown Ford, Corwin Toyota, Longo Toyota, Brandon Honda (Morgan Automotive Group), Morgan Automotive, Penske Motor Group, Penske Automotive, Lithia Automotive.
+
+The public dealer roster is one component — `mdd-theme/partials/trusted-by.html`. Every page
+that names customers includes it, so edit the names there and the whole site follows.
 
 ## Reference Material
 Source documents and reference content are in `knowledge/`. Case studies, email examples, landing page references, and the sales deck are all there.

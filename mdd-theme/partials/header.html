@@ -76,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
       var open = nav.classList.toggle("is-open");
       burger.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.style.overflow = open ? "hidden" : "";
+      // Kills the header's backdrop-filter while the menu is open. Without
+      // this the filter makes the header a containing block and the fixed
+      // full-screen menu collapses to the height of the bar. See brand.css.
+      header.classList.toggle("nav-open", open);
     });
   }
 
@@ -93,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function closeAll(){
     nav.classList.remove("is-open");
+    header.classList.remove("nav-open");
     if (burger) burger.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
     items.forEach(function (item) { item.classList.remove("is-open"); });

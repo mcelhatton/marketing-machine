@@ -2,19 +2,19 @@
   templateType: global_partial
   label: MDD Trusted By Bar
 -->
-{# Named-dealership logo bar. Global partial on purpose: edit the roster once
-   here and every demo/offer page picks it up. #}
+{# The one dealer roster. Every page that names customers includes this partial,
+   so the names are edited here once and the whole site follows. Styling is the
+   .mdd-trust component in brand.css — nothing page-specific. #}
 
-<section class="mdd-trustbar" style="background:#fff;border-bottom:1px solid var(--border-light);">
-  <div style="max-width:1140px;margin:0 auto;padding:28px 24px;text-align:center;">
-    <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Trusted by the best-run dealerships in the country</div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px 36px;">
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Bill Brown Ford</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Longo Toyota</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Corwin Toyota</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Morgan Automotive</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Penske Automotive</span>
-      <span style="font-size:17px;font-weight:700;color:var(--dark-text);opacity:.85;">Lithia Automotive</span>
-    </div>
+<section class="mdd-pap mdd-trust">
+  <div class="mdd-wrap mdd-r">
+    <span class="mdd-label">In use at</span>
+    <span class="n">Bill Brown Ford</span>
+    <span class="n">Longo Toyota</span>
+    <span class="n">Corwin Toyota</span>
+    <span class="n">Morgan Automotive</span>
+    <span class="n">Penske Automotive</span>
+    <span class="n">Lithia Automotive</span>
+    <span class="more">+ 250 dealerships</span>
   </div>
 </section>

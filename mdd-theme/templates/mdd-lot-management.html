@@ -68,20 +68,8 @@
    background="dark"
 %}
 
-<!-- ══ TRUST (paper) ══ -->
-<section class="home-trust">
-  <div class="inner">
-    <div class="eyebrow">Trusted by the best-run dealerships in the country</div>
-    <div class="names">
-      <span>Bill Brown Ford</span>
-      <span>Longo Toyota</span>
-      <span>Corwin Toyota</span>
-      <span>Morgan Automotive</span>
-      <span>Penske Automotive</span>
-      <span>Lithia Automotive</span>
-    </div>
-  </div>
-</section>
+<!-- ══ TRUST ══ -->
+{% global_partial path="../partials/trusted-by.html" %}
 
 <!-- ══ BUILT FOR SCALE (paper) ══ -->
 <section class="mdd-pap mdd-band">
@@ -121,7 +109,6 @@
         <span class="mdd-label">See it</span>
         <h2 class="mdd-d2">Every car, every key — across every lot and every floor.</h2>
       </div>
-      <span class="mdd-head__rule"></span>
     </div>
     <div class="mdd-stage mdd-r" style="--d:180ms;">
       <img src="{{ get_asset_url('../mdd-assets/lotwithtext2.png') }}" alt="MDD Locate graphic: aerial view of a dealership lot, service bays, and 4-story parking garage with every vehicle pinpointed by real-time location" width="1400" height="934" loading="eager" fetchpriority="high" decoding="async">
@@ -137,7 +124,6 @@
         <span class="mdd-label">How it works</span>
         <h2 class="mdd-d2">Three steps. Zero guesswork.</h2>
       </div>
-      <span class="mdd-head__rule"></span>
     </div>
     <div class="home-steps mdd-r" style="--d:120ms;">
       <div class="home-step">
@@ -167,7 +153,6 @@
         <span class="mdd-label">Which floor</span>
         <h2 class="mdd-d2">A GPS dot can't read a parking garage. MDD knows the floor.</h2>
       </div>
-      <span class="mdd-head__rule"></span>
     </div>
     <div class="mdd-stage mdd-r" style="--d:180ms;">
       <img src="{{ get_asset_url('../mdd-assets/screenshots/locate-details.png') }}" alt="MDD vehicle detail view showing exact location including which floor of a parking garage a car is parked on" width="1600" height="908" loading="lazy" decoding="async">
