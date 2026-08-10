@@ -1,0 +1,195 @@
+{
+  "$comment": "MDD quote pricing map. Single source of truth linking the sales-demo System Builder keys to HubSpot product catalog records (portal 585393). 'productId' is the HubSpot PRODUCT object id. 'priceSource' controls where the unit price comes from: 'catalog' = read live from HubSpot (recommended), 'override' = use the literal 'overridePrice' below. Any key with priceSource 'override' is a DELIBERATE divergence from the catalog and should be reconciled - see docs/quote-system/PRICING-RECONCILIATION.md.",
+  "version": "1.0.0",
+  "currency": "USD",
+
+  "buy": {
+    "vehicleTag": {
+      "calcKey": "pTag",
+      "productId": "24668726200",
+      "sku": "Track Tag - VEH-1F",
+      "name": "Tracking Tag - Vehicle",
+      "catalogPrice": 29.99,
+      "demoDefaultPrice": 40,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "vehicleTags"
+    },
+    "keyTag": {
+      "calcKey": "pKeyTag",
+      "productId": "24668726197",
+      "sku": "Track Tag - KEY",
+      "name": "Tracking Tag - Key",
+      "catalogPrice": 19.99,
+      "demoDefaultPrice": 20,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "keyTags"
+    },
+    "placard": {
+      "calcKey": "pPlacard",
+      "productId": "24668726274",
+      "sku": "Placard W/ Key Tag and Tracking Tag",
+      "name": "Service Placard - Hanger-Style w/ Plastic Key Tag and Key Tracking Tag",
+      "catalogPrice": 49.99,
+      "demoDefaultPrice": 60,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "placards",
+      "requiresModule": "modService"
+    },
+    "gatewayIndoor": {
+      "calcKey": "pGateway",
+      "productId": "24660016656",
+      "sku": "Gateway - Indoor 120v",
+      "name": "Gateway - Indoor, 120v, MDD",
+      "catalogPrice": 295,
+      "demoDefaultPrice": 250,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "gatewaysIndoor"
+    },
+    "gatewayOutdoor": {
+      "calcKey": "pGateway",
+      "productId": "24660016657",
+      "sku": "Gateway - Outdoor Solar",
+      "name": "Gateway - Outdoor, Solar, MDD (Includes Panel)",
+      "catalogPrice": 595,
+      "demoDefaultPrice": 250,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "gatewaysOutdoor"
+    },
+    "install": {
+      "calcKey": "pInstall",
+      "productId": "1317412457",
+      "sku": null,
+      "name": "Installation & On-Boarding",
+      "catalogPrice": 1500,
+      "demoDefaultPrice": 1500,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "one"
+    },
+    "platformMonthly": {
+      "calcKey": "pMoFlat",
+      "productId": "534823786",
+      "sku": null,
+      "name": "MDD Locate Monthly Subscription",
+      "catalogPrice": 695,
+      "demoDefaultPrice": 695,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "one"
+    }
+  },
+
+  "lease": {
+    "vehicleTag": {
+      "productId": "42632256540",
+      "sku": "Track Tag - VEF-1F - Lease",
+      "name": "Tracking Tag - Vehicle - Lease",
+      "catalogPrice": 1,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "vehicleTags"
+    },
+    "keyTag": {
+      "productId": "42632256609",
+      "sku": "Track Tag - Key - Lease",
+      "name": "Tracking Tag - Key - Lease",
+      "catalogPrice": 1,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "keyTags"
+    },
+    "placard": {
+      "productId": "42556889394",
+      "sku": "Placard W/ Key Tag and Tracking Tag - Lease",
+      "name": "Service Placard - Hanger-Style w/ Plastic Key Tag and Key Tracking Tag - Lease",
+      "catalogPrice": 2.5,
+      "demoImpliedPrice": 2,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "placards",
+      "requiresModule": "modService"
+    },
+    "platformMonthly": {
+      "productId": "41415492677",
+      "sku": null,
+      "name": "MDD Locate Monthly Subscription - Lease",
+      "catalogPrice": 695,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "one"
+    },
+    "install": {
+      "calcKey": "pInstall",
+      "productId": "1317412457",
+      "sku": null,
+      "name": "Installation & On-Boarding",
+      "catalogPrice": 1500,
+      "demoDefaultPrice": 1500,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "one_time",
+      "qtyFrom": "one"
+    }
+  },
+
+  "addons": {
+    "serviceWorkflow": {
+      "productId": "38843451031",
+      "sku": "Service Workflow Monthly Subscription",
+      "name": "Service Workflow Monthly Subscription Add-on",
+      "catalogPrice": 200,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "one",
+      "requiresModule": "modService",
+      "includedInFlatMonthly": false
+    },
+    "reconWorkflow": {
+      "productId": "42870534271",
+      "sku": null,
+      "name": "Recon Workflow Monthly Subscription Add-on",
+      "catalogPrice": 200,
+      "priceSource": "catalog",
+      "overridePrice": null,
+      "billing": "monthly",
+      "qtyFrom": "one",
+      "requiresModule": "modRecon",
+      "includedInFlatMonthly": false
+    }
+  },
+
+  "gatewaySplit": {
+    "$comment": "The System Builder models one blended gateway price. The catalog has two SKUs at different prices. This ratio splits the auto-calculated gateway count. Override per-quote from the demo page.",
+    "indoorRatio": 0.7,
+    "outdoorRatio": 0.3
+  },
+
+  "resolved": [
+    "2026-08-10 install: catalog $1,500 wins (was overridden to $5,000). Override removed; demo.html pInstall default corrected to 1500.",
+    "2026-08-10 addons: Service and Recon bill separately at $200/mo each. includedInFlatMonthly=false on both; $695 is the platform-only rate. demo.html qCalc updated to match.",
+    "2026-08-10 hardware unit prices: catalog wins throughout ($29.99 / $19.99 / $49.99). demo.html defaults corrected to match.",
+    "2026-08-10 gateways: demo.html now splits indoor/outdoor on the same 70/30 ratio as calc.js and prices the two real SKUs ($295 / $595) instead of one blended $250.",
+    "2026-08-10 lease placard: catalog $2.50/mo wins. demo.html now prices lease per-SKU (veh $1 + key $1 per unit, placard $2.50) instead of a flat $2 per unit."
+  ],
+
+  "unresolved": [
+    "VehicleVault: modelled as value-only in the System Builder, no investment line. Catalog has 'Vehicle Vault Box Package (25 count)' at $2,499.75. Not currently quoted - needs a sizing rule (packages of 25 against which inventory count?)."
+  ]
+}

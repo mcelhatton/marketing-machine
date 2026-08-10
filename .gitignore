@@ -85,3 +85,11 @@ Thumbs.db
 # Keep source docs but ignore processed versions
 *.docx.extracted
 *.pptx.extracted
+
+# ============================================
+# CRM exports — contains contact PII, never commit
+# ============================================
+campaigns/**/data/
+*stamp-preview.csv
+.dev.vars
+workers/quote-api/node_modules/

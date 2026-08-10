@@ -1,0 +1,393 @@
+<!--
+  templateType: quote
+  isAvailableForNewContent: true
+  label: MDD - System Quote (Buy / Lease)
+-->
+{#
+  MDD System Quote
+  ----------------
+  Renders ONE purchase option - Buy or Lease - decided at creation time by the
+  System Builder and stored on mdd_purchase_option. The option the buyer did
+  not take is voided, so a signed quote is never ambiguous.
+
+  Custom properties are read through the qprop() pattern below because HubSpot
+  exposes custom quote properties under .custom_properties on some portals and
+  flat on others. Reading both keeps this template portable.
+#}
+
+{% set q = template_data.quote %}
+{% set cp = q.custom_properties or {} %}
+
+{% macro qprop(key) %}{% if cp[key] is defined and cp[key] %}{% if cp[key].internal is defined %}{{ cp[key].internal }}{% else %}{{ cp[key] }}{% endif %}{% elif q[key] is defined %}{{ q[key] }}{% endif %}{% endmacro %}
+
+{% set option        = qprop('mdd_purchase_option')|trim|lower %}
+{% set dealer        = qprop('mdd_dealer_name')|trim %}
+{% set rooftops      = qprop('mdd_rooftops')|trim %}
+{% set trackedUnits  = qprop('mdd_tracked_units')|trim %}
+{% set vehicleTags   = qprop('mdd_vehicle_tags')|trim %}
+{% set keyTags       = qprop('mdd_key_tags')|trim %}
+{% set placards      = qprop('mdd_placards')|trim %}
+{% set gateways      = qprop('mdd_gateways')|trim %}
+{% set modules       = qprop('mdd_modules')|trim %}
+{% set monthlyValue  = qprop('mdd_monthly_value')|trim %}
+{% set annualValue   = qprop('mdd_annual_value')|trim %}
+{% set breakdown     = qprop('mdd_value_breakdown')|trim %}
+{% set netValue      = qprop('mdd_net_value_monthly')|trim %}
+{% set paybackLabel  = qprop('mdd_payback_label')|trim %}
+{% set oneTimeTotal  = qprop('mdd_one_time_total')|trim %}
+{% set monthlyTotal  = qprop('mdd_monthly_total')|trim %}
+
+{% set isLease = option == 'lease' %}
+
+<!DOCTYPE html>
+<html lang="{{ q.hs_language or 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ q.hs_title }}</title>
+  {{ standard_header_includes }}
+  <style>
+/* MDD System Quote - legacy quote template styles.
+   Light surface on purpose: quotes are printed and PDF'd constantly, and the
+   dark marketing palette turns into a toner sink on paper. Brand green is used
+   as accent only. */
+
+:root {
+  --mdd-primary: #8ac833;
+  --mdd-primary-dark: #5E970F;
+  --mdd-ink: #0f172a;
+  --mdd-body: #334155;
+  --mdd-muted: #64748b;
+  --mdd-line: #e2e8f0;
+  --mdd-surface: #f8fafc;
+  --mdd-success: #15803d;
+}
+
+.mdd-quote {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--mdd-body);
+  background: #fff;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.q-wrap { max-width: 860px; margin: 0 auto; padding: 40px 28px 72px; }
+
+/* ---------- Masthead ---------- */
+.q-masthead {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap;
+  padding-bottom: 24px; border-bottom: 3px solid var(--mdd-primary);
+}
+.q-logo { max-height: 52px; width: auto; display: block; }
+.q-wordmark { font-size: 22px; font-weight: 800; color: var(--mdd-ink); letter-spacing: -0.02em; }
+.q-tagline { display: block; margin-top: 4px; font-size: 12px; color: var(--mdd-muted); }
+.q-meta { text-align: right; font-size: 13px; }
+.q-meta div { margin-bottom: 4px; }
+.q-meta span { color: var(--mdd-muted); margin-right: 8px; }
+.q-meta b { color: var(--mdd-ink); }
+
+/* ---------- Selected option banner ---------- */
+.q-option-banner {
+  margin: 28px 0 8px; padding: 22px 24px;
+  border-radius: 14px; border: 1px solid var(--mdd-line);
+  background: linear-gradient(135deg, rgba(138, 200, 51, 0.10), rgba(138, 200, 51, 0.02));
+  border-left: 5px solid var(--mdd-primary);
+}
+.q-option-banner.is-lease { border-left-color: var(--mdd-primary-dark); }
+.q-option-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--mdd-primary-dark);
+}
+.q-option-banner h1 {
+  margin: 6px 0 8px; font-size: 26px; line-height: 1.2;
+  color: var(--mdd-ink); font-weight: 800; letter-spacing: -0.02em;
+}
+.q-option-banner p { margin: 0; font-size: 14px; color: var(--mdd-body); max-width: 60ch; }
+
+/* ---------- Sections ---------- */
+.q-section { margin-top: 34px; }
+.q-h2 {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mdd-primary-dark); margin: 0 0 12px;
+}
+
+/* ---------- Tables ---------- */
+.q-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.q-table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--mdd-muted); font-weight: 600; padding: 8px 0; border-bottom: 1px solid var(--mdd-line);
+}
+.q-table td { padding: 10px 0; border-bottom: 1px solid var(--mdd-line); }
+.q-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.q-table th.num { text-align: right; }
+.q-row-total td { font-weight: 700; color: var(--mdd-ink); border-bottom: 2px solid var(--mdd-ink); }
+.q-row-sub td { color: var(--mdd-muted); border-bottom: none; }
+.q-note { color: var(--mdd-muted); font-size: 12px; }
+
+.q-modules { font-size: 13px; margin: 10px 0 0; color: var(--mdd-body); }
+.q-modules span {
+  display: inline-block; min-width: 130px; color: var(--mdd-muted);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+}
+
+/* ---------- Value ---------- */
+.q-value .q-row-total td { color: var(--mdd-success); border-bottom-color: var(--mdd-success); }
+.q-disclaimer { font-size: 12px; color: var(--mdd-muted); margin-top: 10px; max-width: 68ch; }
+
+/* ---------- Outcome strip ---------- */
+.q-outcome {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px;
+}
+.q-outcome-item {
+  flex: 1 1 200px; padding: 14px 16px; border-radius: 12px;
+  background: var(--mdd-surface); border: 1px solid var(--mdd-line);
+}
+.q-outcome-item span {
+  display: block; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--mdd-muted); margin-bottom: 4px;
+}
+.q-outcome-item b { font-size: 20px; color: var(--mdd-success); font-weight: 800; }
+
+/* ---------- Included / terms ---------- */
+.q-included ul { margin: 8px 0 0; padding-left: 20px; }
+.q-included li { margin-bottom: 5px; font-size: 14px; }
+.q-included h2 {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mdd-primary-dark); margin: 0 0 4px;
+}
+.q-terms-body { font-size: 12.5px; color: var(--mdd-muted); }
+.q-comments-body { font-size: 13.5px; color: var(--mdd-body); }
+.q-comments-body p { margin: 0 0 8px; }
+.q-comments-body p:last-child { margin-bottom: 0; }
+
+/* ---------- Signature ---------- */
+.q-signature { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--mdd-line); }
+
+/* ---------- Footer ---------- */
+.q-footer {
+  margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--mdd-line);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 24px; flex-wrap: wrap; font-size: 13px;
+}
+.q-rep b { display: block; color: var(--mdd-ink); }
+.q-rep span, .q-rep a { display: block; color: var(--mdd-muted); text-decoration: none; }
+.q-rep a:hover { color: var(--mdd-primary-dark); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .q-wrap { padding: 24px 18px 56px; }
+  .q-masthead { flex-direction: column; gap: 16px; }
+  .q-meta { text-align: left; }
+  .q-option-banner h1 { font-size: 21px; }
+}
+
+/* ---------- Print / PDF ---------- */
+@media print {
+  .no-print, .q-download { display: none !important; }
+  .mdd-quote { font-size: 11pt; }
+  .q-wrap { max-width: none; padding: 0; }
+  .q-section { break-inside: avoid; page-break-inside: avoid; }
+  .q-option-banner {
+    background: none !important; border: 1px solid #999;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .q-table { font-size: 10pt; }
+  a { text-decoration: none; color: inherit; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+  </style>
+</head>
+<body class="mdd-quote">
+
+<div class="q-wrap">
+
+  {# ---------- Masthead ---------- #}
+  <header class="q-masthead">
+    <div class="q-brand">
+      {% if q.hs_sender_company_image_url %}
+        <img src="{{ q.hs_sender_company_image_url }}" alt="{{ q.hs_sender_company_name or 'Mobile Dealer Data' }}" class="q-logo">
+      {% else %}
+        <span class="q-wordmark">Mobile Dealer Data</span>
+      {% endif %}
+      <span class="q-tagline">We Find Keys &amp; Cars&trade;</span>
+    </div>
+    <div class="q-meta">
+      <div><span>Quote</span><b>#{{ q.hs_quote_number }}</b></div>
+      {% if q.hs_expiration_date %}<div><span>Valid through</span><b>{{ q.hs_expiration_date|datetimeformat('%B %e, %Y') }}</b></div>{% endif %}
+      {% if dealer %}<div><span>Prepared for</span><b>{{ dealer }}</b></div>{% endif %}
+    </div>
+  </header>
+
+  {# ---------- Selected option banner ---------- #}
+  <div class="q-option-banner {{ 'is-lease' if isLease else 'is-buy' }}">
+    <span class="q-option-eyebrow">Selected purchase option</span>
+    <h1>{{ 'Lease — hardware in the monthly' if isLease else 'Buy — own the hardware' }}</h1>
+    <p>
+      {% if isLease %}
+        No hardware capital outlay. Tags, placards and gateways are included in a single
+        monthly rate for the term of the agreement.
+      {% else %}
+        You own the tags, placards and gateways outright. The monthly covers the MDD
+        platform, support and firmware.
+      {% endif %}
+    </p>
+  </div>
+
+  {# ---------- Editable intro ---------- #}
+  <section class="q-section">
+    {% module "quote_intro"
+       path="@hubspot/rich_text",
+       label="Introduction",
+       html="<p>Thank you for the time your team spent walking us through your operation. The system below is sized to the numbers you shared with us. Final hardware counts are confirmed by MDD's free site survey before anything ships.</p>"
+    %}
+  </section>
+
+  {# ---------- The system ---------- #}
+  {% if trackedUnits %}
+  <section class="q-section">
+    <h2 class="q-h2">The system{% if dealer %} — {{ dealer }}{% endif %}</h2>
+    <table class="q-table">
+      <thead><tr><th>Hardware</th><th class="num">Qty</th></tr></thead>
+      <tbody>
+        {% if vehicleTags %}<tr><td>Vehicle tracking tags</td><td class="num">{{ vehicleTags|int|format_number('en-US') }}</td></tr>{% endif %}
+        {% if keyTags %}<tr><td>Key tracking tags</td><td class="num">{{ keyTags|int|format_number('en-US') }}</td></tr>{% endif %}
+        {% if placards and placards|int > 0 %}<tr><td>Reusable service placards</td><td class="num">{{ placards|int|format_number('en-US') }}</td></tr>{% endif %}
+        {% if gateways %}<tr><td>Gateways <span class="q-note">(estimate — site survey to confirm)</span></td><td class="num">{{ gateways|int|format_number('en-US') }}</td></tr>{% endif %}
+        <tr class="q-row-total"><td>Tracked units</td><td class="num">{{ trackedUnits|int|format_number('en-US') }}</td></tr>
+      </tbody>
+    </table>
+    {% if modules %}<p class="q-modules"><span>Modules in scope</span> {{ modules }}</p>{% endif %}
+    {% if rooftops and rooftops|int > 1 %}<p class="q-modules"><span>Rooftops</span> {{ rooftops }}</p>{% endif %}
+  </section>
+  {% endif %}
+
+  {# ---------- Value recovered ---------- #}
+  {% if monthlyValue and monthlyValue|float > 0 %}
+  <section class="q-section q-value">
+    <h2 class="q-h2">Monthly value recovered</h2>
+    <table class="q-table">
+      <tbody>
+        {% for row in breakdown|split('\n') %}
+          {% set parts = row|split('|') %}
+          {% if parts|length > 1 %}
+            <tr><td>{{ parts[0] }}</td><td class="num">{{ parts[1] }}</td></tr>
+          {% endif %}
+        {% endfor %}
+        <tr class="q-row-total">
+          <td>Total / month</td>
+          <td class="num">{{ monthlyValue|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}</td>
+        </tr>
+        {% if annualValue %}
+        <tr class="q-row-sub">
+          <td>Per year</td>
+          <td class="num">{{ annualValue|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    <p class="q-disclaimer">
+      Modelled from the operating numbers your team provided during the demo. Presented
+      for discussion — not a guarantee of results.
+    </p>
+  </section>
+  {% endif %}
+
+  {# ---------- Investment / line items ---------- #}
+  <section class="q-section">
+    <h2 class="q-h2">Investment</h2>
+    {% module "line_items" path="@hubspot/line_items", label="Line items" %}
+
+    {% if netValue or paybackLabel %}
+    <div class="q-outcome">
+      {% if paybackLabel and not isLease %}
+        <div class="q-outcome-item"><span>Payback</span><b>{{ paybackLabel }}</b></div>
+      {% endif %}
+      {% if netValue and netValue|float > 0 %}
+        <div class="q-outcome-item"><span>Net value / month</span><b>{{ netValue|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}</b></div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </section>
+
+  {# ---------- What's included ---------- #}
+  <section class="q-section q-included">
+    {% module "quote_included"
+       path="@hubspot/rich_text",
+       label="What's included",
+       html="<h2>What's included</h2><ul><li>1-day on-site install</li><li>4-week hypercare</li><li>Dedicated customer success manager</li><li>90-day money-back guarantee</li><li>Free site survey to confirm final gateway count</li></ul>"
+    %}
+  </section>
+
+  {# ---------- Comments from the rep ----------
+     Set as hs_comments at creation. HubSpot's own basic.html silently drops
+     this block, which is why quotes must not fall back to that template. #}
+  {% if q.hs_comments %}
+  <section class="q-section q-comments">
+    <h2 class="q-h2">
+      {% if q.hs_sender_firstname %}Comments from {{ q.hs_sender_firstname }} {{ q.hs_sender_lastname }}{% else %}Comments{% endif %}
+    </h2>
+    <div class="q-comments-body">{{ q.hs_comments }}</div>
+  </section>
+  {% endif %}
+
+  {# ---------- Purchase terms ---------- #}
+  {% if q.hs_terms %}
+  <section class="q-section q-terms">
+    <h2 class="q-h2">Purchase terms</h2>
+    <div class="q-terms-body">{{ q.hs_terms }}</div>
+  </section>
+  {% endif %}
+
+  {# ---------- Payment + signature ---------- #}
+  {% if q.hs_payment_enabled %}
+    <section class="q-section">{% module "payment" path="@hubspot/quote_payment", label="Payment" %}</section>
+  {% endif %}
+
+  {# Unconditional on purpose — HubSpot statically scans for the signature asset
+     when publishing an e-sign quote and rejects templates that hide it behind
+     an {% if %}. See mdd-proposal.html. #}
+  <section class="q-section q-signature">{% module "signature" path="@hubspot/quote_signature", label="Signature" %}</section>
+
+  {# ---------- Footer ---------- #}
+  <footer class="q-footer">
+    <div class="q-rep">
+      {% if q.hs_sender_firstname %}
+        <b>{{ q.hs_sender_firstname }} {{ q.hs_sender_lastname }}</b>
+        {% if q.hs_sender_jobtitle %}<span>{{ q.hs_sender_jobtitle }}</span>{% endif %}
+        {% if q.hs_sender_email %}<a href="mailto:{{ q.hs_sender_email }}">{{ q.hs_sender_email }}</a>{% endif %}
+        {% if q.hs_sender_phone %}<span>{{ q.hs_sender_phone }}</span>{% endif %}
+      {% endif %}
+    </div>
+    <div class="q-download no-print">
+      {% module "download" path="@hubspot/quote_download", label="Download" %}
+    </div>
+  </footer>
+
+</div>
+
+{#
+  Preview-only diagnostic. HubSpot documents custom quote property access only
+  for enumeration types; number and text types are undocumented, so qprop()
+  reads both custom_properties.<name> and <name> directly. If a value renders
+  blank on a real quote, append ?mddDebug=1 in preview to see what the quote
+  object actually exposes, then simplify qprop() accordingly.
+#}
+{% if request.query_dict.mddDebug == '1' %}
+  <pre style="max-width:860px;margin:0 auto;padding:24px;font-size:11px;overflow:auto;background:#f8fafc;border-top:2px solid #8ac833">
+CUSTOM PROPERTIES DICT:
+{{ q.custom_properties|pprint }}
+
+RESOLVED VALUES:
+option={{ option }} | dealer={{ dealer }} | trackedUnits={{ trackedUnits }}
+monthlyValue={{ monthlyValue }} | oneTime={{ oneTimeTotal }} | monthly={{ monthlyTotal }}
+  </pre>
+{% endif %}
+
+{{ standard_footer_includes }}
+</body>
+</html>

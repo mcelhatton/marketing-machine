@@ -3,6 +3,17 @@
   isAvailableForNewContent: false
   label: MDD Sales Demo
 -->
+{#
+  Shared key for the quote endpoints, rendered into the page by HubSpot.
+
+  /sales-demo is password-protected, so only a rep who already got past that
+  password ever receives this value. That is the same trust boundary a typed
+  rep key gave us - so reps type NOTHING. Do not move this to a public page.
+
+  To rotate: change it here, re-upload, and set the matching MDD_REP_KEY secret
+  on the backend. The two must always match.
+#}
+{% set mdd_rep_key = "48d682fd6278a7dced63f4830399ae571738a42409e037f8" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -228,6 +239,49 @@
   .q-actions button { padding: 9px 16px; font-size: 13px; font-weight: 600; border-radius: 8px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; color: #374151; }
   .q-actions button.primary { background: var(--accent); border-color: var(--accent); color: #0C0E0A; }
   .q-hint { font-size: 11px; color: #9ca3af; margin-top: 8px; line-height: 1.5; }
+
+  /* ---------- MDD-QUOTE-INTEGRATION: Create Quote panel ---------- */
+  .q-hs { border-color: #d9f0b0; background: #fbfef5; }
+  .q-hs h3 { color: var(--accent); }
+  .q-hs .q-row input { width: 100%; text-align: left; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  /* ── Investment: two option blocks, each two numbers and any credits ── */
+  .q-opt { border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: #fff; }
+  .q-opt-h { font-size: 12px; font-weight: 800; color: #0C0E0A; letter-spacing: -.2px; margin-bottom: 8px; }
+  .q-opt-h span { display: block; font-size: 11px; font-weight: 500; color: #6b7280; letter-spacing: 0; }
+  .q-fin-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 7px 0; border-top: 1px solid #f3f4f6; }
+  .q-fin-l { font-size: 12.5px; color: #4b5563; }
+  .q-fin-l small { display: block; font-size: 10.5px; color: #9ca3af; }
+  .q-fin-v { font-size: 20px; font-weight: 800; letter-spacing: -.5px; color: #0C0E0A; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .q-fin-credits { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #d1d5db; }
+  .q-fin-credit { display: flex; justify-content: space-between; gap: 12px; font-size: 11.5px; color: #15803d; padding: 3px 0; font-variant-numeric: tabular-nums; }
+  .q-fin-credit small { display: block; font-size: 10px; color: #9ca3af; }
+  .q-fin-note { margin-top: 8px; font-size: 11px; font-weight: 700; color: #15803d; }
+
+  /* Mirrors the guarantee block on the quote document, so the rep is looking at
+     what the customer will read. */
+  .q-guar { margin-top: 16px; display: flex; border: 2px solid #0C0E0A; border-radius: 10px; overflow: hidden; }
+  .q-guar-main { flex: 1 1 auto; padding: 14px 16px; }
+  .q-guar-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #4d7c0f; }
+  .q-guar-main h4 { margin: 5px 0 5px; font-size: 15px; font-weight: 800; letter-spacing: -.3px; color: #0C0E0A; }
+  .q-guar-main p { margin: 0; font-size: 11.5px; line-height: 1.5; color: #4b5563; }
+  .q-guar-fig { flex: 0 0 40%; background: #0C0E0A; color: #fff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; }
+  .q-guar-k { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-bright); }
+  .q-guar-v { font-size: 30px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.05; margin: 3px 0 5px; }
+  .q-guar-n { font-size: 10.5px; line-height: 1.45; color: rgba(255,255,255,.62); }
+  @media (max-width: 720px) { .q-guar { flex-direction: column; } .q-guar-fig { flex-basis: auto; } }
+  .q-row select { width: 100%; font: inherit; padding: 6px 8px; border: 1px solid var(--line, #d1d5db); border-radius: 6px; background: #fff; }
+  #q-notes { width: 100%; font: inherit; padding: 8px; border: 1px solid var(--line, #d1d5db); border-radius: 6px; resize: vertical; }
+  .q-rep { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; margin-top: 8px; }
+  .q-rep .q-row input { font-family: inherit; }
+  @media (max-width: 640px) { .q-rep { grid-template-columns: 1fr; } }
+  .q-hs-out { margin-top: 10px; font-size: 12px; line-height: 1.6; }
+  .q-hs-out.err { color: #b91c1c; }
+  .q-hs-out.ok { color: #15803d; }
+  .q-hs-link { display: flex; gap: 6px; margin-top: 8px; }
+  .q-hs-link input { flex: 1; padding: 6px 8px; font-size: 11px; border: 1px solid #d1d5db; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .q-hs-link button { padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; }
+  .q-hs-warn { color: #b45309; font-size: 11px; margin-top: 6px; }
+  .q-actions button:disabled { opacity: .55; cursor: not-allowed; }
 
   /* ---------- Notes bar ---------- */
   #notes { display: none; padding: 10px 16px; background: #fffbeb; border-top: 1px solid #fde68a; font-size: 13px; color: #78350f; max-height: 110px; overflow-y: auto; }
@@ -1413,9 +1467,10 @@ const DEFAULT_CONFIG = {
   "quote": {
     "dealer": "",
     "rooftops": 1,
-    "newInv": 300,
-    "usedInv": 150,
-    "loaners": 25,
+    "salesUnits": 450,
+    "serviceUnits": 0,
+    "loaners": 0,
+    "tagMode": "both",
     "usedSoldMo": 60,
     "serviceROs": 1500,
     "laborRate": 150,
@@ -1429,20 +1484,40 @@ const DEFAULT_CONFIG = {
     "minPerRO": 15,
     "reconDaysCut": 3,
     "holdingCost": 40,
-    "pTag": 40,
-    "pKeyTag": 20,
-    "pPlacard": 60,
-    "pGateway": 250,
-    "pInstall": 5000,
-    "pMoPerUnit": 2,
+    "lostKeysMo": 3,
+    "keyReplaceCost": 400,
+    "lostDealsMo": 1,
+    "grossPerDeal": 1500,
+    "discountType": "none",
+    "discountValue": 0,
+    "quickClose": false,
+    "notes": "",
+    "gatewayIndoorOverride": 0,
+    "gatewayOutdoorOverride": 0,
+    "repFirst": "",
+    "repLast": "",
+    "repEmail": "",
+    "quoteExpiryDays": 30,
+    "pTag": 29.99,
+    "pKeyTag": 19.99,
+    "pPlacard": 49.99,
+    "pGatewayIn": 295,
+    "pGatewayOut": 595,
+    "pInstall": 1500,
+    "pMoVehTag": 1,
+    "pMoKeyTag": 1,
+    "pMoPlacard": 2.5,
     "pMoFlat": 695,
+    "pMoService": 200,
+    "pMoRecon": 200,
     "pVVPreload": 0,
-    "pVVUpgrade": 400
+    "pVVUpgrade": 400,
+    "dealId": ""
   }
 };
 
 /* ================= State ================= */
-const LS_KEY = "mdd-demo-config-v3";
+const LS_KEY = "mdd-demo-config-v5";   // v5: profile fields reorganised; defaults now merge (see withQuoteDefaults)
 let config = null;
 let cur = { s: 0, i: 0 };
 let editing = false;
@@ -1457,12 +1532,23 @@ const flat = () => config.sections.flatMap((sec, s) => sec.steps.map((st, i) => 
 async function loadConfig() {
   try { localStorage.removeItem(LS_KEY); } catch (e) {}   // purge legacy localStorage cache
   const saved = sessionStorage.getItem(LS_KEY);
-  if (saved) { try { config = JSON.parse(saved); if (!config.quote) config.quote = JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)); return; } catch (e) {} }
+  if (saved) { try { config = withQuoteDefaults(JSON.parse(saved)); return; } catch (e) {} }
   try {
     const r = await fetch("demo-config.json", { cache: "no-store" });
-    if (r.ok) { config = await r.json(); if (!config.quote) config.quote = JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)); return; }
+    if (r.ok) { config = withQuoteDefaults(await r.json()); return; }
   } catch (e) {}
   config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+}
+
+/* A cached or hosted config only knows the keys that existed when it was saved.
+   Replacing config wholesale meant every newly-added field came back undefined —
+   which is why new assumption defaults silently read as blank. Layering the
+   saved values OVER the defaults means new fields always arrive populated, and
+   no future addition needs a cache-key bump. */
+function withQuoteDefaults(cfg) {
+  const c = cfg || {};
+  c.quote = Object.assign(JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)), c.quote || {});
+  return c;
 }
 function persist() { sessionStorage.setItem(LS_KEY, JSON.stringify(config)); }
 
@@ -1678,30 +1764,90 @@ const fmt$ = n => "$" + Math.round(n).toLocaleString("en-US");
 
 /* ================= System Builder / Quote Builder ================= */
 function qCalc(q) {
-  const units = (+q.newInv || 0) + (+q.usedInv || 0) + (+q.loaners || 0);
-  const vehicleTags = units;
-  const keyTags = units;
-  const placards = q.modService ? Math.max(10, Math.ceil((+q.serviceROs || 0) / 22 * 1.25)) : 0;
+  // salesUnits/serviceUnits replaced newInv/usedInv; fall back so an older
+  // saved or hosted config still computes.
+  const salesUnits = q.salesUnits != null ? (+q.salesUnits || 0) : ((+q.newInv || 0) + (+q.usedInv || 0));
+  const serviceUnits = +q.serviceUnits || 0;
+  // Service units get placards, not tags — so they are not in the tag base.
+  const units = salesUnits + (+q.loaners || 0);
+
+  // One tag per unit for car-only or key-only; two when both are tracked.
+  const mode = ["car", "key", "both"].includes(q.tagMode) ? q.tagMode : "both";
+  const tagsCar = mode === "car" || mode === "both";
+  const tagsKey = mode === "key" || mode === "both";
+  const vehicleTags = tagsCar ? units : 0;
+  const keyTags = tagsKey ? units : 0;
+  const tagsPerUnit = (tagsCar ? 1 : 0) + (tagsKey ? 1 : 0);
+  // Service units drive placards directly; the RO estimate is only a fallback.
+  const placards = q.modService
+    ? (serviceUnits > 0 ? serviceUnits : Math.max(10, Math.ceil((+q.serviceROs || 0) / 22 * 1.25)))
+    : 0;
   const gatewaysAuto = Math.round(Math.min(35, Math.max(15, 15 + (units - 200) / 500 * 20)));
   const gateways = +q.gatewaysOverride > 0 ? +q.gatewaysOverride : gatewaysAuto;
-  const oneTime = vehicleTags * (+q.pTag || 0) + keyTags * (+q.pKeyTag || 0) +
-                  placards * (+q.pPlacard || 0) + gateways * (+q.pGateway || 0) + (+q.pInstall || 0);
-  const monthly = (+q.pMoFlat || 0);
+
+  // Two real catalog SKUs. A site survey can pin the exact mix; otherwise split
+  // 70/30. Must match sizeSystem() in lib/calc.js and gatewaySplit in pricing-map.json.
+  let gatewaysIndoor, gatewaysOutdoor;
+  if (+q.gatewayIndoorOverride > 0 || +q.gatewayOutdoorOverride > 0) {
+    gatewaysIndoor = +q.gatewayIndoorOverride || 0;
+    gatewaysOutdoor = +q.gatewayOutdoorOverride || 0;
+  } else {
+    gatewaysIndoor = Math.round(gateways * 0.7);
+    gatewaysOutdoor = gateways - gatewaysIndoor;
+  }
+  // Fallbacks keep an older saved/hosted config (single blended pGateway) working.
+  const pGwIn = +q.pGatewayIn || +q.pGateway || 0;
+  const pGwOut = +q.pGatewayOut || +q.pGateway || 0;
+
+  // Modules bill separately on top of the platform fee.
+  const moduleMonthly = (q.modService ? (+q.pMoService || 0) : 0) + (q.modRecon ? (+q.pMoRecon || 0) : 0);
+
+  // Hardware = everything one-time except install. The discount applies here only.
+  const hardwareSubtotal = vehicleTags * (+q.pTag || 0) + keyTags * (+q.pKeyTag || 0) +
+                  placards * (+q.pPlacard || 0) +
+                  gatewaysIndoor * pGwIn + gatewaysOutdoor * pGwOut;
+
+  let discountPct = 0;
+  if (q.discountType === "percent") discountPct = Math.min(100, Math.max(0, +q.discountValue || 0));
+  else if (q.discountType === "amount" && hardwareSubtotal > 0) {
+    discountPct = +Math.min(+q.discountValue || 0, hardwareSubtotal) / hardwareSubtotal * 100;
+    discountPct = +discountPct.toFixed(4);
+  }
+  const discountAmount = +(hardwareSubtotal * discountPct / 100).toFixed(2);
+
+  // Quick Close: 3 months of platform service free, capped at $695/month.
+  const quickCloseValue = q.quickClose ? Math.min(695, +q.pMoFlat || 0) * 3 : 0;
+  // 90-day money-back window: everything paid before the guarantee expires.
+
+  const oneTime = +(hardwareSubtotal - discountAmount + (+q.pInstall || 0)).toFixed(2);
+  const monthly = (+q.pMoFlat || 0) + moduleMonthly;
+
   const leaseUnits = units + placards;
   const leaseOneTime = (+q.pInstall || 0);
-  const leaseMonthly = (+q.pMoFlat || 0) + (+q.pMoPerUnit || 0) * leaseUnits;
+  // Lease is priced per SKU, not as one blended per-unit rate.
+  const pMoVeh = q.pMoVehTag != null ? (+q.pMoVehTag || 0) : (+q.pMoPerUnit || 0);
+  const pMoKey = q.pMoKeyTag != null ? (+q.pMoKeyTag || 0) : 0;
+  const pMoPlac = q.pMoPlacard != null ? (+q.pMoPlacard || 0) : (+q.pMoPerUnit || 0);
+  // Per tag type, not per unit — a car-only or key-only system leases half the tags.
+  const leaseHardware = vehicleTags * pMoVeh + keyTags * pMoKey + placards * pMoPlac;
+  const leaseMonthly = (+q.pMoFlat || 0) + moduleMonthly + leaseHardware;
   const svcValue = q.modService ? (+q.serviceROs || 0) * ((+q.minPerRO || 0) / 60) * (+q.laborRate || 0) : 0;
   const placardValue = q.modService ? 500 : 0;
   const reconValue = q.modRecon ? (+q.usedSoldMo || 0) * (+q.reconDaysCut || 0) * (+q.holdingCost || 0) : 0;
-  const vvInventory = (+q.newInv || 0) + (+q.usedInv || 0);
+  // Lost keys and lost deals — the dealer's own numbers, not an industry average.
+  const lostKeyValue = (+q.lostKeysMo || 0) * (+q.keyReplaceCost || 0);
+  const lostDealValue = (+q.lostDealsMo || 0) * (+q.grossPerDeal || 0);
+  const vvInventory = salesUnits;
   const vvPerPkg = Math.max(0, (+q.pVVUpgrade || 0) - (+q.pVVPreload || 0));
   const vvPackages = q.modVV ? vvInventory * 0.60 * ((+q.sellThrough || 0) / 100) : 0;
   const vvValue = q.modVV ? vvPackages * vvPerPkg : 0;
-  const totalValue = svcValue + placardValue + reconValue + vvValue;
+  const totalValue = svcValue + placardValue + reconValue + lostKeyValue + lostDealValue + vvValue;
   const net = totalValue - monthly;
   const leaseNet = totalValue - leaseMonthly;
   const payback = oneTime > 0 && net > 0 ? oneTime / net : 0;
-  return { units, vehicleTags, keyTags, placards, gateways, gatewaysAuto, oneTime, monthly, leaseUnits, leaseOneTime, leaseMonthly, leaseNet, svcValue, placardValue, reconValue, vvInventory, vvPerPkg, vvPackages, vvValue, totalValue, net, payback };
+  const first90 = +(oneTime + monthly * 3 - quickCloseValue).toFixed(2);
+  const leaseFirst90 = +(leaseOneTime + leaseMonthly * 3 - quickCloseValue).toFixed(2);
+  return { units, salesUnits, serviceUnits, vehicleTags, keyTags, tagsPerUnit, placards, gateways, gatewaysAuto, gatewaysIndoor, gatewaysOutdoor, moduleMonthly, hardwareSubtotal, discountPct, discountAmount, quickCloseValue, first90, leaseFirst90, oneTime, monthly, leaseUnits, leaseHardware, leaseOneTime, leaseMonthly, leaseNet, svcValue, placardValue, reconValue, lostKeyValue, lostDealValue, vvInventory, vvPerPkg, vvPackages, vvValue, totalValue, net, payback };
 }
 
 function qInput(label, key, opts = {}) {
@@ -1713,6 +1859,27 @@ function qInput(label, key, opts = {}) {
 function qCheck(label, key) {
   return `<label class="q-check"><input type="checkbox" data-qkey="${key}" ${config.quote[key] ? "checked" : ""}> ${label}</label>`;
 }
+/* One purchase option in the Investment card: the two numbers that matter, then
+   any credits underneath. Credits are listed separately from the totals because
+   they are already reflected in them — showing them inline read as extra charges. */
+function qOption(title, sub, rows, credits, note) {
+  const lines = rows.map(([label, detail, value]) =>
+    `<div class="q-fin-row"><span class="q-fin-l">${label}${detail ? `<small>${detail}</small>` : ""}</span><span class="q-fin-v">${fmt$(value)}</span></div>`).join("");
+  const creditLines = (credits || []).filter(Boolean).map(([label, detail, value]) =>
+    `<div class="q-fin-credit"><span>${label}<small>${detail}</small></span><span>−${fmt$(value)}</span></div>`).join("");
+  return `<div class="q-opt">
+    <div class="q-opt-h">${title}<span>${sub}</span></div>
+    ${lines}
+    ${creditLines ? `<div class="q-fin-credits">${creditLines}</div>` : ""}
+    ${note ? `<div class="q-fin-note">${note}</div>` : ""}
+  </div>`;
+}
+function qSelect(label, key, options) {
+  const cur = config.quote[key];
+  const opts = options.map(([v, t]) =>
+    `<option value="${escAttr(v)}"${v === cur ? " selected" : ""}>${esc(t)}</option>`).join("");
+  return `<div class="q-row"><label>${label}</label><select class="wide" data-qkey="${key}">${opts}</select></div>`;
+}
 
 function renderQuote() {
   const q = config.quote;
@@ -1723,14 +1890,12 @@ function renderQuote() {
       <div>
         <div class="q-card"><h3>Dealership Profile</h3>
           ${qInput("Dealership / group", "dealer", { text: true, ph: "e.g. Truck Ranch" })}
-          ${qInput("Rooftops / lots", "rooftops")}
-          ${qInput("New inventory (units)", "newInv")}
-          ${qInput("Used inventory (units)", "usedInv")}
-          ${qInput("Loaners / fleet (units)", "loaners")}
-          ${qInput("Used retailed / month", "usedSoldMo")}
+          ${qInput("Sales units", "salesUnits")}
+          ${qInput("Service units", "serviceUnits")}
+          ${qSelect("What gets tagged", "tagMode", [["both","Car and Key (2 tags per unit)"],["car","Car only (1 tag per unit)"],["key","Key only (1 tag per unit)"]])}
+          ${qInput("Units retailed / month", "usedSoldMo")}
           ${qInput("Service ROs / month", "serviceROs")}
-          ${qInput("Effective labor rate ($/hr)", "laborRate")}
-          ${qInput("Sell-through % (VehicleVault attach)", "sellThrough")}
+          <div class="q-hint">Sales units carry the tags. Service units size the reusable placards.</div>
         </div>
         <div class="q-card"><h3>Modules</h3>
           ${qCheck("Key &amp; Vehicle Tracking (MDD Locate)", "modLocate")}
@@ -1739,21 +1904,47 @@ function renderQuote() {
           ${qCheck("Recon Workflow", "modRecon")}
           ${qCheck("VehicleVault F&amp;I", "modVV")}
         </div>
-        <div class="q-card"><h3>Assumptions</h3>
-          ${qInput("Minutes saved per RO", "minPerRO")}
-          ${qInput("Recon days cut (T2L)", "reconDaysCut")}
-          ${qInput("Holding cost $/day (used)", "holdingCost")}
-          ${qInput("Gateways (0 = auto)", "gatewaysOverride")}
+        <details><summary>&#9881;&#65039; Assumptions</summary>
+          <div class="q-card">
+            ${qInput("Effective labor rate ($/hr)", "laborRate")}
+            ${qInput("Minutes saved per RO", "minPerRO")}
+            ${qInput("Recon days cut (T2L)", "reconDaysCut")}
+            ${qInput("Holding cost $/day (used)", "holdingCost")}
+            ${qInput("Lost keys / month", "lostKeysMo")}
+            ${qInput("↳ cost per key ($)", "keyReplaceCost")}
+            ${qInput("Lost deals / month", "lostDealsMo")}
+            ${qInput("↳ gross per deal ($)", "grossPerDeal")}
+            ${qInput("Sell-through % (VehicleVault attach)", "sellThrough")}
+            ${qInput("Rooftops / lots", "rooftops")}
+            ${qInput("Gateways (0 = auto)", "gatewaysOverride")}
+            ${qInput("↳ indoor (0 = 70/30 split)", "gatewayIndoorOverride")}
+            ${qInput("↳ outdoor (0 = 70/30 split)", "gatewayOutdoorOverride")}
+          </div>
+        </details>
+        <div class="q-card"><h3>Offer</h3>
+          ${qSelect("Hardware discount", "discountType", [["none","None"],["percent","Percent off (%)"],["amount","Dollar amount off ($)"]])}
+          ${qInput("Discount value", "discountValue")}
+          ${qCheck("Quick Close — 3 months service free if signed within 24 hours", "quickClose")}
+          <div class="q-hint">Discount applies to hardware only, never to install or the monthly. Quick Close is capped at $695/mo &times; 3.</div>
+        </div>
+        <div class="q-card"><h3>Notes to the customer</h3>
+          <textarea id="q-notes" rows="4" placeholder="Anything specific you promised on the call. This appears at the top of the Comments block on the quote.">${esc(q.notes || '')}</textarea>
+          <div class="q-hint">Goes straight onto the quote, above the auto-written summary.</div>
         </div>
         <details><summary>&#128274; Pricing</summary>
           <div class="q-card">
             ${qInput("Vehicle tag ($ each)", "pTag")}
             ${qInput("Key tag ($ each)", "pKeyTag")}
             ${qInput("Service placard ($ each)", "pPlacard")}
-            ${qInput("Gateway ($ each)", "pGateway")}
+            ${qInput("Gateway — indoor ($ each)", "pGatewayIn")}
+            ${qInput("Gateway — outdoor ($ each)", "pGatewayOut")}
             ${qInput("Install (flat $)", "pInstall")}
-            ${qInput("Lease per-vehicle ($/mo)", "pMoPerUnit")}
-            ${qInput("Monthly flat $", "pMoFlat")}
+            ${qInput("Lease — vehicle tag ($/mo)", "pMoVehTag")}
+            ${qInput("Lease — key tag ($/mo)", "pMoKeyTag")}
+            ${qInput("Lease — placard ($/mo)", "pMoPlacard")}
+            ${qInput("Platform monthly $", "pMoFlat")}
+            ${qInput("Service Workflow ($/mo)", "pMoService")}
+            ${qInput("Recon Workflow ($/mo)", "pMoRecon")}
             ${qInput("VehicleVault pre-load ($/pkg)", "pVVPreload")}
             ${qInput("VehicleVault upgrade ($/pkg)", "pVVUpgrade")}
             <div class="q-hint">Set once, then Export the config — the whole team gets your pricing defaults.</div>
@@ -1764,8 +1955,22 @@ function renderQuote() {
         <div class="q-card"><h3 id="q-sys-title">The System</h3><div id="q-hardware"></div></div>
         <div class="q-value"><h3>Monthly Value Recovered</h3><div id="q-value"></div></div>
         <div class="q-card"><h3>Investment</h3><div id="q-invest"></div></div>
+        <div class="q-card q-hs">
+          <h3>Send to HubSpot</h3>
+          <div class="q-row"><input type="text" id="q-deal" placeholder="HubSpot Deal ID — e.g. 31234567890" value="${escAttr(q.dealId || '')}"></div>
+          <div class="q-hint">Open the deal in HubSpot; the ID is the last number in the URL. Creates a Buy quote and a Lease quote as drafts, then opens the page the customer uses to choose.</div>
+          <div class="q-rep">
+            ${qInput("Your first name", "repFirst", { text: true, ph: "Chris" })}
+            ${qInput("Your last name", "repLast", { text: true, ph: "Glenn" })}
+            ${qInput("Your email", "repEmail", { text: true, ph: "chris@mdd.io" })}
+            ${qInput("Quote valid for (days)", "quoteExpiryDays")}
+          </div>
+          <div class="q-hint">This is who the quote comes from — it signs the "Comments from…" note to the buyer. Set it once; it sticks for the session.</div>
+          <div class="q-hs-out" id="q-hs-out"></div>
+        </div>
         <div class="q-actions">
-          <button class="primary" id="q-copy">Copy summary</button>
+          <button class="primary" id="q-create">Create Quote</button>
+          <button id="q-copy">Copy summary</button>
           <button id="q-reset">Reset</button>
         </div>
         <div class="q-hint">Estimates for conversation — final hardware counts confirmed by MDD's free site survey. 1-day install &middot; 4-week hypercare &middot; dedicated CSM &middot; 90-day money-back guarantee.</div>
@@ -1778,9 +1983,13 @@ function renderQuote() {
       persist(); qRefresh();
     });
   });
+  $("q-deal").addEventListener("input", e => { config.quote.dealId = e.target.value.trim(); persist(); });
+  $("q-notes").addEventListener("input", e => { config.quote.notes = e.target.value; persist(); });
+  $("q-create").onclick = () => mddCreateQuote();
   $("q-copy").onclick = () => { navigator.clipboard.writeText(qSummaryText()).then(() => { $("q-copy").textContent = "Copied ✓"; setTimeout(() => $("q-copy").textContent = "Copy summary", 1500); }); };
   $("q-reset").onclick = () => { if (!confirm("Reset System Builder to defaults? (Pricing is kept)")) return;
-    const p = {}; ["pTag","pKeyTag","pPlacard","pGateway","pInstall","pMoPerUnit","pMoFlat","pVVPreload","pVVUpgrade"].forEach(k => p[k] = config.quote[k]);
+    const p = {}; ["pTag","pKeyTag","pPlacard","pGatewayIn","pGatewayOut","pInstall","pMoVehTag","pMoKeyTag","pMoPlacard","pMoFlat","pMoService","pMoRecon","pVVPreload","pVVUpgrade",
+      "repFirst","repLast","repEmail","quoteExpiryDays"].forEach(k => p[k] = config.quote[k]);
     config.quote = Object.assign(JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote)), p);
     persist(); renderQuote(); };
   qRefresh();
@@ -1792,34 +2001,195 @@ function qRefresh() {
   const hasPricing = c.oneTime > 0 || c.monthly > 0;
   $("q-hardware").innerHTML = `<table class="q-table">
     <tr><th>Hardware</th><th style="text-align:right">Qty</th></tr>
-    <tr><td>Vehicle tracking tags</td><td class="num">${c.vehicleTags.toLocaleString()}</td></tr>
-    <tr><td>Key tracking tags</td><td class="num">${c.keyTags.toLocaleString()}</td></tr>
-    ${c.placards ? `<tr><td>Reusable service placards</td><td class="num">${c.placards.toLocaleString()}</td></tr>` : ""}
-    <tr><td>Gateways ${+q.gatewaysOverride > 0 ? "(manual)" : "(est., site survey to confirm)"}</td><td class="num">${c.gateways.toLocaleString()}</td></tr>
-    <tr><td><b>Tracked units</b></td><td class="num"><b>${c.units.toLocaleString()}</b></td></tr>
+    ${c.vehicleTags ? `<tr><td>Vehicle tracking tags</td><td class="num">${c.vehicleTags.toLocaleString()}</td></tr>` : ""}
+    ${c.keyTags ? `<tr><td>Key tracking tags</td><td class="num">${c.keyTags.toLocaleString()}</td></tr>` : ""}
+    ${c.placards ? `<tr><td>Reusable service placards<br><span style="opacity:.65;font-size:11px">${c.serviceUnits > 0 ? "from service units" : "estimated from ROs — enter service units to pin it"}</span></td><td class="num">${c.placards.toLocaleString()}</td></tr>` : ""}
+    <tr><td>Gateways ${+q.gatewaysOverride > 0 ? "(manual)" : "(est., site survey to confirm)"}<br><span style="opacity:.65;font-size:11px">${c.gatewaysIndoor} indoor &middot; ${c.gatewaysOutdoor} outdoor</span></td><td class="num">${c.gateways.toLocaleString()}</td></tr>
+    <tr><td><b>Tracked units</b><br><span style="opacity:.65;font-size:11px">${c.salesUnits.toLocaleString()} sales units${(+q.loaners || 0) ? ` + ${(+q.loaners).toLocaleString()} loaner` : ""} &nbsp;·&nbsp; ${c.tagsPerUnit} tag${c.tagsPerUnit === 1 ? "" : "s"} each</span></td><td class="num"><b>${c.units.toLocaleString()}</b></td></tr>
   </table>`;
   $("q-value").innerHTML =
     (c.svcValue ? `<div class="vrow"><span>Service: ${(+q.serviceROs).toLocaleString()} ROs × ${q.minPerRO} min × $${q.laborRate}/hr</span><b>${fmt$(c.svcValue)}</b></div>` : "") +
     (c.placardValue ? `<div class="vrow"><span>Paper hang tags eliminated</span><b>${fmt$(c.placardValue)}</b></div>` : "") +
     (c.reconValue ? `<div class="vrow"><span>Recon: ${q.usedSoldMo} units × ${q.reconDaysCut} days × $${q.holdingCost}/day</span><b>${fmt$(c.reconValue)}</b></div>` : "") +
+    (c.lostKeyValue ? `<div class="vrow"><span>Lost keys: ${q.lostKeysMo}/mo × $${q.keyReplaceCost}</span><b>${fmt$(c.lostKeyValue)}</b></div>` : "") +
+    (c.lostDealValue ? `<div class="vrow"><span>Lost deals: ${q.lostDealsMo}/mo × $${(+q.grossPerDeal || 0).toLocaleString()} gross</span><b>${fmt$(c.lostDealValue)}</b></div>` : "") +
     (c.vvValue ? `<div class="vrow"><span>VehicleVault: ${c.vvInventory.toLocaleString()} inv &times; 60% &times; ${q.sellThrough}% &times; ${fmt$(c.vvPerPkg)}/pkg</span><b>${fmt$(c.vvValue)}</b></div>` : "") +
     ((!c.totalValue) ? `<div class="vrow"><span>Enable modules & assumptions to see value</span><b>—</b></div>` : "") +
     `<div class="vtotal"><span>Total / month</span><span>${fmt$(c.totalValue)}</span></div>` +
     (c.totalValue ? `<div class="vrow" style="margin-top:6px"><span>Per year</span><b>${fmt$(c.totalValue * 12)}</b></div>` : "");
-  const optH = 'font-size:12px;font-weight:700;color:var(--accent-bright);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px';
   $("q-invest").innerHTML = hasPricing
-    ? `<div style="margin-bottom:14px"><div style="${optH}">Buy — own the hardware</div>
-         <div class="q-total"><span>One-time (hardware + install)</span><span>${fmt$(c.oneTime)}</span></div>
-         <div class="q-total"><span>Monthly (flat)</span><span>${fmt$(c.monthly)}</span></div>` +
-         (c.payback ? `<div class="q-total" style="color:#15803d"><span>Payback</span><span>${c.payback < 1 ? "&lt; 1 month" : c.payback.toFixed(1) + " months"}</span></div>` : "") +
-         (c.monthly && c.totalValue ? `<div class="q-total" style="color:#15803d"><span>Net value / month</span><span>${fmt$(c.net)}</span></div>` : "") +
-       `</div>
-       <div><div style="${optH}">Lease — hardware in the monthly</div>
-         <div class="q-total"><span>One-time (install)</span><span>${fmt$(c.leaseOneTime)}</span></div>
-         <div class="q-total"><span>Monthly (${fmt$(+q.pMoFlat || 0)} flat + ${fmt$(+q.pMoPerUnit || 0)} &times; ${c.leaseUnits.toLocaleString()} veh+plac)</span><span>${fmt$(c.leaseMonthly)}</span></div>` +
-         (c.leaseMonthly && c.totalValue ? `<div class="q-total" style="color:#15803d"><span>Net value / month</span><span>${fmt$(c.leaseNet)}</span></div>` : "") +
-       `</div>`
+    ? qOption("Buy", "Own the hardware", [
+        ["One-time", "hardware + install", c.oneTime],
+        ["Monthly", `${fmt$(+q.pMoFlat || 0)} platform${c.moduleMonthly ? " + " + fmt$(c.moduleMonthly) + " modules" : ""}`, c.monthly]
+      ], [
+        // Hardware discount is Buy-only — a lease has no one-time hardware to discount.
+        c.discountAmount ? ["Hardware discount", `${c.discountPct}% off hardware`, c.discountAmount] : null,
+        c.quickCloseValue ? ["Quick Close", "3 months service free", c.quickCloseValue] : null
+      ], c.payback ? `Payback ${c.payback < 1 ? "&lt; 1 month" : c.payback.toFixed(1) + " months"}` : "") +
+      qOption("Lease", "Hardware in the monthly", [
+        ["One-time", "install only", c.leaseOneTime],
+        ["Monthly", `${fmt$(+q.pMoFlat || 0)} platform${c.moduleMonthly ? " + " + fmt$(c.moduleMonthly) + " modules" : ""} + ${fmt$(c.leaseHardware)} hardware`, c.leaseMonthly]
+      ], [
+        c.quickCloseValue ? ["Quick Close", "3 months service free", c.quickCloseValue] : null
+      ], "") +
+       (c.leaseFirst90 > 0 ? `<div class="q-guar">
+          <div class="q-guar-main">
+            <div class="q-guar-eyebrow">90-Day Money-Back Guarantee</div>
+            <h4>Your total risk is capped.</h4>
+            <p>If MDD does not deliver, we make it right. No long-term risk, no complicated
+               terms, and MDD-backed assurance built on 10+ years of dealer trust.</p>
+          </div>
+          <div class="q-guar-fig">
+            <div class="q-guar-k">Total at risk — first 90 days</div>
+            <div class="q-guar-v">${fmt$(c.leaseFirst90)}</div>
+            <div class="q-guar-n">${fmt$(c.leaseOneTime)} install + ${fmt$(c.leaseMonthly)}/mo × 3${c.quickCloseValue ? ` − ${fmt$(c.quickCloseValue)} Quick Close` : ""}${c.totalValue ? `<br>Value recovered over the same 90 days: <b>${fmt$(c.totalValue * 3)}</b>` : ""}</div>
+          </div>
+        </div>` : "")
     : `<div class="q-hint">Pricing not set. Open the Pricing panel (before the call) or discuss investment live — the value math above stands on its own.</div>`;
+}
+
+/* ================= MDD-QUOTE-INTEGRATION =================
+   Posts the dealership inputs to the CMS serverless function, which prices
+   them from the HubSpot product catalog and creates the Buy + Lease draft
+   quotes. Prices are never sent from here - the browser is not trusted with
+   money. The rep key is entered once per session and kept in sessionStorage. */
+
+// Cloudflare Worker (workers/quote-api). NOT a HubSpot serverless function -
+// this portal is not on Content Hub Enterprise, so /_hcms/api/ is unavailable.
+const MDD_QUOTE_API = "https://mdd-quote-api.mdd-io.workers.dev";
+
+// Rendered server-side by HubSpot (see the top of this template). The rep never
+// sees it and never types anything - reaching this page at all is the auth.
+const MDD_REP_KEY = "{{ mdd_rep_key }}";
+
+function mddQuoteOut(html, cls) {
+  const el = $("q-hs-out");
+  if (!el) return;
+  el.className = "q-hs-out" + (cls ? " " + cls : "");
+  el.innerHTML = html;
+}
+
+async function mddCreateQuote() {
+  const q = config.quote;
+  const dealId = String(q.dealId || "").trim();
+
+  if (!/^\d+$/.test(dealId)) {
+    mddQuoteOut("Enter the numeric HubSpot Deal ID first.", "err");
+    $("q-deal").focus();
+    return;
+  }
+
+  // Without a sender the quote template drops the whole "Comments from…" block,
+  // so the buyer never sees the note. Cheaper to catch it here than to reissue.
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(q.repEmail || "").trim())) {
+    mddQuoteOut("Add your email under Send to HubSpot first — the quote is signed “Comments from…” and needs to know who it is from.", "err");
+    const el = document.querySelector('[data-qkey="repEmail"]');
+    if (el) el.focus();
+    return;
+  }
+
+  if (!MDD_REP_KEY) {
+    mddQuoteOut("This page is missing its access key — re-publish the sales demo, or ping whoever set it up.", "err");
+    return;
+  }
+
+  const btn = $("q-create");
+  const label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Creating…";
+  mddQuoteOut("Pricing from the HubSpot catalog and building both quotes…");
+
+  // Only the dealership inputs travel. Pricing lives in HubSpot.
+  const inputs = {};
+  ["dealer","rooftops","salesUnits","serviceUnits","loaners","tagMode","usedSoldMo","serviceROs",
+   "laborRate","sellThrough","gatewaysOverride","gatewayIndoorOverride","gatewayOutdoorOverride",
+   "modLocate","modLot","modService","modRecon","modVV",
+   "minPerRO","reconDaysCut","holdingCost",
+   "lostKeysMo","keyReplaceCost","lostDealsMo","grossPerDeal",
+   "discountType","discountValue","quickClose"].forEach(k => { inputs[k] = q[k]; });
+
+  try {
+    const res = await fetch(MDD_QUOTE_API + "/create-quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-MDD-Rep-Key": MDD_REP_KEY },
+      body: JSON.stringify({
+        dealId,
+        inputs,
+        // VehicleVault package margin still lives on this page.
+        vvPerPkg: Math.max(0, (+q.pVVUpgrade || 0) - (+q.pVVPreload || 0)),
+        expiresInDays: +q.quoteExpiryDays || 30,
+        notes: q.notes || "",
+        sender: {
+          firstName: (q.repFirst || "").trim(),
+          lastName: (q.repLast || "").trim(),
+          email: (q.repEmail || "").trim()
+        }
+      })
+    });
+    const data = await res.json();
+
+    if (res.status === 401) {
+      // Nothing the rep can fix by retrying — the page key and the backend
+      // secret have drifted apart, which only happens after a rotation.
+      throw new Error("This page's access key no longer matches the server. It needs re-syncing — nothing you can fix from here.");
+    }
+    if (!data || data.ok !== true) throw new Error((data && data.error) || "Quote creation failed.");
+
+    const b = data.model.options.buy, l = data.model.options.lease;
+    const drift = mddDriftNotice(b, l);
+
+    // Open the customer-facing decision page straight away. Popup blockers only
+    // allow this because the whole flow started from the rep's click.
+    const opened = window.open(data.chooserUrl, "_blank", "noopener");
+
+    mddQuoteOut(
+      "<b>Both quotes created as drafts on " + esc(data.dealName || ("deal " + dealId)) + ".</b><br>" +
+      "Buy: " + fmt$(b.oneTime) + " one-time &middot; " + fmt$(b.monthly) + "/mo<br>" +
+      "Lease: " + fmt$(l.oneTime) + " one-time &middot; " + fmt$(l.monthly) + "/mo<br>" +
+      (opened
+        ? "<span style='color:#6b7280'>The customer's Buy-vs-Lease page just opened in a new tab. Send them this link — whichever they pick becomes the signable quote, and the other is withdrawn.</span>"
+        : "<span style='color:#6b7280'>Send this link to the customer — they choose, then sign. (Your browser blocked the new tab; open it below.)</span>") +
+      '<div class="q-hs-link"><input readonly value="' + escAttr(data.chooserUrl) + '" id="q-hs-url">' +
+      '<button id="q-hs-copy">Copy link</button></div>' +
+      '<div style="margin-top:8px"><a href="' + escAttr(data.chooserUrl) + '" target="_blank" rel="noopener"><b>Open customer page</b></a> &middot; ' +
+      '<a href="' + escAttr(data.quoteEditUrls.buy) + '" target="_blank" rel="noopener">Buy quote</a> &middot; ' +
+      '<a href="' + escAttr(data.quoteEditUrls.lease) + '" target="_blank" rel="noopener">Lease quote</a></div>' +
+      drift +
+      ((data.warnings && data.warnings.length)
+        ? '<div class="q-hs-warn">' + data.warnings.map(esc).join("<br>") + "</div>" : ""),
+      "ok"
+    );
+
+    $("q-hs-copy").onclick = () => {
+      const el = $("q-hs-url");
+      el.select();
+      navigator.clipboard.writeText(el.value).then(() => {
+        $("q-hs-copy").textContent = "Copied ✓";
+        setTimeout(() => { const c = $("q-hs-copy"); if (c) c.textContent = "Copy link"; }, 1500);
+      });
+    };
+  } catch (e) {
+    mddQuoteOut(esc(e.message || String(e)), "err");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = label;
+  }
+}
+
+/* The slide shows the rep's local price list; HubSpot quotes from the catalog.
+   Surface the gap rather than letting the rep discover it in front of a dealer. */
+function mddDriftNotice(buy, lease) {
+  const c = qCalc(config.quote);
+  const notes = [];
+  if (Math.abs(c.oneTime - buy.oneTime) > 1) {
+    notes.push("Buy one-time on this slide is " + fmt$(c.oneTime) + ", the quote is " + fmt$(buy.oneTime) + ".");
+  }
+  if (Math.abs(c.leaseMonthly - lease.monthly) > 1) {
+    notes.push("Lease monthly on this slide is " + fmt$(c.leaseMonthly) + ", the quote is " + fmt$(lease.monthly) + ".");
+  }
+  if (!notes.length) return "";
+  return '<div class="q-hs-warn"><b>Catalog pricing differs from this slide.</b><br>' +
+         notes.map(esc).join("<br>") + "<br>The quote is correct — HubSpot's product catalog is the source of truth.</div>";
 }
 
 function qSummaryText() {
@@ -1832,7 +2202,7 @@ function qSummaryText() {
     `- Vehicle tags: ${c.vehicleTags}`,
     `- Key tags: ${c.keyTags}`,
     c.placards ? `- Service placards: ${c.placards}` : null,
-    `- Gateways: ${c.gateways} (final count by site survey)`,
+    `- Gateways: ${c.gateways} (${c.gatewaysIndoor} indoor / ${c.gatewaysOutdoor} outdoor — final count by site survey)`,
     ``,
     `MODULES: ${[q.modLocate ? "Locate" : null, q.modLot ? "Lot Management" : null, q.modService ? "Service Workflow" : null, q.modRecon ? "Recon Workflow" : null, q.modVV ? "VehicleVault F&I" : null].filter(Boolean).join(", ") || "\u2014"}`,
     ``,
@@ -1841,8 +2211,9 @@ function qSummaryText() {
     c.placardValue ? `- Paper hang tags eliminated: ${fmt$(c.placardValue)}` : null,
     c.reconValue ? `- Recon T2L (${q.usedSoldMo} × ${q.reconDaysCut} days × $${q.holdingCost}): ${fmt$(c.reconValue)}` : null,
     c.vvValue ? `- VehicleVault (${c.vvInventory} \u00d7 60% \u00d7 ${q.sellThrough}% \u00d7 ${fmt$(c.vvPerPkg)}/pkg): ${fmt$(c.vvValue)}` : null,
-    (c.oneTime || c.monthly) ? `\nINVESTMENT — BUY: ${fmt$(c.oneTime)} one-time · ${fmt$(c.monthly)}/mo flat${c.payback ? ` · payback ${c.payback < 1 ? "<1" : c.payback.toFixed(1)} months` : ""}` : null,
-    (c.leaseMonthly) ? `INVESTMENT — LEASE: ${fmt$(c.leaseOneTime)} one-time (install) · ${fmt$(c.leaseMonthly)}/mo (${fmt$(+q.pMoFlat || 0)} flat + ${fmt$(+q.pMoPerUnit || 0)}/veh × ${c.leaseUnits})` : null,
+    (c.oneTime || c.monthly) ? `\nINVESTMENT — BUY: ${fmt$(c.oneTime)} one-time · ${fmt$(c.monthly)}/mo${c.payback ? ` · payback ${c.payback < 1 ? "<1" : c.payback.toFixed(1)} months` : ""}` : null,
+    (c.leaseMonthly) ? `INVESTMENT — LEASE: ${fmt$(c.leaseOneTime)} one-time (install) · ${fmt$(c.leaseMonthly)}/mo (${fmt$(+q.pMoFlat || 0)} platform${c.moduleMonthly ? " + " + fmt$(c.moduleMonthly) + " modules" : ""} + ${fmt$(c.leaseHardware)} hardware)` : null,
+    (c.leaseFirst90 > 0) ? `\nTOTAL AT RISK — FIRST 90 DAYS (LEASE): ${fmt$(c.leaseFirst90)}\n  ${fmt$(c.leaseOneTime)} install + ${fmt$(c.leaseMonthly)}/mo × 3${c.quickCloseValue ? ` − ${fmt$(c.quickCloseValue)} Quick Close` : ""}${c.totalValue ? `\n  Value recovered over the same 90 days: ${fmt$(c.totalValue * 3)}` : ""}\n  Covered by the 90-day money-back guarantee.` : null,
     ``,
     `1-day install · 4-week hypercare · dedicated CSM · 90-day money-back guarantee`
   ].filter(x => x !== null);
@@ -1989,8 +2360,7 @@ function importConfig(file) {
     try {
       const c = JSON.parse(r.result);
       if (!c.sections) throw new Error("Missing sections");
-      if (!c.quote) c.quote = JSON.parse(JSON.stringify(DEFAULT_CONFIG.quote));
-      config = c; persist(); cur = { s: 0, i: 0 }; render();
+      config = withQuoteDefaults(c); persist(); cur = { s: 0, i: 0 }; render();
     } catch (e) { alert("Invalid demo config file: " + e.message); }
   };
   r.readAsText(file);

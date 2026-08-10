@@ -1,0 +1,14 @@
+{
+  "runtime": "nodejs20.x",
+  "version": "1.0",
+  "secrets": [
+    "HUBSPOT_QUOTE_TOKEN",
+    "MDD_QUOTE_SIGNING_SECRET",
+    "MDD_REP_KEY"
+  ],
+  "endpoints": {
+    "mdd/create-quote": { "file": "create-quote.js", "method": "POST" },
+    "mdd/quote-options": { "file": "quote-options.js", "method": "GET" },
+    "mdd/quote-select": { "file": "quote-select.js", "method": "POST" }
+  }
+}

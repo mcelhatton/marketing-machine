@@ -1,0 +1,556 @@
+<!--
+  templateType: quote
+  isAvailableForNewContent: true
+  label: MDD - Proposal (Buy / Lease)
+-->
+{#
+  MDD Proposal
+  ------------
+  The customer-facing proposal document. Renders ONE purchase option — Buy or
+  Lease — decided at creation time and stored on mdd_purchase_option. The option
+  the buyer did not take is voided, so a signed quote is never ambiguous.
+
+  Beyond the numbers this carries the two things a quote alone does not: WHY
+  MDD Locate, and WHAT HAPPENS AFTER they sign. Both are editable per quote via
+  rich-text modules, so a rep can tailor them without touching this file.
+
+  Design notes
+  - Paper ground, not the site's dark ground. A proposal gets printed and
+    signed; dark backgrounds waste toner and read badly on paper. The palette,
+    type and hairline rules are the same brand system as mdd.io — the ground is
+    simply the light half of it.
+  - CSS is INLINED. `{% include %}` of a .css file is not supported here and the
+    PDF pipeline is unforgiving.
+  - format_currency_value takes camelCase args. Snake_case fails silently.
+  - Custom properties are read through qprop() because HubSpot exposes them
+    under .custom_properties on some portals and flat on others.
+#}
+
+{% set q = template_data.quote %}
+{% set cp = q.custom_properties or {} %}
+
+{% macro qprop(key) %}{% if cp[key] is defined and cp[key] %}{% if cp[key].internal is defined %}{{ cp[key].internal }}{% else %}{{ cp[key] }}{% endif %}{% elif q[key] is defined %}{{ q[key] }}{% endif %}{% endmacro %}
+
+{% set option        = qprop('mdd_purchase_option')|trim|lower %}
+{% set dealer        = qprop('mdd_dealer_name')|trim %}
+{% set rooftops      = qprop('mdd_rooftops')|trim %}
+{% set trackedUnits  = qprop('mdd_tracked_units')|trim %}
+{% set vehicleTags   = qprop('mdd_vehicle_tags')|trim %}
+{% set keyTags       = qprop('mdd_key_tags')|trim %}
+{% set placards      = qprop('mdd_placards')|trim %}
+{% set gateways      = qprop('mdd_gateways')|trim %}
+{% set modules       = qprop('mdd_modules')|trim %}
+{% set monthlyValue  = qprop('mdd_monthly_value')|trim %}
+{% set annualValue   = qprop('mdd_annual_value')|trim %}
+{% set breakdown     = qprop('mdd_value_breakdown')|trim %}
+{% set oneTimeTotal  = qprop('mdd_one_time_total')|trim %}
+{% set monthlyTotal  = qprop('mdd_monthly_total')|trim %}
+{% set first90       = qprop('mdd_first_90_total')|trim %}
+{% set quickClose    = qprop('mdd_quick_close_value')|trim %}
+{% set discountAmt   = qprop('mdd_discount_amount')|trim %}
+{% set discountPct   = qprop('mdd_discount_pct')|trim %}
+
+{% set isLease = option == 'lease' %}
+{% set hasService = 'Service Workflow' in modules %}
+{% set hasRecon   = 'Recon Workflow' in modules %}
+
+<!DOCTYPE html>
+<html lang="{{ q.hs_language or 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ dealer or 'MDD' }} — Proposal</title>
+  {{ standard_header_includes }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* ── Brand tokens. Same system as mdd.io, paper half. ── */
+    :root{
+      --ink:#0F1216; --ink-2:rgba(15,18,22,.62); --ink-3:rgba(15,18,22,.42);
+      --paper:#F6F6F3; --paper-2:#FCFCFA; --paper-3:#FFFFFF;
+      --grn:#8AC833; --grn-700:#4E8409; --grn-100:#EEF7DF;
+      --line:rgba(15,18,22,.13);
+      --gold:#F59E0B;
+      --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+      --mono:'Space Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    }
+    *,*::before,*::after{ box-sizing:border-box; }
+    body{
+      margin:0; background:var(--paper); color:var(--ink);
+      font-family:var(--sans); font-size:14px; line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    .p-wrap{ max-width:860px; margin:0 auto; padding:40px 32px 64px; background:var(--paper-3); }
+
+    h1,h2,h3{ font-weight:800; letter-spacing:-.02em; line-height:1.15; margin:0; }
+    p{ margin:0 0 12px; }
+    p:last-child{ margin-bottom:0; }
+
+    .p-label{
+      font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--grn-700); display:block;
+    }
+
+    /* ── Masthead ── */
+    .p-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:32px; padding-bottom:20px; border-bottom:2px solid var(--ink); }
+    .p-logo{ max-height:48px; width:auto; display:block; }
+    .p-wordmark{ font-size:20px; font-weight:800; letter-spacing:-.03em; }
+    .p-tagline{ display:block; margin-top:4px; font-size:11px; color:var(--ink-3); }
+    .p-meta{ text-align:right; font-size:12px; line-height:1.75; }
+    .p-meta span{ color:var(--ink-3); display:inline-block; min-width:96px; }
+    .p-meta b{ font-variant-numeric:tabular-nums; }
+
+    /* ── Option banner ── */
+    .p-banner{ margin-top:28px; padding:22px 24px; background:var(--ink); color:#fff; }
+    .p-banner .p-label{ color:var(--grn); }
+    .p-banner h1{ font-size:28px; margin:8px 0 8px; }
+    .p-banner p{ color:rgba(255,255,255,.72); font-size:14px; max-width:62ch; }
+
+    /* ── Sections ── */
+    .p-sec{ margin-top:36px; }
+    .p-h2{ font-size:20px; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+
+    /* ── Why MDD ── */
+    .p-why-scene{
+      font-size:17px; font-weight:700; line-height:1.4; letter-spacing:-.01em;
+      border-left:3px solid var(--grn); padding:4px 0 4px 16px; margin-bottom:16px;
+    }
+    .p-proof{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:18px; }
+    .p-proof div{ background:var(--paper-2); padding:14px 14px 16px; }
+    .p-proof .v{ display:block; font-size:20px; font-weight:800; letter-spacing:-.02em; color:var(--grn-700); font-variant-numeric:tabular-nums; }
+    .p-proof .k{ display:block; font-size:11.5px; color:var(--ink-2); margin-top:4px; line-height:1.35; }
+    .p-proof .who{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-top:8px; }
+
+    /* ── Tables ── */
+    .p-tbl{ width:100%; border-collapse:collapse; font-size:13.5px; }
+    .p-tbl th{
+      text-align:left; font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--ink-3); font-weight:400;
+      padding:0 0 8px; border-bottom:1px solid var(--line);
+    }
+    .p-tbl th.num, .p-tbl td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .p-tbl td{ padding:9px 0; border-bottom:1px solid var(--line); color:var(--ink-2); }
+    .p-tbl td:first-child{ color:var(--ink); }
+    .p-tbl tr.p-total td{ font-weight:800; color:var(--ink); border-bottom:0; border-top:2px solid var(--ink); padding-top:11px; }
+    .p-note{ color:var(--ink-3); font-size:11.5px; }
+    .p-modules{ margin-top:12px; font-size:12.5px; color:var(--ink-2); }
+    .p-modules span{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-right:8px; }
+
+    .p-value tr.p-total td{ color:var(--grn-700); }
+
+    /* ── Offer + guarantee, directly under the money ── */
+    .p-offer{ margin-top:20px; }
+    .p-offer-box{ background:var(--grn-100); border-left:4px solid var(--grn); padding:16px 18px; margin-bottom:14px; }
+    .p-offer-box h3{ font-size:16px; margin:6px 0 6px; }
+    .p-offer-box p{ font-size:13px; color:var(--ink-2); }
+
+    .p-guarantee{ display:flex; gap:24px; align-items:stretch; border:2px solid var(--ink); }
+    .p-guarantee-main{ flex:1 1 auto; padding:18px 20px; }
+    .p-guarantee-main h3{ font-size:17px; margin:6px 0 6px; }
+    .p-guarantee-main p{ font-size:13px; color:var(--ink-2); max-width:56ch; }
+    .p-guarantee-fig{
+      flex:0 0 34%; background:var(--ink); color:#fff; padding:18px 20px;
+      display:flex; flex-direction:column; justify-content:center;
+    }
+    .p-guarantee-fig .p-label{ color:var(--grn); }
+    .p-guarantee-fig b{
+      display:block; font-size:34px; font-weight:800; letter-spacing:-.03em;
+      font-variant-numeric:tabular-nums; margin:4px 0 6px; line-height:1.05;
+    }
+    .p-guarantee-note{ font-size:11px; color:rgba(255,255,255,.62); line-height:1.45; }
+
+    /* ── Collapsible terms ── */
+    .p-terms summary{
+      cursor:pointer; list-style:none; font-size:20px; font-weight:800; letter-spacing:-.02em;
+      padding-bottom:10px; border-bottom:1px solid var(--line);
+    }
+    .p-terms summary::-webkit-details-marker{ display:none; }
+    .p-terms summary::after{
+      content:" Show"; font-family:var(--mono); font-size:10px; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--grn-700); margin-left:8px;
+    }
+    .p-terms[open] summary::after{ content:" Hide"; }
+    .p-terms summary:focus-visible{ outline:2px solid var(--grn); outline-offset:3px; }
+    .p-terms-intro{ font-size:11.5px; color:var(--ink-3); margin-top:10px; }
+
+    /* ── Onboarding sequence ── */
+    .p-steps{
+      list-style:none; margin:0 0 28px; padding:0;
+      display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+      counter-reset:p-step;
+    }
+    .p-steps li{
+      background:var(--paper-2); border:1px solid var(--line);
+      padding:16px 16px 18px 16px; position:relative; counter-increment:p-step;
+    }
+    .p-steps li::before{
+      content:counter(p-step);
+      position:absolute; top:16px; left:16px;
+      width:22px; height:22px; border-radius:50%;
+      background:var(--grn); color:var(--ink);
+      font-size:11px; font-weight:800; line-height:22px; text-align:center;
+    }
+    .p-steps h3{ font-size:14px; margin:2px 0 6px 30px; }
+    .p-steps p{ font-size:12.5px; color:var(--ink-2); line-height:1.45; margin:0; }
+
+    .p-sub{
+      font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--ink-3); margin:0 0 12px;
+    }
+
+    /* ── Ongoing support ── */
+    .p-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:6px; }
+    .p-card{ background:var(--paper-2); border-left:4px solid var(--grn); padding:18px 18px 20px; }
+    .p-card h3{ font-size:15px; margin-bottom:6px; }
+    .p-card .lede{ font-style:italic; color:var(--ink-2); font-size:12.5px; margin-bottom:12px; }
+    .p-card ul{ margin:0; padding-left:16px; }
+    .p-card li{ font-size:12.5px; color:var(--ink-2); margin-bottom:5px; line-height:1.45; }
+    .p-card li:last-child{ margin-bottom:0; }
+
+    .p-kicker{ text-align:center; font-style:italic; color:var(--ink-2); font-size:13.5px; margin-top:20px; }
+    .p-flow{
+      margin-top:16px; background:var(--ink); color:#fff; padding:14px 16px; text-align:center;
+      font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    }
+    .p-flow i{ font-style:normal; color:var(--grn); margin:0 8px; }
+
+    /* ── Rep comments / terms ── */
+    .p-comments{ background:var(--grn-100); padding:18px 20px; border-left:4px solid var(--grn); }
+    .p-comments p{ font-size:13.5px; }
+    .p-terms-body{ font-size:11.5px; color:var(--ink-2); }
+    .p-terms-body h2{ font-size:13px; margin:16px 0 6px; color:var(--ink); }
+    .p-terms-body p{ margin:0 0 6px; }
+
+    .p-rep{ margin-top:12px; font-size:12.5px; }
+    .p-rep b{ display:block; }
+    .p-rep span, .p-rep a{ display:block; color:var(--ink-2); text-decoration:none; }
+
+    .p-foot{ margin-top:40px; padding-top:16px; border-top:1px solid var(--line); font-size:11.5px; color:var(--ink-3); display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+
+    /* ── Print / PDF ── */
+    @media print{
+      body{ background:#fff; }
+      .p-wrap{ max-width:none; padding:0; }
+      .p-sec, .p-card, .p-proof, .p-banner, .p-steps li{ break-inside:avoid; page-break-inside:avoid; }
+      /* A signed PDF must contain the full terms even though the web view collapses them. */
+      details.p-terms > *{ display:revert !important; }
+      details.p-terms summary::after{ content:""; }
+      .p-guarantee, .p-guarantee-fig{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .p-steps li::before{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .p-banner, .p-flow{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    }
+    @media (max-width:720px){
+      .p-proof{ grid-template-columns:repeat(2,1fr); }
+      .p-steps{ grid-template-columns:1fr; }
+      .p-cards{ grid-template-columns:1fr; }
+      .p-top{ flex-direction:column; }
+      .p-meta{ text-align:left; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="p-wrap">
+
+  {# ---------- Masthead ---------- #}
+  <header class="p-top">
+    <div>
+      {% if q.hs_sender_company_image_url %}
+        <img src="{{ q.hs_sender_company_image_url }}" alt="{{ q.hs_sender_company_name or 'Mobile Dealer Data' }}" class="p-logo">
+      {% else %}
+        <span class="p-wordmark">Mobile Dealer Data</span>
+      {% endif %}
+      <span class="p-tagline">We Find Keys &amp; Cars&trade;</span>
+    </div>
+    <div class="p-meta">
+      <div><span>Proposal</span><b>#{{ q.hs_quote_number }}</b></div>
+      {% if q.hs_expiration_date %}<div><span>Valid through</span><b>{{ q.hs_expiration_date|datetimeformat('%B %e, %Y') }}</b></div>{% endif %}
+      {% if dealer %}<div><span>Prepared for</span><b>{{ dealer }}</b></div>{% endif %}
+    </div>
+  </header>
+
+  {# ---------- Selected option ---------- #}
+  <div class="p-banner">
+    <span class="p-label">Selected purchase option</span>
+    <h1>{{ 'Lease — hardware in the monthly' if isLease else 'Buy — own the hardware' }}</h1>
+    <p>
+      {% if isLease %}
+        No hardware capital outlay. Tags, placards and gateways are included in a single
+        monthly rate for the term of the agreement.
+      {% else %}
+        You own the tags, placards and gateways outright. The monthly covers the MDD
+        platform, support and firmware.
+      {% endif %}
+    </p>
+  </div>
+
+  {# ---------- Investment ---------- #}
+  <section class="p-sec">
+    <h2 class="p-h2">Investment</h2>
+    {% module "line_items" path="@hubspot/line_items", label="Line items" %}
+  </section>
+
+  {# ---------- The offer + the guarantee ----------
+     Deliberately directly under the money. The buyer should not have to hunt
+     for the price, and the two things that de-risk it belong beside it. #}
+  <section class="p-sec p-offer">
+    {% if quickClose and quickClose|float > 0 %}
+    <div class="p-offer-box">
+      <span class="p-label">Quick Close offer</span>
+      <h3>Sign within 24 hours and your first three months of service are included.</h3>
+      <p>A {{ quickClose|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }} value, already shown on the quote above at 100% off.</p>
+    </div>
+    {% endif %}
+
+    {% if discountAmt and discountAmt|float > 0 %}
+    <div class="p-offer-box">
+      <span class="p-label">Hardware discount applied</span>
+      <h3>{{ discountAmt|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }} off your hardware</h3>
+      <p>Reflected in every hardware line above.</p>
+    </div>
+    {% endif %}
+
+    <div class="p-guarantee">
+      <div class="p-guarantee-main">
+        <span class="p-label">90-Day Money-Back Guarantee</span>
+        <h3>Your total risk is capped.</h3>
+        <p>If MDD does not deliver, we make it right. No long-term risk, no complicated
+           terms, and MDD-backed assurance built on 10+ years of dealer trust.</p>
+      </div>
+      {% if isLease and first90 and first90|float > 0 %}
+      <div class="p-guarantee-fig">
+        <span class="p-label">Total at risk &mdash; first 90 days</span>
+        <b>{{ first90|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}</b>
+        <span class="p-guarantee-note">
+          Everything you pay before the guarantee expires{% if quickClose and quickClose|float > 0 %}, after the Quick Close credit{% endif %}.
+          {% if monthlyValue and monthlyValue|float > 0 %}
+            Value recovered over the same 90 days:
+            {{ (monthlyValue|float * 3)|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}.
+          {% endif %}
+        </span>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  {# ---------- Intro ---------- #}
+  <section class="p-sec">
+    {% module "quote_intro"
+       path="@hubspot/rich_text",
+       label="Introduction",
+       html="<p>Thank you for the time your team spent walking us through your operation. The system below is sized to the numbers you shared with us. Final hardware counts are confirmed by MDD's free site survey before anything ships.</p>"
+    %}
+  </section>
+
+  {# ---------- Why MDD Locate ----------
+     Editable per quote. The default is the shortest honest version: one
+     scenario the reader recognises, the mechanism, and proof that is attributed
+     to a named dealership. #}
+  <section class="p-sec">
+    <h2 class="p-h2">Why MDD Locate</h2>
+
+    <p class="p-why-scene">If you can't find the key or car, you can't sell or service it.</p>
+
+    {% module "quote_why"
+       path="@hubspot/rich_text",
+       label="Why MDD Locate",
+       html="<p>MDD Locate puts a Bluetooth tag on every key and every vehicle. Your team sees exactly where both are, from their phone, in seconds — indoors and out, across every lot you operate.</p><p>Keys stop disappearing. Cars stop hiding. Deals stop stalling on something as small as a missing fob.</p>"
+    %}
+
+    {% if hasService or hasRecon %}
+      <p><b>LocateIQ</b> — workflow automation powered by real vehicle location. Because MDD knows where a vehicle physically is, {% if hasService and hasRecon %}your service and recon workflows{% elif hasService %}your service workflow{% else %}your recon workflow{% endif %} advance on their own. Nobody has to remember to update a screen, so the dashboard is accurate without anyone policing it.</p>
+    {% endif %}
+
+    <div class="p-proof">
+      <div>
+        <span class="v">~15 min</span>
+        <span class="k">saved per repair order</span>
+        <span class="who">Typical MDD dealer</span>
+      </div>
+      <div>
+        <span class="v">&lt;5 days</span>
+        <span class="k">total time in recon, start to frontline</span>
+        <span class="who">Typical MDD dealer</span>
+      </div>
+      <div>
+        <span class="v">$0</span>
+        <span class="k">key-loss expense</span>
+        <span class="who">Typical MDD dealer</span>
+      </div>
+      <div>
+        <span class="v">25 min &rarr; seconds</span>
+        <span class="k">to locate a vehicle</span>
+        <span class="who">Longo Toyota</span>
+      </div>
+    </div>
+  </section>
+
+  {# ---------- The system ---------- #}
+  {% if trackedUnits %}
+  <section class="p-sec">
+    <h2 class="p-h2">The system{% if dealer %} — {{ dealer }}{% endif %}</h2>
+    <table class="p-tbl">
+      <thead><tr><th>Hardware</th><th class="num">Qty</th></tr></thead>
+      <tbody>
+        {% if vehicleTags %}<tr><td>Vehicle tracking tags</td><td class="num">{{ vehicleTags|int|format_number('en-US') }}</td></tr>{% endif %}
+        {% if keyTags %}<tr><td>Key tracking tags</td><td class="num">{{ keyTags|int|format_number('en-US') }}</td></tr>{% endif %}
+        {% if placards and placards|int > 0 %}<tr><td>Reusable service placards</td><td class="num">{{ placards|int|format_number('en-US') }}</td></tr>{% endif %}
+        {% if gateways %}<tr><td>Gateways <span class="p-note">(estimate — free site survey confirms)</span></td><td class="num">{{ gateways|int|format_number('en-US') }}</td></tr>{% endif %}
+        <tr class="p-total"><td>Tracked units</td><td class="num">{{ trackedUnits|int|format_number('en-US') }}</td></tr>
+      </tbody>
+    </table>
+    {% if modules %}<p class="p-modules"><span>Modules</span>{{ modules }}</p>{% endif %}
+    {% if rooftops and rooftops|int > 1 %}<p class="p-modules"><span>Rooftops</span>{{ rooftops }}</p>{% endif %}
+  </section>
+  {% endif %}
+
+  {# ---------- Value recovered ---------- #}
+  {% if monthlyValue and monthlyValue|float > 0 %}
+  <section class="p-sec p-value">
+    <h2 class="p-h2">Monthly value recovered</h2>
+    <table class="p-tbl">
+      <tbody>
+        {% for row in breakdown|split('\n') %}
+          {% set parts = row|split('|') %}
+          {% if parts|length > 1 %}
+            <tr><td>{{ parts[0] }}</td><td class="num">{{ parts[1] }}</td></tr>
+          {% endif %}
+        {% endfor %}
+        <tr class="p-total">
+          <td>Total / month</td>
+          <td class="num">{{ monthlyValue|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    {% if annualValue and annualValue|float > 0 %}
+      <p class="p-note" style="margin-top:10px">
+        {{ annualValue|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }} per year, based on the numbers your team provided.
+      </p>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {# ---------- What happens next ---------- #}
+  <section class="p-sec">
+    <h2 class="p-h2">What happens next</h2>
+
+    {# Onboarding runs in sequence, so these are numbered — the order is the
+       information. The support blocks below are concurrent, so they are not. #}
+    <ol class="p-steps">
+      <li>
+        <h3>Deal Close</h3>
+        <p>Agreement signed; account assigned to a dedicated CSM.</p>
+      </li>
+      <li>
+        <h3>Sales Discovery</h3>
+        <p>Capture sales workflow, lot layout, key &amp; F&amp;I process.</p>
+      </li>
+      <li>
+        <h3>Service Discovery</h3>
+        <p>Capture service drive workflow, RO process &amp; recon needs.</p>
+      </li>
+      <li>
+        <h3>Pairing Training</h3>
+        <p>Hardware pairing, device setup &amp; admin configuration.</p>
+      </li>
+      <li>
+        <h3>Equipment Install</h3>
+        <p>Hardware installed and verified ahead of launch.</p>
+      </li>
+      <li>
+        <h3>Launch &amp; Training</h3>
+        <p>Role-based training, segmented to each team's schedule.</p>
+      </li>
+    </ol>
+
+    <h3 class="p-sub">Then, once you're live</h3>
+    <div class="p-cards">
+
+      <div class="p-card">
+        <h3>4-Week Hypercare</h3>
+        <p class="lede">Intensive dedicated support during the critical adoption phase.</p>
+        <ul>
+          <li>Rapid response to any questions or issues</li>
+          <li>Proactive check-ins to catch problems early</li>
+          <li>Additional training sessions as needed</li>
+          <li>Workflow optimization recommendations</li>
+          <li>Usage monitoring &amp; adoption coaching</li>
+        </ul>
+      </div>
+
+      <div class="p-card">
+        <h3>Performance Program</h3>
+        <p class="lede">Ongoing partnership with a dedicated Customer Success Manager.</p>
+        <ul>
+          <li>Dedicated CSM consultations</li>
+          <li>KPI reporting &amp; analytics</li>
+          <li>Continuous optimization reviews</li>
+          <li>Pairing coverage tracking</li>
+          <li>System utilization &amp; sell-through reporting</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <p class="p-kicker">We don't just install and leave. We're invested in your long-term success.</p>
+
+    <div class="p-flow">
+      1-Day Install <i>&rarr;</i> Hypercare <i>&rarr;</i> Dedicated CSM <i>&rarr;</i> KPI Reporting <i>&rarr;</i> 90-Day Guarantee
+    </div>
+  </section>
+
+  {# ---------- Comments from the rep ---------- #}
+  {% if q.hs_comments %}
+  <section class="p-sec">
+    <h2 class="p-h2">
+      {% if q.hs_sender_firstname %}Comments from {{ q.hs_sender_firstname }} {{ q.hs_sender_lastname }}{% else %}Comments{% endif %}
+    </h2>
+    <div class="p-comments">{{ q.hs_comments }}</div>
+  </section>
+  {% endif %}
+
+  {# ---------- Purchase terms ----------
+     Collapsed by default. They run to five sections and pushed everything the
+     buyer actually wants below the fold. <details> stays readable in print —
+     browsers expand it when printing to PDF, so nothing is hidden on a signed
+     copy. #}
+  {% if q.hs_terms %}
+  <details class="p-sec p-terms">
+    <summary>Purchase terms</summary>
+    <p class="p-terms-intro">Term &amp; termination, billing and ACH authorisation, equipment use, and the governing agreement.</p>
+    <div class="p-terms-body">{{ q.hs_terms }}</div>
+  </details>
+  {% endif %}
+
+  {# ---------- Payment + signature ---------- #}
+  {% if q.hs_payment_enabled %}
+    <section class="p-sec">{% module "payment" path="@hubspot/quote_payment", label="Payment" %}</section>
+  {% endif %}
+
+  {# The signature module must sit UNCONDITIONALLY in the template source.
+     HubSpot statically scans the template when publishing an e-sign quote and
+     rejects it with QUOTE_TEMPLATE_MISSING_SIGNATURE_ASSETS if the module is
+     behind an {% if %} — it does not evaluate the condition. The module itself
+     renders nothing when e-signature is off, so this is safe either way. #}
+  <section class="p-sec">{% module "signature" path="@hubspot/quote_signature", label="Signature" %}</section>
+
+  {# ---------- Footer ---------- #}
+  <footer class="p-foot">
+    <div>
+      {% if q.hs_sender_firstname %}
+        <div class="p-rep">
+          <b>{{ q.hs_sender_firstname }} {{ q.hs_sender_lastname }}</b>
+          {% if q.hs_sender_email %}<a href="mailto:{{ q.hs_sender_email }}">{{ q.hs_sender_email }}</a>{% endif %}
+        </div>
+      {% endif %}
+      <div style="margin-top:8px">Mobile Dealer Data &middot; 5600 Pioneer Creek Drive, Maple Plain, MN 55359 &middot; 844-292-7110</div>
+    </div>
+    <div>{% module "download" path="@hubspot/quote_download", label="Download" %}</div>
+  </footer>
+
+</div>
+
+{{ standard_footer_includes }}
+</body>
+</html>

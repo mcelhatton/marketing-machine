@@ -1,0 +1,25 @@
+name = "mdd-quote-api"
+main = "src/index.js"
+account_id = "f226f3a2bb99ec959c3c56df0ca87cb9"
+# Pinned to what the installed runtime supports.
+compatibility_date = "2025-07-18"
+
+# The handlers use node:crypto (HMAC for the chooser link) and Buffer.
+compatibility_flags = ["nodejs_compat"]
+
+# Serve from mdd.io so the browser call is same-origin and no CORS preflight is
+# needed. Requires mdd.io to be on Cloudflare; if it is not, delete this block,
+# use the workers.dev URL, and set MDD_QUOTE_API in demo.html to that origin.
+# [[routes]]
+# pattern = "mdd.io/api/quote/*"
+# zone_name = "mdd.io"
+
+[vars]
+MDD_CHOOSER_BASE = "https://mdd.io/quote-options"
+# "MDD - Proposal (Buy / Lease)" — the custom proposal design.
+MDD_QUOTE_TEMPLATE_ID = "578170525842"
+
+# Secrets are NOT set here. Run:
+#   npx wrangler secret put HUBSPOT_QUOTE_TOKEN
+#   npx wrangler secret put MDD_QUOTE_SIGNING_SECRET
+#   npx wrangler secret put MDD_REP_KEY
