@@ -97,12 +97,25 @@ async function send(msg, webhookUrl) {
   }
 }
 
-/** The buyer opened the Buy-vs-Lease page. Sent once per quote pair. */
+/**
+ * Someone opened the Buy-vs-Lease page. Sent once per distinct viewer, so a
+ * second alert on the same quote means it was forwarded — usually the single
+ * most useful thing a rep can learn about a live deal.
+ */
 function viewedMessage(d) {
+  const nth = Number(d.viewerNumber) || 1;
+  const title = nth <= 1
+    ? `👀 ${d.dealer || 'A prospect'} just opened their quote options`
+    : `🔁 ${d.dealer || 'A prospect'} forwarded the quote — person ${nth} just opened it`;
+
   return {
-    title: `👀 ${d.dealer || 'A prospect'} just opened their quote options`,
-    colour: 'F59E0B',
+    title,
+    colour: nth <= 1 ? 'F59E0B' : '8AC833',
     fields: [
+      ...(nth > 1 ? [{
+        label: 'Who is looking',
+        value: `${nth} different people so far${d.totalViews ? ` · ${d.totalViews} total opens` : ''}`
+      }] : []),
       { label: 'Buy', value: `${money(d.buy.oneTime)} one-time · ${money(d.buy.monthly)}/mo` },
       { label: 'Lease', value: `${money(d.lease.oneTime)} one-time · ${money(d.lease.monthly)}/mo` },
       ...(d.rep ? [{ label: 'Rep', value: d.rep }] : []),

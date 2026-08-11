@@ -243,6 +243,30 @@
 
   if (!token) { showError("This link is missing its access code."); return; }
 
+  /* A random per-browser id, so sales can tell "one person refreshed four
+     times" from "four people are looking at this". Quotes get forwarded around
+     a buying group and that difference is the whole signal.
+
+     Not a tracking cookie and not tied to a person: random, first-party to
+     mdd.io, and only ever compared against other ids on the same quote. It
+     undercounts — a phone and a laptop read as two people, private browsing
+     mints a new one each time — so treat it as a floor, not a headcount. */
+  function visitorId() {
+    try {
+      var k = "mdd-quote-viewer";
+      var v = window.localStorage.getItem(k);
+      if (!v) {
+        v = (window.crypto && window.crypto.randomUUID)
+          ? window.crypto.randomUUID().replace(/-/g, "").slice(0, 12)
+          : (Date.now().toString(36) + Math.random().toString(36).slice(2, 8)).slice(0, 12);
+        window.localStorage.setItem(k, v);
+      }
+      return v;
+    } catch (e) {
+      return "";   // private mode or storage disabled — the view still counts
+    }
+  }
+
   function renderSystem(d) {
     var s = d.system || {};
     var cells = [
@@ -339,7 +363,7 @@
     });
   }
 
-  fetch(API + "/quote-options?t=" + encodeURIComponent(token))
+  fetch(API + "/quote-options?t=" + encodeURIComponent(token) + "&v=" + encodeURIComponent(visitorId()))
     .then(function (r) { return r.json(); })
     .then(function (d) {
       if (!d || d.ok !== true) throw new Error(d && d.error || "We couldn't load your options.");

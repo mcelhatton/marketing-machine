@@ -36,6 +36,7 @@ const QUOTE_PROPS = [
   'hs_title', 'hs_status', 'hs_quote_amount', 'hs_quote_link', 'hs_domain', 'hs_slug', 'hs_expiration_date',
   'hs_createdate', 'hs_sender_firstname', 'hs_sender_lastname',
   'mdd_first_viewed_at', 'mdd_view_count', 'mdd_chooser_url',
+  'mdd_viewer_ids', 'mdd_distinct_viewers',
   'mdd_purchase_option', 'mdd_dealer_name', 'mdd_tracked_units', 'mdd_rooftops',
   'mdd_vehicle_tags', 'mdd_key_tags', 'mdd_placards', 'mdd_gateways', 'mdd_modules',
   'mdd_monthly_value', 'mdd_annual_value', 'mdd_value_breakdown',
@@ -140,38 +141,56 @@ exports.main = async (context, sendResponse) => {
       (q) => q.properties && q.properties.hs_status !== 'DRAFT' && q.properties.hs_status !== 'VOID'
     );
 
-    // ── Record the view, and alert sales the first time a buyer opens it ─────
+    // ── Record the view, and alert sales on each NEW person who opens it ────
     // Stamped on the quote rather than held in memory: the Worker is stateless,
     // and this doubles as CRM data the rep can see on the record.
     if (!published) {
-      const alreadyViewed = !!bp.mdd_first_viewed_at;
       const createdMs = Date.parse(bp.hs_createdate || '') || 0;
       const isRepPreview = createdMs > 0 && (Date.now() - createdMs) < REP_PREVIEW_WINDOW_MS;
 
-      const views = (Number(bp.mdd_view_count) || 0) + 1;
-      const patch = { mdd_view_count: String(views) };
-      if (!alreadyViewed) patch.mdd_first_viewed_at = new Date().toISOString().slice(0, 10);
+      // Random per-browser id from the chooser page. Sanitised hard — it is
+      // attacker-controlled and gets written to a CRM record.
+      const vid = String((context.params && (context.params.v || [])[0]) || '')
+        .replace(/[^a-zA-Z0-9]/g, '').slice(0, 16);
+
+      const seen = String(bp.mdd_viewer_ids || '').split(',').filter(Boolean);
+      const isNewViewer = !!vid && !seen.includes(vid);
+      const distinct = isNewViewer ? seen.length + 1 : (Number(bp.mdd_distinct_viewers) || seen.length);
+
+      const patch = {
+        mdd_view_count: String((Number(bp.mdd_view_count) || 0) + 1),
+        mdd_last_viewed_at: new Date().toISOString().slice(0, 10)
+      };
+      if (!bp.mdd_first_viewed_at) patch.mdd_first_viewed_at = new Date().toISOString().slice(0, 10);
+      if (isNewViewer) {
+        // Capped so a widely-forwarded quote cannot grow the property forever.
+        patch.mdd_viewer_ids = seen.concat(vid).slice(-50).join(',');
+        patch.mdd_distinct_viewers = String(distinct);
+      }
 
       const work = hs.updateQuote(v.payload.b, patch).catch(() => {});
+      const jobs = [work];
 
-      if (!alreadyViewed && !isRepPreview) {
-        const alert = notify.send(notify.viewedMessage({
+      // Alert on every distinct person — but never on the rep's own preview,
+      // which the demo page fires automatically the moment a quote is created.
+      if (isNewViewer && !isRepPreview) {
+        jobs.push(notify.send(notify.viewedMessage({
           dealer: bp.mdd_dealer_name,
           dealId: v.payload.d,
           dealName: buy.properties.hs_title,
           rep: [bp.hs_sender_firstname, bp.hs_sender_lastname].filter(Boolean).join(' '),
           chooserUrl: bp.mdd_chooser_url,
+          viewerNumber: distinct,
+          totalViews: Number(patch.mdd_view_count),
           buy: { oneTime: num(bp.mdd_one_time_total), monthly: num(bp.mdd_monthly_total) },
           lease: {
             oneTime: num((lease.properties || {}).mdd_one_time_total),
             monthly: num((lease.properties || {}).mdd_monthly_total)
           }
-        }));
-        // Hand off to the platform so the buyer's page is not held up by Slack.
-        if (context.waitUntil) context.waitUntil(Promise.all([work, alert]));
-      } else if (context.waitUntil) {
-        context.waitUntil(work);
+        })));
       }
+
+      if (context.waitUntil) context.waitUntil(Promise.all(jobs));
     }
 
     return ok(sendResponse, {
