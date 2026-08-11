@@ -20,6 +20,38 @@ const MAP = require('./pricing-map.json');
 // Do NOT fall back to "mddQuote" (435681411161) or "Default Basic": both point at
 // HubSpot's basic.html, which drops the Comments block without erroring.
 const QUOTE_TEMPLATE_ID = process.env.MDD_QUOTE_TEMPLATE_ID || '578170525842';
+
+/**
+ * Prices the System Builder is allowed to set, and the ceiling for each.
+ *
+ * The page can now name its own prices, which is what makes it a quote builder
+ * rather than a calculator. That means the browser is trusted with money, so
+ * the trust is bounded: only these keys are read, each must be a non-negative
+ * number below a sane ceiling, and anything else is ignored rather than
+ * clamped — a price that arrives malformed should fall back to the catalog,
+ * not silently become a number nobody chose.
+ *
+ * Ceilings are deliberately generous. They exist to stop a typo or a tampered
+ * payload producing a $2,000,000 tag, not to enforce a price book.
+ */
+const PRICE_LIMITS = {
+  pTag: 500, pKeyTag: 500, pPlacard: 500,
+  pGatewayIn: 5000, pGatewayOut: 5000,
+  pInstall: 100000,
+  pMoVehTag: 100, pMoKeyTag: 100, pMoPlacard: 100,
+  pMoFlat: 20000, pMoService: 10000, pMoRecon: 10000
+};
+
+function sanitizePrices(raw) {
+  if (!raw || typeof raw !== 'object') return {};
+  const out = {};
+  for (const [key, max] of Object.entries(PRICE_LIMITS)) {
+    if (raw[key] == null || raw[key] === '') continue;
+    const v = Number(raw[key]);
+    if (Number.isFinite(v) && v >= 0 && v <= max) out[key] = Math.round(v * 100) / 100;
+  }
+  return out;
+}
 const CHOOSER_BASE = process.env.MDD_CHOOSER_BASE || 'https://mdd.io/quote-options';
 
 exports.main = async (context, sendResponse) => {
@@ -56,6 +88,7 @@ exports.main = async (context, sendResponse) => {
       dealId,
       inputs: body.inputs || {},
       vvPerPkg: body.vvPerPkg,
+      builderPrices: sanitizePrices(body.prices),
       expiresInDays: body.expiresInDays,
       sender,
       // Free-text note from the System Builder. Escaped, because it lands in

@@ -2042,7 +2042,7 @@ function qRefresh() {
           <div class="q-guar-fig">
             <div class="q-guar-k">Total at risk — first 90 days</div>
             <div class="q-guar-v">${fmt$(c.leaseFirst90)}</div>
-            <div class="q-guar-n">${fmt$(c.leaseOneTime)} install + ${fmt$(c.leaseMonthly)}/mo × 3${c.quickCloseValue ? ` − ${fmt$(c.quickCloseValue)} Quick Close` : ""}${c.totalValue ? `<br>Value recovered over the same 90 days: <b>${fmt$(c.totalValue * 3)}</b>` : ""}</div>
+            <div class="q-guar-n">${fmt$(c.leaseOneTime)} install + ${fmt$(c.leaseMonthly)}/mo × 3${c.quickCloseValue ? ` − ${fmt$(c.quickCloseValue)} Quick Close` : ""}</div>
           </div>
         </div>` : "")
     : `<div class="q-hint">Pricing not set. Open the Pricing panel (before the call) or discuss investment live — the value math above stands on its own.</div>`;
@@ -2117,6 +2117,12 @@ async function mddCreateQuote() {
         inputs,
         // VehicleVault package margin still lives on this page.
         vvPerPkg: Math.max(0, (+q.pVVUpgrade || 0) - (+q.pVVPreload || 0)),
+        // The Pricing panel is the source of truth for the quote. Whatever the
+        // rep sets here is what HubSpot bills — the catalog is only the
+        // fallback for anything not sent. Each is bounds-checked server-side.
+        prices: ["pTag","pKeyTag","pPlacard","pGatewayIn","pGatewayOut","pInstall",
+                 "pMoVehTag","pMoKeyTag","pMoPlacard","pMoFlat","pMoService","pMoRecon"]
+          .reduce((acc, k) => { if (q[k] != null && q[k] !== "") acc[k] = +q[k]; return acc; }, {}),
         expiresInDays: +q.quoteExpiryDays || 30,
         notes: q.notes || "",
         sender: {
@@ -2213,7 +2219,7 @@ function qSummaryText() {
     c.vvValue ? `- VehicleVault (${c.vvInventory} \u00d7 60% \u00d7 ${q.sellThrough}% \u00d7 ${fmt$(c.vvPerPkg)}/pkg): ${fmt$(c.vvValue)}` : null,
     (c.oneTime || c.monthly) ? `\nINVESTMENT — BUY: ${fmt$(c.oneTime)} one-time · ${fmt$(c.monthly)}/mo${c.payback ? ` · payback ${c.payback < 1 ? "<1" : c.payback.toFixed(1)} months` : ""}` : null,
     (c.leaseMonthly) ? `INVESTMENT — LEASE: ${fmt$(c.leaseOneTime)} one-time (install) · ${fmt$(c.leaseMonthly)}/mo (${fmt$(+q.pMoFlat || 0)} platform${c.moduleMonthly ? " + " + fmt$(c.moduleMonthly) + " modules" : ""} + ${fmt$(c.leaseHardware)} hardware)` : null,
-    (c.leaseFirst90 > 0) ? `\nTOTAL AT RISK — FIRST 90 DAYS (LEASE): ${fmt$(c.leaseFirst90)}\n  ${fmt$(c.leaseOneTime)} install + ${fmt$(c.leaseMonthly)}/mo × 3${c.quickCloseValue ? ` − ${fmt$(c.quickCloseValue)} Quick Close` : ""}${c.totalValue ? `\n  Value recovered over the same 90 days: ${fmt$(c.totalValue * 3)}` : ""}\n  Covered by the 90-day money-back guarantee.` : null,
+    (c.leaseFirst90 > 0) ? `\nTOTAL AT RISK — FIRST 90 DAYS (LEASE): ${fmt$(c.leaseFirst90)}\n  ${fmt$(c.leaseOneTime)} install + ${fmt$(c.leaseMonthly)}/mo × 3${c.quickCloseValue ? ` − ${fmt$(c.quickCloseValue)} Quick Close` : ""}` : null,
     ``,
     `1-day install · 4-week hypercare · dedicated CSM · 90-day money-back guarantee`
   ].filter(x => x !== null);

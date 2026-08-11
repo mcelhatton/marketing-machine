@@ -153,8 +153,23 @@ function valueModel(q, sizing, vvPerPkg) {
   };
 }
 
-/** Resolve a unit price for a pricing-map entry against the live catalog. */
-function resolvePrice(entry, catalogPriceById) {
+/**
+ * Resolve a unit price for a pricing-map entry.
+ *
+ * Order: what the rep typed on the System Builder, then a deliberate override
+ * in the pricing map, then the live catalog, then the pinned snapshot.
+ *
+ * Letting the page set prices is a deliberate reversal of the original rule
+ * that the browser is never trusted with money. It is what makes the slide a
+ * quote builder rather than a calculator. The trade is real, so builder prices
+ * are bounds-checked in create-quote.js before they reach here, and every one
+ * that differs from the catalog is recorded on the quote.
+ */
+function resolvePrice(entry, catalogPriceById, builderPrices) {
+  const key = entry.calcKey;
+  if (key && builderPrices && builderPrices[key] != null) {
+    return { price: n(builderPrices[key]), source: 'builder' };
+  }
   if (entry.priceSource === 'override' && entry.overridePrice != null) {
     return { price: n(entry.overridePrice), source: 'override' };
   }
@@ -185,7 +200,7 @@ function groupFor(key, entry) {
   return 'hardware';
 }
 
-function buildLineItems(option, map, sizing, q, catalogPriceById) {
+function buildLineItems(option, map, sizing, q, catalogPriceById, builderPrices) {
   const group = map[option];
   const lines = [];
   const warnings = [];
@@ -195,9 +210,17 @@ function buildLineItems(option, map, sizing, q, catalogPriceById) {
     const qty = entry.qtyFrom === 'one' ? 1 : n(sizing[entry.qtyFrom]);
     if (qty <= 0) return;
 
-    const { price, source } = resolvePrice(entry, catalogPriceById);
+    const { price, source } = resolvePrice(entry, catalogPriceById, builderPrices);
     if (source === 'snapshot') {
       warnings.push(`Catalog lookup failed for ${entry.name} (product ${entry.productId}); used pinned price $${price}.`);
+    }
+    // A builder price that disagrees with the catalog is legitimate but worth
+    // surfacing — it is the difference between the quote and the price book.
+    if (source === 'builder') {
+      const live = catalogPriceById[entry.productId];
+      if (live != null && Math.abs(n(live) - price) > 0.005) {
+        warnings.push(`${entry.name}: quoted at $${price} from the System Builder; catalog says $${live}.`);
+      }
     }
     lines.push({
       key,
@@ -262,7 +285,7 @@ function buildLineItems(option, map, sizing, q, catalogPriceById) {
   if (q.quickClose) {
     const platform = (map[option] || {}).platformMonthly;
     if (platform) {
-      const { price } = resolvePrice(platform, catalogPriceById);
+      const { price } = resolvePrice(platform, catalogPriceById, builderPrices);
       const rate = Math.min(QUICK_CLOSE_CAP, price);
       if (rate > 0) {
         quickCloseValue = +(rate * QUICK_CLOSE_MONTHS).toFixed(2);
@@ -302,13 +325,13 @@ function buildLineItems(option, map, sizing, q, catalogPriceById) {
  * Full quote model for both options.
  * catalogPriceById: { "24668726200": 29.99, ... } fetched live from HubSpot.
  */
-function buildQuoteModel(rawInputs, map, catalogPriceById, vvPerPkg) {
+function buildQuoteModel(rawInputs, map, catalogPriceById, vvPerPkg, builderPrices) {
   const q = sanitizeInputs(rawInputs);
   const sizing = sizeSystem(q, map.gatewaySplit);
   const value = valueModel(q, sizing, vvPerPkg);
 
-  const buy = buildLineItems('buy', map, sizing, q, catalogPriceById);
-  const lease = buildLineItems('lease', map, sizing, q, catalogPriceById);
+  const buy = buildLineItems('buy', map, sizing, q, catalogPriceById, builderPrices);
+  const lease = buildLineItems('lease', map, sizing, q, catalogPriceById, builderPrices);
 
   const buyNet = +(value.totalValue - buy.monthly).toFixed(2);
   const leaseNet = +(value.totalValue - lease.monthly).toFixed(2);

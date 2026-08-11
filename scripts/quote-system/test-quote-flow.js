@@ -137,6 +137,14 @@ async function doCreate() {
   const res = await createQuotePair({
     token: TOKEN, signingSecret: SIGNING, map: MAP,
     dealId, inputs: DEFAULT_INPUTS, vvPerPkg: 400,
+    // --price pTag=42 --price pInstall=2500 ... to exercise builder pricing
+    builderPrices: argv.reduce((acc, a, i) => {
+      if (a === '--price' && argv[i + 1]) {
+        const [k, v] = argv[i + 1].split('=');
+        if (k && v != null && Number.isFinite(+v)) acc[k] = +v;
+      }
+      return acc;
+    }, {}),
     expiresInDays: 30, quoteTemplateId: TEMPLATE, chooserBase: CHOOSER,
     ...(arg('sender-email') ? {
       sender: {

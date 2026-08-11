@@ -37,6 +37,25 @@ function valueBreakdown(model) {
   return rows.join('\n');
 }
 
+/** Human-readable note of every builder price that differs from the catalog. */
+function priceOverrideNote(builderPrices, catalogPrices, map) {
+  if (!builderPrices || !Object.keys(builderPrices).length) return '';
+  const seen = new Set();
+  const rows = [];
+  for (const group of ['buy', 'lease', 'addons']) {
+    for (const entry of Object.values(map[group] || {})) {
+      const key = entry.calcKey;
+      if (!key || seen.has(key) || builderPrices[key] == null) continue;
+      seen.add(key);
+      const live = catalogPrices[entry.productId];
+      const set = Number(builderPrices[key]);
+      if (live != null && Math.abs(Number(live) - set) < 0.005) continue;  // matches catalog
+      rows.push(`${entry.name}: quoted $${set}${live != null ? ` (catalog $${live})` : ''}`);
+    }
+  }
+  return rows.join('\n');
+}
+
 function moduleList(q) {
   return [
     q.modLocate && 'Key & Vehicle Tracking (MDD Locate)',
@@ -57,7 +76,7 @@ async function createQuotePair(opts) {
   const catalogPrices = await hs.getProductPrices(allProductIds(opts.map));
   log(`catalog: ${Object.keys(catalogPrices).length} products priced`);
 
-  const model = buildQuoteModel(opts.inputs || {}, opts.map, catalogPrices, opts.vvPerPkg);
+  const model = buildQuoteModel(opts.inputs || {}, opts.map, catalogPrices, opts.vvPerPkg, opts.builderPrices);
   if (model.sizing.units <= 0) {
     const e = new Error('Tracked units is zero - fill in the dealership inventory first.');
     e.userFacing = true;
@@ -152,6 +171,9 @@ async function createQuotePair(opts) {
       mdd_monthly_total: String(opt.monthly),
       mdd_year1_total: String(opt.year1Total),
       mdd_first_90_total: String(opt.first90),
+      // Audit trail. If a quote is ever questioned, this says which prices the
+      // rep set by hand rather than taking from the price book.
+      mdd_price_overrides: priceOverrideNote(opts.builderPrices, catalogPrices, opts.map),
       mdd_quick_close_value: String(opt.quickCloseValue || 0),
       mdd_discount_amount: String(opt.discountAmount || 0),
       mdd_discount_pct: String(opt.discountPct || 0)

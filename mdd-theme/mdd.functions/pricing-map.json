@@ -1,8 +1,7 @@
 {
-  "$comment": "MDD quote pricing map. Single source of truth linking the sales-demo System Builder keys to HubSpot product catalog records (portal 585393). 'productId' is the HubSpot PRODUCT object id. 'priceSource' controls where the unit price comes from: 'catalog' = read live from HubSpot (recommended), 'override' = use the literal 'overridePrice' below. Any key with priceSource 'override' is a DELIBERATE divergence from the catalog and should be reconciled - see docs/quote-system/PRICING-RECONCILIATION.md.",
+  "$comment": "MDD quote pricing map. Single source of truth linking the sales-demo System Builder keys to HubSpot product catalog records (portal 585393). 'productId' is the HubSpot PRODUCT object id. 'priceSource' controls where the unit price comes from: 'catalog' = read live from HubSpot (recommended), 'override' = use the literal 'overridePrice' below. Any key with priceSource 'override' is a DELIBERATE divergence from the catalog and should be reconciled - see docs/quote-system/PRICING-RECONCILIATION.md. 'calcKey' is the System Builder pricing field that overrides this price when the rep changes it on the sales-demo slide.",
   "version": "1.0.0",
   "currency": "USD",
-
   "buy": {
     "vehicleTag": {
       "calcKey": "pTag",
@@ -42,7 +41,7 @@
       "requiresModule": "modService"
     },
     "gatewayIndoor": {
-      "calcKey": "pGateway",
+      "calcKey": "pGatewayIn",
       "productId": "24660016656",
       "sku": "Gateway - Indoor 120v",
       "name": "Gateway - Indoor, 120v, MDD",
@@ -54,7 +53,7 @@
       "qtyFrom": "gatewaysIndoor"
     },
     "gatewayOutdoor": {
-      "calcKey": "pGateway",
+      "calcKey": "pGatewayOut",
       "productId": "24660016657",
       "sku": "Gateway - Outdoor Solar",
       "name": "Gateway - Outdoor, Solar, MDD (Includes Panel)",
@@ -90,7 +89,6 @@
       "qtyFrom": "one"
     }
   },
-
   "lease": {
     "vehicleTag": {
       "productId": "42632256540",
@@ -100,7 +98,8 @@
       "priceSource": "catalog",
       "overridePrice": null,
       "billing": "monthly",
-      "qtyFrom": "vehicleTags"
+      "qtyFrom": "vehicleTags",
+      "calcKey": "pMoVehTag"
     },
     "keyTag": {
       "productId": "42632256609",
@@ -110,7 +109,8 @@
       "priceSource": "catalog",
       "overridePrice": null,
       "billing": "monthly",
-      "qtyFrom": "keyTags"
+      "qtyFrom": "keyTags",
+      "calcKey": "pMoKeyTag"
     },
     "placard": {
       "productId": "42556889394",
@@ -122,7 +122,8 @@
       "overridePrice": null,
       "billing": "monthly",
       "qtyFrom": "placards",
-      "requiresModule": "modService"
+      "requiresModule": "modService",
+      "calcKey": "pMoPlacard"
     },
     "platformMonthly": {
       "productId": "41415492677",
@@ -132,7 +133,8 @@
       "priceSource": "catalog",
       "overridePrice": null,
       "billing": "monthly",
-      "qtyFrom": "one"
+      "qtyFrom": "one",
+      "calcKey": "pMoFlat"
     },
     "install": {
       "calcKey": "pInstall",
@@ -147,7 +149,6 @@
       "qtyFrom": "one"
     }
   },
-
   "addons": {
     "serviceWorkflow": {
       "productId": "38843451031",
@@ -159,7 +160,8 @@
       "billing": "monthly",
       "qtyFrom": "one",
       "requiresModule": "modService",
-      "includedInFlatMonthly": false
+      "includedInFlatMonthly": false,
+      "calcKey": "pMoService"
     },
     "reconWorkflow": {
       "productId": "42870534271",
@@ -171,16 +173,15 @@
       "billing": "monthly",
       "qtyFrom": "one",
       "requiresModule": "modRecon",
-      "includedInFlatMonthly": false
+      "includedInFlatMonthly": false,
+      "calcKey": "pMoRecon"
     }
   },
-
   "gatewaySplit": {
     "$comment": "The System Builder models one blended gateway price. The catalog has two SKUs at different prices. This ratio splits the auto-calculated gateway count. Override per-quote from the demo page.",
     "indoorRatio": 0.7,
     "outdoorRatio": 0.3
   },
-
   "resolved": [
     "2026-08-10 install: catalog $1,500 wins (was overridden to $5,000). Override removed; demo.html pInstall default corrected to 1500.",
     "2026-08-10 addons: Service and Recon bill separately at $200/mo each. includedInFlatMonthly=false on both; $695 is the platform-only rate. demo.html qCalc updated to match.",
@@ -188,7 +189,6 @@
     "2026-08-10 gateways: demo.html now splits indoor/outdoor on the same 70/30 ratio as calc.js and prices the two real SKUs ($295 / $595) instead of one blended $250.",
     "2026-08-10 lease placard: catalog $2.50/mo wins. demo.html now prices lease per-SKU (veh $1 + key $1 per unit, placard $2.50) instead of a flat $2 per unit."
   ],
-
   "unresolved": [
     "VehicleVault: modelled as value-only in the System Builder, no investment line. Catalog has 'Vehicle Vault Box Package (25 count)' at $2,499.75. Not currently quoted - needs a sizing rule (packages of 25 against which inventory count?)."
   ]

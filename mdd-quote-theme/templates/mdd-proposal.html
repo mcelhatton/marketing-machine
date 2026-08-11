@@ -324,10 +324,6 @@
         <b>{{ first90|float|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}</b>
         <span class="p-guarantee-note">
           Everything you pay before the guarantee expires{% if quickClose and quickClose|float > 0 %}, after the Quick Close credit{% endif %}.
-          {% if monthlyValue and monthlyValue|float > 0 %}
-            Value recovered over the same 90 days:
-            {{ (monthlyValue|float * 3)|format_currency_value(locale='en-US', currency=q.hs_currency or 'USD', minDecimalDigits=0, maxDecimalDigits=0) }}.
-          {% endif %}
         </span>
       </div>
       {% endif %}
