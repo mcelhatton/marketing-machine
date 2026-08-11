@@ -11,6 +11,8 @@
 const { selectOption } = require('./lib/quote-builder.js');
 const { verify } = require('./lib/token.js');
 const { ok, fail, safeError } = require('./lib/respond.js');
+const { client } = require('./lib/hubspot.js');
+const notify = require('./lib/notify.js');
 
 exports.main = async (context, sendResponse) => {
   const origin = (context.headers && (context.headers.origin || context.headers.Origin)) || '';
@@ -43,6 +45,34 @@ exports.main = async (context, sendResponse) => {
       return fail(sendResponse, 502,
         'The quote was selected but HubSpot has not returned its link yet. Refresh in a moment.',
         origin, { quoteId: result.quoteId });
+    }
+
+    // Alert sales — but only on the real decision. Re-opening a used link runs
+    // this same path, and a duplicate "they chose!" would erode trust in the
+    // alerts entirely.
+    if (!result.alreadyChosen) {
+      const alert = (async () => {
+        try {
+          const hs = client(process.env.HUBSPOT_QUOTE_TOKEN);
+          const q = await hs.getQuote(result.quoteId, [
+            'mdd_dealer_name', 'mdd_one_time_total', 'mdd_monthly_total', 'mdd_year1_total',
+            'hs_sender_firstname', 'hs_sender_lastname'
+          ]);
+          const p = q.properties || {};
+          await notify.send(notify.chosenMessage({
+            choice,
+            dealer: p.mdd_dealer_name,
+            dealId: v.payload.d,
+            rep: [p.hs_sender_firstname, p.hs_sender_lastname].filter(Boolean).join(' '),
+            oneTime: p.mdd_one_time_total,
+            monthly: p.mdd_monthly_total,
+            year1Total: p.mdd_year1_total,
+            quoteUrl: result.redirectUrl
+          }));
+        } catch (_) { /* an alert must never fail the buyer's redirect */ }
+      })();
+
+      if (context.waitUntil) context.waitUntil(alert);
     }
 
     return ok(sendResponse, { ok: true, ...result }, origin);

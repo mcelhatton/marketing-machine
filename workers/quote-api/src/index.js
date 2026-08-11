@@ -53,7 +53,7 @@ function runHandler(handler, context) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const origin = request.headers.get('origin') || '';
 
@@ -61,7 +61,7 @@ export default {
     // Workers exposes bindings on `env`, so bridge them before dispatching.
     if (typeof process !== 'undefined' && process.env) {
       for (const k of ['HUBSPOT_QUOTE_TOKEN', 'MDD_QUOTE_SIGNING_SECRET', 'MDD_REP_KEY',
-                       'MDD_QUOTE_TEMPLATE_ID', 'MDD_CHOOSER_BASE']) {
+                       'MDD_QUOTE_TEMPLATE_ID', 'MDD_CHOOSER_BASE', 'MDD_SALES_WEBHOOK']) {
         if (env[k] != null) process.env[k] = env[k];
       }
     }
@@ -96,7 +96,13 @@ export default {
     const headers = {};
     for (const [k, v] of request.headers) headers[k.toLowerCase()] = v;
 
-    const context = { body, params, headers, accountId: '585393' };
+    // waitUntil lets the handlers fire sales alerts after the response is sent,
+    // so a slow Slack never delays the buyer. Bound because Cloudflare requires
+    // it to be called on the original context object.
+    const context = {
+      body, params, headers, accountId: '585393',
+      waitUntil: ctx && ctx.waitUntil ? ctx.waitUntil.bind(ctx) : null
+    };
 
     try {
       const res = await runHandler(route.handler, context);
